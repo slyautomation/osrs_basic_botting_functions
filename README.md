@@ -4,9 +4,12 @@ Full tutorial on creating Basic Functions for automation using Python for osrs b
 
 Steps:
 in terminal type: 
--m pip install Pillow
--m pip install pytesseract
--m pip install opencv-python
+
+pip install pytesseract
+
+pip install opencv-python
+
+pip install pyautogui
 
 
 For the full video tutroial click link: https://www.youtube.com/watch?v=C7ZY4KYpFII
