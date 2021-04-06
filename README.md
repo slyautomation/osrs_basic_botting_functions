@@ -11,6 +11,7 @@ pip install opencv-python
 
 pip install pyautogui
 
+pip install pywin32
 
 For the full video tutroial click link: https://www.youtube.com/watch?v=C7ZY4KYpFII
 
