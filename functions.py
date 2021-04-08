@@ -131,9 +131,7 @@ def Image_Rec_single(image, event, iheight, iwidth, threshold, clicker, ispace=2
     global icoord
     global iflag
 
-    myScreenshot = pyautogui.screenshot()
-    # print('getting screenshot')
-    myScreenshot.save(r"C:\Users\i7 8700\PycharmProjects\osrs_basic_botting_functions\screen_clicker.png")
+    screen_Image(name='screen_clicker.png')
     img_rgb = cv2.imread(r"screen_clicker.png")
     # print('screenshot taken')
     img_gray = cv2.cvtColor(img_rgb, cv2.COLOR_BGR2GRAY)
@@ -172,8 +170,7 @@ def Image_Rec_single(image, event, iheight, iwidth, threshold, clicker, ispace=2
 def image_Rec_clicker(image, event, iheight, iwidth, threshold, clicker, ispace=20, cropx=0, cropy=0):
     global icoord
     global iflag
-    myScreenshot = pyautogui.screenshot()
-    myScreenshot.save(r"C:\Users\i7 8700\PycharmProjects\osrs_basic_botting_functions\screenshot.png")
+    screen_Image(name='screenshot.png')
     img_rgb = cv2.imread('screenshot.png')
     img_gray = cv2.cvtColor(img_rgb, cv2.COLOR_BGR2GRAY)
     template = cv2.imread(image, 0)
@@ -202,8 +199,7 @@ def image_Rec_clicker(image, event, iheight, iwidth, threshold, clicker, ispace=
 
 def Image_count(object):
     counter = 0
-    myScreenshot = pyautogui.screenshot()
-    myScreenshot.save('screenshot.png')
+    screen_Image(name='screenshot.png')
     img_rgb = cv2.imread('screenshot.png')
     img_gray = cv2.cvtColor(img_rgb, cv2.COLOR_BGR2GRAY)
     template = cv2.imread(object,0)
@@ -275,4 +271,4 @@ def findarea(object):
     cv2.waitKey(0)
 
 
-findarea(1)
+#findarea(1)

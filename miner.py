@@ -119,17 +119,17 @@ def randomizer(timer_breaks, ibreaks):
 
 
 def Miner_Image():
-    screen_Image(150, 150, 750, 750, 'miner_img.png')
+    screen_Image(150, 150, 600, 750, 'miner_img.png')
 
 def drop_ore():
     print("dropping ore starting...")
     invent_crop()
     drop_item()
-    image_Rec_clicker(r'copper_ore.png', 'dropping item', 5, 5, 0.9, 'left', 1900, 480)
-    image_Rec_clicker(r'clay_ore.png', 'dropping item', 5, 5, 0.9, 'left', 1900, 480)
-    image_Rec_clicker(r'coal_ore.png', 'dropping item', 5, 5, 0.9, 'left', 1900, 480)
-    image_Rec_clicker(r'iron_ore.png', 'dropping item', 5, 5, 0.9, 'left', 1900, 480)
-    image_Rec_clicker(r'tin_ore.png', 'dropping item', 5, 5, 0.9, 'left', 1900, 480)
+    image_Rec_clicker(r'copper_ore.png', 'dropping item', 5, 5, 0.9, 'left', 20, 0, 0)
+    image_Rec_clicker(r'clay_ore.png', 'dropping item', 5, 5, 0.9, 'left', 20, 0, 0)
+    image_Rec_clicker(r'coal_ore.png', 'dropping item', 5, 5, 0.9, 'left', 20,  0, 0)
+    image_Rec_clicker(r'iron_ore.png', 'dropping item', 5, 5, 0.9, 'left', 20, 0, 0)
+    image_Rec_clicker(r'tin_ore.png', 'dropping item', 5, 5, 0.9, 'left', 20,  0, 0)
     release_drop_item()
     print("dropping ore done")
 
@@ -190,7 +190,7 @@ def count_gems2():
     return Image_count('gem_icon2.png')
 
 def inv_count(name):
-    return Image_count(name + '_ore.png')
+    return Image_count(name + '_ore.png') + Image_count('gold_ore.png')
 
 
 
@@ -237,4 +237,4 @@ pyautogui.click(x, y, button='right')
 ibreak = random.randrange(300, 2000)
 print('will break in   ' + str(ibreak / 60) + ' minutes')
 timer_break = timer()
-powerminer_text(3, True, 7)
+powerminer_text(1, True, 7) #copper amd #green border
