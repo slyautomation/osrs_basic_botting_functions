@@ -11,4 +11,4 @@ def findWindow_runelite(Name):  # find window name returns PID of the window
     #win32gui.ShowWindow(hwnd)
     win32gui.MoveWindow(hwnd, 0, 0, 865, 830, True)
 
-findWindow_runelite('PutaButthole')
+findWindow_runelite('user name')
