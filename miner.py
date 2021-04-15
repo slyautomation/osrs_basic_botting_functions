@@ -2,12 +2,20 @@ from core import findWindow_runelite
 
 from functions import Image_count
 from functions import image_Rec_clicker
-from functions import random_breaks
 from functions import screen_Image
 from functions import release_drop_item
 from functions import drop_item
 from functions import Image_to_Text
+from functions import random_breaks
+from functions import invent_crop
+from functions import resizeImage
 from PIL import Image
+
+from functions import random_combat
+from functions import random_quests
+from functions import random_skills
+from functions import random_inventory
+from functions import random_breaks
 
 import numpy as np
 import cv2
@@ -25,74 +33,7 @@ global timer
 global timer_break
 global ibreak
 
-def timer():
-    startTime = time.time()
-    return startTime
 
-def random_pause():
-    b = random.uniform(20, 250)
-    print('pausing for ' + str(b) + ' seconds')
-    time.sleep(b)
-    newTime_break = True
-
-
-def random_inventory():
-    global newTime_break
-    print('inventory tab')
-    b = random.uniform(1.5, 15)
-    pyautogui.press('f4')
-    time.sleep(b)
-    pyautogui.press('f4')
-    b = random.uniform(1.5, 2)
-    time.sleep(b)
-    pyautogui.press('esc')
-    newTime_break = True
-
-
-def random_combat():
-    global newTime_break
-    print('combat tab')
-    b = random.uniform(1.5, 15)
-    pyautogui.press('f1')
-    time.sleep(b)
-    pyautogui.press('f1')
-    b = random.uniform(1.5, 2)
-    time.sleep(b)
-    pyautogui.press('esc')
-    newTime_break = True
-
-
-def random_skills():
-    global newTime_break
-    print('skills tab')
-    b = random.uniform(1.5, 15)
-    pyautogui.press('f2')
-    time.sleep(b)
-    pyautogui.press('f2')
-    b = random.uniform(1.5, 2)
-    time.sleep(b)
-    pyautogui.press('esc')
-    newTime_break = True
-
-
-def random_quests():
-    global newTime_break
-    print('quest tab')
-    b = random.uniform(1.5, 15)
-    pyautogui.press('f3')
-    time.sleep(b)
-    pyautogui.press('f3')
-    b = random.uniform(1.5, 2)
-    time.sleep(b)
-    pyautogui.press('esc')
-    newTime_break = True
-
-
-options = {0: random_inventory,
-           1: random_combat,
-           2: random_skills,
-           3: random_quests,
-           4: random_pause}
 
 
 def random_break(start, c):
@@ -103,7 +44,6 @@ def random_break(start, c):
     if startTime - start > c:
         options[a]()
         newTime_break = True
-
 
 def randomizer(timer_breaks, ibreaks):
     global newTime_break
@@ -117,6 +57,23 @@ def randomizer(timer_breaks, ibreaks):
 
     # b = random.uniform(4, 5)
 
+def timer():
+    startTime = time.time()
+    return startTime
+
+def random_pause():
+    b = random.uniform(20, 250)
+    print('pausing for ' + str(b) + ' seconds')
+    time.sleep(b)
+    newTime_break = True
+
+
+options = {0: random_inventory,
+           1: random_combat,
+           2: random_skills,
+           3: random_quests,
+           4: random_pause}
+
 
 def Miner_Image():
     screen_Image(150, 150, 600, 750, 'miner_img.png')
@@ -125,11 +82,11 @@ def drop_ore():
     print("dropping ore starting...")
     invent_crop()
     drop_item()
-    image_Rec_clicker(r'copper_ore.png', 'dropping item', 5, 5, 0.9, 'left', 20, 0, 0)
-    image_Rec_clicker(r'clay_ore.png', 'dropping item', 5, 5, 0.9, 'left', 20, 0, 0)
-    image_Rec_clicker(r'coal_ore.png', 'dropping item', 5, 5, 0.9, 'left', 20,  0, 0)
-    image_Rec_clicker(r'iron_ore.png', 'dropping item', 5, 5, 0.9, 'left', 20, 0, 0)
-    image_Rec_clicker(r'tin_ore.png', 'dropping item', 5, 5, 0.9, 'left', 20,  0, 0)
+    image_Rec_clicker(r'copper_ore.png', 'dropping item', 5, 5, 0.9, 'left', 20, 620, 480, False)
+    image_Rec_clicker(r'clay_ore.png', 'dropping item', 5, 5, 0.9, 'left', 20, 620, 480, False)
+    image_Rec_clicker(r'coal_ore.png', 'dropping item', 5, 5, 0.9, 'left', 20,  620, 480, False)
+    image_Rec_clicker(r'iron_ore.png', 'dropping item', 5, 5, 0.9, 'left', 20, 620, 480, False)
+    image_Rec_clicker(r'tin_ore.png', 'dropping item', 5, 5, 0.9, 'left', 20, 620, 480, False)
     release_drop_item()
     print("dropping ore done")
 
@@ -178,8 +135,6 @@ def findarea_single(ore, cropx, cropy):
         pyautogui.click(duration=b)
 
 
-def invent_crop():
-    return screen_Image(620, 480, 820, 750, 'inventshot.png')
 def count_gems():
     return Image_count('gem_icon.png')
 
@@ -190,19 +145,10 @@ def count_gems2():
     return Image_count('gem_icon2.png')
 
 def inv_count(name):
-    return Image_count(name + '_ore.png') + Image_count('gold_ore.png')
+    return Image_count(name + '_ore.png')
 
 
 
-def resizeImage():
-    screen_Image(40, 51, 105, 71, 'screen_resize.png')
-    png = 'screen_resize.png'
-    im = Image.open(png)
-    # saves new cropped image
-    width, height = im.size
-    new_size = (width * 4, height * 4)
-    im1 = im.resize(new_size)
-    im1.save('textshot.png')
 
 
 def powerminer_text(ore,manual,num):
