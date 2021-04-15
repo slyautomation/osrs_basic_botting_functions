@@ -6,9 +6,83 @@ import time
 from PIL import Image
 import os
 
+global hwnd
+global iflag
+global icoord
+iflag = False
+global newTime_break
+newTime_break = False
+global timer
+global timer_break
+global ibreak
 
 import pytesseract
 pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract'
+
+
+def invent_crop():
+    return screen_Image(620, 480, 820, 750, 'inventshot.png')
+
+def random_inventory():
+    global newTime_break
+    print('inventory tab')
+    b = random.uniform(1.5, 15)
+    pyautogui.press('f4')
+    time.sleep(b)
+    pyautogui.press('f4')
+    b = random.uniform(1.5, 2)
+    time.sleep(b)
+    pyautogui.press('esc')
+    newTime_break = True
+
+
+def random_combat():
+    global newTime_break
+    print('combat tab')
+    b = random.uniform(1.5, 15)
+    pyautogui.press('f1')
+    time.sleep(b)
+    pyautogui.press('f1')
+    b = random.uniform(1.5, 2)
+    time.sleep(b)
+    pyautogui.press('esc')
+    newTime_break = True
+
+
+def random_skills():
+    global newTime_break
+    print('skills tab')
+    b = random.uniform(1.5, 15)
+    pyautogui.press('f2')
+    time.sleep(b)
+    pyautogui.press('f2')
+    b = random.uniform(1.5, 2)
+    time.sleep(b)
+    pyautogui.press('esc')
+    newTime_break = True
+
+
+def random_quests():
+    global newTime_break
+    print('quest tab')
+    b = random.uniform(1.5, 15)
+    pyautogui.press('f3')
+    time.sleep(b)
+    pyautogui.press('f3')
+    b = random.uniform(1.5, 2)
+    time.sleep(b)
+    pyautogui.press('esc')
+    newTime_break = True
+
+def resizeImage():
+    screen_Image(40, 51, 105, 71, 'screen_resize.png')
+    png = 'screen_resize.png'
+    im = Image.open(png)
+    # saves new cropped image
+    width, height = im.size
+    new_size = (width * 4, height * 4)
+    im1 = im.resize(new_size)
+    im1.save('textshot.png')
 
 def Image_to_Text(preprocess, image):
     # construct the argument parse and parse the arguments
@@ -38,15 +112,15 @@ def Image_to_Text(preprocess, image):
     print(text)
     return text
 
-def screen_Image(left=0, top=0, right=0, bottom=0,name='screenshot.png'):
+def screen_Image(left=0, top=0, right=0, bottom=0, name='screenshot.png'):
     myScreenshot = pyautogui.screenshot()
-    myScreenshot.save(r"C:\Users\i7 8700\PycharmProjects\osrs_basic_botting_functions\screenshot.png")
-    if left != 0 and top != 0 and right != 0 and bottom != 0:
+    myScreenshot.save(r'screenshot.png')
+    if left != 0 or top != 0 or right != 0 or bottom != 0:
         png = 'screenshot.png'
         im = Image.open(png)  # uses PIL library to open image in memory
         im = im.crop((left, top, right, bottom))  # defines crop points
         im.save(name)  # saves new cropped image
-
+        print('screeenshot saved')
 
 def Image_color():
     screen_Image()
@@ -115,6 +189,38 @@ def find_Object(item):
         b = random.uniform(0.01, 0.05)
         pyautogui.click(duration=b)
 
+def spaces(a):
+    if a == 1:
+        d = random.uniform(0.05, 0.1)
+        time.sleep(d)
+        pyautogui.press('space')
+    if a == 0:
+        print("none")
+    if a == 2:
+        d = random.uniform(0.05, 0.1)
+        time.sleep(d)
+        pyautogui.press('space')
+        d = random.uniform(0.05, 0.1)
+        time.sleep(d)
+        pyautogui.press('space')
+
+def skill_lvl_up():
+    counter = 0
+    myScreenshot = pyautogui.screenshot()
+    myScreenshot.save(r"screen.png")
+    img_rgb = cv2.imread(r"screen.png")
+    img_gray = cv2.cvtColor(img_rgb, cv2.COLOR_BGR2GRAY)
+    template = cv2.imread('Congrats_flag.png', 0)
+    w, h = template.shape[::-1]
+    res = cv2.matchTemplate(img_gray, template, cv2.TM_CCOEFF_NORMED)
+    threshold = 0.8
+    loc = np.where(res >= threshold)
+    for pt in zip(*loc[::-1]):
+        cv2.rectangle(img_rgb, pt, (pt[0] + w, pt[1] + h), (0, 0, 255), 2)
+        counter += 1
+    #cv2.imwrite('res.png', img_rgb)
+    return counter
+
 def pick_item(v, u):
     c = random.uniform(0.3, 0.7)
     d = random.uniform(0.05, 0.15)
@@ -127,12 +233,14 @@ def pick_item(v, u):
     pyautogui.click(button='left')
     time.sleep(c)
 
-def Image_Rec_single(image, event, iheight, iwidth, threshold, clicker, ispace=20, cropx=0, cropy=0):
+def Image_Rec_single(image, event, iheight, iwidth, threshold, clicker, ispace=20, cropx=0, cropy=0, playarea=True):
     global icoord
     global iflag
-
-    screen_Image(name='screen_clicker.png')
-    img_rgb = cv2.imread(r"screen_clicker.png")
+    if playarea:
+        screen_Image(0, 0, 600, 750)
+    else:
+        screen_Image(620, 480, 820, 750)
+    img_rgb = cv2.imread('screenshot.png')
     # print('screenshot taken')
     img_gray = cv2.cvtColor(img_rgb, cv2.COLOR_BGR2GRAY)
     template = cv2.imread(image, 0)
@@ -167,10 +275,13 @@ def Image_Rec_single(image, event, iheight, iwidth, threshold, clicker, ispace=2
         pyautogui.click(icoord, duration=b, button=clicker)
     return iflag
 
-def image_Rec_clicker(image, event, iheight, iwidth, threshold, clicker, ispace=20, cropx=0, cropy=0):
+def image_Rec_clicker(image, event, iheight, iwidth, threshold, clicker, ispace=20, cropx=0, cropy=0, playarea=True):
     global icoord
     global iflag
-    screen_Image(name='screenshot.png')
+    if playarea:
+        screen_Image(0, 0, 600, 750)
+    else:
+        screen_Image(620, 480, 820, 750)
     img_rgb = cv2.imread('screenshot.png')
     img_gray = cv2.cvtColor(img_rgb, cv2.COLOR_BGR2GRAY)
     template = cv2.imread(image, 0)
@@ -202,7 +313,7 @@ def Image_count(object):
     screen_Image(name='screenshot.png')
     img_rgb = cv2.imread('screenshot.png')
     img_gray = cv2.cvtColor(img_rgb, cv2.COLOR_BGR2GRAY)
-    template = cv2.imread(object,0)
+    template = cv2.imread(object, 0)
     w, h = template.shape[::-1]
     res = cv2.matchTemplate(img_gray, template, cv2.TM_CCOEFF_NORMED)
     threshold = 0.8
@@ -269,6 +380,3 @@ def findarea(object):
     # show the images
     cv2.imshow("Result", np.hstack([image, output]))
     cv2.waitKey(0)
-
-
-#findarea(1)
