@@ -5,7 +5,7 @@ Full tutorial on creating Basic Functions for automation using Python for osrs b
 Steps:
 in terminal type: 
 
-pip install pytesseract
+pip install pytesseract==0.3.3
 
 pip install opencv-python
 
