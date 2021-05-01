@@ -21,6 +21,9 @@ pip install pywin32
 
 tesseract-ocr = https://sourceforge.net/projects/tesseract-ocr-alt/files/tesseract-ocr-setup-3.02.02.exe/download
 
+
+https://youtube.com/watch?v=X3snnwzJfEw?t=25m15s
+
 ## fishing.py
 Tutorial on fishing code click link: https://youtube.com/watch?v=5K-nMy9Pdvg
 
