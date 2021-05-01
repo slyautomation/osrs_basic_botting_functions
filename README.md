@@ -19,6 +19,8 @@ pip install pyautogui
 pip install pywin32
 
 
+tesseract-ocr = https://sourceforge.net/projects/tesseract-ocr-alt/files/tesseract-ocr-setup-3.02.02.exe/download
+
 ## fishing.py
 Tutorial on fishing code click link: https://youtube.com/watch?v=5K-nMy9Pdvg
 
