@@ -17,12 +17,12 @@ from functions import random_combat
 from functions import random_quests
 from functions import random_skills
 from functions import random_inventory
-
+from functions import image_Rec_clicker
 #from core import findWindow_runelite
 
 # ----- UPDATE WITH ALL VARIATIONS OF MONSTER'S IMAGE TO TEXT RESULT IN LINE WITH MONSTER_LIST -----
 monster_array = [
-    ['chicken'], ['guard', 'gua rd'], ['cow', 'cou'], ['monk']
+    ['chicken'], ['guard', 'gua rd'], ['cow', 'cou'], ['monk'], ['imp'], ['skeleton']
 ]
 # --------------------------------------------------------------------------------------------------
 
@@ -147,9 +147,9 @@ def findarea_attack(object, deep=20):
     # show the images
     #cv2.imshow("Result", np.hstack([image, output]))
 
-monster_list = ['chicken','guard', 'cow','monk']
+monster_list = ['chicken','guard', 'cow','monk', 'imp','skeleton']
 
-def powerattack_text(monster='chicken'):
+def powerattack_text(monster='chicken', burybones=True):
     j = 0
     group = monster_list.index(monster)
     while j < 10:
@@ -166,10 +166,13 @@ def powerattack_text(monster='chicken'):
         if attack == len(monster_array[group]):
             d = random.uniform(0.05, 0.1)
             time.sleep(d)
-            if findarea_attack(2, 5):
+            if burybones and image_Rec_clicker('bones_icon.png', 'bury bones', 5, 5, 0.7, 'left', 5, 620, 480, False):
+                c = random.uniform(0.6, 1)
+                time.sleep(c)
+            if findarea_attack(2, 5): # pick up highlighted loot
                 c = random.uniform(3, 5)
                 time.sleep(c)
-            if findarea_attack(3):
+            if findarea_attack(3): # attack npc/monster
                 c = random.uniform(3, 5)
                 time.sleep(c)
 
