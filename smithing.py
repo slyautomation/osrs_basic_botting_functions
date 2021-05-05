@@ -147,6 +147,6 @@ def smith_to_40():
     smith_items(202, 2, 1, 'steel_axe')
     smith_items(198, 2, 2, 'steel_scimitar')
 
-smith_items(1082, 2, 3, 'steel_chainbody')
+smith_items(69, 2, 3, 'steel_chainbody')
 
 steel_smithables = ['steel_axe', 'steel_scimitar', 'steel_nails', 'steel_chainbody']
