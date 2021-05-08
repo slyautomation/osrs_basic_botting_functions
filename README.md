@@ -37,6 +37,9 @@ Tutorial on mining code click link: https://youtube.com/watch?v=dkD5gXcgQYI
 ## combat.py
 Tutorial on combat code click link: https://youtube.com/watch?v=llGbhVfU1Bc
 
+## smithing.py
+
+Tutorial on smithing code click link: https://youtube.com/watch?v=YezEeVjoP6o
 
 Consider donating so i can keep making osrs botting scripts using python.
 
