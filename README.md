@@ -41,6 +41,8 @@ Tutorial on combat code click link: https://youtube.com/watch?v=llGbhVfU1Bc
 
 Tutorial on smithing code click link: https://youtube.com/watch?v=YezEeVjoP6o
 
+[Wiki page on function description s and purpose](https://github.com/slyautomation/osrs_basic_botting_functions/wiki/Purpose-and-Definition-of-Functions-including-argument-s-usage)
+
 Consider donating so i can keep making osrs botting scripts using python.
 
 ![image](https://user-images.githubusercontent.com/81003470/112718441-215b1780-8f47-11eb-81a6-4952b9cb5ef4.png)
