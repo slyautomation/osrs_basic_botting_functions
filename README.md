@@ -41,6 +41,10 @@ Tutorial on combat code click link: https://youtube.com/watch?v=llGbhVfU1Bc
 
 Tutorial on smithing code click link: https://youtube.com/watch?v=YezEeVjoP6o
 
+## magic.py
+
+Tutorial on smithing code click link: https://youtube.com/watch?v=Vyhy2CpfK7I
+
 ## Wiki
 [Wiki page on function descriptions and purpose](https://github.com/slyautomation/osrs_basic_botting_functions/wiki/Purpose-and-Definition-of-Functions-including-argument-s-usage)
 
