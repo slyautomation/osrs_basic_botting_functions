@@ -18,7 +18,7 @@ pip install opencv-python
 
 pip install pyautogui
 
-pip install pywin32
+pip install pypiwin32
 
 
 tesseract-ocr = https://sourceforge.net/projects/tesseract-ocr-alt/files/tesseract-ocr-setup-3.02.02.exe/download
