@@ -44,8 +44,11 @@ Tutorial on smithing code click link: https://youtube.com/watch?v=YezEeVjoP6o
 ## magic.py
 
 ### features
+
 High alching
+
 Superheat item
+
 Tutorial on magic code click link: https://youtube.com/watch?v=Vyhy2CpfK7I
 
 ## Wiki
