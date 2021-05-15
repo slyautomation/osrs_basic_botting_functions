@@ -149,6 +149,111 @@ def Image_color():
         cv2.imshow("images", np.hstack([image, output]))
         cv2.waitKey(0)
 
+
+def exit_bank():
+    screen_Image()
+    image = cv2.imread('screenshot.png')
+
+    # define the list of boundaries
+    # B, G, R
+
+    amber = ([0, 200, 200], [60, 255, 255]) # 2 Index
+
+    object_list = [amber]
+    boundaries = [object_list[0]]
+
+    # loop over the boundaries
+    for (lower, upper) in boundaries:
+        # create NumPy arrays from the boundaries
+        lower = np.array(lower, dtype="uint8")
+        upper = np.array(upper, dtype="uint8")
+        # find the colors within the specified boundaries and apply
+        # the mask
+        mask = cv2.inRange(image, lower, upper)
+        output = cv2.bitwise_and(image, image, mask=mask)
+        ret, thresh = cv2.threshold(mask, 40, 255, 0)
+        contours, hierarchy = cv2.findContours(thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
+    if len(contours) != 0:
+        # find the biggest countour (c) by the area
+        c = max(contours, key=cv2.contourArea)
+        x, y, w, h = cv2.boundingRect(c)
+
+        x = random.randrange(x + 5, x + max(w - 5, 6))  # 950,960
+        print('x: ', x)
+        y = random.randrange(y + 5, y + max(h - 5, 6)) # 490,500
+        print('y: ', y)
+        b = random.uniform(0.2, 0.4)
+        pyautogui.moveTo(x, y, duration=b)
+        b = random.uniform(0.01, 0.05)
+        pyautogui.click(duration=b)
+
+def deposit_secondItem():
+    c = random.uniform(1, 2.5)
+    x = random.randrange(690, 715)  # 950,960
+    z = x
+    print('x: ', x)
+    y = random.randrange(495, 515)  # 490,500
+    w = y
+    print('y: ', y)
+    b = random.uniform(0.2, 0.7)
+    pyautogui.moveTo(x, y, duration=b)
+    b = random.uniform(0.1, 0.3)
+    pyautogui.click(duration=b, button='right')
+    time.sleep(c)
+    print('stand in second bank cubicle')
+    c = random.uniform(1.5, 2.8)
+    x = random.randrange(z, z + 15)
+    print('x: ', x)
+    y = random.randrange(w + 103, w + 107)
+    print('y: ', y)
+    b = random.uniform(0.2, 0.7)
+    pyautogui.moveTo(x, y, duration=b)
+    b = random.uniform(0.1, 0.3)
+    pyautogui.click(duration=b, button='left')
+    time.sleep(c)
+def find_Object_precise(item, deep=10, left=0, top=0, right=0, bottom=0):
+    screen_Image(left, top, right, bottom)
+    image = cv2.imread('screenshot.png')
+
+    # define the list of boundaries
+    # B, G, R
+
+    red = ([0, 0, 180], [80, 80, 255]) # 0 Index
+    green = ([0, 180, 0], [80, 255, 80]) # 1 Index
+    amber = ([0, 200, 200], [60, 255, 255]) # 2 Index
+    pickup_high = ([250, 0, 167], [255, 5, 172]) # 3 Index
+    attack_blue = ([250, 250, 0], [255, 255, 5])
+    object_list = [red, green, amber, pickup_high, attack_blue]
+    boundaries = [object_list[item]]
+
+    # loop over the boundaries
+    for (lower, upper) in boundaries:
+        # create NumPy arrays from the boundaries
+        lower = np.array(lower, dtype="uint8")
+        upper = np.array(upper, dtype="uint8")
+        # find the colors within the specified boundaries and apply
+        # the mask
+        mask = cv2.inRange(image, lower, upper)
+        output = cv2.bitwise_and(image, image, mask=mask)
+        ret, thresh = cv2.threshold(mask, 40, 255, 0)
+        contours, hierarchy = cv2.findContours(thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
+    if len(contours) != 0:
+        # find the biggest countour (c) by the area
+        c = max(contours, key=cv2.contourArea)
+        x, y, w, h = cv2.boundingRect(c)
+        
+        xhalf = max(w/2,1)
+        yhalf = max(h/2,1)
+        
+        x = random.randrange(x + xhalf - deep, x + xhalf + deep)  # 950,960
+        print('x: ', x)
+        y = random.randrange(y + yhalf - deep, y + yhalf + deep) # 490,500
+        print('y: ', y)
+        b = random.uniform(0.2, 0.4)
+        pyautogui.moveTo(x, y, duration=b)
+        b = random.uniform(0.01, 0.05)
+        pyautogui.click(duration=b)
+
 def find_Object(item):
     screen_Image()
     image = cv2.imread('screenshot.png')
