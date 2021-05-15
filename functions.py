@@ -338,7 +338,7 @@ def pick_item(v, u):
     pyautogui.click(button='left')
     time.sleep(c)
 
-def Image_Rec_single(image, event, iheight, iwidth, threshold, clicker, ispace=20, cropx=0, cropy=0, playarea=True):
+def Image_Rec_single(image, event, iwidth=5, iheight=5, threshold=0.7, clicker='left', ispace=20, cropx=0, cropy=0, playarea=True):
     global icoord
     global iflag
     if playarea:
@@ -380,7 +380,7 @@ def Image_Rec_single(image, event, iheight, iwidth, threshold, clicker, ispace=2
         pyautogui.click(icoord, duration=b, button=clicker)
     return iflag
 
-def image_Rec_clicker(image, event, iheight, iwidth, threshold, clicker, ispace=20, cropx=0, cropy=0, playarea=True):
+def image_Rec_clicker(image, event, iwidth=5, iheight=5, threshold=0.7, clicker='left', ispace=20, cropx=0, cropy=0, playarea=True):
     global icoord
     global iflag
     if playarea:
