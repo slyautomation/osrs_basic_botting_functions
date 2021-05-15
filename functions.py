@@ -242,8 +242,8 @@ def find_Object_precise(item, deep=10, left=0, top=0, right=0, bottom=0):
         c = max(contours, key=cv2.contourArea)
         x, y, w, h = cv2.boundingRect(c)
         
-        xhalf = max(w/2,1)
-        yhalf = max(h/2,1)
+        xhalf = max(round(w / 2), 1)
+        yhalf = max(round(h / 2), 1)
         
         x = random.randrange(x + xhalf - deep, x + xhalf + deep)  # 950,960
         print('x: ', x)
