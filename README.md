@@ -26,6 +26,8 @@ tesseract-ocr = https://sourceforge.net/projects/tesseract-ocr-alt/files/tessera
 
 Tutorial on installing tesseract-OCR: https://youtube.com/watch?v=X3snnwzJfEw&t=25m15s
 
+## Runelite Setup
+Tutorial on runelite setup click link: https://youtube.com/watch?v=JO2FvkJwppA
 ## fishing.py
 Tutorial on fishing code click link: https://youtube.com/watch?v=5K-nMy9Pdvg
 
