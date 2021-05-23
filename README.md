@@ -20,6 +20,14 @@ pip install pyautogui
 
 pip install pypiwin32
 
+### Super Quick Setup and install in pycharm:
+
+
+
+in terminal type:
+
+pip install -r requirements
+
 
 tesseract-ocr = https://sourceforge.net/projects/tesseract-ocr-alt/files/tesseract-ocr-setup-3.02.02.exe/download
 
