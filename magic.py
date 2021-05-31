@@ -9,11 +9,13 @@ from functions import random_quests
 from functions import random_skills
 from functions import random_inventory
 from functions import random_breaks
-#from core import findWindow_runelite
+
 from functions import find_Object
 from functions import exit_bank
 from functions import Image_Rec_single
 from functions import deposit_secondItem
+
+import core
 global hwnd
 global iflag
 global icoord
@@ -107,7 +109,7 @@ def high_aclh_loop(vol,bool):
         c = random.uniform(1.5, 1.8)
         high_alch_command()
         #time.sleep(c)
-        high_alch()
+        high_alch_command() #alchs same spot as alch spell location     #high_alch() alchs 3rd inventory spot
         c = random.uniform(1.4, 1.9)
         if exp:
             print('expensive')
