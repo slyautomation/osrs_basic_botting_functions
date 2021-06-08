@@ -25,7 +25,8 @@ from functions import random_quests
 from functions import random_skills
 from functions import random_inventory
 from functions import random_breaks
-#from core import findWindow_runelite
+
+# from core import findWindow_runelite
 
 global hwnd
 global iflag
@@ -38,9 +39,6 @@ global timer_break
 global ibreak
 
 
-
-
-
 def random_break(start, c):
     global newTime_break
     startTime = time.time()
@@ -49,6 +47,7 @@ def random_break(start, c):
     if startTime - start > c:
         options[a]()
         newTime_break = True
+
 
 def randomizer(timer_breaks, ibreaks):
     global newTime_break
@@ -62,15 +61,18 @@ def randomizer(timer_breaks, ibreaks):
 
     # b = random.uniform(4, 5)
 
+
 def timer():
     startTime = time.time()
     return startTime
+
 
 def random_pause():
     b = random.uniform(20, 250)
     print('pausing for ' + str(b) + ' seconds')
     time.sleep(b)
     newTime_break = True
+
 
 pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract'
 iflag = False
@@ -81,19 +83,22 @@ options = {0: random_inventory,
            3: random_quests,
            4: random_pause}
 
+
 def drop_fish():
     print("dropping fish starting...")
     invent_crop()
     drop_item()
     image_Rec_clicker(r'prawn_fish.png', 'dropping item', 5, 5, 0.9, 'left', 10, 620, 480, False)
     image_Rec_clicker(r'trout_fish.png', 'dropping item', 5, 5, 0.9, 'left', 10, 620, 480, False)
-    image_Rec_clicker(r'salmon_fish.png', 'dropping item', 5, 5, 0.9, 'left', 10,  620, 480, False)
+    image_Rec_clicker(r'salmon_fish.png', 'dropping item', 5, 5, 0.9, 'left', 10, 620, 480, False)
     image_Rec_clicker(r'lobster_fish.png', 'dropping item', 5, 5, 0.9, 'left', 10, 620, 480, False)
     release_drop_item()
     print("dropping fish done")
 
+
 def pick_random_fishing_spot(type):
-    Image_Rec_single(type + '.png', 'picking fishing spot', 5, 5,  0.7, 'left', 10)
+    Image_Rec_single(type + '.png', 'picking fishing spot', 5, 5, 0.7, 'left', 10)
+
 
 def powerfisher(type):
     j = 0
@@ -101,7 +106,7 @@ def powerfisher(type):
         randomizer(timer_break, ibreak)
         resizeImage()
         fished = Image_to_Text('thresh', 'textshot.png')
-        #print(fished)
+        # print(fished)
         if fished.lower() != 'fishing' and fished.lower() != 'plt]' and fished.lower() != 'ele]':
             random_breaks(0.2, 3)
             pick_random_fishing_spot(type)
@@ -113,9 +118,9 @@ def powerfisher(type):
             random_breaks(0.1, 3)
             pyautogui.press('space')
             a = random.randrange(0, 2)
-            #print(a)
+            # print(a)
             spaces(a)
-        #invent_crop()
+        # invent_crop()
         invent = Image_count(type + '.png') + Image_count(r'sea_puzzle.png')
         print("fish & clues: ", invent)
         if type == 'prawn_fish' or type == 'lobster_fish':
@@ -128,12 +133,14 @@ def powerfisher(type):
             random_breaks(0.2, 0.7)
             pick_random_fishing_spot(type)
 
-time.sleep(2)
-resizeImage()
-x = random.randrange(100, 250)
-y = random.randrange(400, 500)
-pyautogui.click(x, y, button='right')
-ibreak = random.randrange(300, 2000)
-print('will break in   ' + str(ibreak / 60) + ' minutes')
-timer_break = timer()
-powerfisher('lobster_fish')
+
+if __name__ == "__main__":
+    time.sleep(2)
+    resizeImage()
+    x = random.randrange(100, 250)
+    y = random.randrange(400, 500)
+    pyautogui.click(x, y, button='right')
+    ibreak = random.randrange(300, 2000)
+    print('will break in   ' + str(ibreak / 60) + ' minutes')
+    timer_break = timer()
+    powerfisher('prawn_fish')

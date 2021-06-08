@@ -1,4 +1,4 @@
-from core import findWindow_runelite
+#from core import findWindow_runelite
 
 from functions import Image_count
 from functions import image_Rec_clicker
@@ -175,12 +175,13 @@ def powerminer_text(ore,manual,num):
 
 
 
-
-resizeImage()
-x = random.randrange(100, 250)
-y = random.randrange(400, 500)
-pyautogui.click(x, y, button='right')
-ibreak = random.randrange(300, 2000)
-print('will break in   ' + str(ibreak / 60) + ' minutes')
-timer_break = timer()
-powerminer_text(1, True, 7) #copper amd #green border
+if __name__ == "__main__":
+    resizeImage()
+    x = random.randrange(100, 250)
+    y = random.randrange(400, 500)
+    pyautogui.click(x, y, button='right')
+    ibreak = random.randrange(300, 2000)
+    print('will break in   ' + str(ibreak / 60) + ' minutes')
+    timer_break = timer()
+    powerminer_text(1, True, 7)
+    #powerlist = ['tin', 'copper', 'coal', 'iron', 'iron', 'clay', 'red', 'green', 'amber']
