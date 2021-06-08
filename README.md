@@ -8,6 +8,13 @@ Other python files will also use tesseract-OCR to detect text within images usin
 ## core.py and function.py
 For the full video tutorial click link: https://www.youtube.com/watch?v=C7ZY4KYpFII
 
+## Woodcutting
+
+### features
+
+Cuts woods and makes fire
+
+Tutorial on firemaking code click link: https://youtu.be/bHZCQUChG_k
 ## Quick module install Steps
 
 in terminal type: 
