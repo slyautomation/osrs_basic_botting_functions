@@ -157,6 +157,8 @@ def powercutter(type, firemaking=False, spot=''):
                     time_start = time.time()
                     while not fire:
                         fire = xp_gain_check('firemaking_xp.png')
+                        if not fire:
+                            fire = xp_gain_check('firemaking_xp2.png')
                         print(fire)
                         time_end = time.time() - time_start
                         print("seconds count: %02d", time_end)
@@ -182,4 +184,4 @@ if __name__ == "__main__":
     timer_break = timer()
     firespots = ['firespot_varrock_wood', 'firespot_draynor_willow', 'firespot_draynor_oak'
         , 'firespot_farador_oak', 'firespot_draynor_wood']
-    powercutter('wood', True, 'firespot_lumbridge_wood')
+    powercutter('oak', True, 'firespot_draynor_oak')
