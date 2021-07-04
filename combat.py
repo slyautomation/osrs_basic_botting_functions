@@ -144,7 +144,7 @@ def findarea_attack(object, deep=20):
     # cv2.imshow("Result", np.hstack([image, output]))
 
 
-def powerattack_text(monster='chicken', burybones=True):
+def powerattack_text(monster='chicken', burybones=True, Take_Human_Break=False):
     j = 0
     group = monster_list.index(monster)
     while j < 10:
@@ -170,6 +170,9 @@ def powerattack_text(monster='chicken', burybones=True):
             if findarea_attack(3):  # attack npc/monster
                 c = random.uniform(3, 5)
                 time.sleep(c)
+                if Take_Human_Break:
+                    c = random.uniform(0.1, 50)
+                    time.sleep(c)
 
 
 if __name__ == "__main__":
@@ -187,4 +190,4 @@ if __name__ == "__main__":
     ibreak = random.randrange(300, 2000)
     print('will break in   ' + str(ibreak / 60) + ' minutes')
     timer_break = timer()
-    powerattack_text('chicken')
+    powerattack_text('cow', Take_Human_Break=True)
