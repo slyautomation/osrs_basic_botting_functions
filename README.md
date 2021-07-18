@@ -13,7 +13,8 @@ For the full video tutorial click link: https://www.youtube.com/watch?v=C7ZY4KYp
 ### features
 
 Cuts woods and makes fire
-
+- Use object maker plugin to highlight trees yellow.
+- Make sure to have an axe equipped and a tinderbox if firemaking as well.
 Tutorial on firemaking code click link: https://youtu.be/bHZCQUChG_k
 ## Quick module install Steps
 
@@ -44,10 +45,15 @@ Tutorial on installing tesseract-OCR: https://youtube.com/watch?v=X3snnwzJfEw&t=
 ## Runelite Setup
 Tutorial on runelite setup click link: https://youtube.com/watch?v=JO2FvkJwppA
 ## fishing.py
+- Turn on fishing plugin.
+- Make sure to have net for prawn fishing or a rod and bair/feathers for fish.
 Tutorial on fishing code click link: https://youtube.com/watch?v=5K-nMy9Pdvg
 
 
 ## mining.py
+- Turn on mining plugin.
+- Mark ore spots uaing the object marker to green. 
+- Make sure to equip a pick axe.
 Tutorial on mining code click link: https://youtube.com/watch?v=dkD5gXcgQYI
 
 
