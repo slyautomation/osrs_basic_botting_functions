@@ -144,38 +144,41 @@ def findarea_attack(object, deep=20):
     # cv2.imshow("Result", np.hstack([image, output]))
 
 
-def powerattack_text(monster='chicken', burybones=True, Take_Human_Break=False):
-    j = 0
-    group = monster_list.index(monster)
-    while j < 10:
-        randomizer(timer_break, ibreak)
-        r = random.uniform(0.1, 5)
-        resizeImage()
-        mined = Image_to_Text('thresh', 'textshot.png')
-        print(monster_array[group])
-        attack = 0
-        for monsters in monster_array[group]:
-            # print(monsters)
-            if mined.lower() != monsters:
-                attack += 1
-        if attack == len(monster_array[group]):
-            d = random.uniform(0.05, 0.1)
-            time.sleep(d)
-            if burybones and image_Rec_clicker('bones_icon.png', 'bury bones', 5, 5, 0.7, 'left', 5, 620, 480, False):
-                c = random.uniform(0.6, 1)
-                time.sleep(c)
-            if findarea_attack(2, 5):  # pick up highlighted loot
-                c = random.uniform(3, 5)
-                time.sleep(c)
-            if findarea_attack(3):  # attack npc/monster
-                c = random.uniform(3, 5)
-                time.sleep(c)
-                if Take_Human_Break:
-                    c = random.uniform(0.1, 50)
+def powerattack_text(monster='chicken', burybones=True, Take_Human_Break=False, Run_Duration_hours=6):
+    t_end = time.time() + (60 * 60 * Run_Duration_hours)
+    while time.time() < t_end:
+        j = 0
+        group = monster_list.index(monster)
+        while j < 10:
+            randomizer(timer_break, ibreak)
+            r = random.uniform(0.1, 5)
+            resizeImage()
+            mined = Image_to_Text('thresh', 'textshot.png')
+            print(monster_array[group])
+            attack = 0
+            for monsters in monster_array[group]:
+                # print(monsters)
+                if mined.lower() != monsters:
+                    attack += 1
+            if attack == len(monster_array[group]):
+                d = random.uniform(0.05, 0.1)
+                time.sleep(d)
+                if burybones and image_Rec_clicker('bones_icon.png', 'bury bones', 5, 5, 0.7, 'left', 5, 620, 480, False):
+                    c = random.uniform(0.6, 1)
                     time.sleep(c)
+                if findarea_attack(2, 5):  # pick up highlighted loot
+                    c = random.uniform(3, 5)
+                    time.sleep(c)
+                if findarea_attack(3):  # attack npc/monster
+                    c = random.uniform(3, 5)
+                    time.sleep(c)
+                    if Take_Human_Break:
+                        c = random.uniform(0.1, 50)
+                        time.sleep(c)
 
 
 if __name__ == "__main__":
+    # do whatever you do
     # ----- UPDATE WITH ALL VARIATIONS OF MONSTER'S IMAGE TO TEXT RESULT IN LINE WITH MONSTER_LIST -----
     monster_array = [
         ['chicken'], ['guard', 'gua rd'], ['cow', 'cou'], ['monk'], ['imp'], ['skeleton']
@@ -190,4 +193,4 @@ if __name__ == "__main__":
     ibreak = random.randrange(300, 2000)
     print('will break in   ' + str(ibreak / 60) + ' minutes')
     timer_break = timer()
-    powerattack_text('cow', Take_Human_Break=True)
+    powerattack_text('cow', Take_Human_Break=True, Run_Duration_hours=4)
