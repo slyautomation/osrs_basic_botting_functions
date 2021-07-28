@@ -16,13 +16,7 @@ iflag = False
 
 def find_area_test(rune, event):
     rune_Image()
-    # myScreenshot = pyautogui.screenshot()
-    # myScreenshot.save(r"C:\Users\MMH\PycharmProjects\osrs-botting\screenshot.png")
-    # import the necessary packages
-    # construct the argument parse and parse the arguments
-    # ap = argparse.ArgumentParser()
-    # ap.add_argument("-i", "--image", help="path to the image")
-    # args = vars(ap.parse_args())
+  
     # load the image
     image = cv2.imread('runeshot.png')
     # image = cv2.imread(args["image"])
@@ -537,13 +531,6 @@ def rune_Image():
 
 def find_area(rune, event):
     rune_Image()
-    # myScreenshot = pyautogui.screenshot()
-    # myScreenshot.save(r"C:\Users\MMH\PycharmProjects\osrs-botting\screenshot.png")
-    # import the necessary packages
-    # construct the argument parse and parse the arguments
-    # ap = argparse.ArgumentParser()
-    # ap.add_argument("-i", "--image", help="path to the image")
-    # args = vars(ap.parse_args())
     # load the image
     image = cv2.imread('runeshot.png')
     # image = cv2.imread(args["image"])
@@ -605,13 +592,6 @@ def find_area(rune, event):
 
 def find_area_custom(rune, event, l, t):
     rune_Image()
-    # myScreenshot = pyautogui.screenshot()
-    # myScreenshot.save(r"C:\Users\MMH\PycharmProjects\osrs-botting\screenshot.png")
-    # import the necessary packages
-    # construct the argument parse and parse the arguments
-    # ap = argparse.ArgumentParser()
-    # ap.add_argument("-i", "--image", help="path to the image")
-    # args = vars(ap.parse_args())
     # load the image
     image = cv2.imread('runeshot.png')
     # image = cv2.imread(args["image"])
