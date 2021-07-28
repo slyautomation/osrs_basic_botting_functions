@@ -15,7 +15,7 @@ iflag = False
 
 def cropImage():
     myScreenshot = pyautogui.screenshot()
-    myScreenshot.save(r"C:\Users\i7 8700\PycharmProjects\osrs-botting\screen.png")
+    myScreenshot.save(r"screen.png")
     png = 'screen.png'
     im = Image.open(png)  # uses PIL library to open image in memory
     left = 340
@@ -31,7 +31,7 @@ def Image_Rec_clicker(image, event, iheight, iwidth, threshold, clicker):
     global iflag
     myScreenshot = pyautogui.screenshot()
     # print('getting screenshot')
-    myScreenshot.save(r"C:\Users\i7 8700\PycharmProjects\osrs-botting\screen.png")
+    myScreenshot.save(r"screen.png")
     img_rgb = cv2.imread('screen.png')
     # print('screenshot taken')
     img_gray = cv2.cvtColor(img_rgb, cv2.COLOR_BGR2GRAY)
@@ -256,13 +256,6 @@ def find_object(item):
         pyautogui.click(duration=b)
 def Image_color():
     cropImage()
-    #myScreenshot = pyautogui.screenshot()
-    #myScreenshot.save(r"C:\Users\MMH\PycharmProjects\osrs-botting\screenshot.png")
-    # import the necessary packages
-    # construct the argument parse and parse the arguments
-    #ap = argparse.ArgumentParser()
-    #ap.add_argument("-i", "--image", help="path to the image")
-    #args = vars(ap.parse_args())
     # load the image
     image = cv2.imread('screenshot.png')
     #image = cv2.imread(args["image"])
