@@ -18,7 +18,7 @@ from Dialogue_Decrypter import determineText
 iflag = False
 def RcropImage():
     myScreenshot = pyautogui.screenshot()
-    myScreenshot.save(r"C:\Users\MMH\PycharmProjects\osrs-botting\screen.png")
+    myScreenshot.save(r"screen.png")
     png = 'screen.png'
     im = Image.open(png)  # uses PIL library to open image in memory
     left = 100
@@ -31,7 +31,7 @@ def RcropImage():
 
 def cropImage():
     myScreenshot = pyautogui.screenshot()
-    myScreenshot.save(r"C:\Users\MMH\PycharmProjects\osrs-botting\screen.png")
+    myScreenshot.save(r"screen.png")
     png = 'screen.png'
     im = Image.open(png)  # uses PIL library to open image in memory
     left = 340
@@ -47,7 +47,7 @@ def Image_Rec_clicker(image, event, iheight, iwidth, threshold, clicker):
     global iflag
     myScreenshot = pyautogui.screenshot()
     # print('getting screenshot')
-    myScreenshot.save(r"C:\Users\MMH\PycharmProjects\osrs-botting\screen.png")
+    myScreenshot.save(r"screen.png")
     img_rgb = cv2.imread('screen.png')
     # print('screenshot taken')
     img_gray = cv2.cvtColor(img_rgb, cv2.COLOR_BGR2GRAY)
