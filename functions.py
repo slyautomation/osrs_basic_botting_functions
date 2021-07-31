@@ -414,6 +414,34 @@ def mini_map_image(image, iwidth=0, iheight=0, threshold=0.7, clicker='left', xs
         pyautogui.click(icoord, duration=b, button=clicker)
     return iflag
 
+def mini_map_bool(image, threshold=0.7):
+    screen_Image(1941 - 1280, 27, 2106 - 1280, 190, 'mini_map.png')
+    global icoord
+    global iflag
+    img_rgb = cv2.imread('mini_map.png')
+    # print('screenshot taken')
+    img_gray = cv2.cvtColor(img_rgb, cv2.COLOR_BGR2GRAY)
+    template = cv2.imread(image, 0)
+    w, h = template.shape[::-1]
+    pt = None
+    # print('getting match requirements')
+    res = cv2.matchTemplate(img_gray, template, cv2.TM_CCOEFF_NORMED)
+    threshold = threshold
+    loc = np.where(res >= threshold)
+    # print('determine loc and threshold')
+    # if len(loc[0]) == 0:
+    # exit()
+    iflag = False
+    for pt in zip(*loc[::-1]):
+        cv2.rectangle(img_rgb, pt, (pt[0] + w, pt[1] + h), (0, 0, 255), 2)
+    # print('result of pt')
+    if pt is None:
+        iflag = False
+        # print(event, 'Not Found...')
+    else:
+        iflag = True
+    return iflag
+
 def xp_gain_check(image, threshold=0.5):
     screen_Image(1825 - 1280, 75, 1890 - 1280, 190, 'xp_gain.png')
     global iflag
