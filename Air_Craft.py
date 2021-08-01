@@ -9,68 +9,91 @@ global iflag
 global icoord
 from PIL import Image
 from functions import mini_map_image, random_breaks, Image_count, mini_map_bool
+
 iflag = False
 
 
 def determine_position_to_bank():
-    if mini_map_bool('air_craft_bank.png'):
+    if mini_map_bool('air_craft_bank.png', 0.85):
         print('player located @ step 1')
         print("to air alter")
         return 7
-    if mini_map_bool('air_craft_mark_1.png'):
+    if mini_map_bool('air_craft_mark_1.png', 0.85):
         print('player located @ step 2')
         print("to air alter")
         return 6
-    if mini_map_bool('air_craft_mark_2.png'):
+    if mini_map_bool('air_craft_mark_2.png', 0.85):
         print('player located @ step 3')
         print("to air alter")
         return 4
-    if mini_map_bool('air_craft_mark_3.png'):
+    if mini_map_bool('air_craft_mark_3.png', 0.85):
         print('player located @ step 4')
         print("to air alter")
         return 3
-    if mini_map_bool('air_craft_mark_4.png'):
+    if mini_map_bool('air_craft_mark_4.png', 0.85):
         print('player located @ step 5')
         print("to air alter")
         return 1
 
-    if mini_map_bool('air_craft_mark_6.png'):
+    if mini_map_bool('air_craft_mark_6.png', 0.85):
         print('player located @ step 6')
         print("to air alter")
         return 0
+    else:
+        print('player located @ air alter')
+        print("to air alter")
+        make_runes()
+        return 0
 
 def determine_position_to_airalter():
-        if mini_map_bool('air_craft_bank.png'):
-            print('player located @ step 1')
-            print("to air alter")
-            return 0
-        if mini_map_bool('air_craft_mark_1.png'):
-            print('player located @ step 2')
-            print("to air alter")
-            return 2
-        if mini_map_bool('air_craft_mark_2.png'):
-            print('player located @ step 3')
-            print("to air alter")
-            return 3
-        if mini_map_bool('air_craft_mark_3.png'):
-            print('player located @ step 4')
-            print("to air alter")
-            return 4
-        if mini_map_bool('air_craft_mark_4.png'):
-            print('player located @ step 5')
-            print("to air alter")
-            return 5
-        if mini_map_bool('air_craft_mark_5.png'):
-            print('player located @ step 6')
-            print("to air alter")
-            return 7
-        if mini_map_bool('air_craft_mark_6.png'):
-            print('player located @ step 6')
-            print("to air alter")
-            return 6
+    if mini_map_bool('air_craft_bank.png', 0.85):
+        print('player located @ step 1')
+        print("to air alter")
+        return 0
+    if mini_map_bool('air_craft_mark_1.png', 0.85):
+        print('player located @ step 2')
+        print("to air alter")
+        return 2
+    if mini_map_bool('air_craft_mark_2.png', 0.85):
+        print('player located @ step 3')
+        print("to air alter")
+        return 3
+    if mini_map_bool('air_craft_mark_3.png', 0.85):
+        print('player located @ step 4')
+        print("to air alter")
+        return 4
+    if mini_map_bool('air_craft_mark_4.png', 0.85):
+        print('player located @ step 5')
+        print("to air alter")
+        return 5
+    if mini_map_bool('air_craft_mark_5.png', 0.85):
+        print('player located @ step 6')
+        print("to air alter")
+        return 7
+    if mini_map_bool('air_craft_mark_6.png', 0.85):
+        print('player located @ step 6')
+        print("to air alter")
+        make_runes()
+        return 8
+    else:
+        print('player located @ air alter')
+        print("to air alter")
+        make_runes()
+        return 8
+
+
+def invent_enabled():
+    return Image_count('inventory_enabled.png', threshold=0.9)
+
+
 def to_air_craft():
     step = 0
-    if count_runes() > 0:
+    invent = invent_enabled()
+    print(invent)
+    if invent == 0:
+        pyautogui.press('esc')
+    runes = count_runes()
+    if runes > 0:
         step = determine_position_to_airalter()
     else:
         b = 1  # random.randrange(1, 3)
@@ -86,6 +109,9 @@ def to_air_craft():
     if step == 0:
         while mini_map_image('air_craft_bank.png', -5, -5, 0.7, 'left', 15, 10) == False:
             mini_map_image('air_craft_bank.png', 0, 0, 0.7, 'left', 15, 10)
+            if mini_map_bool('air_craft_bank.png', 0.85) == False:
+                print("air alter not found")
+                making_air_runes()
             print("step 1 to air alter spot not found")
         print("step 1 to air alter")
         random_breaks(5, 8)
@@ -94,6 +120,9 @@ def to_air_craft():
     if step == 1:
         while mini_map_image('air_craft_bank.png', 0, 40, 0.7, 'left', 15, 10) == False:
             mini_map_image('air_craft_bank.png', 0, 40, 0.7, 'left', 15, 10)
+            if mini_map_bool('air_craft_bank.png', 0.85) == False:
+                print("air alter not found")
+                making_air_runes()
             print("step 2 to air alter spot not found")
         print("step 2 to air alter")
         random_breaks(8, 10)
@@ -102,6 +131,9 @@ def to_air_craft():
     if step == 2:
         while mini_map_image('air_craft_mark_1.png', 10, 40, 0.7, 'left', 15, 10) == False:
             mini_map_image('air_craft_mark_1.png', 10, 40, 0.7, 'left', 15, 10)
+            if mini_map_bool('air_craft_mark_1.png', 0.85) == False:
+                print("air alter not found")
+                making_air_runes()
             print("step 3 to air alter not found")
         print("step 3 to air alter")
         random_breaks(5, 8)
@@ -110,6 +142,9 @@ def to_air_craft():
     if step == 3:
         while mini_map_image('air_craft_mark_2.png', 10, 40, 0.7, 'left', 15, 10) == False:
             mini_map_image('air_craft_mark_2.png', 10, 40, 0.7, 'left', 15, 10)
+            if mini_map_bool('air_craft_mark_2.png', 0.85) == False:
+                print("air alter not found")
+                making_air_runes()
             print("step 4 to air alter not found")
         print("step 4 to air alter")
         random_breaks(5, 8)
@@ -118,6 +153,9 @@ def to_air_craft():
     if step == 4:
         while mini_map_image('air_craft_mark_3.png', 0, 40, 0.6, 'left', 15, 10) == False:
             mini_map_image('air_craft_mark_3.png', 0, 40, 0.6, 'left', 15, 10)
+            if mini_map_bool('air_craft_mark_3.png', 0.85) == False:
+                print("air alter not found")
+                making_air_runes()
             print("step 5 to air alter not found")
         print("step 5 to air alter")
         random_breaks(5, 8)
@@ -126,8 +164,9 @@ def to_air_craft():
     if step == 5:
         while mini_map_image('air_craft_mark_4.png', 0, 15, 0.7, 'left', 15, 10) == False:
             mini_map_image('air_craft_mark_4.png', 0, 15, 0.7, 'left', 15, 10)
-            if mini_map_image('air_craft_mark_4.png', 0, 15, 0.7, 'left', 15, 10) == False:
-                mini_map_image('air_craft_mark_3.png', 0, 40, 0.6, 'left', 15, 10)
+            if mini_map_bool('air_craft_mark_4.png', 0.85) == False:
+                print("air alter not found")
+                making_air_runes()
             print("step 6 to air alter not found")
         print("step 6 to air alter")
         random_breaks(5, 8)
@@ -136,6 +175,9 @@ def to_air_craft():
     if step == 6:
         while mini_map_image('air_craft_mark_4.png', 0, 40, 0.7, 'left', 15, 10) == False:
             mini_map_image('air_craft_mark_4.png', 0, 40, 0.7, 'left', 15, 10)
+            if mini_map_bool('air_craft_mark_4.png', 0.85) == False:
+                print("air alter not found")
+                making_air_runes()
             print("step 7 to air alter not found")
         print("step 7 to air alter")
         random_breaks(5, 8)
@@ -144,8 +186,9 @@ def to_air_craft():
     if step == 7:
         while mini_map_image('air_craft_mark_5.png', -20, 20, 0.7, 'left', 15, 10) == False:
             mini_map_image('air_craft_mark_5.png', -20, 20, 0.7, 'left', 15, 10)
-            if mini_map_image('air_craft_mark_5.png', -20, 20, 0.7, 'left', 15, 10) == False:
-                mini_map_image('air_craft_mark_4.png', -20, 40, 0.6, 'left', 15, 10)
+            if mini_map_bool('air_craft_mark_5.png', 0.85) == False:
+                print("air alter not found")
+                making_air_runes()
             print("step 8 to air alter not found")
         print("step 8 to air alter")
         random_breaks(12, 15)
@@ -154,18 +197,22 @@ def to_air_craft():
 
 def to_bank():
     step = 0
-    if count_runes() == 0 or count_runes() is None:
+    invent = invent_enabled()
+    print(invent)
+    if invent == 0:
+        pyautogui.press('esc')
+    runes = count_runes()
+    if runes == 0:
         step = determine_position_to_bank()
     else:
-        to_air_craft()
-        find_area_custom(2, 'air alter', 40, 40)
-        c = random.uniform(6.5, 8.5)
-        time.sleep(c)
         make_runes()
 
     if step == 0:
         while mini_map_image('air_craft_mark_6.png', 40, -10, 0.7, 'left', 15, 10) == False:
             mini_map_image('air_craft_mark_6.png', 40, -10, 0.7, 'left', 15, 10)
+            if mini_map_bool('air_craft_mark_6.png', 0.85) == False:
+                print("air alter not found")
+                making_air_runes()
             print("step 1 to bank not found")
         print("step 1 to bank")
         random_breaks(10, 13)
@@ -174,6 +221,9 @@ def to_bank():
     if step == 1:
         while mini_map_image('air_craft_mark_4.png', 0, -5, 0.7, 'left', 15, 10) == False:
             mini_map_image('air_craft_mark_4.png', 0, -5, 0.7, 'left', 15, 10)
+            if mini_map_bool('air_craft_mark_4.png', 0.85) == False:
+                print("air alter not found")
+                making_air_runes()
             print("step 2 to bank not found")
         print("step 2 to bank")
         random_breaks(8, 10)
@@ -181,6 +231,9 @@ def to_bank():
     if step == 2:
         while mini_map_image('air_craft_mark_4.png', 30, -15, 0.7, 'left', 15, 10) == False:
             mini_map_image('air_craft_mark_4.png', 30, -15, 0.7, 'left', 15, 10)
+            if mini_map_bool('air_craft_mark_4.png', 0.85) == False:
+                print("air alter not found")
+                making_air_runes()
             print("step 3 to bank not found")
         print("step 3 to bank")
         random_breaks(5, 8)
@@ -189,8 +242,9 @@ def to_bank():
     if step == 3:
         while mini_map_image('air_craft_mark_3.png', 5, -10, 0.7, 'left', 15, 10) == False:
             mini_map_image('air_craft_mark_3.png', 5, -10, 0.7, 'left', 15, 10)
-            if mini_map_image('air_craft_mark_3.png', 5, -10, 0.7, 'left', 15, 10) == False:
-                mini_map_image('air_craft_mark_4.png', 35, -25, 0.7, 'left', 15, 10)
+            if mini_map_bool('air_craft_mark_3.png', 0.85) == False:
+                print("air alter not found")
+                making_air_runes()
             print("step 4 to bank not found")
         print("step 4 to bank")
         random_breaks(5, 8)
@@ -199,8 +253,9 @@ def to_bank():
     if step == 4:
         while mini_map_image('air_craft_mark_2.png', 10, -10, 0.7, 'left', 15, 10) == False:
             mini_map_image('air_craft_mark_2.png', 10, -10, 0.7, 'left', 15, 10)
-            if mini_map_image('air_craft_mark_2.png', 10, -10, 0.7, 'left', 15, 10) == False:
-                mini_map_image('air_craft_mark_3.png', 15, -20, 0.7, 'left', 15, 10)
+            if mini_map_bool('air_craft_mark_2.png', 0.85) == False:
+                print("air alter not found")
+                making_air_runes()
             print("step 5 to bank not found")
         print("step 5 to bank")
         random_breaks(5, 8)
@@ -209,6 +264,9 @@ def to_bank():
     if step == 5:
         while mini_map_image('air_craft_mark_2.png', 5, -25, 0.7, 'left', 15, 10) == False:
             mini_map_image('air_craft_mark_2.png', 5, -25, 0.7, 'left', 15, 10)
+            if mini_map_bool('air_craft_mark_2.png', 0.85) == False:
+                print("air alter not found")
+                making_air_runes()
             print("step 6 to bank not found")
         print("step 6 to bank")
         random_breaks(5, 8)
@@ -217,6 +275,9 @@ def to_bank():
     if step == 6:
         while mini_map_image('air_craft_mark_1.png', 5, -15, 0.7, 'left', 15, 10) == False:
             mini_map_image('air_craft_mark_1.png', 5, -15, 0.7, 'left', 15, 10)
+            if mini_map_bool('air_craft_mark_1.png', 0.85) == False:
+                print("air alter not found")
+                making_air_runes()
             print("step 7 to bank not found")
         print("step 7 to bank")
         random_breaks(5, 8)
@@ -225,10 +286,15 @@ def to_bank():
     if step == 7:
         while mini_map_image('air_craft_bank.png', 5, 0, 0.7, 'left', 15, 10) == False:
             mini_map_image('air_craft_bank.png', 5, 0, 0.7, 'left', 15, 10)
+            if mini_map_bool('air_craft_bank.png', 0.85) == False:
+                print("air alter not found")
+                making_air_runes()
             print("step 8 to bank not found")
         print("step 8 to bank")
         random_breaks(8, 10)
         step = 8
+
+
 def rune_Image():
     myScreenshot = pyautogui.screenshot()
     myScreenshot.save("screen.png")
@@ -399,8 +465,10 @@ def make_runes():
     c = random.uniform(4, 6)
     time.sleep(c)
 
+
 def count_runes():
     return Image_count('rune_icon.png', threshold=0.8)
+
 
 def making_air_runes():
     a = 1  # random.randrange(1, 3)
@@ -422,7 +490,6 @@ def making_air_runes():
     pick_item(1655 - 1280, 194)
 
     exit_bank()
-
 
 
 j = 0
