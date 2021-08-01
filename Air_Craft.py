@@ -492,6 +492,10 @@ def making_air_runes():
     exit_bank()
 
 
-j = 0
-while j < 10:
-    making_air_runes()
+if __name__ == "__main__":
+    x = random.randrange(100, 250)
+    y = random.randrange(400, 500)
+    pyautogui.click(x, y, button='right')
+    j = 0
+    while j < 10:
+        making_air_runes()
