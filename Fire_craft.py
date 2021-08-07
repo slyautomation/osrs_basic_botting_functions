@@ -3,7 +3,7 @@ import cv2
 import pyautogui
 import random
 import time
-
+import core
 global hwnd
 global iflag
 global icoord
@@ -50,14 +50,19 @@ def determine_position_to_bank():
         print('player located @ step 6')
         print("to bank")
         return 6
-
+    #return temp
 
 def determine_position_to_firealter():
     print('determining position to fire alter')
     if mini_map_bool('fire_craft_runealter.png', 0.85):
         print('player located @ fire alter')
+        last_step_tofirealter()
         print("to bank")
         return 7
+    if mini_map_bool('fire_craft_mark_5.png', 0.85):
+        print('player located @ step 6')
+        print("to fire alter")
+        return 6
     if mini_map_bool('fire_craft_mark_6.png', 0.85):
         print('player located @ step 7')
         print("to fire alter")
@@ -85,10 +90,8 @@ def determine_position_to_firealter():
         print('player located @ step 5')
         print("to fire alter")
         return 5
-    if mini_map_bool('fire_craft_mark_5.png', 0.85):
-        print('player located @ step 6')
-        print("to fire alter")
-        return 6
+
+    #return temp
 
 
 def to_fire_craft():
@@ -107,83 +110,134 @@ def to_fire_craft():
         find_area_custom(1, 'bank booth', 0, 5)
         c = random.uniform(6.5, 8.5)
         time.sleep(c)
-        pick_item(1770 - 1280, 635)
-        pick_item(1655 - 1280, 194)
-        exit_bank()
+        get_runes()
 
     if step == 0:
-        while mini_map_image('fire_craft_bank.png', 10, 30, 0.7, 'left', 15, 10) == False:
-            mini_map_image('air_craft_bank.png', 0, 0, 0.7, 'left', 15, 10)
-            if mini_map_bool('fire_craft_bank.png', 0.85) == False:
-                print("fire alter not found")
+        time_start = time.time()
+        time_end = time.time() - time_start
+        x = random.uniform(7, 10)
+        step0 = mini_map_image('fire_craft_bank.png', 10, 30, 0.7, 'left', 15, 10)
+        while step0 == False:
+            while time_end < x:
+                step0 = mini_map_image('fire_craft_bank.png', 10, 30, 0.7, 'left', 15, 10)
+                print("step 1 to fire alter spot not found")
+                time_end = time.time() - time_start
+                if step0 == True:
+                    break
+            if step0 == False:
                 making_fire_runes()
-            print("step 1 to fire alter spot not found")
         print("step 1 to fire alter")
         random_breaks(5, 8)
         step = 1
 
     if step == 1:
-        while mini_map_image('fire_craft_mark_1.png', -10, -5, 0.7, 'left', 15, 10) == False:
-            mini_map_image('fire_craft_mark_1.png', -10, -5, 0.7, 'left', 15, 10)
-            if mini_map_bool('fire_craft_mark_1.png', 0.85) == False:
-                print("fire alter not found")
+        time_start = time.time()
+        time_end = time.time() - time_start
+        x = random.uniform(7, 10)
+        step1 = mini_map_image('fire_craft_mark_1.png', -10, 10, 0.7, 'left', 15, 10)
+        while step1 == False:
+            while time_end < x:
+                step1 = mini_map_image('fire_craft_mark_1.png', -10, 10, 0.7, 'left', 15, 10)
+                print("step 2 to fire alter spot not found")
+                time_end = time.time() - time_start
+                if step1 == True:
+                    break
+            if step1 == False:
                 making_fire_runes()
-            print("step 2 to fire alter spot not found")
         print("step 2 to fire alter")
         random_breaks(8, 10)
         step = 2
 
     if step == 2:
-        while mini_map_image('fire_craft_mark_1.png', -50, -5, 0.7, 'left', 15, 10) == False:
-            mini_map_image('fire_craft_mark_1.png', -50, -5, 0.7, 'left', 15, 10)
-            if mini_map_bool('fire_craft_mark_1.png', 0.85) == False:
-                print("fire alter not found")
+        time_start = time.time()
+        time_end = time.time() - time_start
+        x = random.uniform(7, 10)
+        step2 = mini_map_image('fire_craft_mark_1.png', -50, 10, 0.7, 'left', 15, 10)
+        while step2 == False:
+            while time_end < x:
+                step2 = mini_map_image('fire_craft_mark_1.png', -50, 10, 0.7, 'left', 15, 10)
+                print("step 3 to air alter not found")
+                time_end = time.time() - time_start
+                if step2 == True:
+                    break
+            if step2 == False:
                 making_fire_runes()
-            print("step 3 to air alter not found")
         print("step 3 to air alter")
         random_breaks(5, 8)
         step = 3
 
     if step == 3:
-        while mini_map_image('fire_craft_mark_2.png', -35, -5, 0.7, 'left', 15, 10) == False:
-            mini_map_image('fire_craft_mark_2.png', -35, -5, 0.7, 'left', 15, 10)
-            if mini_map_bool('fire_craft_mark_2.png', 0.85) == False:
-                print("fire alter not found")
+        time_start = time.time()
+        time_end = time.time() - time_start
+        x = random.uniform(7, 10)
+        step3 = mini_map_image('fire_craft_mark_2.png', -50, 20, 0.7, 'left', 15, 10)
+        while step3 == False:
+            while time_end < x:
+                print(time_end)
+                step3 = mini_map_image('fire_craft_mark_2.png', -50, 20, 0.7, 'left', 15, 10)
+                print("step 4 to fire alter not found")
+                time_end = time.time() - time_start
+                if step3 == True:
+                    break
+            if step3 == False:
                 making_fire_runes()
-            print("step 4 to fire alter not found")
         print("step 4 to fire alter")
         random_breaks(5, 8)
         step = 4
 
     if step == 4:
-        while mini_map_image('fire_craft_mark_3.png', -40, 0, 0.7, 'left', 15, 10) == False:
-            mini_map_image('fire_craft_mark_3.png', -40, 0, 0.7, 'left', 15, 10)
-            if mini_map_bool('fire_craft_mark_3.png', 0.85) == False:
-                print("fire alter not found")
+        time_start = time.time()
+        time_end = time.time() - time_start
+        x = random.uniform(7, 10)
+        step4 = mini_map_image('fire_craft_mark_3.png', -30, 10, 0.7, 'left', 15, 10)
+        while step4 == False:
+            while time_end < x:
+                print(time_end)
+                step4 = mini_map_image('fire_craft_mark_3.png', -30, 10, 0.7, 'left', 15, 10)
+                print("step 5 to fire alter not found")
+                time_end = time.time() - time_start
+                if step4 == True:
+                    break
+            if step4 == False:
                 making_fire_runes()
-            print("step 5 to fire alter not found")
         print("step 5 to fire alter")
         random_breaks(5, 8)
         step = 5
 
     if step == 5:
-        while mini_map_image('fire_craft_mark_4.png', -10, 55, 0.7, 'left', 15, 10) == False:
-            mini_map_image('fire_craft_mark_4.png', -10, 55, 0.7, 'left', 15, 10)
-            if mini_map_bool('fire_craft_mark_4.png', 0.85) == False:
-                print("fire alter not found")
+        time_start = time.time()
+        time_end = time.time() - time_start
+        x = random.uniform(7, 10)
+        step5 = mini_map_image('fire_craft_mark_4.png', -10, 55, 0.7, 'left', 15, 10)
+        while step5 == False:
+            while time_end < x:
+                print(time_end)
+                step5 = mini_map_image('fire_craft_mark_4.png', -10, 55, 0.7, 'left', 15, 10)
+                print("step 6 to fire alter not found")
+                time_end = time.time() - time_start
+                if step5 == True:
+                    break
+            if step5 == False:
                 making_fire_runes()
-            print("step 6 to fire alter not found")
         print("step 6 to fire alter")
         random_breaks(5, 8)
         step = 6
 
     if step == 6:
-        while mini_map_image('fire_craft_mark_5.png', -10, 15, 0.7, 'left', 5, 10) == False:
-            mini_map_image('fire_craft_mark_5.png', -10, 15, 0.7, 'left', 5, 10)
-            if mini_map_bool('fire_craft_mark_5.png', 0.85) == False:
-                print("fire alter not found")
+        time_start = time.time()
+        time_end = time.time() - time_start
+        x = random.uniform(7, 10)
+        step6 = mini_map_image('fire_craft_mark_5.png', -10, 15, 0.7, 'left', 5, 10)
+        while step6 == False:
+            while time_end < x:
+                print(time_end)
+                step6 = mini_map_image('fire_craft_mark_5.png', -10, 15, 0.7, 'left', 5, 10)
+                print("step 7 to fire alter not found")
+                time_end = time.time() - time_start
+                if step6 == True:
+                    break
+            if step6 == False:
                 making_fire_runes()
-            print("step 7 to fire alter not found")
         print("step 7 to fire alter")
         random_breaks(35, 40)
         print('made it to fire alter...')
@@ -204,83 +258,114 @@ def to_bank():
     if runes == 0:
         step = determine_position_to_bank()
     else:
-        make_runes()
+        to_fire_craft()
 
     if step == 0:
-        while mini_map_image('fire_craft_mark_6.png', 45, -5, 0.7, 'left', 5, 15) == False:
-            mini_map_image('fire_craft_mark_6.png', 45, -5, 0.7, 'left', 5, 15)
-            if mini_map_bool('fire_craft_mark_6.png', 0.85) == False:
-                print("fire alter not found")
-                make_runes()
-            print("step 1 to bank not found")
+        time_start = time.time()
+        time_end = time.time() - time_start
+        x = random.uniform(7, 10)
+        step0 = mini_map_image('fire_craft_mark_6.png', 43, -5, 0.7, 'left', 5, 15)
+        while step0 == False:
+            while time_end < x:
+                step0 = mini_map_image('fire_craft_mark_6.png', 43, -5, 0.7, 'left', 5, 15)
+                print("step 1 to bank not found")
+                time_end = time.time() - time_start
+                if step0 == True:
+                    break
+            if step0 == False:
+                making_fire_runes()
         print("step 1 to bank")
         random_breaks(30, 35)
         step = 1
 
     if step == 1:
-        while mini_map_image('fire_craft_mark_5.png', 40, -5, 0.7, 'left', 15, 10) == False:
-            mini_map_image('fire_craft_mark_5.png', 40, -5, 0.7, 'left', 15, 10)
-            if mini_map_bool('fire_craft_mark_5.png', 0.85) == False:
-                print("fire alter not found")
+        time_start = time.time()
+        time_end = time.time() - time_start
+        x = random.uniform(7, 10)
+        step1 = mini_map_image('fire_craft_mark_5.png', 40, -5, 0.7, 'left', 15, 10)
+        while step1 == False:
+            while time_end < x:
+                step1 = mini_map_image('fire_craft_mark_5.png', 40, -5, 0.7, 'left', 15, 10)
+                print("step 2 to bank not found")
+                time_end = time.time() - time_start
+                if step1 == True:
+                    break
+            if step1 == False:
                 making_fire_runes()
-            print("step 2 to bank not found")
         print("step 2 to bank")
         random_breaks(8, 10)
         step = 2
     if step == 2:
-        while mini_map_image('fire_craft_mark_4.png', 30, 40, 0.7, 'left', 15, 10) == False:
-            mini_map_image('fire_craft_mark_4.png', 30, 40, 0.7, 'left', 15, 10)
-            if mini_map_bool('fire_craft_mark_4.png', 0.85) == False:
-                print("fire alter not found")
+        time_start = time.time()
+        time_end = time.time() - time_start
+        x = random.uniform(7, 10)
+        step2 = mini_map_image('fire_craft_mark_4.png', 30, 40, 0.7, 'left', 15, 10)
+        while step2 == False:
+            while time_end < x:
+                step2 = mini_map_image('fire_craft_mark_4.png', 30, 40, 0.7, 'left', 15, 10)
+                print("step 3 to bank not found")
+                time_end = time.time() - time_start
+                if step2 == True:
+                    break
+            if step2 == False:
                 making_fire_runes()
-            print("step 3 to bank not found")
         print("step 3 to bank")
         random_breaks(5, 8)
         step = 3
 
     if step == 3:
-        while mini_map_image('fire_craft_mark_4.png', 60, 40, 0.7, 'left', 15, 10) == False:
-            mini_map_image('fire_craft_mark_4.png', 60, 40, 0.7, 'left', 15, 10)
-            if mini_map_bool('fire_craft_mark_4.png', 0.85) == False:
-                print("fire alter not found")
+        time_start = time.time()
+        time_end = time.time() - time_start
+        x = random.uniform(7, 10)
+        step3 = mini_map_image('fire_craft_mark_4.png', 60, 40, 0.7, 'left', 15, 10)
+        while step3 == False:
+            while time_end < x:
+                step3 = mini_map_image('fire_craft_mark_4.png', 60, 40, 0.7, 'left', 15, 10)
+                print("step 4 to bank not found")
+                time_end = time.time() - time_start
+                if step3 == True:
+                    break
+            if step3 == False:
                 making_fire_runes()
-            print("step 4 to bank not found")
         print("step 4 to bank")
         random_breaks(5, 8)
         step = 4
 
     if step == 4:
-        while mini_map_image('fire_craft_mark_3.png', 30, -10, 0.7, 'left', 15, 10) == False:
-            mini_map_image('fire_craft_mark_3.png', 30, -10, 0.7, 'left', 15, 10)
-            if mini_map_bool('fire_craft_mark_3.png', 0.85) == False:
-                print("fire alter not found")
+        time_start = time.time()
+        time_end = time.time() - time_start
+        x = random.uniform(7, 10)
+        step4 = mini_map_image('fire_craft_mark_3.png', 40, 15, 0.7, 'left', 15, 10)
+        while step4 == False:
+            while time_end < x:
+                step4 = mini_map_image('fire_craft_mark_3.png', 40, 15, 0.7, 'left', 15, 10)
+                print("step 5 to bank not found")
+                time_end = time.time() - time_start
+                if step4 == True:
+                    break
+            if step4 == False:
                 making_fire_runes()
-            print("step 5 to bank not found")
         print("step 5 to bank")
         random_breaks(5, 8)
         step = 5
 
     if step == 5:
-        while mini_map_image('fire_craft_mark_2.png', 50, -10, 0.7, 'left', 15, 10) == False:
-            mini_map_image('fire_craft_mark_2.png', 50, -10, 0.7, 'left', 15, 10)
-            if mini_map_bool('fire_craft_mark_2.png', 0.85) == False:
-                print("fire alter not found")
+        time_start = time.time()
+        time_end = time.time() - time_start
+        x = random.uniform(7, 10)
+        step5 = mini_map_image('fire_craft_mark_2.png', 15, 20, 0.7, 'left', 15, 10)
+        while step5 == False:
+            while time_end < x:
+                step5 = mini_map_image('fire_craft_mark_2.png', 15, 20, 0.7, 'left', 15, 10)
+                print("step 6 to bank not found")
+                time_end = time.time() - time_start
+                if step5 == True:
+                    break
+            if step5 == False:
                 making_fire_runes()
-            print("step 6 to bank not found")
         print("step 6 to bank")
-        random_breaks(5, 8)
+        random_breaks(7, 9)
         step = 6
-
-    if step == 6:
-        while mini_map_image('fire_craft_mark_1.png', 35, -10, 0.7, 'left', 15, 10) == False:
-            mini_map_image('fire_craft_mark_1.png', 35, -10, 0.7, 'left', 15, 10)
-            if mini_map_bool('fire_craft_mark_1.png', 0.85) == False:
-                print("fire alter not found")
-                making_fire_runes()
-            print("step 7 to bank not found")
-        print("step 7 to bank")
-        random_breaks(11, 13)
-        step = 7
 
 
 def rune_Image():
@@ -441,7 +526,7 @@ def make_runes():
     c = random.uniform(1.5, 3)
     time.sleep(c)
     find_area(2, 'enter rune area')
-    c = random.uniform(12, 14)
+    c = random.uniform(3, 5)
     time.sleep(c)
     find_area(1, 'to exit portal')
     c = random.uniform(12, 14)
@@ -451,17 +536,37 @@ def make_runes():
 def count_runes():
     return Image_count('rune_icon.png', threshold=0.8)
 
+def get_runes():
+    bank = Image_count('bank_deposit.png', 0.75)
+    print("bank deposit open:", bank)
+    if bank > 0:
+        pick_item(1770 - 1280, 635)
+        pick_item(1655 - 1280, 194)
+        exit_bank()
+    else:
+        print("bank inventory not found")
+        making_fire_runes()
 
 def last_step_tofirealter():
-    while mini_map_image('fire_craft_runealter.png', 0, 0, 0.7, 'left', 15, 10) == False:
-        mini_map_image('fire_craft_runealter.png', 0, 0, 0.7, 'left', 15, 10)
-        if mini_map_image('fire_craft_runealter.png', 0, 0, 0.7, 'left', 15, 10) == False:
-            print("fire alter not found")
-            make_runes()
+    time_start = time.time()
+    time_end = time.time() - time_start
+    x = random.uniform(7, 10)
+    print("going to last step inside fire alter")
+    laststep = mini_map_image('fire_craft_runealter.png', 0, 0, 0.7, 'left', 15, 10)
+    while laststep == False:
+        while time_end < x:
+            laststep = mini_map_image('fire_craft_runealter.png', 0, 0, 0.7, 'left', 15, 10)
+            time_end = time.time() - time_start
+            if laststep == True:
+                break
+        if laststep == False:
+            making_fire_runes()
             break
+    random_breaks(9, 12)
 
 
 def making_fire_runes():
+    print("start of fire runecrafting script")
     a = 1  # random.randrange(1, 3)
     options = {1: to_fire_craft
                }
@@ -472,7 +577,6 @@ def making_fire_runes():
     time.sleep(c)
     last_step_tofirealter()
     print("going into fire alter...")
-    random_breaks(10, 12)
     make_runes()
     b = 1  # random.randrange(1, 3)
     options = {1: to_bank
@@ -481,11 +585,7 @@ def making_fire_runes():
     find_area_custom(1, 'bank booth', 0, 5)
     c = random.uniform(6.5, 8.5)
     time.sleep(c)
-    pick_item(1770 - 1280, 635)
-    pick_item(1655 - 1280, 194)
-
-    exit_bank()
-
+    get_runes()
 
 if __name__ == "__main__":
     x = random.randrange(100, 250)
