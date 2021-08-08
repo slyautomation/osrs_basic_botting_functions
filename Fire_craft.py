@@ -397,24 +397,16 @@ def find_area(rune, event):
         output = cv2.bitwise_and(image, image, mask=mask)
 
         ret, thresh = cv2.threshold(mask, 40, 255, 0)
-        # if (cv2.__version__[0] > 3):
-        # contours, hierarchy = cv2.findContours(thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
-        # else:
         contours, hierarchy = cv2.findContours(thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
 
         if len(contours) != 0:
             print(event)
-            # draw in blue the contours that were founded
-            # cv2.drawContours(output, contours, -1, 255, 3)
-
             # find the biggest countour (c) by the area
             c = max(contours, key=cv2.contourArea)
             x, y, w, h = cv2.boundingRect(c)
             print('x:', x, ' | y: ', x + w)
             # draw the biggest contour (c) in green
             cv2.rectangle(output, (x, y), (x + w, y + h), (0, 255, 0), 2)
-            # coal = [8, 10]
-            # copper = (2.3, 4.2)
 
             c = random.uniform(0.12, 0.2)
             b = random.uniform(0.1, 0.35)
@@ -429,12 +421,8 @@ def find_area(rune, event):
             b = random.uniform(0.07, 0.11)
             pyautogui.click(duration=b, button='left')
             time.sleep(c)
-    # show the images
-    # cv2.imshow("Result", np.hstack([image, output]))
-    # cv2.waitKey(0)
 
-
-def find_area_custom(rune, event, l, t):
+def find_area_custom(rune, event, l=10, t=10,i=10, k=10):
     rune_Image()
     # load the image
     image = cv2.imread('runeshot.png')
@@ -459,28 +447,20 @@ def find_area_custom(rune, event, l, t):
         output = cv2.bitwise_and(image, image, mask=mask)
 
         ret, thresh = cv2.threshold(mask, 40, 255, 0)
-        # if (cv2.__version__[0] > 3):
-        # contours, hierarchy = cv2.findContours(thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
-        # else:
         contours, hierarchy = cv2.findContours(thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
 
         if len(contours) != 0:
             print(event)
-            # draw in blue the contours that were founded
-            # cv2.drawContours(output, contours, -1, 255, 3)
-
             # find the biggest countour (c) by the area
             c = max(contours, key=cv2.contourArea)
             x, y, w, h = cv2.boundingRect(c)
             # draw the biggest contour (c) in green
             cv2.rectangle(output, (x, y), (x + w, y + h), (0, 255, 0), 2)
-            # coal = [8, 10]
-            # copper = (2.3, 4.2)
 
             c = random.uniform(0.12, 0.25)
             b = random.uniform(0.1, 0.3)
             wi = round(x + (w / 2))
-            x = random.randrange(wi - 10, wi + 10)  # 950,960
+            x = random.randrange(wi - i, wi + k)  # 950,960
             print('x: ', x)
 
             hi = round(y + (h / 2))
@@ -490,9 +470,6 @@ def find_area_custom(rune, event, l, t):
             b = random.uniform(0.07, 0.11)
             pyautogui.click(duration=b, button='left')
             time.sleep(c)
-    # show the images
-    # cv2.imshow("Result", np.hstack([image, output]))
-    # cv2.waitKey(0)
 
 
 def exit_bank():
@@ -525,7 +502,7 @@ def pick_item(v, u):
 def make_runes():
     c = random.uniform(1.5, 3)
     time.sleep(c)
-    find_area(2, 'enter rune area')
+    find_area_custom(2, 'using fire alter', 20, 20, 20, 20)
     c = random.uniform(3, 5)
     time.sleep(c)
     find_area(1, 'to exit portal')
@@ -572,7 +549,7 @@ def making_fire_runes():
                }
     options[a]()
     print("steps completed to fire alter")
-    find_area_custom(2, 'fire alter', 40, 40)
+    find_area_custom(2, 'entering fire alter', 40, 40, 20, 20)
     c = random.uniform(6.5, 8.5)
     time.sleep(c)
     last_step_tofirealter()
