@@ -127,7 +127,7 @@ def to_fire_craft():
             if step0 == False:
                 making_fire_runes()
         print("step 1 to fire alter")
-        random_breaks(5, 8)
+        random_breaks(6.5, 9.5)
         step = 1
 
     if step == 1:
@@ -163,7 +163,7 @@ def to_fire_craft():
             if step2 == False:
                 making_fire_runes()
         print("step 3 to air alter")
-        random_breaks(5, 8)
+        random_breaks(6.5, 9.5)
         step = 3
 
     if step == 3:
@@ -182,7 +182,7 @@ def to_fire_craft():
             if step3 == False:
                 making_fire_runes()
         print("step 4 to fire alter")
-        random_breaks(5, 8)
+        random_breaks(6.5, 9.5)
         step = 4
 
     if step == 4:
@@ -201,7 +201,7 @@ def to_fire_craft():
             if step4 == False:
                 making_fire_runes()
         print("step 5 to fire alter")
-        random_breaks(5, 8)
+        random_breaks(6.5, 9.5)
         step = 5
 
     if step == 5:
@@ -220,7 +220,7 @@ def to_fire_craft():
             if step5 == False:
                 making_fire_runes()
         print("step 6 to fire alter")
-        random_breaks(5, 8)
+        random_breaks(6.5, 9.5)
         step = 6
 
     if step == 6:
@@ -310,7 +310,7 @@ def to_bank():
             if step2 == False:
                 making_fire_runes()
         print("step 3 to bank")
-        random_breaks(5, 8)
+        random_breaks(6.5, 9.5)
         step = 3
 
     if step == 3:
@@ -328,7 +328,7 @@ def to_bank():
             if step3 == False:
                 making_fire_runes()
         print("step 4 to bank")
-        random_breaks(5, 8)
+        random_breaks(6.5, 9.5)
         step = 4
 
     if step == 4:
@@ -346,7 +346,7 @@ def to_bank():
             if step4 == False:
                 making_fire_runes()
         print("step 5 to bank")
-        random_breaks(5, 8)
+        random_breaks(6.5, 9.5)
         step = 5
 
     if step == 5:
