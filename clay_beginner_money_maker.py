@@ -7,6 +7,7 @@ global hwnd
 global iflag
 global icoord
 
+import functions
 from functions import Image_count
 from functions import screen_Image
 from functions import Image_to_Text
@@ -22,7 +23,7 @@ from functions import random_breaks
 import time
 import random
 import pyautogui
-
+import core
 global hwnd
 global iflag
 global icoord
@@ -250,8 +251,9 @@ def findarea_single(ore, cropx, cropy):
     red = ([0, 0, 180], [80, 80, 255])
     green = ([0, 180, 0], [80, 255, 80])
     amber = ([0, 160, 160], [80, 255, 255])
+    attack_blue = ([220, 220, 0], [255, 255, 15])
     # --------------------- ADD OBJECTS -------------------
-    ore_list = [tin, copper, coal, iron, iron2, clay, red, green, amber]
+    ore_list = [tin, copper, coal, iron, iron2, clay, red, green, amber,attack_blue]
     boundaries = [ore_list[ore]]
     # loop over the boundaries
     for (lower, upper) in boundaries:
@@ -303,7 +305,7 @@ def moneymaker_clay():
         if mined_text.lower() != 'mining':
             random_breaks(0.05, 0.1)
             print('not mining')
-            find_Object_precise(2,20,0,0,650,650)
+            find_Object_precise(4,10,0,0,650,650)
 
 
 #rim_minetoclay()
