@@ -2,7 +2,7 @@ import pyautogui
 import random
 import time
 import pytesseract
-from cooking_v2 import deposit_burnt_cooked, cook_items
+#from cooking_v2 import deposit_burnt_cooked, cook_items
 from fishing import pick_random_fishing_spot
 
 from functions import random_combat, skill_lvl_up, Image_to_Text, spaces, resizeImage, find_Object_precise
@@ -71,9 +71,9 @@ iflag = False
 def bank_booth():
     c = random.uniform(0.6, 0.8)
     b = random.uniform(0.12, 0.28)
-    x = random.randrange(420, 440)  # x = random.randrange(1795, 1800)
+    x = random.randrange(340, 440)  # x = random.randrange(1795, 1800)
     print('x: ', x)
-    y = random.randrange(380, 400)  # y = random.randrange(50, 60)
+    y = random.randrange(380, 500)  # y = random.randrange(50, 60)
     print('y: ', y)
     d = random.uniform(0.05, 0.19)
     pyautogui.moveTo(x, y, duration=b)
@@ -147,6 +147,73 @@ def wine():
     time.sleep(a)
     print("ready")
 
+def apple_pie():
+    a = random.uniform(0.1, 0.35)
+    bank_booth()
+    pick_item(490, 635)  # deposit all
+    pick_item(135, 125)  # apple
+    pick_item(185, 125)  # pie shell
+    time.sleep(a)
+    a = random.uniform(0.05, 0.2)
+    exit_bank()
+    time.sleep(a)
+    pick_item(660, 515)
+    pick_item(745, 625)
+    a = random.uniform(1, 2)
+    time.sleep(a)
+    pyautogui.press('space')
+    a = random.uniform(17.5, 19)
+    time.sleep(a)
+    print("ready")
+
+def pastry():
+    a = random.uniform(0.1, 0.35)
+    bank_booth()
+    pick_item(490, 635)  # deposit all
+    pick_item(135, 125)  # flour
+    pick_item(185, 125)  # water
+    time.sleep(a)
+    a = random.uniform(0.05, 0.2)
+    exit_bank()
+    time.sleep(a)
+    pick_item(660, 515)
+    pick_item(745, 625)
+    a = random.uniform(1, 2)
+    time.sleep(a)
+    pyautogui.press('2')
+    a = random.uniform(17.5, 19)
+    time.sleep(a)
+    print("ready")
+
+def pieshell():
+    a = random.uniform(0.1, 0.35)
+    bank_booth()
+    pick_item(490, 635)  # deposit all
+    pick_item(420, 125)  # pie shell
+    pick_item(375, 125)  # dough
+    time.sleep(a)
+    a = random.uniform(0.05, 0.2)
+    exit_bank()
+    time.sleep(a)
+    pick_item(660, 515)
+    pick_item(745, 625)
+    a = random.uniform(1, 2)
+    time.sleep(a)
+    pyautogui.press('space')
+    a = random.uniform(10, 15)
+    time.sleep(a)
+    print("ready")
+
+def make_banking_food(volume, bank_food):
+    while round(volume / 10) > 0:
+        bank_options = {'wine': wine,
+                        'pizza': pizza,
+                        'a_pie': apple_pie,
+                        'pastry': pastry,
+                        'pie_shell': pieshell}
+        bank_options[bank_food]()
+        volume -= 1
+        print(bank_food + ' left: ', round(volume / 10))
 
 def to_alkarid_cookspot():
     print("to cookspot")
@@ -202,13 +269,7 @@ def to_alkarid_fishspot():
     random_breaks(3, 5)
 
 
-def make_banking_food(volume, bank_food):
-    while volume > 0:
-        bank_options = {'wine': wine,
-                        'pizza': pizza}
-        bank_options[bank_food]()
-        volume -= 1
-        print(bank_food + ' left: ', volume)
+
 
 
 def drop_prawns():
@@ -287,19 +348,31 @@ def cook_all_critters(Take_Human_Break=False):
     pyautogui.press('space')
     prawn_1 = Image_count('prawn_fish.png')
     prawn_2 = Image_count('prawn_cooked.png', 0.99)
+    prawn_4 = Image_count('anch_cooked.png', 0.99)
+    prawn_3 = Image_count('prawn_burnt.png', 0.99)
     if prawn_1 is None:
         prawn_1 = 0
     if prawn_2 is None:
         prawn_2 = 0
-    all_prawns = int(prawn_1) - int(prawn_2)
+    if prawn_3 is None:
+        prawn_3 = 0
+    if prawn_4 is None:
+        prawn_4 = 0
+    all_prawns = int(prawn_1) - (int(prawn_2) + int(prawn_3) + int(prawn_4))
     while all_prawns > 0:
         prawn_1 = Image_count('prawn_fish.png')
         prawn_2 = Image_count('prawn_cooked.png', 0.99)
+        prawn_4 = Image_count('anch_cooked.png', 0.99)
+        prawn_3 = Image_count('prawn_burnt.png', 0.99)
         if prawn_1 is None:
             prawn_1 = 0
         if prawn_2 is None:
             prawn_2 = 0
-        all_prawns = int(prawn_1) - int(prawn_2)
+        if prawn_3 is None:
+            prawn_3 = 0
+        if prawn_4 is None:
+            prawn_4 = 0
+        all_prawns = int(prawn_1) - (int(prawn_2) + int(prawn_3) + int(prawn_4))
         print('cooking still: ', all_prawns)
         cooking_time = False
         time_start = time.time()
@@ -361,7 +434,4 @@ if __name__ == "__main__":
     y = random.randrange(400, 500)
     pyautogui.click(x, y, button='right')
     #alkarid_powercook_and_fish(Take_Human_Break=False)
-    #rint(xp_gain_check('cooking_xp2.png'))
-    cook_all_fish_fire(Take_Human_Break=False)
-    drop_fish()
-    # make_banking_food(1000, 'wine') # makes 1000 wines at the bank
+    make_banking_food(1532, 'pie_shell') # makes 1000 food at the bank
