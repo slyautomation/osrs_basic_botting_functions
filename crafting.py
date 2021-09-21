@@ -113,7 +113,7 @@ def craft_sapphire_ring():
 def craft_bar_items(num, type, craft_item, run_time_minutes=360):
     # run_time_minutes 6hrs by default
     t_end = time.time() + 60 * run_time_minutes
-    while time.time() < t_end:
+    while time.time() < t_end or num <= 0:
         if type == 2:
             j = round((num) / 13) + 1
         else:
@@ -128,12 +128,15 @@ def craft_bar_items(num, type, craft_item, run_time_minutes=360):
                          }
         barlist = ['gold_bar.png', 'silver_bar.png', 'gold_bar.png']
         while j > 0:
+            invent = invent_enabled()
+            print(invent)
+            if invent == 0:
+                pyautogui.press('esc')
             bank_spot_edgville()
+            bank = get_bank_craft_items(type)
             random_breaks(9.5, 11)
-            deposit_secondItem()
-            random_breaks(0.3, 0.5)
-            pick_options[type]()
-            exit_bank()
+            while bank == 0:
+                bank = get_bank_craft_items(type)
             random_breaks(0.05, 0.2)
             inv = Image_count(barlist[type])  # 0 or 1
             craft_spot_edgville()
@@ -146,7 +149,7 @@ def craft_bar_items(num, type, craft_item, run_time_minutes=360):
                     pyautogui.press('space')
                     random_breaks(0.1, 3)
                     pyautogui.press('space')
-                    a = random.randrange(0, 2)
+                    a = random.randrange(0, 2)         
                     # print(a)
                     spaces(a)
                     craft_spot_edgville()
@@ -155,10 +158,31 @@ def craft_bar_items(num, type, craft_item, run_time_minutes=360):
                 inv = Image_count(barlist[type])
                 print(inv)
             j -= 1
+            num = j
+            print("number of crafting left:", num)
             random_breaks(0.4, 0.8)
 
+def invent_enabled():
+    return Image_count('inventory_enabled.png', threshold=0.9)
 
+def get_bank_craft_items(type):
+    bank = Image_count('bank_deposit.png', 0.75)
+    print("bank deposit open:", bank)
+    pick_options = {0: pick_gold_bars,
+                    1: pick_silver_bars,
+                    2: pick_sapphires
+                    }
+    if bank > 0:
+        deposit_secondItem()
+        random_breaks(0.3, 0.5)
+        pick_options[type]()
+        exit_bank()
+        return bank
+    else:
+        print("bank inventory not found")
+        bank_spot_edgville()
+        return bank
 # run_time_minutes 6hrs by default
 
 if __name__ == "__main__":
-    craft_bar_items(2200, 2, 'sapphire_ring', run_time_minutes=360)
+    craft_bar_items(2000, 0, 'gold_ring', run_time_minutes=360)
