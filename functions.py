@@ -18,8 +18,32 @@ global ibreak
 
 import pytesseract
 
-pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract'
+# change to where pytesseract is installed on your pc
+pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract' 
 
+# change to your user folder where osrs is installed
+
+filename = "C:\\Users\\yourusername\\"
+
+live_file = "jagex_cl_oldschool_LIVE.dat"
+
+random_file = "random.dat"
+try:
+    os.remove(filename + live_file)
+    os.remove(filename + random_file)
+except OSError:
+    pass
+
+filename = "C:\\Users\\yourusername\\jagexcache\\oldschool\\LIVE\\"
+
+for f in os.listdir(filename):
+    try:
+        if not f.startswith("main_file"):
+            os.remove(filename + live_file)
+            continue
+        os.remove(os.path.join(filename, f))
+    except OSError:
+        pass
 
 def deposit_all_Bank():
     banker = 50
