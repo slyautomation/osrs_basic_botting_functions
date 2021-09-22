@@ -151,7 +151,7 @@ def inv_count(name):
 
 
 
-def powerminer_text(ore,manual,num):
+def powerminer_text(ore,manual,num, Take_Human_Break=False):
     powerlist = ['tin', 'copper', 'coal', 'iron', 'iron', 'clay', 'red', 'green', 'amber']
     print(powerlist[ore])
     j = 0
@@ -171,7 +171,10 @@ def powerminer_text(ore,manual,num):
                 findarea_single(num, 150, 150)
             else:
                 findarea_single(ore, 150, 150)
-            random_breaks(0.5, 1)
+            random_breaks(0.5, 1)            
+            if Take_Human_Break:
+                c = random.triangular(0.05, 30, 0.5)
+                time.sleep(c)
 
 
 
