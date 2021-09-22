@@ -39,7 +39,6 @@ filename = "C:\\Users\\yourusername\\jagexcache\\oldschool\\LIVE\\"
 for f in os.listdir(filename):
     try:
         if not f.startswith("main_file"):
-            os.remove(filename + live_file)
             continue
         os.remove(os.path.join(filename, f))
     except OSError:
