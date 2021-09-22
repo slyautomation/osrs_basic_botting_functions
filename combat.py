@@ -71,8 +71,7 @@ def randomizer(timer_breaks, ibreaks):
     if newTime_break == True:
         timer_break = timer()
         ibreak = random.randrange(600, 2000)
-
-         newTime_break = False
+        newTime_break = False
 
     # b = random.uniform(4, 5)
 
