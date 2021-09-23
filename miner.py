@@ -9,7 +9,7 @@ from functions import Image_to_Text
 from functions import random_breaks
 from functions import invent_crop
 from functions import resizeImage
-from PIL import Image
+from PIL import Image, ImageGrab
 
 from functions import random_combat
 from functions import random_quests
