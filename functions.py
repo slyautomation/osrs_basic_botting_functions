@@ -55,11 +55,26 @@ def deposit_all_Bank():
     c = random.uniform(3.5, 4.5)
     time.sleep(c)
 
+ def Miner_Image_quick():
+    left = 150
+    top = 150
+    right = 600
+    bottom = 750
+    im = ImageGrab.grab(bbox=(left, top, right, bottom))
+    im.save('miner_img.png', 'png')
 
 def invent_crop():
     return screen_Image(620, 480, 820, 750, 'inventshot.png')
 
+def resize_quick():
+    left = 40
+    top = 49
+    right = 105
+    bottom = 67
 
+    im = ImageGrab.grab(bbox=(left, top, right, bottom))
+    im.save('screen_resize.png', 'png')
+    
 def random_inventory():
     global newTime_break
     print('inventory tab')
