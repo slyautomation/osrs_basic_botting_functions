@@ -1,3 +1,4 @@
+from PIL import ImageGrab
 
 import core
 import cv2
@@ -7,7 +8,6 @@ global hwnd
 global iflag
 global icoord
 
-import functions
 from functions import Image_count
 from functions import screen_Image
 from functions import Image_to_Text
@@ -23,7 +23,7 @@ from functions import random_breaks
 import time
 import random
 import pyautogui
-import core
+
 global hwnd
 global iflag
 global icoord
@@ -76,8 +76,7 @@ options = {0: random_inventory,
            4: random_pause}
 
 
-def Miner_Image():
-    screen_Image(150, 150, 600, 750, 'miner_img.png')
+
 
 def rim_minetobank():
     c = random.uniform(14, 15)
@@ -133,20 +132,32 @@ def rim_minetobank():
     time.sleep(c)
     c = random.uniform(2.1, 3)
     find_banker()
+    print('finding deposit box')
     time.sleep(c)
     depositbox()
-
+    print('finished deposit end of function')
+    c = random.uniform(1, 5)
+    time.sleep(c)
 def rim_minetoclay():
-
+    print('start of function')
     b = random.uniform(0.175, 0.677)
-    x = random.randrange(705, 710)  # 1755,1765
+    x = random.randrange(710, 725)
     print('x: ', x)
-    y = random.randrange(55, 60)  # 175,185
+    y = random.randrange(50, 60)
     print('y: ', y)
-    c = random.uniform(13, 14)
+    c = random.uniform(10, 12)
     pyautogui.click(x, y, 1, duration=b, button='left')
     time.sleep(c)
-    print('first step to mine clay')
+    print('1st step to mining clay')
+    c = random.uniform(11, 12)
+    x = -5
+    y = -10
+    while Image_Rec_single('clay_deposit_spot2.png', 'To Port Sarmin Watery', x, y, 0.9, 'left') != True:
+        Image_Rec_single('clay_deposit_spot1.png', 'To Port Sarmin Watery', x, y, 0.9, 'left')
+        Image_Rec_single('clay_deposit_spot3.png', 'To Port Sarmin Watery', x, y, 0.9, 'left')
+        print('finding 2nd clay mine step')
+    time.sleep(c)
+    print('2nd step to mine clay')
 
     c = random.uniform(11, 12)
     x = 0
@@ -234,10 +245,18 @@ def Image_Rec_single(image, event, iwidth, iheight, threshold, clicker, ispace=5
         pyautogui.click(icoord, duration=b, button=clicker)
     return iflag
 
-def Miner_Image():
-    screen_Image(150, 150, 600, 750, 'miner_img.png')
-def findarea_single(ore, cropx, cropy):
-    Miner_Image()
+def Miner_Image_quick():
+    left = 150
+    top = 150
+    right = 600
+    bottom = 750
+
+    im = ImageGrab.grab(bbox=(left, top, right, bottom))
+    im.save('miner_img.png', 'png')
+
+
+def findarea_single(ore, cropx=150, cropy=150):
+    Miner_Image_quick()
     image = cv2.imread(r"miner_img.png")
 
     # B, G, R
@@ -251,9 +270,8 @@ def findarea_single(ore, cropx, cropy):
     red = ([0, 0, 180], [80, 80, 255])
     green = ([0, 180, 0], [80, 255, 80])
     amber = ([0, 160, 160], [80, 255, 255])
-    attack_blue = ([220, 220, 0], [255, 255, 15])
     # --------------------- ADD OBJECTS -------------------
-    ore_list = [tin, copper, coal, iron, iron2, clay, red, green, amber,attack_blue]
+    ore_list = [tin, copper, coal, iron, iron2, clay, red, green, amber]
     boundaries = [ore_list[ore]]
     # loop over the boundaries
     for (lower, upper) in boundaries:
@@ -288,7 +306,7 @@ def count_gems2():
 def inv_count(name):
     return Image_count(name + '_ore.png')
 
-def moneymaker_clay():
+def moneymaker_clay(Take_Human_Break=False):
     j = 0
     while j < 10:
         randomizer(timer_break, ibreak)
@@ -302,11 +320,12 @@ def moneymaker_clay():
 
         resizeImage()
         mined_text = Image_to_Text('thresh', 'textshot.png')
-        if mined_text.lower() != 'mining':
-            random_breaks(0.05, 0.1)
+        if mined_text.lower() != 'mining' and mined_text.lower() != 'mininq':
             print('not mining')
-            find_Object_precise(4,10,0,0,650,650)
-
+            findarea_single(6)
+            if Take_Human_Break:
+                c = random.triangular(0.05, 30, 0.5)
+                time.sleep(c)
 
 #rim_minetoclay()
 #rim_minetobank()
@@ -318,5 +337,5 @@ pyautogui.click(x, y, button='right')
 ibreak = random.randrange(300, 2000)
 print('will break in   ' + str(ibreak / 60) + ' minutes')
 timer_break = timer()
-moneymaker_clay()
+moneymaker_clay(True)
 #"""
