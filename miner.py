@@ -74,6 +74,14 @@ options = {0: random_inventory,
            3: random_quests,
            4: random_pause}
 
+def Miner_Image_quick():
+    left = 150
+    top = 150
+    right = 600
+    bottom = 750
+
+    im = ImageGrab.grab(bbox=(left, top, right, bottom))
+    im.save('miner_img.png', 'png')
 
 def Miner_Image():
     screen_Image(150, 150, 600, 750, 'miner_img.png')
@@ -92,7 +100,7 @@ def drop_ore():
 
 
 def findarea_single(ore, cropx, cropy):
-    Miner_Image()
+    Miner_Image_quick()
     image = cv2.imread(r"miner_img.png")
 
     # B, G, R
@@ -165,13 +173,12 @@ def powerminer_text(ore,manual,num, Take_Human_Break=False):
             random_breaks(0.2, 0.7)
         resizeImage()
         mined_text = Image_to_Text('thresh', 'textshot.png')
-        if mined_text.lower() != 'mining':
-            random_breaks(0.05, 0.1)
+        if mined_text.lower() != 'mining' and mined_text.lower() != 'mininq':
+            #random_breaks(0.05, 0.1)
             if manual:
                 findarea_single(num, 150, 150)
             else:
                 findarea_single(ore, 150, 150)
-            random_breaks(0.5, 1)            
             if Take_Human_Break:
                 c = random.triangular(0.05, 30, 0.5)
                 time.sleep(c)
@@ -186,5 +193,5 @@ if __name__ == "__main__":
     ibreak = random.randrange(300, 2000)
     print('will break in   ' + str(ibreak / 60) + ' minutes')
     timer_break = timer()
-    powerminer_text(1, True, 7)
+    powerminer_text(0, True, 7, Take_Human_Break=True) # tin # red
     #powerlist = ['tin', 'copper', 'coal', 'iron', 'iron', 'clay', 'red', 'green', 'amber']
