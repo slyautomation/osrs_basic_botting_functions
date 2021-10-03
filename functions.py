@@ -74,7 +74,36 @@ def resize_quick():
 
     im = ImageGrab.grab(bbox=(left, top, right, bottom))
     im.save('screen_resize.png', 'png')
-    
+ 
+def image_Rec_inventory(image, threshold, clicker, iheight=5, iwidth=5, ispace=10):
+    global icoord
+    global iflag
+    invent_crop()
+    img_rgb = cv2.imread('inventshot.png')
+    img_gray = cv2.cvtColor(img_rgb, cv2.COLOR_BGR2GRAY)
+    template = cv2.imread(image, 0)
+    w, h = template.shape[::-1]
+    pt = None
+    res = cv2.matchTemplate(img_gray, template, cv2.TM_CCOEFF_NORMED)
+    threshold = threshold
+    loc = np.where(res >= threshold)
+    iflag = False
+    for pt in zip(*loc[::-1]):
+        cv2.rectangle(img_rgb, pt, (pt[0] + w, pt[1] + h), (0, 0, 255), 2)
+        if pt is None:
+            iflag = False
+        else:
+            iflag = True
+            x = random.randrange(iwidth, iwidth + ispace)
+            y = random.randrange(iheight, iheight + ispace)
+            icoord = pt[0] + iheight + x
+            icoord = (icoord, pt[1] + iwidth + y)
+            b = random.uniform(0.1, 0.3)
+            pyautogui.moveTo(icoord, duration=b)
+            b = random.uniform(0.05, 0.15)
+            pyautogui.click(icoord, duration=b, button=clicker)
+    return iflag
+
 def random_inventory():
     global newTime_break
     print('inventory tab')
