@@ -4,7 +4,7 @@ import pyautogui
 import random
 import time
 import os
-
+import functions
 import pytesseract
 from PIL import Image
 from functions import Image_count
