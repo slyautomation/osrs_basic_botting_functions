@@ -16,7 +16,7 @@ from functions import random_quests
 from functions import random_skills
 from functions import random_inventory
 from functions import random_breaks
-
+import functions
 import numpy as np
 import cv2
 import time
