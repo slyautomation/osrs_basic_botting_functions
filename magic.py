@@ -14,7 +14,7 @@ from functions import exit_bank
 from functions import Image_Rec_single
 from functions import deposit_secondItem
 
-import core
+import functions
 
 global hwnd
 global iflag
