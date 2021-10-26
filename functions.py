@@ -18,6 +18,7 @@ global timer_break
 global ibreak
 import config_generator
 import pytesseract
+import core
 
 with open("pybot-config.yaml", "r") as yamlfile:
     data = yaml.load(yamlfile, Loader=yaml.FullLoader)
