@@ -5,6 +5,7 @@ import random
 import time
 from PIL import Image, ImageEnhance, ImageOps
 import os
+import yaml
 
 global hwnd
 global iflag
@@ -15,15 +16,16 @@ newTime_break = False
 global timer
 global timer_break
 global ibreak
-
+import config_generator
 import pytesseract
 
-# change to where pytesseract is installed on your pc
-pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract' 
+with open("pybot-config.yaml", "r") as yamlfile:
+    data = yaml.load(yamlfile, Loader=yaml.FullLoader)
 
-# change to your user folder where osrs is installed
 
-filename = "C:\\Users\\yourusername\\"
+pytesseract.pytesseract.tesseract_cmd = data[0]['Config']['tesseract_path']
+
+filename = data[0]['Config']['pc_profile']
 
 live_file = "jagex_cl_oldschool_LIVE.dat"
 
@@ -34,7 +36,8 @@ try:
 except OSError:
     pass
 
-filename = "C:\\Users\\yourusername\\jagexcache\\oldschool\\LIVE\\"
+filename = filename + "\\jagexcache\\oldschool\\LIVE\\"
+
 
 for f in os.listdir(filename):
     try:
