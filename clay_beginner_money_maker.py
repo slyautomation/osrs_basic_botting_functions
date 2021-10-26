@@ -7,7 +7,7 @@ import numpy as np
 global hwnd
 global iflag
 global icoord
-
+import functions
 from functions import Image_count
 from functions import screen_Image
 from functions import Image_to_Text
