@@ -18,7 +18,7 @@ from functions import random_quests
 from functions import random_skills
 from functions import random_inventory
 from functions import image_Rec_clicker
-
+import functions
 # from core import findWindow_runelite
 
 
