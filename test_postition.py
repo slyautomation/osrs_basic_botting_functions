@@ -6,7 +6,7 @@ import time
 import os
 from PIL import Image
 import pytesseract
-
+import functions
 from functions import screen_Image
 from functions import image_Rec_clicker
 from functions import random_combat
