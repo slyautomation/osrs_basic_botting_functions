@@ -7,36 +7,14 @@ import os
 import functions
 import pytesseract
 from PIL import Image
-from functions import Image_count
-from functions import image_Rec_clicker
-from functions import screen_Image
-from functions import release_drop_item
-from functions import drop_item
-from functions import Image_to_Text
-from functions import random_breaks
-from functions import invent_crop
-from functions import Image_Rec_single
-from functions import resizeImage
-from functions import skill_lvl_up
-from functions import spaces
-from functions import mini_map_image
-from functions import random_combat
-from functions import random_quests
-from functions import random_skills
-from functions import random_inventory
-from functions import random_breaks
-from functions import find_Object
-from functions import xp_gain_check
+from functions import Image_count, image_Rec_clicker, screen_Image, 
+    release_drop_item, drop_item, Image_to_Text, random_breaks, 
+    invent_crop,Image_Rec_single,resizeImage,skill_lvl_up,spaces,mini_map_image,
+    random_combat,random_quests, random_skills,random_inventory,random_breaks, find_Object,xp_gain_check
 
-global hwnd
-global iflag
-global icoord
+global hwnd,iflag,icoord, newTime_break,timer,timer_break,ibreak
 iflag = False
-global newTime_break
 newTime_break = False
-global timer
-global timer_break
-global ibreak
 
 
 def random_break(start, c):
@@ -74,7 +52,6 @@ def random_pause():
     newTime_break = True
 
 
-pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract'
 iflag = False
 
 options = {0: random_inventory,
@@ -114,20 +91,21 @@ def pick_random_tree_spot():
     find_Object(2)  # amber
 
 
-def powercutter(type, firemaking=False, spot=''):
+def powercutter(type, firemaking=False, spot='', num=2, Take_Human_Break=True, Run_Duration_hours=6):
     j = 0
     if firemaking:
         inv = 26
     else:
         inv = 27
-    while j < 10:
+    t_end = time.time() + (60 * 60 * Run_Duration_hours)
+    while time.time() < t_end:
         randomizer(timer_break, ibreak)
         resizeImage()
         fished = Image_to_Text('thresh', 'textshot.png')
         # print(fished)
         if fished.lower() != 'woodcutting' and fished.lower() != 'joodcuttine' and fished.lower() != 'foodcuttir' and fished.lower() != 'foodcuttin' and fished.lower() != 'joodcuttinc':
             random_breaks(0.2, 3)
-            pick_random_tree_spot()
+            pick_random_tree_spot(num)
             random_breaks(5, 7)
         if skill_lvl_up() != 0:
             print('level up')
@@ -145,7 +123,8 @@ def powercutter(type, firemaking=False, spot=''):
             if firemaking:
                 firespot(spot)
                 random_breaks(5, 8)
-                while invent_count > 15:
+                d = random.randrange(15, 20)
+                while invent_count > d:
                     invent_count = Image_count(type + '_icon.png')
                     print("wood: ", invent_count)
                     random_breaks(0.1, 0.3)
@@ -168,9 +147,9 @@ def powercutter(type, firemaking=False, spot=''):
 
             random_breaks(0.2, 0.7)
             drop_wood(type)
-            random_breaks(0.2, 0.7)
-            pick_random_tree_spot()
-
+            if Take_Human_Break:
+                c = random.triangular(0.1, 50, 5)
+                time.sleep(c)
 
 if __name__ == "__main__":
     time.sleep(2)
@@ -183,4 +162,4 @@ if __name__ == "__main__":
     timer_break = timer()
     firespots = ['firespot_varrock_wood', 'firespot_draynor_willow', 'firespot_draynor_oak'
         , 'firespot_farador_oak', 'firespot_draynor_wood']
-    powercutter('oak', True, 'firespot_draynor_oak')
+    powercutter('wood', False, '', 0, Take_Human_Break=True, Run_Duration_hours=1.5)
