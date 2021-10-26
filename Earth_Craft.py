@@ -7,7 +7,7 @@ import argparse
 
 import multiprocessing
 from multiprocessing import Process, Pipe
-
+import functions
 global hwnd
 global iflag
 global icoord
