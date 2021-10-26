@@ -11,7 +11,7 @@ from functions import random_skills
 from functions import random_inventory
 from functions import random_breaks
 from functions import Image_Rec_single
-
+import functions
 global hwnd
 global iflag
 global icoord
