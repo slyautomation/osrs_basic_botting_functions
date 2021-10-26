@@ -1,7 +1,7 @@
 import pyautogui
 import random
 import time
-
+import functions
 import pytesseract
 from functions import Image_count
 from functions import skill_lvl_up
@@ -16,8 +16,6 @@ from functions import find_Object_precise
 from functions import exit_bank
 from functions import Image_Rec_single
 from functions import deposit_secondItem
-
-import core
 
 global hwnd
 global iflag
