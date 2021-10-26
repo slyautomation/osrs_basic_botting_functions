@@ -2,7 +2,7 @@
 import pyautogui
 import random
 import time
-
+import functions
 
 import pytesseract
 from functions import Image_count
