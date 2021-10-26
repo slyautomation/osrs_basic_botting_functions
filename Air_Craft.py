@@ -9,6 +9,7 @@ global iflag
 global icoord
 from PIL import Image
 from functions import mini_map_image, random_breaks, Image_count, mini_map_bool
+import functions
 
 iflag = False
 
