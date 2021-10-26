@@ -27,7 +27,6 @@ from functions import random_inventory
 from functions import random_breaks
 from functions import find_Object
 from functions import xp_gain_check
-import core
 
 global hwnd
 global iflag
