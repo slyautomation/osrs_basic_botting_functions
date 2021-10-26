@@ -63,6 +63,10 @@ options = {0: random_inventory,
 
 def drop_wood(type):
     print("dropping wood starting...")
+    invent = functions.invent_enabled()
+    print(invent)
+    if invent == 0:
+        pyautogui.press('esc')
     invent_crop()
     drop_item()
     image_Rec_clicker(type + '_icon.png', 'dropping item', 5, 5, 0.9, 'left', 10, 620, 480, False)
@@ -117,6 +121,10 @@ def powercutter(type, firemaking=False, spot='', num=2, Take_Human_Break=True, R
             # print(a)
             spaces(a)
         # invent_crop()
+        invent = functions.invent_enabled()
+        print(invent)
+        if invent == 0:
+            pyautogui.press('esc')
         invent_count = Image_count(type + '_icon.png')
         print("wood: ", invent_count)
         if invent_count > inv:
