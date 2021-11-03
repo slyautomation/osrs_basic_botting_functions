@@ -43,7 +43,7 @@ test = []
 root = Tk()
 
 root.title('Sly OSRS PyBot_Config')
-root.geometry('680x420')
+root.geometry('715x465')
 root.configure(background='#40362C')
 Font_tuple = ('Unispace', 15)
 Font_tuple_entry = ('Unispace', 10)
@@ -66,11 +66,43 @@ while x < len(config_list) + 1:
 x = 1
 while x < len(config_list) + 1:
     txt = Entry(root,width=50, background='#40362C', fg='yellow')
-    txt.insert(-1, (config_list[(x - 1)][1]) )
+    txt.insert(-1, (config_list[(x - 1)][1]))
     txt.configure(font=Font_tuple_entry)
     test.append(txt)
     txt.grid(column=1, row=x)
     x += 1
+
+is_on = True
+# Define Our Images
+image1 = Image.open('switch-on.png')
+image1 = image1.convert('RGBA')
+h = (50, 50)
+image1.thumbnail(h, Image.NORMAL)
+on = ImageTk.PhotoImage(image1)
+image2 = Image.open('switch-off.png')
+image2 = image2.convert('RGBA')
+h = (50, 50)
+image2.thumbnail(h, Image.NORMAL)
+off = ImageTk.PhotoImage(image2)
+
+
+def toggle():
+    global is_on
+
+    if is_on:
+        toggle_btn.config(image=off)
+        is_on = False
+    else:
+        toggle_btn.config(image=on)
+        is_on = True
+
+lbl = Label(root, text=('Tesseract'), background='#40362C', fg='yellow', padx=20)
+lbl.configure(font=Font_tuple)
+lbl.grid(column=0, row=len(config_list) + 1)
+
+toggle_btn = Button(image=on, width=50, background='#40362C', activebackground='#40362C', bd=0, relief=None, fg='yellow', command=toggle)
+toggle_btn.grid(column=0, row=5, columnspan=2, pady=2)
+
 
 def clicked():
     c_title = test[0].get()
@@ -102,6 +134,6 @@ btn = Button(root, text='Generate Config File', fg='yellow',
   command=clicked,
   background='#40362C',
   pady=0)
-btn.grid(column=0, row=6, columnspan=2, pady=20)
+btn.grid(column=0, row=6, columnspan=2, pady=2)
 btn.configure(font=Font_tuple)
 root.mainloop()
