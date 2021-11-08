@@ -1,8 +1,6 @@
 import pyautogui
 import random
 import time
-import pytesseract
-#from cooking_v2 import deposit_burnt_cooked, cook_items
 from fishing import pick_random_fishing_spot
 
 from functions import random_combat, skill_lvl_up, Image_to_Text, spaces, resizeImage, find_Object_precise
@@ -64,8 +62,8 @@ def timer():
     return startTime
 
 
-pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract'
 iflag = False
+
 
 
 def bank_booth():
@@ -109,21 +107,37 @@ def deposit_secondItem():
 
 
 def pizza():
-    a = random.uniform(0.1, 0.35)
-    bank_booth()
+    a = random.triangular(0.1, 0.5, 5)
+    bank = False
+    while bank == False:
+        find_Object_precise(1, 5, 0, 0, 620, 775)
+        b = random.triangular(0.1, 10, 0.5)
+        time.sleep(b)
+        bank = functions.bank_ready(False)
+        print("bank deposit open:", bank)
     pick_item(490, 635)  # deposit all
-    pick_item(375, 125)  # pizza
-    pick_item(425, 125)  # grapes
+    print('deposited')
+    pick_item(135, 125)  # flour
+    pick_item(185, 125)  # water
+    print('items taken')
     time.sleep(a)
-    a = random.uniform(0.05, 0.2)
     exit_bank()
+    invent = functions.invent_enabled()
+    print(invent)
+    if invent == 0:
+        pyautogui.press('esc')
+    a = random.triangular(0.1, 0.5, 5)
     time.sleep(a)
-    pick_item_right(660, 515)
+    pick_item(660, 515)
     pick_item(745, 625)
-    a = random.uniform(1, 2)
+    a = random.triangular(1, 2, 5)
     time.sleep(a)
-    pyautogui.press('space')
-    a = random.uniform(17.5, 19)
+    pyautogui.press('3')
+    inv = Image_count('flour.png')
+    while inv > 2:
+        time.sleep(0.6)
+        inv = Image_count('flour.png', 0.97)
+        print(inv)
     time.sleep(a)
     print("ready")
 
@@ -167,20 +181,34 @@ def apple_pie():
     print("ready")
 
 def pastry():
-    a = random.uniform(0.1, 0.35)
-    bank_booth()
+    a = random.triangular(0.1, 0.5, 5)
+    bank = False
+    while bank == False:
+        find_Object_precise(1, 5, 0, 0, 860, 775)
+        b = random.triangular(0.1, 10, 0.5)
+        time.sleep(b)
+        bank = functions.bank_ready(False)
+        print("bank deposit open:", bank)
     pick_item(490, 635)  # deposit all
+    print('deposited')
     pick_item(135, 125)  # flour
     pick_item(185, 125)  # water
+    print('items taken')
     time.sleep(a)
-    a = random.uniform(0.05, 0.2)
     exit_bank()
+    invent = functions.invent_enabled()
+    print(invent)
+    if invent == 0:
+        pyautogui.press('esc')
+    a = random.triangular(0.1, 0.5, 5)
     time.sleep(a)
+
     pick_item(660, 515)
     pick_item(745, 625)
     a = random.uniform(1, 2)
     time.sleep(a)
     pyautogui.press('2')
+    inv = Image_count('flour.png')
     a = random.uniform(17.5, 19)
     time.sleep(a)
     print("ready")
@@ -434,4 +462,4 @@ if __name__ == "__main__":
     y = random.randrange(400, 500)
     pyautogui.click(x, y, button='right')
     #alkarid_powercook_and_fish(Take_Human_Break=False)
-    make_banking_food(1532, 'pie_shell') # makes 1000 food at the bank
+    make_banking_food(1000, 'pizza') # makes 1000 food at the bank
