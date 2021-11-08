@@ -81,7 +81,7 @@ Tutorial: TBA
 ### Setup
 - Create txt file on desktop paths.txt, the modified plugin shortest_path-5.0.0.jar saves the coordinates when a path target is made in osrs. 
 - ![image](https://user-images.githubusercontent.com/81003470/140734894-c097bde1-4448-4e2c-898b-a6fc4238ca98.png)
-- https://user-images.githubusercontent.com/81003470/140738691-507cb2df-af81-412e-b99c-eab4d0eb25d0.mp4
+- ![ezgif com-gif-maker (1)](https://user-images.githubusercontent.com/81003470/140738915-4ba2106a-ec4f-4a89-97e9-46eacca6f792.gif)
 
 
 
