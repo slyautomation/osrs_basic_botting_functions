@@ -63,10 +63,6 @@ options = {0: random_inventory,
 
 def drop_wood(type):
     print("dropping wood starting...")
-    invent = functions.invent_enabled()
-    print(invent)
-    if invent == 0:
-        pyautogui.press('esc')
     invent_crop()
     drop_item()
     image_Rec_clicker(type + '_icon.png', 'dropping item', 5, 5, 0.9, 'left', 10, 620, 480, False)
@@ -77,8 +73,9 @@ def drop_wood(type):
 def firespot(spot):
     firespots = ['firespot_varrock_wood', 'firespot_draynor_willow', 'firespot_draynor_oak'
         , 'firespot_farador_oak', 'firespot_draynor_wood', 'firespot_lumbridge_wood']
-
-    xy_firespots = [[45, 57], [50, 40], [80, 40], [25, 20], [25, 20], [0, -5]]
+    x_dy = random.randrange(-40,-30)
+    y_dy = random.randrange(15,25)
+    xy_firespots = [[45, 57], [50, 40], [80, 40], [x_dy, y_dy], [25, 20], [0, -5]]
 
     x = xy_firespots[firespots.index(spot)][0]
     y = xy_firespots[firespots.index(spot)][1]
@@ -91,11 +88,30 @@ def firespot(spot):
     # print(mini_map_image(spot + '.png', 25, 20, 0.7, 'left', 5, 0))  # draynor wood
 
 
-def pick_random_tree_spot():
-    find_Object(2)  # amber
+def bank_spot():
+    find_Object_precise(1, 5, 0, 0, 860, 775)
+def pick_random_tree_spot(num):
+    find_Object(num)  # 2 = amber
+
+def invent_enabled():
+    return Image_count('inventory_enabled.png', threshold=0.9)
 
 
-def powercutter(type, firemaking=False, spot='', num=2, Take_Human_Break=True, Run_Duration_hours=6):
+def deposit_bank_items():
+    bank = Image_count('bank_deposit.png', 0.75)
+    if bank > 0:
+        deposit_secondItem()
+        random_breaks(0.3, 0.5)
+        exit_bank()
+        mini_map_image('draynor_bank_spot.png', 35, 40, 0.7, 'left', 15, 10)
+        return bank
+    else:
+        print("bank inventory not found")
+        bank_spot()
+        random_breaks(5, 10)
+        return bank
+
+def powercutter(type, firemaking=False, bank_items=False, spot='', num=2, Take_Human_Break=True, Run_Duration_hours=6):
     j = 0
     if firemaking:
         inv = 26
@@ -121,7 +137,7 @@ def powercutter(type, firemaking=False, spot='', num=2, Take_Human_Break=True, R
             # print(a)
             spaces(a)
         # invent_crop()
-        invent = functions.invent_enabled()
+        invent = invent_enabled()
         print(invent)
         if invent == 0:
             pyautogui.press('esc')
@@ -152,12 +168,25 @@ def powercutter(type, firemaking=False, spot='', num=2, Take_Human_Break=True, R
                             invent_count = 0
                             fire = True
                             break
-
-            random_breaks(0.2, 0.7)
-            drop_wood(type)
+            if bank_items:
+                invent = invent_enabled()
+                print(invent)
+                if invent == 0:
+                    pyautogui.press('esc')
+                bank_spot()
+                bank = deposit_bank_items()
+                random_breaks(9.5, 11)
+                while bank == 0:
+                    bank = deposit_bank_items()
+            else:
+                random_breaks(0.2, 0.7)
+                drop_wood(type)
             if Take_Human_Break:
                 c = random.triangular(0.1, 50, 5)
                 time.sleep(c)
+
+
+
 
 if __name__ == "__main__":
     time.sleep(2)
@@ -166,8 +195,8 @@ if __name__ == "__main__":
     y = random.randrange(400, 500)
     pyautogui.click(x, y, button='right')
     ibreak = random.randrange(300, 2000)
-    print('will break in   ' + str(ibreak / 60) + ' minutes')
+    print('will br   eak in   ' + str(ibreak / 60) + ' minutes')
     timer_break = timer()
     firespots = ['firespot_varrock_wood', 'firespot_draynor_willow', 'firespot_draynor_oak'
         , 'firespot_farador_oak', 'firespot_draynor_wood']
-    powercutter('wood', False, '', 0, Take_Human_Break=True, Run_Duration_hours=1.5)
+    powercutter('oak', firemaking=False, bank_items=True, spot='', num=2, Take_Human_Break=True, Run_Duration_hours=5)
