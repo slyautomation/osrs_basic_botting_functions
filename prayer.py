@@ -128,14 +128,17 @@ def click_closest_object(color=0):
     return False
 
 
-x = 0
-while x < 10:
-    if click_closest_object(color=0):
-        print('got item')  # pick up highlighted loot
-        c = random.uniform(5, 8)
+def gather_bones_prayer(Run_Duration_hours=3):
+    t_end = time.time() + (60 * 60 * Run_Duration_hours)
+    while time.time() < t_end:
+        if click_closest_object(color=0):
+            print('got item')  # pick up highlighted loot
+            c = random.uniform(5, 8)
+            time.sleep(c)
+        if image_Rec_clicker('bones_icon.png', 'bury bones', 5, 5, 0.7, 'left', 10):
+            c = random.uniform(0.6, 1)
+            time.sleep(c)
+        c = random.uniform(0.1, 1)
         time.sleep(c)
-    if image_Rec_clicker('bones_icon.png', 'bury bones', 5, 5, 0.7, 'left', 10):
-        c = random.uniform(0.6, 1)
-        time.sleep(c)
-    c = random.uniform(0.1, 1)
-    time.sleep(c)
+
+gather_bones_prayer(3)
