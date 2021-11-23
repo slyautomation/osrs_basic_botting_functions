@@ -58,8 +58,8 @@ def deposit_all_Bank():
     pyautogui.click(duration=b, button='left')
     c = random.uniform(3.5, 4.5)
     time.sleep(c)
-
- def Miner_Image_quick():
+    
+def Miner_Image_quick():
     left = 150
     top = 150
     right = 600
