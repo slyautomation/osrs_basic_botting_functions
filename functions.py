@@ -19,6 +19,7 @@ global ibreak
 import config_generator
 import pytesseract
 import core
+import platform
 
 with open("pybot-config.yaml", "r") as yamlfile:
     data = yaml.load(yamlfile, Loader=yaml.FullLoader)
@@ -37,7 +38,10 @@ try:
 except OSError:
     pass
 
-filename = filename + "\\jagexcache\\oldschool\\LIVE\\"
+if platform.system() == 'Windows':
+    filename = filename + "\\jagexcache\\oldschool\\LIVE\\"
+else:
+    filename = filename + "/jagexcache/oldschool/LIVE/"
 
 
 for f in os.listdir(filename):
