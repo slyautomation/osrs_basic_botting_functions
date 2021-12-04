@@ -4,17 +4,41 @@ import pyautogui
 import random
 import time
 import os
-import functions
+import datetime
 import pytesseract
-from PIL import Image
-from functions import Image_count, image_Rec_clicker, screen_Image, 
-    release_drop_item, drop_item, Image_to_Text, random_breaks, 
-    invent_crop,Image_Rec_single,resizeImage,skill_lvl_up,spaces,mini_map_image,
-    random_combat,random_quests, random_skills,random_inventory,random_breaks, find_Object,xp_gain_check
+from PIL import Image, ImageGrab
 
-global hwnd,iflag,icoord, newTime_break,timer,timer_break,ibreak
+import functions
+from functions import Image_count
+from functions import image_Rec_clicker
+from functions import screen_Image
+from functions import release_drop_item
+from functions import drop_item
+from functions import Image_to_Text
+from functions import random_breaks
+from functions import invent_crop
+from functions import Image_Rec_single
+from functions import skill_lvl_up
+from functions import spaces
+from functions import mini_map_image
+from functions import random_combat
+from functions import random_quests
+from functions import random_skills
+from functions import random_inventory
+from functions import random_breaks
+from functions import find_Object
+from functions import xp_gain_check
+import core
+
+global hwnd
+global iflag
+global icoord
 iflag = False
+global newTime_break
 newTime_break = False
+global timer
+global timer_break
+global ibreak
 
 
 def random_break(start, c):
@@ -60,6 +84,23 @@ options = {0: random_inventory,
            3: random_quests,
            4: random_pause}
 
+def resize_quick():
+    left = 15
+    top = 49
+    right = 130
+    bottom = 72
+
+    im = ImageGrab.grab(bbox=(left, top, right, bottom))
+    im.save('screen_resize.png', 'png')
+def resizeImage():
+    resize_quick()
+    png = 'screen_resize.png'
+    im = Image.open(png)
+    # saves new cropped image
+    width, height = im.size
+    new_size = (width * 4, height * 4)
+    im1 = im.resize(new_size)
+    im1.save('textshot.png')
 
 def drop_wood(type):
     print("dropping wood starting...")
@@ -73,88 +114,77 @@ def drop_wood(type):
 def firespot(spot):
     firespots = ['firespot_varrock_wood', 'firespot_draynor_willow', 'firespot_draynor_oak'
         , 'firespot_farador_oak', 'firespot_draynor_wood', 'firespot_lumbridge_wood']
-    x_dy = random.randrange(-40,-30)
-    y_dy = random.randrange(15,25)
-    xy_firespots = [[45, 57], [50, 40], [80, 40], [x_dy, y_dy], [25, 20], [0, -5]]
+
+    xy_firespots = [[45, 57], [50, 40], [80, 40], [25, 20], [25, 20], [0, -5]]
 
     x = xy_firespots[firespots.index(spot)][0]
     y = xy_firespots[firespots.index(spot)][1]
 
-    print(mini_map_image(spot + '.png', x, y, 0.7, 'left', 5, 0))
+    print(mini_map_image(spot + '.png', x, y, 0.7, 'left', 15, 0))
     # print(mini_map_image(spot + '.png',  45, 57, 0.7, 'left', 5, 0)) # varrock wood
     # print(mini_map_image(spot + '.png', 50, 40, 0.7, 'left', 5, 0)) # draynor willow
     # print(mini_map_image(spot + '.png', 80, 40, 0.7, 'left', 5, 0)) # draynor oak
     # print(mini_map_image(spot + '.png', 25, 20, 0.7, 'left', 5, 0))  # farador oak
     # print(mini_map_image(spot + '.png', 25, 20, 0.7, 'left', 5, 0))  # draynor wood
 
-
-def bank_spot():
-    find_Object_precise(1, 5, 0, 0, 860, 775)
-def pick_random_tree_spot(num):
-    find_Object(num)  # 2 = amber
-
 def invent_enabled():
     return Image_count('inventory_enabled.png', threshold=0.9)
 
+def bank_spot():
+    functions.find_Object_precise(1, 5, 0, 0, 860, 775)
 
-def deposit_bank_items():
+def deposit_bank_items(type):
     bank = Image_count('bank_deposit.png', 0.75)
     if bank > 0:
-        deposit_secondItem()
+        functions.deposit_secondItem()
         random_breaks(0.3, 0.5)
-        exit_bank()
-        mini_map_image('draynor_bank_spot.png', 35, 40, 0.7, 'left', 15, 10)
+        functions.exit_bank()
+        if type == 'willow':
+            mini_map_image('draynor_bank_spot.png', -20, 80, 0.7, 'left', 15, 10)
+        elif type == 'oak':
+            mini_map_image('draynor_bank_spot.png', 35, 40, 0.7, 'left', 15, 10)
+        else:
+            mini_map_image('draynor_bank_spot.png', 35, 40, 0.7, 'left', 15, 10)
         return bank
     else:
         print("bank inventory not found")
         bank_spot()
         random_breaks(5, 10)
         return bank
+def pick_random_tree_spot():
+    find_Object(0)  # 0 red # 2 amber
 
-def powercutter(type, firemaking=False, bank_items=False, spot='', num=2, Take_Human_Break=True, Run_Duration_hours=6):
-    j = 0
+
+def powercutter(type, firemaking=False, bank_items=True, spot='', ws=1, we=2, Take_Human_Break=False, Run_Duration_hours=6):
+    t_end = time.time() + (60 * 60 * Run_Duration_hours)
+    # using the datetime.fromtimestamp() function
+    date_time = datetime.datetime.fromtimestamp(t_end)
+    print(date_time)
     if firemaking:
         inv = 26
     else:
         inv = 27
-    t_end = time.time() + (60 * 60 * Run_Duration_hours)
     while time.time() < t_end:
         randomizer(timer_break, ibreak)
-        resizeImage()
-        fished = Image_to_Text('thresh', 'textshot.png')
-        # print(fished)
-        if fished.lower() != 'woodcutting' and fished.lower() != 'joodcuttine' and fished.lower() != 'foodcuttir' and fished.lower() != 'foodcuttin' and fished.lower() != 'joodcuttinc':
-            random_breaks(0.2, 3)
-            pick_random_tree_spot(num)
-            random_breaks(5, 7)
-        if skill_lvl_up() != 0:
-            print('level up')
-            random_breaks(0.2, 3)
-            pyautogui.press('space')
-            random_breaks(0.1, 3)
-            pyautogui.press('space')
-            a = random.randrange(0, 2)
-            # print(a)
-            spaces(a)
+
         # invent_crop()
-        invent = invent_enabled()
-        print(invent)
-        if invent == 0:
-            pyautogui.press('esc')
         invent_count = Image_count(type + '_icon.png')
         print("wood: ", invent_count)
+        if firemaking:
+            inv = ws
         if invent_count > inv:
             if firemaking:
-                firespot(spot)
+                if spot != '':
+                    firespot(spot)
                 random_breaks(5, 8)
-                d = random.randrange(15, 20)
-                while invent_count > d:
+                w = random.randrange(ws, we)
+                while invent_count > w:
                     invent_count = Image_count(type + '_icon.png')
                     print("wood: ", invent_count)
-                    random_breaks(0.1, 0.3)
-                    Image_Rec_single('tinderbox.png', 'burning wood', 5, 5, 0.9, 'left', 8, 620, 480, False)
-                    random_breaks(0.1, 0.3)
-                    Image_Rec_single(type + '_icon.png', 'burning wood', 5, 5, 0.9, 'left', 8, 620, 480, False)
+                    random_breaks(0.1, 2)
+                    Image_Rec_single('tinderbox.png', 'burning wood', 5, 5, 0.9, 'left', 8, False)
+                    random_breaks(0.1, 1)
+                    Image_Rec_single(type + '_icon.png', 'burning wood', 5, 5, 0.9, 'left', 8, False)
                     fire = False
                     time_start = time.time()
                     while not fire:
@@ -174,20 +204,33 @@ def powercutter(type, firemaking=False, bank_items=False, spot='', num=2, Take_H
                 if invent == 0:
                     pyautogui.press('esc')
                 bank_spot()
-                bank = deposit_bank_items()
+                random_breaks(9.5, 11)
+                bank = deposit_bank_items(type)
                 random_breaks(9.5, 11)
                 while bank == 0:
-                    bank = deposit_bank_items()
-            else:
-                random_breaks(0.2, 0.7)
-                drop_wood(type)
-            if Take_Human_Break:
-                c = random.triangular(0.1, 50, 5)
-                time.sleep(c)
-
-
-
-
+                    bank = deposit_bank_items(type)
+            random_breaks(0.2, 5)
+            drop_wood(type)
+            random_breaks(0.2, 5)
+        resizeImage()
+        fished = Image_to_Text('thresh', 'textshot.png')
+        # print(fished)
+        if fished.lower() != 'woodcutting' and fished.lower() != 'voodcutting' and fished.lower() != 'joodcuttine' and fished.lower() != 'foodcuttir' and fished.lower() != 'foodcuttin' and fished.lower() != 'joodcuttinc':
+            random_breaks(0.2, 3)
+            pick_random_tree_spot()
+            random_breaks(8, 10)
+        if skill_lvl_up() != 0:
+            print('level up')
+            random_breaks(0.2, 3)
+            pyautogui.press('space')
+            random_breaks(0.1, 3)
+            pyautogui.press('space')
+            a = random.randrange(0, 2)
+            # print(a)
+            spaces(a)
+        if Take_Human_Break:
+            c = random.triangular(0.1, 50, 3)
+            time.sleep(c)
 if __name__ == "__main__":
     time.sleep(2)
     resizeImage()
@@ -195,8 +238,8 @@ if __name__ == "__main__":
     y = random.randrange(400, 500)
     pyautogui.click(x, y, button='right')
     ibreak = random.randrange(300, 2000)
-    print('will br   eak in   ' + str(ibreak / 60) + ' minutes')
+    print('will break in   ' + str(ibreak / 60) + ' minutes')
     timer_break = timer()
     firespots = ['firespot_varrock_wood', 'firespot_draynor_willow', 'firespot_draynor_oak'
         , 'firespot_farador_oak', 'firespot_draynor_wood']
-    powercutter('oak', firemaking=False, bank_items=True, spot='', num=2, Take_Human_Break=True, Run_Duration_hours=5)
+    powercutter('willow', firemaking=False, bank_items=True, spot='', Take_Human_Break=True, Run_Duration_hours=4)
