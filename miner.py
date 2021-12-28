@@ -1,4 +1,5 @@
-#from core import findWindow_runelite
+
+import datetime
 
 from functions import Image_count
 from functions import image_Rec_clicker
@@ -16,7 +17,7 @@ from functions import random_quests
 from functions import random_skills
 from functions import random_inventory
 from functions import random_breaks
-import functions
+
 import numpy as np
 import cv2
 import time
@@ -32,7 +33,7 @@ newTime_break = False
 global timer
 global timer_break
 global ibreak
-
+import slyautomation_title
 
 
 
@@ -87,16 +88,17 @@ def Miner_Image():
     screen_Image(150, 150, 600, 750, 'miner_img.png')
 
 def drop_ore():
-    print("dropping ore starting...")
+    #print("dropping ore starting...")
     invent_crop()
     drop_item()
-    image_Rec_clicker(r'copper_ore.png', 'dropping item', 5, 5, 0.9, 'left', 20, 620, 480, False)
-    image_Rec_clicker(r'clay_ore.png', 'dropping item', 5, 5, 0.9, 'left', 20, 620, 480, False)
-    image_Rec_clicker(r'coal_ore.png', 'dropping item', 5, 5, 0.9, 'left', 20,  620, 480, False)
-    image_Rec_clicker(r'iron_ore.png', 'dropping item', 5, 5, 0.9, 'left', 20, 620, 480, False)
-    image_Rec_clicker(r'tin_ore.png', 'dropping item', 5, 5, 0.9, 'left', 20, 620, 480, False)
+    image_Rec_clicker(r'copper_ore.png', 'dropping item', threshold=0.8, playarea=False)
+    image_Rec_clicker(r'clay_ore.png', 'dropping item', threshold=0.8, playarea=False)
+    image_Rec_clicker(r'coal_ore.png', 'dropping item', threshold=0.8, playarea=False)
+    image_Rec_clicker(r'iron_ore.png', 'dropping item', threshold=0.8, playarea=False)
+    image_Rec_clicker(r'tin_ore.png', 'dropping item', threshold=0.8, playarea=False)
     release_drop_item()
-    print("dropping ore done")
+    #print("dropping ore done")
+    return "dropping ore done"
 
 
 def findarea_single(ore, cropx, cropy):
@@ -134,13 +136,14 @@ def findarea_single(ore, cropx, cropy):
 
         x, y, w, h = cv2.boundingRect(c)
         x = random.randrange(x + 5, x + max(w - 5, 6)) + cropx  # 950,960
-        print('x: ', x)
+        #print('x: ', x)
         y = random.randrange(y + 5, y + max(h - 5, 6)) + cropy # 490,500
-        print('y: ', y)
+        #print('y: ', y)
         b = random.uniform(0.1, 0.3)
         pyautogui.moveTo(x, y, duration=b)
         b = random.uniform(0.07, 0.11)
         pyautogui.click(duration=b)
+        return (x, y)
 
 
 def count_gems():
@@ -156,33 +159,42 @@ def inv_count(name):
     return Image_count(name + '_ore.png')
 
 
+def print_progress(time_left, spot, mined_text, powerlist, ore, actions):
+    print(
+        f'\rtime left: {time_left} | coords: {spot} | miner status: {mined_text} | ore: {int(inv_count(powerlist[ore]))} | gems: {int(count_gems() + count_gems2())} | clues: {int(count_geo())} | actions: {actions}',
+        end='')
 
-
-
-def powerminer_text(ore,manual,num, Take_Human_Break=False):
-    powerlist = ['tin', 'copper', 'coal', 'iron', 'iron', 'clay', 'red', 'green', 'amber']
-    print(powerlist[ore])
-    j = 0
-    while j < 10:
+def powerminer_text(ore, num, Take_Human_Break=False, Run_Duration_hours=5):
+    spot = (0,0)
+    actions = 'None'
+    mined_text = 'Not Mining'
+    powerlist = ['tin', 'copper', 'coal', 'iron', 'gold', 'clay', 'red', 'green', 'amber']
+    print("Mine Ore Selected:", powerlist[ore])
+    t_end = time.time() + (60 * 60 * Run_Duration_hours)
+    while time.time() < t_end:
+        time_left = str(datetime.timedelta(seconds=round(t_end - time.time(), 0)))
+        actions = 'None'
         randomizer(timer_break, ibreak)
         r = random.uniform(0.1, 5)
         inventory = int(inv_count(powerlist[ore])) + int(count_gems()) + int(count_gems2()) + int(count_geo())
-        print('ore: ', int(inventory), "| gems: ", int(count_gems() + count_gems2()), "| clues: ", int(count_geo()))
         if inventory > 27:
-            drop_ore()
+            actions = 'dropping ore starting...'
+            print_progress(time_left, spot, mined_text, powerlist, ore, actions)
+            actions = drop_ore()
+            print_progress(time_left, spot, mined_text, powerlist, ore, actions)
             random_breaks(0.2, 0.7)
-        resizeImage()
         mined_text = Image_to_Text('thresh', 'textshot.png')
         if mined_text.lower() != 'mining' and mined_text.lower() != 'mininq':
+            mined_text = 'Not Mining'
+            print_progress(time_left, spot, mined_text, powerlist, ore, actions)
             #random_breaks(0.05, 0.1)
-            if manual:
-                findarea_single(num, 150, 150)
-            else:
-                findarea_single(ore, 150, 150)
+            spot = findarea_single(num, 150, 150)
             if Take_Human_Break:
                 c = random.triangular(0.05, 30, 0.5)
                 time.sleep(c)
-
+        else:
+            mined_text = 'Mining'
+        print_progress(time_left, spot, mined_text, powerlist, ore, actions)
 
 
 if __name__ == "__main__":
@@ -191,7 +203,7 @@ if __name__ == "__main__":
     y = random.randrange(400, 500)
     pyautogui.click(x, y, button='right')
     ibreak = random.randrange(300, 2000)
-    print('will break in   ' + str(ibreak / 60) + ' minutes')
+    print('Will break in: ' + str(ibreak / 60) + ' minutes')
     timer_break = timer()
-    powerminer_text(0, True, 7, Take_Human_Break=True) # tin # red
-    #powerlist = ['tin', 'copper', 'coal', 'iron', 'iron', 'clay', 'red', 'green', 'amber']
+    powerminer_text(3, 6, Take_Human_Break=False, Run_Duration_hours=2) # tin # red
+    #powerlist = ['tin', 'copper', 'coal', 'iron', 'gold', 'clay', 'red', 'green', 'amber']
