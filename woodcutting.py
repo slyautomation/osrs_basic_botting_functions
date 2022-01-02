@@ -14,7 +14,6 @@ from functions import image_Rec_clicker
 from functions import screen_Image
 from functions import release_drop_item
 from functions import drop_item
-from functions import Image_to_Text
 from functions import random_breaks
 from functions import invent_crop
 from functions import Image_Rec_single
@@ -84,29 +83,11 @@ options = {0: random_inventory,
            3: random_quests,
            4: random_pause}
 
-def resize_quick():
-    left = 15
-    top = 49
-    right = 130
-    bottom = 72
-
-    im = ImageGrab.grab(bbox=(left, top, right, bottom))
-    im.save('screen_resize.png', 'png')
-def resizeImage():
-    resize_quick()
-    png = 'screen_resize.png'
-    im = Image.open(png)
-    # saves new cropped image
-    width, height = im.size
-    new_size = (width * 4, height * 4)
-    im1 = im.resize(new_size)
-    im1.save('textshot.png')
-
 def drop_wood(type):
     print("dropping wood starting...")
     invent_crop()
     drop_item()
-    image_Rec_clicker(type + '_icon.png', 'dropping item', 5, 5, 0.9, 'left', 10, 620, 480, False)
+    image_Rec_clicker(type + '_icon.png', 'dropping item', 5, 5, 0.9, 'left', 10, False)
     release_drop_item()
     print("dropping wood done")
 
@@ -140,22 +121,89 @@ def deposit_bank_items(type):
         random_breaks(0.3, 0.5)
         functions.exit_bank()
         if type == 'willow':
-            mini_map_image('draynor_bank_spot.png', -20, 80, 0.7, 'left', 15, 10)
+            mini_map_image('draynor_bank_spot.png', 10, 10, 0.7, 'left', 0, 75)
         elif type == 'oak':
-            mini_map_image('draynor_bank_spot.png', 35, 40, 0.7, 'left', 15, 10)
+            mini_map_image('draynor_bank_spot.png', 10, 10, 0.7, 'left', 55, 40)
         else:
-            mini_map_image('draynor_bank_spot.png', 35, 40, 0.7, 'left', 15, 10)
+            mini_map_image('draynor_bank_spot.png', 10, 10, 0.7, 'left', 55, 40)
         return bank
     else:
         print("bank inventory not found")
         bank_spot()
         random_breaks(5, 10)
         return bank
-def pick_random_tree_spot():
-    find_Object(0)  # 0 red # 2 amber
+def pick_random_tree_spot(color):
+    if color == 'red':
+        find_Object(0)  # 0 red # 2 amber
+    else:
+        find_Object(2)  # 0 red # 2 amber
 
+def change_brown_black():
+    # Load the aerial image and convert to HSV colourspace
+    image = cv2.imread("textshot.png")
+    #hsv = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
+    # define the list of boundaries
+    # BGR
+    # Define lower and uppper limits of what we call "brown"
+    brown_lo = np.array([0, 0, 0])
+    brown_hi = np.array([60, 80, 85])
 
-def powercutter(type, firemaking=False, bank_items=True, spot='', ws=1, we=2, Take_Human_Break=False, Run_Duration_hours=6):
+    # Mask image to only select browns
+    mask = cv2.inRange(image, brown_lo, brown_hi)
+
+    # Change image to red where we found brown
+    image[mask > 0] = (0, 0, 0)
+
+    cv2.imwrite("textshot.png", image)
+def resize_quick():
+    left = 25
+    top = 49
+    right = 135
+    bottom = 70
+
+    im = ImageGrab.grab(bbox=(left, top, right, bottom))
+    im.save('screen_resize.png', 'png')
+def resizeImage():
+    resize_quick()
+    png = 'screen_resize.png'
+    im = Image.open(png)
+    # saves new cropped image
+    width, height = im.size
+    new_size = (width * 4, height * 4)
+    im1 = im.resize(new_size)
+    im1.save('textshot.png')
+
+def Image_to_Text(preprocess, image, parse_config='--psm 7'):
+    resizeImage()
+    change_brown_black()
+    # construct the argument parse and parse the arguments
+    image = cv2.imread(image)
+    image = cv2.bitwise_not(image)
+    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    # check to see if we should apply thresholding to preprocess the
+    # image
+    if preprocess == "thresh":
+        gray = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)[1]
+    # make a check to see if median blurring should be done to remove
+    # noise
+    if preprocess == "blur":
+        gray = cv2.medianBlur(gray, 3)
+
+    if preprocess == 'adaptive':
+        gray = cv2.adaptiveThreshold(gray, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 31, 2)
+
+    # write the grayscale image to disk as a temporary file so we can
+    # apply OCR to it
+    filename = "{}.png".format(os.getpid())
+    cv2.imwrite(filename, gray)
+    # load the image as a PIL/Pillow image, apply OCR, and then delete
+    # the temporary file
+    with Image.open(filename) as im:
+        text = pytesseract.image_to_string(im, config=parse_config)
+    os.remove(filename)
+    #print(text)
+    return text
+def powercutter(color, type, firemaking=False, bank_items=True, spot='', ws=1, we=2, Take_Human_Break=False, Run_Duration_hours=6):
     t_end = time.time() + (60 * 60 * Run_Duration_hours)
     # using the datetime.fromtimestamp() function
     date_time = datetime.datetime.fromtimestamp(t_end)
@@ -166,7 +214,10 @@ def powercutter(type, firemaking=False, bank_items=True, spot='', ws=1, we=2, Ta
         inv = 27
     while time.time() < t_end:
         randomizer(timer_break, ibreak)
-
+        invent = functions.invent_enabled()
+        print(invent)
+        if invent == 0:
+            pyautogui.press('esc')
         # invent_crop()
         invent_count = Image_count(type + '_icon.png')
         print("wood: ", invent_count)
@@ -214,10 +265,10 @@ def powercutter(type, firemaking=False, bank_items=True, spot='', ws=1, we=2, Ta
             random_breaks(0.2, 5)
         resizeImage()
         fished = Image_to_Text('thresh', 'textshot.png')
-        # print(fished)
-        if fished.lower() != 'woodcutting' and fished.lower() != 'voodcutting' and fished.lower() != 'joodcuttine' and fished.lower() != 'foodcuttir' and fished.lower() != 'foodcuttin' and fished.lower() != 'joodcuttinc':
+        print(fished)
+        if fished.lower() != 'woodcutting' and fished.lower() != 'uoodcutting' and fished.lower() != 'voodcutting' and fished.lower() != 'joodcuttine' and fished.lower() != 'foodcuttir' and fished.lower() != 'foodcuttin' and fished.lower() != 'joodcuttinc':
             random_breaks(0.2, 3)
-            pick_random_tree_spot()
+            pick_random_tree_spot(color)
             random_breaks(8, 10)
         if skill_lvl_up() != 0:
             print('level up')
@@ -231,6 +282,8 @@ def powercutter(type, firemaking=False, bank_items=True, spot='', ws=1, we=2, Ta
         if Take_Human_Break:
             c = random.triangular(0.1, 50, 3)
             time.sleep(c)
+
+#mini_map_image('draynor_bank_spot.png', 10, 10, 0.8, 'left', 65, 55)
 if __name__ == "__main__":
     time.sleep(2)
     resizeImage()
@@ -242,4 +295,4 @@ if __name__ == "__main__":
     timer_break = timer()
     firespots = ['firespot_varrock_wood', 'firespot_draynor_willow', 'firespot_draynor_oak'
         , 'firespot_farador_oak', 'firespot_draynor_wood']
-    powercutter('willow', firemaking=False, bank_items=True, spot='', Take_Human_Break=True, Run_Duration_hours=4)
+    powercutter('red', 'willow', firemaking=False, bank_items=True, spot='', Take_Human_Break=False, Run_Duration_hours=1)
