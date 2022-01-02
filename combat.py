@@ -5,9 +5,11 @@ import random
 import time
 import argparse
 import os
+import core
 global hwnd
 global iflag
 global icoord
+import datetime
 import pytesseract
 from PIL import Image, ImageGrab
 from functions import Image_to_Text, findarea_attack_quick
@@ -18,8 +20,6 @@ from functions import random_skills
 from functions import random_inventory
 from functions import image_Rec_clicker
 import functions
-# from core import findWindow_runelite
-
 
 iflag = False
 
@@ -74,7 +74,8 @@ def randomizer(timer_breaks, ibreaks):
     # b = random.uniform(4, 5)
 
 
-def powerattack_text(monster='chicken', burybones=True, Take_Human_Break=False, Run_Duration_hours=6):
+
+def powerattack_text(monster='chicken', burybones=True, Pickup_loot=False, Take_Human_Break=False, Run_Duration_hours=6):
     t_end = time.time() + (60 * 60 * Run_Duration_hours)
     # using the datetime.fromtimestamp() function
     date_time = datetime.datetime.fromtimestamp(t_end)
@@ -85,6 +86,7 @@ def powerattack_text(monster='chicken', burybones=True, Take_Human_Break=False, 
         r = random.uniform(0.1, 5)
         resizeImage()
         mined = Image_to_Text('thresh', 'textshot.png')
+        print(mined)
         print(monster_array[group])
         attack = 0
         for monsters in monster_array[group]:
@@ -94,12 +96,13 @@ def powerattack_text(monster='chicken', burybones=True, Take_Human_Break=False, 
         if attack == len(monster_array[group]):
             d = random.uniform(0.05, 0.1)
             time.sleep(d)
-            if burybones and image_Rec_clicker('bones_icon.png', 'bury bones', 5, 5, 0.7, 'left', 5, 620, 480, False):
+            if burybones and image_Rec_clicker('bones_icon.png', 'bury bones', 5, 5, 0.7, 'left', 5, False):
                 c = random.uniform(0.6, 1)
                 time.sleep(c)
-            if findarea_attack_quick(2, 5):  # pick up highlighted loot
-                c = random.uniform(3, 5)
-                time.sleep(c)
+            if Pickup_loot:
+                if findarea_attack_quick(2, 5):  # pick up highlighted loot
+                    c = random.uniform(3, 5)
+                    time.sleep(c)
             if findarea_attack_quick(3):  # attack npc/monster
                 c = random.uniform(3, 5)
                 time.sleep(c)
@@ -112,10 +115,10 @@ if __name__ == "__main__":
     # do whatever you do
     # ----- UPDATE WITH ALL VARIATIONS OF MONSTER'S IMAGE TO TEXT RESULT IN LINE WITH MONSTER_LIST -----
     monster_array = [
-        ['chicken'], ['guard', 'gua rd'], ['cow', 'cou'], ['monk'], ['imp'], ['skeleton']
+        ['chicken'], ['guard', 'gua rd'], ['cow', 'cou'], ['monk'], ['imp'], ['skeleton'], ['dwarf', 'dwarf‘']
     ]
     # --------------------------------------------------------------------------------------------------
-    monster_list = ['chicken', 'guard', 'cow', 'monk', 'imp', 'skeleton']
+    monster_list = ['chicken', 'guard', 'cow', 'monk', 'imp', 'skeleton', 'dwarf']
 
     resizeImage()
     x = random.randrange(100, 250)
@@ -124,4 +127,5 @@ if __name__ == "__main__":
     ibreak = random.randrange(300, 2000)
     print('will break in   ' + str(ibreak / 60) + ' minutes')
     timer_break = timer()
-    powerattack_text('guard', Take_Human_Break=True, Run_Duration_hours=4)
+    powerattack_text('cow', Take_Human_Break=False, Run_Duration_hours=4)
+    #os.system('shutdown -s -f')
