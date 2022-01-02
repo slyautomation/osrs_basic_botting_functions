@@ -5,7 +5,7 @@ import cv2
 import pyautogui
 import random
 import time
-
+import slyautomation_title
 import yaml
 from PIL import Image, ImageEnhance, ImageOps, ImageGrab
 import os
