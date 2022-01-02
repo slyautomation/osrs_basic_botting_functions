@@ -1,11 +1,14 @@
+import platform
+
 import numpy as np
 import cv2
 import pyautogui
 import random
 import time
-from PIL import Image, ImageEnhance, ImageOps
-import os
+
 import yaml
+from PIL import Image, ImageEnhance, ImageOps, ImageGrab
+import os
 
 global hwnd
 global iflag
@@ -16,10 +19,9 @@ newTime_break = False
 global timer
 global timer_break
 global ibreak
-import config_generator
-import pytesseract
+#import config_generator
 import core
-import platform
+import pytesseract
 
 with open("pybot-config.yaml", "r") as yamlfile:
     data = yaml.load(yamlfile, Loader=yaml.FullLoader)
@@ -38,11 +40,10 @@ try:
 except OSError:
     pass
 
-if platform.system() == 'Windows':
-    filename = filename + "\\jagexcache\\oldschool\\LIVE\\"
-else:
+if platform.system() == 'Linux' or platform.system() == 'Mac':
     filename = filename + "/jagexcache/oldschool/LIVE/"
-
+else:
+    filename = filename + "\\jagexcache\\oldschool\\LIVE\\"
 
 for f in os.listdir(filename):
     try:
@@ -51,6 +52,9 @@ for f in os.listdir(filename):
         os.remove(os.path.join(filename, f))
     except OSError:
         pass
+
+print('files deleted')
+import core
 
 def deposit_all_Bank():
     banker = 50
@@ -62,55 +66,11 @@ def deposit_all_Bank():
     pyautogui.click(duration=b, button='left')
     c = random.uniform(3.5, 4.5)
     time.sleep(c)
-    
-def Miner_Image_quick():
-    left = 150
-    top = 150
-    right = 600
-    bottom = 750
-    im = ImageGrab.grab(bbox=(left, top, right, bottom))
-    im.save('miner_img.png', 'png')
+
 
 def invent_crop():
     return screen_Image(620, 480, 820, 750, 'inventshot.png')
 
-def resize_quick():
-    left = 40
-    top = 49
-    right = 105
-    bottom = 67
-
-    im = ImageGrab.grab(bbox=(left, top, right, bottom))
-    im.save('screen_resize.png', 'png')
- 
-def image_Rec_inventory(image, threshold, clicker, iheight=5, iwidth=5, ispace=10):
-    global icoord
-    global iflag
-    invent_crop()
-    img_rgb = cv2.imread('inventshot.png')
-    img_gray = cv2.cvtColor(img_rgb, cv2.COLOR_BGR2GRAY)
-    template = cv2.imread(image, 0)
-    w, h = template.shape[::-1]
-    pt = None
-    res = cv2.matchTemplate(img_gray, template, cv2.TM_CCOEFF_NORMED)
-    threshold = threshold
-    loc = np.where(res >= threshold)
-    iflag = False
-    for pt in zip(*loc[::-1]):
-        cv2.rectangle(img_rgb, pt, (pt[0] + w, pt[1] + h), (0, 0, 255), 2)
-        if pt is None:
-            iflag = False
-        else:
-            iflag = True
-            x = random.randrange(iwidth, iwidth + ispace)
-            y = random.randrange(iheight, iheight + ispace)
-            icoord = pt[0] + iheight + x
-            icoord = (icoord, pt[1] + iwidth + y)
-            b = random.uniform(0.1, 0.3)
-            pyautogui.moveTo(icoord, duration=b)
-            b = random.uniform(0.05, 0.15)
-            pyautogui.click(icoord, duration=b, button=clicker)
-    return iflag
 
 def random_inventory():
     global newTime_break
@@ -164,8 +124,16 @@ def random_quests():
     newTime_break = True
 
 
+def resize_quick():
+    left = 40
+    top = 49
+    right = 105
+    bottom = 67
+
+    im = ImageGrab.grab(bbox=(left, top, right, bottom))
+    im.save('screen_resize.png', 'png')
 def resizeImage():
-    screen_Image(40, 49, 105, 67, 'screen_resize.png')
+    resize_quick()
     png = 'screen_resize.png'
     im = Image.open(png)
     # saves new cropped image
@@ -175,7 +143,18 @@ def resizeImage():
     im1.save('textshot.png')
 
 
+def Miner_Image_quick():
+    left = 150
+    top = 150
+    right = 600
+    bottom = 750
+
+    im = ImageGrab.grab(bbox=(left, top, right, bottom))
+    im.save('miner_img.png', 'png')
+
 def Image_to_Text(preprocess, image, parse_config='--psm 7'):
+    resizeImage()
+    change_brown_black()
     # construct the argument parse and parse the arguments
     image = cv2.imread(image)
     image = cv2.bitwise_not(image)
@@ -198,15 +177,21 @@ def Image_to_Text(preprocess, image, parse_config='--psm 7'):
     cv2.imwrite(filename, gray)
     # load the image as a PIL/Pillow image, apply OCR, and then delete
     # the temporary file
-    text = pytesseract.image_to_string(Image.open(filename), config=parse_config)
+    with Image.open(filename) as im:
+        text = pytesseract.image_to_string(im, config=parse_config)
     os.remove(filename)
-    print(text)
+    #print(text)
     return text
 
+def screen_Image_new(name='screenshot.png'):
+    x, y, w, h = core.getWindow(data[0]['Config']['client_title'])
+    im = ImageGrab.grab(bbox=(x, y, x+w, y+h))
+    im.save(name, 'png')
 
 def screen_Image(left=0, top=0, right=0, bottom=0, name='screenshot.png'):
-    myScreenshot = pyautogui.screenshot()
-    myScreenshot.save(r'screenshot.png')
+
+    myScreenshot = ImageGrab.grab() #pyautogui.screenshot()
+    myScreenshot.save('screenshot.png', 'png')
     if left != 0 or top != 0 or right != 0 or bottom != 0:
         png = 'screenshot.png'
         im = Image.open(png)  # uses PIL library to open image in memory
@@ -215,15 +200,15 @@ def screen_Image(left=0, top=0, right=0, bottom=0, name='screenshot.png'):
         # print('screeenshot saved')
 
 
-def Image_color():
-    screen_Image()
-    image = cv2.imread('screenshot.png')
+def Image_color_new():
+    screen_Image_new('screenshot2.png')
+    image = cv2.imread('screenshot2.png')
     # define the list of boundaries
     red = ([0, 0, 180], [80, 80, 255])  # 0 Index
     green = ([0, 180, 0], [80, 255, 80])  # 1 Index
-    amber = ([0, 200, 200], [60, 255, 255])  # 2 Index
-    pickup_high = ([250, 0, 167], [255, 5, 172])  # 3 Index
-    attack_blue = ([250, 250, 0], [255, 255, 5])
+    amber = ([0, 170, 170], [170, 255, 255])  # 2 Index
+    pickup_high = ([150, 0, 100], [255, 60, 160])  # 3 Index
+    attack_blue = ([200, 200, 0], [255, 255, 5])
 
     boundaries = [
         red, green, amber, pickup_high, attack_blue
@@ -240,6 +225,35 @@ def Image_color():
         output = cv2.bitwise_and(image, image, mask=mask)
         # show the images
         cv2.imshow("images", np.hstack([image, output]))
+        cv2.moveWindow("images", 20, 20);
+        cv2.waitKey(0)
+
+def Image_color(left=0, top=0, right=0, bottom=0):
+    screen_Image(left, top, right, bottom)
+    image = cv2.imread('screenshot.png')
+    # define the list of boundaries
+    red = ([0, 0, 180], [80, 80, 255])  # 0 Index
+    green = ([0, 180, 0], [80, 255, 80])  # 1 Index
+    amber = ([0, 170, 170], [170, 255, 255])  # 2 Index
+    pickup_high = ([150, 0, 100], [255, 60, 160])  # 3 Index
+    attack_blue = ([200, 200, 0], [255, 255, 5])
+
+    boundaries = [
+        red, green, amber, pickup_high, attack_blue
+    ]
+
+    # loop over the boundaries
+    for (lower, upper) in boundaries:
+        # create NumPy arrays from the boundaries
+        lower = np.array(lower, dtype="uint8")
+        upper = np.array(upper, dtype="uint8")
+        # find the colors within the specified boundaries and apply
+        # the mask
+        mask = cv2.inRange(image, lower, upper)
+        output = cv2.bitwise_and(image, image, mask=mask)
+        # show the images
+        cv2.imshow("images", np.hstack([image, output]))
+        cv2.moveWindow("images", 20, 20);
         cv2.waitKey(0)
 
 
@@ -256,12 +270,39 @@ def exit_bank():
     pyautogui.click(duration=b, button='left')
     time.sleep(c)
 
+def teleport_home_new():
+    x, y, w, h = core.getWindow(data[0]['Config']['client_title'])
+    pyautogui.press('esc')
+    random_breaks(0.1, 0.3)
+    pyautogui.press('f6')
+    random_breaks(0.1, 0.3)
+    pick_item(x+w - 170, y+h - 305)
+
 def teleport_home():
     pyautogui.press('esc')
     random_breaks(0.1, 0.3)
     pyautogui.press('f6')
     random_breaks(0.1, 0.3)
     pick_item(1928-1280, 498)
+
+
+def change_brown_black():
+    # Load the aerial image and convert to HSV colourspace
+    image = cv2.imread("textshot.png")
+    #hsv = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
+    # define the list of boundaries
+    # BGR
+    # Define lower and uppper limits of what we call "brown"
+    brown_lo = np.array([0, 0, 0])
+    brown_hi = np.array([60, 80, 85])
+
+    # Mask image to only select browns
+    mask = cv2.inRange(image, brown_lo, brown_hi)
+
+    # Change image to red where we found brown
+    image[mask > 0] = (0, 0, 0)
+
+    cv2.imwrite("textshot.png", image)
 
 def find_Object_precise(item, deep=20, left=0, top=0, right=0, bottom=0):
     screen_Image(left, top, right, bottom)
@@ -274,7 +315,7 @@ def find_Object_precise(item, deep=20, left=0, top=0, right=0, bottom=0):
     green = ([0, 180, 0], [80, 255, 80])  # 1 Index
     amber = ([0, 200, 200], [60, 255, 255])  # 2 Index
     pickup_high = ([250, 0, 167], [255, 5, 172])  # 3 Index
-    attack_blue = ([250, 250, 0], [255, 255, 5])
+    attack_blue = ([200, 200, 0], [255, 255, 5])
     object_list = [red, green, amber, pickup_high, attack_blue]
     boundaries = [object_list[item]]
 
@@ -306,9 +347,81 @@ def find_Object_precise(item, deep=20, left=0, top=0, right=0, bottom=0):
         b = random.uniform(0.01, 0.05)
         pyautogui.click(duration=b)
         return True
-    else:
-        return False
+    return False
 
+def add_blank_square_to_image(filename, left, top):
+    image_name_output = 'blank_image.png'
+    mode = 'RGBA'
+    size = (25, 25)
+    color = (255, 255, 255, 255)
+    im = Image.new(mode, size, color)
+    im.save(image_name_output, 'PNG')
+    im.close()
+    pos = (400 - left, 415 - top)
+    frontImage = Image.open(image_name_output)
+    background = Image.open(filename)
+    background.paste(frontImage, pos, frontImage.convert('RGBA'))
+    background.save('screenshot.png', format='png')
+
+def find_Object_closest(item, left=0, top=0, right=0, bottom=0, clicker='left', size=1):
+    screen_Image(left, top, right, bottom)
+    add_blank_square_to_image('screenshot.png', left, top)
+    image = cv2.imread('screenshot.png')
+
+    # define the list of boundaries
+    # B, G, R
+
+    red = ([0, 0, 180], [80, 80, 255])  # 0 Index
+    green = ([0, 180, 0], [80, 255, 80])  # 1 Index
+    amber = ([0, 200, 200], [60, 255, 255])  # 2 Index
+    pickup_high = ([250, 0, 167], [255, 5, 172])  # 3 Index
+    attack_blue = ([200, 200, 0], [255, 255, 5]) # 4
+    object_list = [red, green, amber, pickup_high, attack_blue]
+    boundaries = [object_list[item]]
+    close_list = []
+    close_points = []
+    pos = (423, 434)
+    # loop over the boundaries
+    for (lower, upper) in boundaries:
+        # create NumPy arrays from the boundaries
+        lower = np.array(lower, dtype="uint8")
+        upper = np.array(upper, dtype="uint8")
+        # find the colors within the specified boundaries and apply
+        # the mask
+        mask = cv2.inRange(image, lower, upper)
+        output = cv2.bitwise_and(image, image, mask=mask)
+        cv2.imwrite("res1.png", np.hstack([image, output]))
+        ret, thresh = cv2.threshold(mask, 40, 255, 0)
+        contours, hierarchy = cv2.findContours(thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
+        cnt = contours
+        for c in cnt:
+            print(cv2.contourArea(c))
+            print(cv2.boundingRect(c))
+            if cv2.contourArea(c) > size:
+                x1, y1, w1, h1 = cv2.boundingRect(c)
+                close_list.append(abs(abs(pos[0] - x1) + abs(pos[1] - y1)))
+                close_points.append((x1, y1))
+    if len(contours) == 0:
+        print('not found')
+        return False
+    print(close_list)
+    print(close_points)
+    if len(close_list) == 0:
+       return False
+    min_value = min(close_list)
+    min_index = close_list.index(min_value)
+    coords = close_points[min_index]
+    print(coords)
+    print('min_value:', min_value, '| min_index:', min_index)
+    x = random.randrange(5, 20)
+    y = random.randrange(5, 20)
+    icoord = coords[0] + x + left
+    icoord = (icoord, coords[1] + y + top)
+    b = random.uniform(0.2, 0.7)
+    pyautogui.moveTo(icoord, duration=b)
+    b = random.uniform(0.1, 0.3)
+    pyautogui.click(icoord, duration=b, button=clicker)
+    return close_points
 
 def find_Object(item, left=0, top=0, right=0, bottom=0):
     screen_Image(left, top, right, bottom)
@@ -320,8 +433,8 @@ def find_Object(item, left=0, top=0, right=0, bottom=0):
     red = ([0, 0, 180], [80, 80, 255])  # 0 Index
     green = ([0, 180, 0], [80, 255, 80])  # 1 Index
     amber = ([0, 200, 200], [60, 255, 255])  # 2 Index
-    pickup_high = ([250, 0, 167], [255, 5, 172])  # 3 Index
-    attack_blue = ([250, 250, 0], [255, 255, 5])
+    pickup_high = ([150, 0, 100], [255, 60, 160])  # 3 Index
+    attack_blue = ([200, 200, 0], [255, 255, 5])
     object_list = [red, green, amber, pickup_high, attack_blue]
     boundaries = [object_list[item]]
 
@@ -337,8 +450,114 @@ def find_Object(item, left=0, top=0, right=0, bottom=0):
         ret, thresh = cv2.threshold(mask, 40, 255, 0)
         contours, hierarchy = cv2.findContours(thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
     if len(contours) != 0:
+        print(len(contours))
         # find the biggest countour (c) by the area
         c = max(contours, key=cv2.contourArea)
+        #print('max:', c)
+        x, y, w, h = cv2.boundingRect(c)
+
+        x = random.randrange(x + 5, x + max(w - 5, 6)) + left  # 950,960
+        print('x: ', x)
+        y = random.randrange(y + 5, y + max(h - 5, 6)) + top  # 490,500
+        print('y: ', y)
+        b = random.uniform(0.2, 0.4)
+        pyautogui.moveTo(x, y, duration=b)
+        b = random.uniform(0.01, 0.05)
+        pyautogui.click(duration=b)
+        return True
+    else:
+        return False
+
+def find_Object_right_quick(item, left=0, top=0, right=0, bottom=0, y_range=40):
+    screen_Image(left, top, right, bottom)
+    image = cv2.imread('screenshot.png')
+
+    # define the list of boundaries
+    # B, G, R
+
+    red = ([0, 0, 180], [80, 80, 255])  # 0 Index
+    green = ([0, 180, 0], [80, 255, 80])  # 1 Index
+    amber = ([0, 200, 200], [60, 255, 255])  # 2 Index
+    pickup_high = ([250, 0, 167], [255, 5, 172])  # 3 Index
+    attack_blue = ([200, 200, 0], [255, 255, 5])
+    object_list = [red, green, amber, pickup_high, attack_blue]
+    boundaries = [object_list[item]]
+
+    # loop over the boundaries
+    for (lower, upper) in boundaries:
+        # create NumPy arrays from the boundaries
+        lower = np.array(lower, dtype="uint8")
+        upper = np.array(upper, dtype="uint8")
+        # find the colors within the specified boundaries and apply
+        # the mask
+        mask = cv2.inRange(image, lower, upper)
+        output = cv2.bitwise_and(image, image, mask=mask)
+        ret, thresh = cv2.threshold(mask, 40, 255, 0)
+        contours, hierarchy = cv2.findContours(thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
+        cnt = contours[0]
+        a = cv2.pointPolygonTest(cnt, (pyautogui.position()[0], pyautogui.position()[1]), True)
+        print(a)
+    if len(contours) != 0:
+        print(len(contours))
+        # find the biggest countour (c) by the area
+        c = max(contours, key=cv2.contourArea)
+        #print('max:', c)
+        x, y, w, h = cv2.boundingRect(c)
+
+        x = random.randrange(x + 5, x + max(w - 5, 6))  # 950,960
+        print('x: ', x)
+        y = random.randrange(y + 5, y + max(h - 5, 6))  # 490,500
+        print('y: ', y)
+        b = random.uniform(0.05, 0.1)
+        pyautogui.moveTo(x, y, duration=b)
+        b = random.uniform(0.01, 0.05)
+        pyautogui.click(duration=b, button='right')
+        d = random.uniform(0.2,0.4)
+        time.sleep(d)
+        b = random.uniform(0.01, 0.05)
+        c = random.randrange(0, 40)
+        y = random.randrange(y_range, y_range+5)
+        pyautogui.move(c, y, duration=b)
+        b = random.uniform(0.05, 0.1)
+        pyautogui.click(duration=b)
+        return True
+    else:
+        return False
+
+def find_Object_right(item, left=0, top=0, right=0, bottom=0, y_range=40):
+    screen_Image(left, top, right, bottom)
+    image = cv2.imread('screenshot.png')
+
+    # define the list of boundaries
+    # B, G, R
+
+    red = ([0, 0, 180], [80, 80, 255])  # 0 Index
+    green = ([0, 180, 0], [80, 255, 80])  # 1 Index
+    amber = ([0, 200, 200], [60, 255, 255])  # 2 Index
+    pickup_high = ([250, 0, 167], [255, 5, 172])  # 3 Index
+    attack_blue = ([200, 200, 0], [255, 255, 5])
+    object_list = [red, green, amber, pickup_high, attack_blue]
+    boundaries = [object_list[item]]
+
+    # loop over the boundaries
+    for (lower, upper) in boundaries:
+        # create NumPy arrays from the boundaries
+        lower = np.array(lower, dtype="uint8")
+        upper = np.array(upper, dtype="uint8")
+        # find the colors within the specified boundaries and apply
+        # the mask
+        mask = cv2.inRange(image, lower, upper)
+        output = cv2.bitwise_and(image, image, mask=mask)
+        ret, thresh = cv2.threshold(mask, 40, 255, 0)
+        contours, hierarchy = cv2.findContours(thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
+        cnt = contours[0]
+        a = cv2.pointPolygonTest(cnt, (pyautogui.position()[0], pyautogui.position()[1]), True)
+        print(a)
+    if len(contours) != 0:
+        print(len(contours))
+        # find the biggest countour (c) by the area
+        c = max(contours, key=cv2.contourArea)
+        #print('max:', c)
         x, y, w, h = cv2.boundingRect(c)
 
         x = random.randrange(x + 5, x + max(w - 5, 6))  # 950,960
@@ -348,9 +567,18 @@ def find_Object(item, left=0, top=0, right=0, bottom=0):
         b = random.uniform(0.2, 0.4)
         pyautogui.moveTo(x, y, duration=b)
         b = random.uniform(0.01, 0.05)
+        pyautogui.click(duration=b, button='right')
+        d = random.uniform(0.2,0.5)
+        time.sleep(d)
+        b = random.uniform(0.01, 0.05)
+        c = random.randrange(0, 40)
+        y = random.randrange(y_range, y_range+5)
+        pyautogui.move(c, y, duration=b)
+        b = random.uniform(0.1, 0.3)
         pyautogui.click(duration=b)
-
-
+        return True
+    else:
+        return False
 def spaces(a):
     if a == 1:
         d = random.uniform(0.05, 0.1)
@@ -369,7 +597,7 @@ def spaces(a):
 
 def skill_lvl_up():
     counter = 0
-    myScreenshot = pyautogui.screenshot()
+    myScreenshot = ImageGrab.grab()
     myScreenshot.save(r"screen.png")
     img_rgb = cv2.imread(r"screen.png")
     img_gray = cv2.cvtColor(img_rgb, cv2.COLOR_BGR2GRAY)
@@ -384,6 +612,21 @@ def skill_lvl_up():
     # cv2.imwrite('res.png', img_rgb)
     return counter
 
+def skill_lvl_up_new():
+    counter = 0
+    screen_Image_new("screen.png")
+    img_rgb = cv2.imread(r"screen.png")
+    img_gray = cv2.cvtColor(img_rgb, cv2.COLOR_BGR2GRAY)
+    template = cv2.imread('Congrats_flag.png', 0)
+    w, h = template.shape[::-1]
+    res = cv2.matchTemplate(img_gray, template, cv2.TM_CCOEFF_NORMED)
+    threshold = 0.8
+    loc = np.where(res >= threshold)
+    for pt in zip(*loc[::-1]):
+        cv2.rectangle(img_rgb, pt, (pt[0] + w, pt[1] + h), (0, 0, 255), 2)
+        counter += 1
+    # cv2.imwrite('res.png', img_rgb)
+    return counter
 
 def pick_item_right(v, u, option=1):
     c = random.uniform(0.3, 0.7)
@@ -423,6 +666,17 @@ def pick_item_right(v, u, option=1):
     c = random.uniform(0.1, 0.4)
     time.sleep(c)
 
+def pick_item_new(v, u):
+    c = random.uniform(0.3, 0.7)
+    d = random.uniform(0.05, 0.15)
+    x = random.randrange(v, v + 1)
+    print('x: ', x)
+    y = random.randrange(u, u + 1)
+    b = random.uniform(0.2, 0.6)
+    pyautogui.moveTo(x, y, duration=b)
+    time.sleep(d)
+    pyautogui.click(button='left')
+    time.sleep(c)
 
 def pick_item(v, u):
     c = random.uniform(0.3, 0.7)
@@ -436,6 +690,12 @@ def pick_item(v, u):
     pyautogui.click(button='left')
     time.sleep(c)
 
+def deposit_secondItem_new():
+    x, y, w, h = core.getWindow(data[0]['Config']['client_title'])
+    if w > 940:
+        pick_item(x+w - 115, y+h - 255)
+    else:
+        pick_item(x+w - 115, y+h - 295)
 
 def deposit_secondItem():
     c = random.uniform(0.3, 0.7)
@@ -452,6 +712,58 @@ def deposit_secondItem():
     time.sleep(c)
 
 def mini_map_image(image, iwidth=0, iheight=0, threshold=0.7, clicker='left', xspace=0, yspace=0):
+    screen_Image(1941 - 1280, 27, 2106 - 1280, 190, 'mini_map.png')
+    img_rgb = cv2.imread('mini_map.png')
+    #print('screenshot taken')
+    img_gray = cv2.cvtColor(img_rgb, cv2.COLOR_BGR2GRAY)
+    template = cv2.imread(image, 0)
+    # w, h = template.shape[::-1]
+    pt = None
+    #print('getting match requirements')
+    res = cv2.matchTemplate(img_gray, template, cv2.TM_CCOEFF_NORMED)
+    threshold = threshold
+    loc = np.where(res >= threshold)
+    #print('determine loc and threshold')
+    for pt in zip(*loc[::-1]):
+        ass = 1
+        #cv2.rectangle(img_rgb, pt, (pt[0] + w, pt[1] + h), (0, 0, 255), 2)
+        #print('contour found')
+    if pt is None:
+        print(False)
+        return False
+    else:
+        # cv2.imwrite('res.png', img_rgb)
+        x = random.randrange(xspace, iwidth + 1 + xspace) + (1941 - 1280)
+        y = random.randrange(yspace, iheight + 1 + yspace) + 27
+        icoord = pt[0] + x
+        icoord = (icoord, pt[1] + y)
+        b = random.uniform(0.2, 0.7)
+        pyautogui.moveTo(icoord, duration=b)
+        b = random.uniform(0.1, 0.3)
+        pyautogui.click(icoord, duration=b, button=clicker)
+        print(True)
+        return True
+    print(False)
+    return False
+
+def mini_map_bool(image, threshold=0.7):
+    screen_Image(1941 - 1280, 27, 2106 - 1280, 190, 'mini_map.png')
+    global icoord
+    global iflag
+    img_rgb = cv2.imread('mini_map.png')
+    # print('screenshot taken')
+    img_gray = cv2.cvtColor(img_rgb, cv2.COLOR_BGR2GRAY)
+    template = cv2.imread(image, 0)
+    w, h = template.shape[::-1]
+    pt = None
+    res = cv2.matchTemplate(img_gray, template, cv2.TM_CCOEFF_NORMED)
+    threshold = threshold
+    loc = np.where(res >= threshold)
+    for pt in zip(*loc[::-1]):
+        return True
+    return False
+
+def mini_map_bool(image, threshold=0.7):
     screen_Image(1941 - 1280, 27, 2106 - 1280, 190, 'mini_map.png')
     global icoord
     global iflag
@@ -477,16 +789,32 @@ def mini_map_image(image, iwidth=0, iheight=0, threshold=0.7, clicker='left', xs
         # print(event, 'Not Found...')
     else:
         iflag = True
-        # cv2.imwrite('res.png', img_rgb)
-        # print(event, 'Found...')
-        x = random.randrange(iwidth, iwidth + 1 + xspace) + (1941 - 1280)
-        y = random.randrange(iheight, iheight + 1 + yspace) + 27
-        icoord = pt[0] + x
-        icoord = (icoord, pt[1] + y)
-        b = random.uniform(0.2, 0.7)
-        pyautogui.moveTo(icoord, duration=b)
-        b = random.uniform(0.1, 0.3)
-        pyautogui.click(icoord, duration=b, button=clicker)
+    return iflag
+
+def xp_quick():
+    left = 560
+    top = 95
+    right = 595
+    bottom = 135
+
+    im = ImageGrab.grab(bbox=(left, top, right, bottom))
+    im.save('xp_gain.png', 'png')
+
+def xp_gain_check(image, threshold=0.6):
+    xp_quick()
+    global iflag
+    img_rgb = cv2.imread('xp_gain.png')
+    img_gray = cv2.cvtColor(img_rgb, cv2.COLOR_BGR2GRAY)
+    template = cv2.imread(image, 0)
+    pt = None
+    res = cv2.matchTemplate(img_gray, template, cv2.TM_CCOEFF_NORMED)
+    threshold = threshold
+    loc = np.where(res >= threshold)
+    iflag = False
+    for pt in zip(*loc[::-1]):
+        iflag = True
+    if pt is None:
+        iflag = False
     return iflag
 
 def McropImage_quick():
@@ -551,77 +879,8 @@ def findarea_attack_quick(object, deep=20):
     return False
     # show the images
     # cv2.imshow("Result", np.hstack([image, output]))
-    
-def mini_map_bool(image, threshold=0.7):
-    screen_Image(1941 - 1280, 27, 2106 - 1280, 190, 'mini_map.png')
-    global icoord
-    global iflag
-    img_rgb = cv2.imread('mini_map.png')
-    # print('screenshot taken')
-    img_gray = cv2.cvtColor(img_rgb, cv2.COLOR_BGR2GRAY)
-    template = cv2.imread(image, 0)
-    w, h = template.shape[::-1]
-    pt = None
-    # print('getting match requirements')
-    res = cv2.matchTemplate(img_gray, template, cv2.TM_CCOEFF_NORMED)
-    threshold = threshold
-    loc = np.where(res >= threshold)
-    # print('determine loc and threshold')
-    # if len(loc[0]) == 0:
-    # exit()
-    iflag = False
-    for pt in zip(*loc[::-1]):
-        cv2.rectangle(img_rgb, pt, (pt[0] + w, pt[1] + h), (0, 0, 255), 2)
-    # print('result of pt')
-    if pt is None:
-        iflag = False
-        # print(event, 'Not Found...')
-    else:
-        iflag = True
-    return iflag
 
-def xp_quick():
-    left = 560
-    top = 95
-    right = 595
-    bottom = 135
-
-    im = ImageGrab.grab(bbox=(left, top, right, bottom))
-    im.save('xp_gain.png', 'png')
-
-def xp_gain_check(image, threshold=0.5):
-    xp_quick()
-    global iflag
-    img_rgb = cv2.imread('xp_gain.png')
-    img_gray = cv2.cvtColor(img_rgb, cv2.COLOR_BGR2GRAY)
-    template = cv2.imread(image, 0)
-    pt = None
-    res = cv2.matchTemplate(img_gray, template, cv2.TM_CCOEFF_NORMED)
-    threshold = threshold
-    loc = np.where(res >= threshold)
-    iflag = False
-    for pt in zip(*loc[::-1]):
-        iflag = True
-    if pt is None:
-        iflag = False
-    return iflag
-
-def bank_ready(deposit_second=True):
-    bank = Image_count('bank_deposit.png', 0.75)
-    print("bank deposit open:", bank)
-    if bank > 0:
-        if deposit_second:
-            deposit_secondItem()
-        return True
-    else:
-        return False
-    return False
-
-def invent_enabled():
-    return Image_count('inventory_enabled.png', threshold=0.9)
-
-
-def Image_Rec_single(image, event, iheight, iwidth, threshold, clicker, ispace=20, cropx=0, cropy=0, playarea=True):
+def Image_Rec_single(image, event, iheight=5, iwidth=5, threshold=0.7, clicker='left', ispace=20, playarea=True):
     global icoord
     global iflag
     if playarea:
@@ -653,6 +912,12 @@ def Image_Rec_single(image, event, iheight, iwidth, threshold, clicker, ispace=2
         iflag = True
         # cv2.imwrite('res.png', img_rgb)
         # print(event, 'Found...')
+        if playarea == False:
+            cropx = 620
+            cropy = 480
+        else:
+            cropx = 0
+            cropy = 0
         x = random.randrange(iwidth, iwidth + ispace) + cropx
         y = random.randrange(iheight, iheight + ispace) + cropy
         icoord = pt[0] + iheight + x
@@ -661,10 +926,73 @@ def Image_Rec_single(image, event, iheight, iwidth, threshold, clicker, ispace=2
         pyautogui.moveTo(icoord, duration=b)
         b = random.uniform(0.1, 0.3)
         pyautogui.click(icoord, duration=b, button=clicker)
-    return iflag
+    return iflag, icoord
 
+def Image_Rec_single_closest(image, threshold=0.7, clicker='left', playarea=True):
+    myScreenshot = ImageGrab.grab()
+    myScreenshot.save('screenshot.png')
+    img_rgb = cv2.imread('screenshot.png')
+    img_gray = cv2.cvtColor(img_rgb, cv2.COLOR_BGR2GRAY)
+    template = cv2.imread(image, 0)
+    w, h = template.shape[::-1]
+    pt = None
+    res = cv2.matchTemplate(img_gray, template, cv2.TM_CCOEFF_NORMED)
+    threshold = threshold
+    loc = np.where(res >= threshold)
+    close_list = []
+    close_points = []
+    pos = pyautogui.position()
+    print((pos[0],pos[1]))
+    for pt in zip(*loc[::-1]):
+        close_list.append(abs(abs(pos[0] - pt[0]) + abs(pos[1] - pt[1])))
+        close_points.append(pt)
+    if pt is None:
+        print('not found')
+        return False
+    print(close_list)
+    print(close_points)
+    min_value = min(close_list)
+    min_index = close_list.index(min_value)
+    coords = close_points[min_index]
+    print(coords)
+    print('min_value:', min_value, '| min_index:', min_index)
+    if playarea == False:
+        cropx = 620
+        cropy = 480
+    else:
+        cropx = 0
+        cropy = 0
+    x = random.randrange(5, 20) + cropx
+    y = random.randrange(5, 20) + cropy
+    icoord = coords[0] + x
+    icoord = (icoord, coords[1] + y)
+    b = random.uniform(0.2, 0.7)
+    pyautogui.moveTo(icoord, duration=b)
+    b = random.uniform(0.1, 0.3)
+    pyautogui.click(icoord, duration=b, button=clicker)
+    return True
 
-def image_Rec_clicker(image, event, iheight, iwidth, threshold, clicker, ispace=20, cropx=0, cropy=0, playarea=True):
+def bank_ready(deposit_second=True):
+    bank = Image_count('bank_deposit.png', 0.75)
+    print("bank deposit open:", bank)
+    if bank > 0:
+        if deposit_second:
+            deposit_secondItem()
+        return True
+    else:
+        return False
+    return False
+
+def invent_enabled():
+    return Image_count('inventory_enabled.png', threshold=0.99)
+
+def run_enabled():
+    return Image_count('run_enabled.png', threshold=0.99)
+
+def make_enabled(make='make_craft.png'):
+    return Image_count(make, threshold=0.9)
+
+def image_Rec_clicker(image, event, iheight=5, iwidth=5, threshold=0.7, clicker='left', ispace=20, playarea=True, fast=False):
     global icoord
     global iflag
     if playarea:
@@ -686,9 +1014,52 @@ def image_Rec_clicker(image, event, iheight, iwidth, threshold, clicker, ispace=
         if pt is None:
             iflag = False
         else:
+            if playarea == False:
+                cropx = 620
+                cropy = 480
+            else:
+                cropx = 0
+                cropy = 0
+
             iflag = True
             x = random.randrange(iwidth, iwidth + ispace) + cropx
             y = random.randrange(iheight, iheight + ispace) + cropy
+            icoord = pt[0] + iheight + x
+            icoord = (icoord, pt[1] + iwidth + y)
+            if fast == True:
+                b = random.uniform(0.05, 0.1)
+            else:
+                b = random.uniform(0.1, 0.3)
+            pyautogui.moveTo(icoord, duration=b)
+            if fast == True:
+                b = random.uniform(0.01, 0.05)
+            else:
+                b = random.uniform(0.05, 0.15)
+
+            pyautogui.click(icoord, duration=b, button=clicker)
+    return iflag
+
+def image_Rec_inventory(image, threshold=0.8, clicker='left', iheight=5, iwidth=5, ispace=10):
+    global icoord
+    global iflag
+    invent_crop()
+    img_rgb = cv2.imread('inventshot.png')
+    img_gray = cv2.cvtColor(img_rgb, cv2.COLOR_BGR2GRAY)
+    template = cv2.imread(image, 0)
+    w, h = template.shape[::-1]
+    pt = None
+    res = cv2.matchTemplate(img_gray, template, cv2.TM_CCOEFF_NORMED)
+    threshold = threshold
+    loc = np.where(res >= threshold)
+    iflag = False
+    for pt in zip(*loc[::-1]):
+        cv2.rectangle(img_rgb, pt, (pt[0] + w, pt[1] + h), (0, 0, 255), 2)
+        if pt is None:
+            iflag = False
+        else:
+            iflag = True
+            x = random.randrange(iwidth, iwidth + ispace) + 620
+            y = random.randrange(iheight, iheight + ispace) + 480
             icoord = pt[0] + iheight + x
             icoord = (icoord, pt[1] + iwidth + y)
             b = random.uniform(0.1, 0.3)
@@ -698,9 +1069,9 @@ def image_Rec_clicker(image, event, iheight, iwidth, threshold, clicker, ispace=
     return iflag
 
 
-def Image_count(object, threshold=0.8):
+def Image_count(object, threshold=0.8, left=0, top=0, right=0, bottom=0):
     counter = 0
-    screen_Image(name='screenshot.png')
+    screen_Image(left, top, right, bottom, name='screenshot.png')
     img_rgb = cv2.imread('screenshot.png')
     img_gray = cv2.cvtColor(img_rgb, cv2.COLOR_BGR2GRAY)
     template = cv2.imread(object, 0)
@@ -773,145 +1144,3 @@ def findarea(object):
     # show the images
     cv2.imshow("Result", np.hstack([image, output]))
     cv2.waitKey(0)
-
-
-def health_text():
-    screen_Image(left=1900 - 1280, top=89, right=1918 - 1280, bottom=101, name='health.png')
-    png = 'health.png'
-    im = Image.open(png)
-    # saves new cropped image
-    width, height = im.size
-    new_size = (width * 4, height * 4)
-    im1 = im.resize(new_size)
-    # im1.save('health.png')
-    im1 = im1.convert('LA')  # convert image to black and white
-    im1.save('health.png')
-    return int(Image_to_Text('thresh', 'health.png', '--psm 10 --oem 3 -c tessedit_char_whitelist=0123456789'))
-
-
-def remove_black():
-    screen_Image(left=1909 - 1280, top=154, right=1930 - 1280, bottom=168, name='stamina.png')
-    im = Image.open('stamina.png')
-    im = im.convert('RGBA')
-    data = np.array(im)
-    # just use the rgb values for comparison
-    rgb = data[:, :, :3]
-    color = [0, 0, 0]  # Original value color = [246, 213, 139]
-    black = [104, 90, 75, 255]
-    white = [255, 255, 255, 255]
-    mask = np.all(rgb == color, axis=-1)
-    # change all pixels that match color to white
-    data[mask] = black
-
-    # change all pixels that don't match color to black
-    ##data[np.logical_not(mask)] = black
-    new_im = Image.fromarray(data)
-    new_im.save('stamina.png')
-
-
-def Stam_Text(image):
-    # construct the argument parse and parse the arguments
-    image = cv2.imread(image)
-    # image = cv2.bitwise_not(image)
-
-    # write the grayscale image to disk as a temporary file so we can
-    # apply OCR to it
-    filename = "{}.png".format(os.getpid())
-    cv2.imwrite(filename, image)
-    # load the image as a PIL/Pillow image, apply OCR, and then delete
-    # the temporary file
-    text = pytesseract.image_to_string(Image.open(filename), lang='eng',
-                                       config='--psm 12 --oem 2 -c tessedit_char_whitelist=0123456789')
-    # os.remove(filename)
-    # print(text)
-    return text
-
-
-def get_red():
-    remove_black()
-    # define the list of boundaries
-    # B, G, R
-    image = cv2.imread('stamina.png')
-    red = ([0, 0, 180], [80, 80, 255])  # 0 Index
-    boundaries = [red]
-
-    # loop over the boundaries
-    for (lower, upper) in boundaries:
-        # create NumPy arrays from the boundaries
-        lower = np.array(lower, dtype="uint8")
-        upper = np.array(upper, dtype="uint8")
-        # find the colors within the specified boundaries and apply
-        # the mask
-        mask = cv2.inRange(image, lower, upper)
-        output = cv2.bitwise_and(image, image, mask=mask)
-    cv2.imwrite('stamina3.png', output)
-    png = 'stamina3.png'
-    im = Image.open(png)
-    # saves new cropped image
-    width, height = im.size
-    new_size = (width * 10, height * 10)
-    im1 = im.resize(new_size)
-    im1.save('stamina3.png')
-
-
-def replace_characters(temp):
-    temp = temp.replace('q', '9')
-    temp = temp.replace('?', '8')
-    temp = temp.replace('h', '4')
-    temp = temp.replace('S', '8')
-    temp = temp.replace('/', '7')
-    temp = temp.replace('l', '1')
-    temp = temp.replace('L', '4')
-    temp = temp.replace('k', '4')
-    return temp
-
-
-def resize_enahnce_invert_text(image):
-    png = image
-    im = Image.open(png)
-    # saves new cropped image
-    width, height = im.size
-    new_size = (width * 10, height * 10)
-    im1 = im.resize(new_size)
-
-    enhancer = ImageEnhance.Sharpness(im1)
-    factor = 2
-    im1 = enhancer.enhance(factor)
-    enhancer = ImageEnhance.Contrast(im1)
-    factor = 2
-    im1 = enhancer.enhance(factor)
-    im1 = im1.convert('L')  # 1 just black # L or LA convert image to black and white #
-
-    im1 = ImageOps.invert(im1)
-    im1.save('stamina.png')
-
-
-def stamina_text():
-    stam_num = 100
-    remove_black()
-
-    resize_enahnce_invert_text('stamina.png')
-    img = cv2.imread("stamina.png")
-    ret, thresh = cv2.threshold(img, 127, 255, cv2.THRESH_BINARY)
-    kernel = np.ones((3, 3), np.uint8)
-    img = cv2.erode(thresh, kernel, iterations=1)
-    cv2.imwrite('stamina.png', img)
-    temp_num = Stam_Text('stamina.png')
-    if len(temp_num) > 0:
-        temp_num = replace_characters(temp_num)
-    else:
-        get_red()
-        temp_num = replace_characters(Image_to_Text('blur', 'stamina3.png'))
-    try:
-        stam_num = int(temp_num)
-    except ValueError:
-        stan_num = 100
-    return stam_num
-
-
-"""
-j = 0
-while j == 0:
-    print(stamina_text())
-"""
-# Image_color()
