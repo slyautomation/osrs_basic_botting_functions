@@ -80,19 +80,11 @@ data['item_id'] = data.index
 data['index_id'] = np.arange(len(data))
 #print(data)
 
-data_s = data.to_html()
-text_file = open("data.html", "w")
-text_file.write(data_s)
-text_file.close()
 
 test = data['data']
 test_pd = pd.DataFrame(json_normalize(test))
 test_pd['avgHighPrice'] = test_pd['avgHighPrice'].apply('{:.0f}'.format)
 test_pd['avgLowPrice'] = test_pd['avgLowPrice'].apply('{:.0f}'.format)
-test_s = test_pd.to_html()
-text_file = open("test.html", "w")
-text_file.write(test_s)
-text_file.close()
 #temp_data = pd.DataFrame(json_normalize(test))
 temp_data = pd.json_normalize(test)
 temp_data['index_id'] = np.arange(len(temp_data))
@@ -116,11 +108,11 @@ data = format_data.drop(columns='timestamp').fillna(0)
 #addtestdate()
 data.to_csv(os.path.dirname('csv') + 'csv\\raw_data-' + datetime_time + '.csv', index=False)
 print(os.path.dirname('csv') + 'csv\\raw_data-' + datetime_time + '.csv')
-# html = data.to_html()
-# text_file = open("index.html", "w")
-# text_file.write(html)
-# text_file.close()
+html = data.to_html()
+text_file = open("index.html", "w")
+text_file.write(html)
+text_file.close()
 
 url = "index.html"
-#webbrowser.open(url, new=new)
+webbrowser.open(url, new=new)
 
