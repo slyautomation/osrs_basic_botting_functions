@@ -1,6 +1,6 @@
-# osrs_basic_botting_functions
+# Old School Botting Functions
 
-Full tutorial on creating Basic Functions for automation using Python for osrs botting. 
+Full tutorial on creating Functions for automation using Python for osrs botting. 
 The example used will be woodcutting, where the script will use colour detection using opencv and use pyautogui to move the mouse, click and use the keyboard to drop items using an image recognition module that will detect the wood icons in the inventory.
 
 Other python files will also use tesseract-OCR to detect text within images using tesseract-OCR image to text recognition functions.
