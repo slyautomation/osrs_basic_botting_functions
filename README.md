@@ -94,6 +94,6 @@ Tutorial: TBA
 ## Wiki
 [Wiki page on function descriptions and purpose](https://github.com/slyautomation/osrs_basic_botting_functions/wiki/Purpose-and-Definition-of-Functions-including-argument-s-usage)
 
-Consider donating so i can keep making osrs botting scripts using python.
+Consider donating if you found the project fun and learnt more about python.
 
 ![image](https://user-images.githubusercontent.com/81003470/112718441-215b1780-8f47-11eb-81a6-4952b9cb5ef4.png)
