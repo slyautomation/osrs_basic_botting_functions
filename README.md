@@ -5,6 +5,11 @@ The example used will be woodcutting, where the script will use colour detection
 
 Other python files will also use tesseract-OCR to detect text within images using tesseract-OCR image to text recognition functions.
 
+## Setup
+
+installing pycharm
+pycharm = https://www.jetbrains.com/pycharm/download/download-thanks.html?platform=windows&code=PCC
+
 ## core.py and function.py
 For the full video tutorial click link: https://www.youtube.com/watch?v=C7ZY4KYpFII
 
