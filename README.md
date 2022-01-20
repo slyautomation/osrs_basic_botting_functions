@@ -8,7 +8,9 @@ Other python files will also use tesseract-OCR to detect text within images usin
 ## Setup
 
 installing pycharm
-pycharm = https://www.jetbrains.com/pycharm/download/download-thanks.html?platform=windows&code=PCC
+<a href src="https://www.jetbrains.com/pycharm/download/#section=windows">pycharm</a> 
+
+<a href src="https://www.jetbrains.com/pycharm/download/download-thanks.html?platform=windows&code=PCC">pycharm windows</a>
 
 <a href src="https://github.com/slyautomation/osrs_basic_botting_functions/wiki/How-to-Install-Pycharm"> How to Install Pycharm</a>
 
