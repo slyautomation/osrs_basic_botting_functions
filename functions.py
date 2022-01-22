@@ -27,7 +27,10 @@ with open("pybot-config.yaml", "r") as yamlfile:
     data = yaml.load(yamlfile, Loader=yaml.FullLoader)
 
 
-pytesseract.pytesseract.tesseract_cmd = data[0]['Config']['tesseract_path']
+print(data[0]['Config']['tesseract_path'])
+pytesseract.pytesseract.tesseract_cmd = data[0]['Config']['tesseract_path'] + "tesseract"
+os.environ["TESSDATA_PREFIX"] = data[0]['Config']['tesseract_path'] + "tessdata"
+
 
 filename = data[0]['Config']['pc_profile']
 
