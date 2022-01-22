@@ -32,7 +32,7 @@ if bool_config:
                    ['tesseract_path', data[0]['Config']['tesseract_path']]]
 else:
     config_list = [['client title','OpenOSRS'], ['pc_profile','C:\\Users\\i7 8700'],
-               ['file_path_to_client', '\\.openosrs\\'], ['tesseract_path','C:\\Program Files (x86)\\Tesseract-OCR\\tesseract']]
+               ['file_path_to_client', '\\.openosrs\\'], ['tesseract_path','C:\\Program Files (x86)\\Tesseract-OCR\\']]
 
 ensure_dir()
 
