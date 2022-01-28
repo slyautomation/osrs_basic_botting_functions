@@ -8,15 +8,15 @@ Other python files will also use tesseract-OCR to detect text within images usin
 ## Setup
 
 installing pycharm
-<a href src="https://www.jetbrains.com/pycharm/download/#section=windows">pycharm</a> 
+<a href="https://www.jetbrains.com/pycharm/download/#section=windows">pycharm</a> 
 
-<a href src="https://www.jetbrains.com/pycharm/download/download-thanks.html?platform=windows&code=PCC">pycharm windows</a>
+<a href="https://www.jetbrains.com/pycharm/download/download-thanks.html?platform=windows&code=PCC">pycharm windows</a>
 
-<a href src="https://github.com/slyautomation/osrs_basic_botting_functions/wiki/How-to-Install-Pycharm"> How to Install Pycharm</a>
+<a href="https://github.com/slyautomation/osrs_basic_botting_functions/wiki/How-to-Install-Pycharm"> How to Install Pycharm</a>
 
-<a href src="https://github.com/slyautomation/osrs_basic_botting_functions/wiki/How-to-add-Project-with-Pycharm"> How to add Project with Pycharm</a>
+<a href="https://github.com/slyautomation/osrs_basic_botting_functions/wiki/How-to-add-Project-with-Pycharm"> How to add Project with Pycharm</a>
 
-<a href src="https://github.com/slyautomation/osrs_basic_botting_functions/wiki/how-to-ensure-venv-%28virtual-environment%29-is-active"> Editing how to ensure venv (virtual environment) is active</a>
+<a href="https://github.com/slyautomation/osrs_basic_botting_functions/wiki/how-to-ensure-venv-%28virtual-environment%29-is-active"> Editing how to ensure venv (virtual environment) is active</a>
 
 ## core.py and function.py
 For the full video tutorial click link: https://www.youtube.com/watch?v=C7ZY4KYpFII
