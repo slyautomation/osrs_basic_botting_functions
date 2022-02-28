@@ -91,6 +91,12 @@ Tutorial on magic code click link: https://youtube.com/watch?v=Vyhy2CpfK7I
 
 Tutorial: TBA
 
+add from Plugin Hub 'Status socket', in  the settings for status socket add the url: http://localhost:8081/ 
+
+add shortestagility-5.0.2.jar to C:\Users\ <username> \.openosrs \plugins
+  
+  ![image](https://user-images.githubusercontent.com/81003470/155945546-695d28b8-5cbd-461a-9342-44d38e6c6b37.png)
+
 ### Setup
 - Create txt file on desktop paths.txt, the modified plugin shortest_path-5.0.0.jar saves the coordinates when a path target is made in osrs. 
 - ![image](https://user-images.githubusercontent.com/81003470/140734894-c097bde1-4448-4e2c-898b-a6fc4238ca98.png)
