@@ -93,6 +93,12 @@ Tutorial: TBA
 
 add from Plugin Hub 'Status socket', in  the settings for status socket add the url: http://localhost:8081/ 
 
+![image](https://user-images.githubusercontent.com/81003470/155945918-2cef7bf4-4dd0-499e-bff3-60af18e2a461.png)
+
+
+![image](https://user-images.githubusercontent.com/81003470/155945817-85952c01-7c7f-452c-91a7-363e518896d3.png)
+
+
 add shortestagility-5.0.2.jar to C:\Users\ <username> \.openosrs \plugins
   
   ![image](https://user-images.githubusercontent.com/81003470/155945546-695d28b8-5cbd-461a-9342-44d38e6c6b37.png)
