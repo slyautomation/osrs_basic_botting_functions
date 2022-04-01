@@ -21,6 +21,8 @@ installing pycharm
 ## core.py and function.py
 For the full video tutorial click link: https://www.youtube.com/watch?v=C7ZY4KYpFII
 
+This video is more about how it was created at the start core.py is how to make the python script focus on the old school runescape application and adjust the window size so all the scripts run as intended. Then functions.py is where all the different kinds of shortcut functions are placed to reference the mini map, or a piece of code to do color detection or open the inventory.
+
 ## Woodcutting
 
 ### features
