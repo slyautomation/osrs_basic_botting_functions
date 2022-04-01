@@ -7,14 +7,14 @@ hwnd = 0
 with open("pybot-config.yaml", "r") as yamlfile:
     data = yaml.load(yamlfile, Loader=yaml.FullLoader)
     
-def findWindow_Linux(data)
+def findWindow_Linux(data):
     import subprocess
     subprocess.call(["xdotool", "search", "--name", data, "windowfocus", "%2"])
     subprocess.call(["xdotool", "getwindowfocus", "windowmove", "0", "0"])
     subprocess.call(["xdotool", "getwindowfocus", "windowsize", "860", "830"])
 
     
-def getWindow_Linux(data)
+def getWindow_Linux(data):
     import subprocess
     subprocess.call(["xdotool", "search", "--name", data, "windowfocus", "%2"])
     rect = subprocess.call(["xdotool", "getwindowfocus", "getwindowgeometry"])
