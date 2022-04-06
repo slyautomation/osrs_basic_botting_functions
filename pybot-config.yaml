@@ -1,5 +1,5 @@
 - Config:
     client_title: OpenOSRS
     file_path_to_client: \.openosrs\
-    pc_profile: C:\Users\i7 8700
-    tesseract_path: C:\Program Files (x86)\Tesseract-OCR\tesseract
+    pc_profile: C:\Users\MMH
+    tesseract_path: C:\Program Files\Tesseract-OCR\tesseract
