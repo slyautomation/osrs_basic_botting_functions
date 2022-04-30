@@ -109,7 +109,7 @@ def firespot(spot):
     # print(mini_map_image(spot + '.png', 25, 20, 0.7, 'left', 5, 0))  # draynor wood
 
 def invent_enabled():
-    return Image_count('inventory_enabled.png', threshold=0.9)
+    return Image_count('inventory_enabled.png', threshold=0.99)
 
 def bank_spot():
     functions.find_Object_precise(1, 5, 0, 0, 860, 775)
@@ -117,20 +117,22 @@ def bank_spot():
 def deposit_bank_items(type):
     bank = Image_count('bank_deposit.png', 0.75)
     if bank > 0:
-        functions.deposit_secondItem()
+        functions.deposit_all_Bank()
         random_breaks(0.3, 0.5)
         functions.exit_bank()
         if type == 'willow':
-            mini_map_image('draynor_bank_spot.png', 10, 10, 0.7, 'left', 0, 75)
-        elif type == 'oak':
-            mini_map_image('draynor_bank_spot.png', 10, 10, 0.7, 'left', 55, 40)
-        else:
-            mini_map_image('draynor_bank_spot.png', 10, 10, 0.7, 'left', 55, 40)
+            mini_map_image('draynor_bank_spot.png', 0, 75, 0.7, 'left', 10, 10)
+            return bank
+        if type == 'oak':
+            mini_map_image('draynor_bank_spot.png', 35, 40, 0.7, 'left', 10, 10)
+            return bank
+        mini_map_image('draynor_bank_spot.png', 35, 40, 0.7, 'left', 10, 10)
         return bank
     else:
         print("bank inventory not found")
-        bank_spot()
+        mini_map_image('draynor_bank_spot.png', 10, 40, 0.8, 'left', 10, 10)
         random_breaks(5, 10)
+        bank_spot()
         return bank
 def pick_random_tree_spot(color):
     if color == 'red':
@@ -254,12 +256,15 @@ def powercutter(color, type, firemaking=False, bank_items=True, spot='', ws=1, w
                 print(invent)
                 if invent == 0:
                     pyautogui.press('esc')
-                bank_spot()
+                mini_map_image('draynor_bank_spot.png', 10, 40, 0.8, 'left', 10, 10)
                 random_breaks(9.5, 11)
+                bank_spot()
+                random_breaks(2, 5)
                 bank = deposit_bank_items(type)
                 random_breaks(9.5, 11)
                 while bank == 0:
                     bank = deposit_bank_items(type)
+                random_breaks(0, 1)
             random_breaks(0.2, 5)
             drop_wood(type)
             random_breaks(0.2, 5)
@@ -280,10 +285,10 @@ def powercutter(color, type, firemaking=False, bank_items=True, spot='', ws=1, w
             # print(a)
             spaces(a)
         if Take_Human_Break:
-            c = random.triangular(0.1, 50, 3)
+            c = random.triangular(0.1, 5, 0.5)
             time.sleep(c)
 
-#mini_map_image('draynor_bank_spot.png', 10, 10, 0.8, 'left', 65, 55)
+
 if __name__ == "__main__":
     time.sleep(2)
     resizeImage()
@@ -295,4 +300,4 @@ if __name__ == "__main__":
     timer_break = timer()
     firespots = ['firespot_varrock_wood', 'firespot_draynor_willow', 'firespot_draynor_oak'
         , 'firespot_farador_oak', 'firespot_draynor_wood']
-    powercutter('red', 'willow', firemaking=False, bank_items=True, spot='', Take_Human_Break=False, Run_Duration_hours=1)
+    powercutter('red', 'oak', firemaking=False, bank_items=True, spot='', Take_Human_Break=True, Run_Duration_hours=4.2)
