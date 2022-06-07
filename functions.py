@@ -719,7 +719,7 @@ def mini_map_image(image, iwidth=0, iheight=0, threshold=0.7, clicker='left', xs
     img_rgb = cv2.imread('images/mini_map.png')
     #print('screenshot taken')
     img_gray = cv2.cvtColor(img_rgb, cv2.COLOR_BGR2GRAY)
-    template = cv2.imread(image, 0)
+    template = cv2.imread('images/' + image, 0)
     # w, h = template.shape[::-1]
     pt = None
     #print('getting match requirements')
