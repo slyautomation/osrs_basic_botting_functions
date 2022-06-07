@@ -808,7 +808,7 @@ def xp_gain_check(image, threshold=0.6):
     global iflag
     img_rgb = cv2.imread('images/xp_gain.png')
     img_gray = cv2.cvtColor(img_rgb, cv2.COLOR_BGR2GRAY)
-    template = cv2.imread(image, 0)
+    template = cv2.imread('images/' + image, 0)
     pt = None
     res = cv2.matchTemplate(img_gray, template, cv2.TM_CCOEFF_NORMED)
     threshold = threshold
@@ -893,7 +893,7 @@ def Image_Rec_single(image, event, iheight=5, iwidth=5, threshold=0.7, clicker='
     img_rgb = cv2.imread('images/screenshot.png')
     # print('screenshot taken')
     img_gray = cv2.cvtColor(img_rgb, cv2.COLOR_BGR2GRAY)
-    template = cv2.imread(image, 0)
+    template = cv2.imread('images/' + image, 0)
     w, h = template.shape[::-1]
     pt = None
     # print('getting match requirements')
@@ -936,7 +936,7 @@ def Image_Rec_single_closest(image, threshold=0.7, clicker='left', playarea=True
     myScreenshot.save('images/screenshot.png')
     img_rgb = cv2.imread('images/screenshot.png')
     img_gray = cv2.cvtColor(img_rgb, cv2.COLOR_BGR2GRAY)
-    template = cv2.imread(image, 0)
+    template = cv2.imread('images/' + image, 0)
     w, h = template.shape[::-1]
     pt = None
     res = cv2.matchTemplate(img_gray, template, cv2.TM_CCOEFF_NORMED)
@@ -1004,7 +1004,7 @@ def image_Rec_clicker(image, event, iheight=5, iwidth=5, threshold=0.7, clicker=
         screen_Image(620, 480, 820, 750)
     img_rgb = cv2.imread('images/screenshot.png')
     img_gray = cv2.cvtColor(img_rgb, cv2.COLOR_BGR2GRAY)
-    template = cv2.imread(image, 0)
+    template = cv2.imread('images/' + image, 0)
     w, h = template.shape[::-1]
     pt = None
     res = cv2.matchTemplate(img_gray, template, cv2.TM_CCOEFF_NORMED)
@@ -1048,7 +1048,7 @@ def image_Rec_inventory(image, threshold=0.8, clicker='left', iheight=5, iwidth=
     invent_crop()
     img_rgb = cv2.imread('images/inventshot.png')
     img_gray = cv2.cvtColor(img_rgb, cv2.COLOR_BGR2GRAY)
-    template = cv2.imread(image, 0)
+    template = cv2.imread('images/' + image, 0)
     w, h = template.shape[::-1]
     pt = None
     res = cv2.matchTemplate(img_gray, template, cv2.TM_CCOEFF_NORMED)
