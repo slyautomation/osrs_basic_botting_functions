@@ -263,6 +263,7 @@ if __name__ == "__main__":
     print('Will break in: %.2f' % (ibreak / 60) + ' minutes ')
     print("Mine Ore Selected:", powerlist[tin])
                 # | ore | marker color | take break | how long to run for in hours
-    powerminer_text(tin, red, Take_Human_Break=True, Run_Duration_hours=3)
+    Run_Duration_hours = 3
+    powerminer_text(tin, red, Take_Human_Break=True, Run_Duration_hours=Run_Duration_hours)
 
     #os.system('shutdown -s -f')
