@@ -223,6 +223,7 @@ def doFireMaking(spot,type,ws,we):
         Image_Rec_single(type + '_icon.png', 'burning wood', 5, 5, 0.9, 'left', 8, False)
         fire = False
         time_start = time.time()
+        time_end = 0
         while not fire:
             fire = xp_gain_check('firemaking_xp.png')
             if not fire:
