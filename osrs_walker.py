@@ -260,18 +260,5 @@ offset_logout_x = 10
 offset_logout_y = 10
 degreesPerYaw: float = 360 / 2048
 
-import os
-
-def open_osrs_server():
-    os.system("python_server.bat")
-    time.sleep(2)
-    pyautogui.typewrite("cd ../")
-    pyautogui.press('enter')
-    pyautogui.typewrite("cd ../")
-    pyautogui.press('enter')
-    pyautogui.typewrite("python server.py")
-    pyautogui.press('enter')
-
-
 walker.walk(Paths)
 
