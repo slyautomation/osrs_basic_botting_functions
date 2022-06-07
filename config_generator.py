@@ -84,11 +84,13 @@ if data[0]['Config']['enable_on_start'] == True:
 
     x = 1
     while x < len(config_list) + 1:
-        txt = Entry(root,width=50, background='#40362C', fg='yellow')
-        txt.insert(-1, (config_list[(x - 1)][1]) )
-        txt.configure(font=Font_tuple_entry)
-        test.append(txt)
-        txt.grid(column=1, row=x)
+        print(config_list[(x - 1)][0])
+        if config_list[(x - 1)][0] != 'enable_on_start':
+            txt = Entry(root,width=50, background='#40362C', fg='yellow')
+            txt.insert(-1, (config_list[(x - 1)][1]) )
+            txt.configure(font=Font_tuple_entry)
+            test.append(txt)
+            txt.grid(column=1, row=x)
         x += 1
 
     is_on = True
@@ -115,9 +117,9 @@ if data[0]['Config']['enable_on_start'] == True:
             toggle_btn.config(image=on)
             is_on = True
 
-    lbl = Label(root, text=('Tesseract'), background='#40362C', fg='yellow', padx=20)
-    lbl.configure(font=Font_tuple)
-    lbl.grid(column=0, row=len(config_list) + 1)
+    #lbl = Label(root, text=('Tesseract'), background='#40362C', fg='yellow', padx=20)
+    #lbl.configure(font=Font_tuple)
+    #lbl.grid(column=0, row=len(config_list) + 1)
 
     toggle_btn = Button(image=on, width=50, background='#40362C', activebackground='#40362C', bd=0, relief=None, fg='yellow', command=toggle)
     toggle_btn.grid(column=0, row=5, columnspan=2, pady=2)
@@ -125,6 +127,10 @@ if data[0]['Config']['enable_on_start'] == True:
 
     def clicked():
         c_title = test[0].get()
+        if is_on:
+            t_enable = True
+        else:
+            t_enable = False
         p_profile = test[1].get()
         f_path = test[2].get()
         t_path = test[3].get()
@@ -134,7 +140,8 @@ if data[0]['Config']['enable_on_start'] == True:
                     'client_title': c_title,
                     'pc_profile': p_profile,
                     'file_path_to_client': f_path,
-                    'tesseract_path': t_path
+                    'tesseract_path': t_path,
+                    'enable_on_start': t_enable
                 }
             }
         ]
