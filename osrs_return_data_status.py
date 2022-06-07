@@ -4,8 +4,10 @@ import json
 def get_live_info():
     '''Returns specific live information from the game client via the Status Socket plugin.'''
     try:
-        f = open('live_data.json', )
+        f = open('live_data.json', "r+")
         data = json.load(f)
+        #print(data)
+        f.close()
         return data
     except:
         pass
@@ -29,8 +31,9 @@ def update_run_energy():
     """Updates the current run energy."""
     run_energy = None
     data = get_live_info()
-    if data != None:
-        run_energy = data['runEnergy']
+    while data is None:
+         data = get_live_info()
+    run_energy = data['run energy']
     return run_energy
 
 def update_camera_angle():
@@ -40,3 +43,7 @@ def update_camera_angle():
     if data != None:
         camera_angle = data['camera']['yaw']
     return camera_angle
+
+get_live_info()
+t = update_run_energy()
+print(t)
