@@ -76,7 +76,7 @@ def getWindow(data):  # find window name returns PID of the window
     return x, y, w, h
 
 print('Operating system:', platform.system())
-if platform.system() == 'Linux':
+if platform.system() == 'Linux' or platform.system() == 'Mac':
     findWindow_Linux(data[0]['Config']['client_title'])
 else:
     findWindow(data[0]['Config']['client_title'])
