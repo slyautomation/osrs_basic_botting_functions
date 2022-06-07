@@ -205,7 +205,7 @@ def Image_to_Text(preprocess, image, parse_config='--psm 7'):
     os.remove(filename)
     #print(text)
     return text
-def powercutter(color, type, firemaking=False, bank_items=True, spot='', ws=1, we=2, Take_Human_Break=False, Run_Duration_hours=6):
+def powercutter(color, type, firemaking=False, bank_items=True, spot='', Take_Human_Break=False, Run_Duration_hours=6):
     t_end = time.time() + (60 * 60 * Run_Duration_hours)
     # using the datetime.fromtimestamp() function
     date_time = datetime.datetime.fromtimestamp(t_end)
@@ -224,14 +224,12 @@ def powercutter(color, type, firemaking=False, bank_items=True, spot='', ws=1, w
         # invent_crop()
         invent_count = Image_count(type + '_icon.png')
         print("wood: ", invent_count)
-        if firemaking:
-            inv = ws
         if invent_count > inv:
             if firemaking:
                 if spot != '':
                     firespot(spot)
                 random_breaks(5, 8)
-                w = random.randrange(ws, we)
+                w = random.randrange(20, 26)
                 while invent_count > w:
                     invent_count = Image_count(type + '_icon.png')
                     print("wood: ", invent_count)
@@ -302,5 +300,5 @@ if __name__ == "__main__":
     timer_break = timer()
     firespots = ['firespot_varrock_wood', 'firespot_draynor_willow', 'firespot_draynor_oak'
         , 'firespot_farador_oak', 'firespot_draynor_wood', 'firespot_lumbridge_wood']
-    
+
     powercutter('yellow', 'wood', firemaking=True, bank_items=False, spot='firespot_lumbridge_wood', Take_Human_Break=True, Run_Duration_hours=4.2)
