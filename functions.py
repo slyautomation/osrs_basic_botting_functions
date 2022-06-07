@@ -72,7 +72,7 @@ def deposit_all_Bank():
 
 
 def invent_crop():
-    return screen_Image(620, 480, 820, 750, 'images/inventshot.png')
+    return screen_Image(620, 480, 820, 750, 'inventshot.png')
 
 
 def random_inventory():
