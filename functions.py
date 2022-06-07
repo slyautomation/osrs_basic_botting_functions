@@ -736,8 +736,8 @@ def mini_map_image(image, iwidth=0, iheight=0, threshold=0.7, clicker='left', xs
         return False
     else:
         # cv2.imwrite('images/res.png', img_rgb)
-        x = random.randrange(xspace, iwidth + 1 + xspace) + (1941 - 1280)
-        y = random.randrange(yspace, iheight + 1 + yspace) + 27
+        x = random.randrange(iwidth, iwidth + 1 + xspace) + 661
+        y = random.randrange(iheight, iheight + 1 + yspace) + 27
         icoord = pt[0] + x
         icoord = (icoord, pt[1] + y)
         b = random.uniform(0.2, 0.7)
