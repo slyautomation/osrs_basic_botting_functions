@@ -73,7 +73,7 @@ Tutorial on fishing code click link: https://youtube.com/watch?v=5K-nMy9Pdvg
 - enter the ore type, the marker color and how long to run in hours (Change Run_Duration_hours) 
 ![image](https://user-images.githubusercontent.com/81003470/172290146-44d31c86-a8d0-466c-ad0c-7358b698db56.png)
 
-![image](https://user-images.githubusercontent.com/81003470/172290066-4bf456d1-8891-41a8-adf3-8fe6e50ad9f4.png)
+![image](https://user-images.githubusercontent.com/81003470/172290853-3d98d94c-38c4-41b9-8971-da017776956a.png)
 
 Tutorial on mining code click link: https://youtube.com/watch?v=dkD5gXcgQYI
 
