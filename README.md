@@ -30,6 +30,9 @@ This video is more about how it was created at the start core.py is how to make 
 Cuts woods and makes fire
 - Use object marker plugin to highlight trees yellow.
 - Make sure to have an axe equipped and a tinderbox if firemaking.
+
+- Turn on woodcutting plugin
+- Turn off Show weight in item stats
 Tutorial on firemaking code click link: https://youtu.be/bHZCQUChG_k
 ## Quick module install Steps
 
