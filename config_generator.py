@@ -66,7 +66,7 @@ if data[0]['Config']['enable_on_start'] == True:
     root.configure(background='#40362C')
     Font_tuple = ('Unispace', 15)
     Font_tuple_entry = ('Unispace', 10)
-    filename = resourcePath('osrs_title_2.png')
+    filename = resourcePath('images/osrs_title_2.png')
     image1 = Image.open(filename)
     image1 = image1.convert('RGBA')
     h = (400, 400)
@@ -95,12 +95,12 @@ if data[0]['Config']['enable_on_start'] == True:
 
     is_on = True
     # Define Our Images
-    image1 = Image.open(resourcePath('switch-on.png'))
+    image1 = Image.open(resourcePath('images/switch-on.png'))
     image1 = image1.convert('RGBA')
     h = (50, 50)
     image1.thumbnail(h, Image.NORMAL)
     on = ImageTk.PhotoImage(image1)
-    image2 = Image.open(resourcePath('switch-off.png'))
+    image2 = Image.open(resourcePath('images/switch-off.png'))
     image2 = image2.convert('RGBA')
     h = (50, 50)
     image2.thumbnail(h, Image.NORMAL)
