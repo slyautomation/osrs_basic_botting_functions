@@ -1,4 +1,5 @@
 import random
+import subprocess
 import time
 
 import win32gui
@@ -6,6 +7,8 @@ import pyautogui
 from time import sleep
 import math
 import json
+
+from past.builtins import execfile
 
 from osrs_return_data_status import update_run_energy
 from read_path import get_current_path, get_current_path_random
@@ -78,13 +81,6 @@ class Walking():
         map_center_y = y + self.offset_minimap_y_resize
         return [map_center_x, map_center_y]
 
-    def find_center_window(self, window_features: list) -> list:
-        '''Returns the center of the window, excluding the borders.'''
-        x, y, w, h = window_features
-        center_x = round(x + w / 2)
-        center_y = round(y + h / 2)
-        return [center_x, center_y]
-
     def get_live_info(self, category: str) -> dict:
         '''Returns specific live information from the game client via the Status Socket plugin.'''
         try:
@@ -94,17 +90,13 @@ class Walking():
         except:
             pass
 
-
-    def get_center_minimap(self, coordinates: list) -> list:
-        '''Returns the coordinates of the center of the minimap.'''
-        map_center_x = coordinates[0] + self.offset_minimap_x
-        map_center_y = coordinates[1] - self.offset_minimap_y
-        return [map_center_x, map_center_y]
-
     def compute_tiles(self, live_x: int, live_y: int, new_x: int, n_y: int) -> list:
         '''Returns the range to click from the minimap center in amount of tiles.'''
         # Get live camera data.
         camera_data = self.get_live_info('camera')
+        print("camera data:", camera_data)
+        while camera_data is None:
+            camera_data = self.get_live_info('camera')
         if camera_data != None:
             # Get camera angle.
             yaw = camera_data['yaw']
@@ -124,6 +116,8 @@ class Walking():
     def change_position(self, center_mini: list, live_pos: list, new_pos: list):
         '''Clicks the minimap to change position'''
         tiles = self.compute_tiles(live_pos[0], live_pos[1], new_pos[0], new_pos[1])
+        print("x:", center_mini[0] + tiles[0], "y:", center_mini[1] + tiles[1])
+        print("y1:", center_mini[1], "y2:", tiles[1])
         pyautogui.click(center_mini[0] + tiles[0], center_mini[1] + tiles[1])
         #self.walking_wait(new_pos[0], new_pos[1])
         self.walking_wait_forgive(new_pos[0], new_pos[1])
@@ -145,13 +139,19 @@ class Walking():
         '''Wait until finished walking.'''
         t_end = time.time() + random.randrange(10, 15)
         position_data = self.get_live_info('worldPoint')
+        while position_data is None:
+            position_data = self.get_live_info('worldPoint')
         live_x, live_y = position_data['x'], position_data['y']
         while abs(new_x - live_x) > 2 or abs(new_y - live_y) > 2:
             if time.time() > t_end:
-                print(time.time(),"| ", t_end)
+                print(time.time(), "| ", t_end)
                 break
+            time.sleep(0.1)
             print(f"hasn't reach next point...current position ({live_x},{live_y}) next target ({new_x},{live_y})" )
             position_data = self.get_live_info('worldPoint')
+            print("position_data:", position_data)
+            while position_data == None:
+                position_data = self.get_live_info('worldPoint')
             if position_data == None:
                 live_x, live_y = live_x, live_y
             else:
@@ -173,6 +173,9 @@ class Walking():
         """Turns on run if run energy is higher than 60."""
         # If run is off and run energy is larger than 60, turn on run.
         run_energy = update_run_energy()
+        while run_energy is None:
+            run_energy = update_run_energy()
+        run_energy = update_run_energy()
         print(run_energy)
         if run_energy < 5 or run_energy == 100:
             self.run_bool = False
@@ -184,10 +187,14 @@ class Walking():
         '''Walks a path by clicking on the minimap'''
         window = self.get_window('OpenOSRS')
         center_minimap = self.find_center_minimap_resizable(window)
+        pyautogui.moveTo(center_minimap)
         # center_window = self.find_center_window(window)
         # center_minimap = self.get_center_minimap(center_window)
         path = path
         position_data = self.get_live_info('worldPoint')
+        print(position_data)
+        while position_data is None:
+            position_data = self.get_live_info('worldPoint')
         live_pos = [position_data['x'], position_data['y']]
         new_pos = path[0]
 
@@ -197,7 +204,7 @@ class Walking():
             print(f'target: ({new_pos[0]},{new_pos[1]})')
 
             # Turn on running if needed
-            self.handle_running()
+            #self.handle_running()
 
             self.change_position(center_minimap, live_pos, new_pos)
             # Wait for the map to catch up with live position.
@@ -205,7 +212,8 @@ class Walking():
             # Update position data.
             position_data = self.get_live_info('worldPoint')
             while position_data == None:
-                sleep(0.1)
+                sleep(0.05)
+                position_data = self.get_live_info('worldPoint')
             live_pos = position_data['x'], position_data['y']
             print(f'current: ({live_pos[0]},{live_pos[1]})')
             # Remove first coordinate.
@@ -214,7 +222,6 @@ class Walking():
 
 #Paths = get_current_path()
 Paths = get_current_path_random()
-print(Paths)
 client_top_border = 30
 client_side_border = 50
 tiles_pixels = 4
@@ -239,4 +246,32 @@ walker = Walking(client_top_border,
                  offset_logout_y
 )
 
+
+client_top_border = 30
+client_side_border = 50
+tiles_pixels = 4
+offset_minimap_x = 377.0
+offset_minimap_y = 195.0
+offset_minimap_x_resize = 72
+offset_minimap_y_resize = 81
+offset_run_button_x = 150
+offset_run_button_y = 130
+offset_logout_x = 10
+offset_logout_y = 10
+degreesPerYaw: float = 360 / 2048
+
+import os
+
+def open_osrs_server():
+    os.system("python_server.bat")
+    time.sleep(2)
+    pyautogui.typewrite("cd ../")
+    pyautogui.press('enter')
+    pyautogui.typewrite("cd ../")
+    pyautogui.press('enter')
+    pyautogui.typewrite("python server.py")
+    pyautogui.press('enter')
+
+
 walker.walk(Paths)
+
