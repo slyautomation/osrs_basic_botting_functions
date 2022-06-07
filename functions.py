@@ -159,7 +159,7 @@ def Image_to_Text(preprocess, image, parse_config='--psm 7'):
     resizeImage()
     change_brown_black()
     # construct the argument parse and parse the arguments
-    image = cv2.imread(image)
+    image = cv2.imread('images/' + image)
     image = cv2.bitwise_not(image)
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     # check to see if we should apply thresholding to preprocess the
