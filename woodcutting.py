@@ -96,12 +96,12 @@ def firespot(spot):
     firespots = ['firespot_varrock_wood', 'firespot_draynor_willow', 'firespot_draynor_oak'
         , 'firespot_farador_oak', 'firespot_draynor_wood', 'firespot_lumbridge_wood']
 
-    xy_firespots = [[45, 57], [50, 40], [80, 40], [25, 20], [25, 20], [0, -5]]
+    xy_firespots = [[45, 57], [50, 40], [80, 40], [25, 20], [25, 20], [-15, -5]]
 
     x = xy_firespots[firespots.index(spot)][0]
     y = xy_firespots[firespots.index(spot)][1]
-
-    print(mini_map_image(spot + '.png', x, y, 0.7, 'left', 15, 0))
+    print(spot)
+    print(mini_map_image(spot + '.png', x, y, 0.7, 'left', 14, 0))
     # print(mini_map_image(spot + '.png',  45, 57, 0.7, 'left', 5, 0)) # varrock wood
     # print(mini_map_image(spot + '.png', 50, 40, 0.7, 'left', 5, 0)) # draynor willow
     # print(mini_map_image(spot + '.png', 80, 40, 0.7, 'left', 5, 0)) # draynor oak
@@ -219,6 +219,7 @@ def powercutter(color, type, firemaking=False, bank_items=True, spot='', ws=1, w
         invent = functions.invent_enabled()
         print(invent)
         if invent == 0:
+            print('opening inventory 1')
             pyautogui.press('esc')
         # invent_crop()
         invent_count = Image_count(type + '_icon.png')
@@ -255,6 +256,7 @@ def powercutter(color, type, firemaking=False, bank_items=True, spot='', ws=1, w
                 invent = invent_enabled()
                 print(invent)
                 if invent == 0:
+                    print('opening inventory')
                     pyautogui.press('esc')
                 mini_map_image('draynor_bank_spot.png', 10, 40, 0.8, 'left', 10, 10)
                 random_breaks(9.5, 11)
@@ -299,5 +301,6 @@ if __name__ == "__main__":
     print('will break in   ' + str(ibreak / 60) + ' minutes')
     timer_break = timer()
     firespots = ['firespot_varrock_wood', 'firespot_draynor_willow', 'firespot_draynor_oak'
-        , 'firespot_farador_oak', 'firespot_draynor_wood']
-    powercutter('red', 'oak', firemaking=False, bank_items=True, spot='', Take_Human_Break=True, Run_Duration_hours=4.2)
+        , 'firespot_farador_oak', 'firespot_draynor_wood', 'firespot_lumbridge_wood']
+    
+    powercutter('yellow', 'wood', firemaking=True, bank_items=False, spot='firespot_lumbridge_wood', Take_Human_Break=True, Run_Duration_hours=4.2)
