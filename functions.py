@@ -1077,7 +1077,7 @@ def Image_count(object, threshold=0.8, left=0, top=0, right=0, bottom=0):
     screen_Image(left, top, right, bottom, name='screenshot.png')
     img_rgb = cv2.imread('images/screenshot.png')
     img_gray = cv2.cvtColor(img_rgb, cv2.COLOR_BGR2GRAY)
-    template = cv2.imread(object, 0)
+    template = cv2.imread('images/' + object, 0)
     w, h = template.shape[::-1]
     res = cv2.matchTemplate(img_gray, template, cv2.TM_CCOEFF_NORMED)
     loc = np.where(res >= threshold)
