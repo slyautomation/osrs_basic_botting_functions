@@ -49,7 +49,7 @@ pip install pypiwin32
 
 in terminal type:
 
-pip install -r requirements
+pip install -r requirements.txt
 
 
 tesseract-ocr = https://sourceforge.net/projects/tesseract-ocr-alt/files/tesseract-ocr-setup-3.02.02.exe/download
