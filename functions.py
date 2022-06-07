@@ -19,7 +19,7 @@ newTime_break = False
 global timer
 global timer_break
 global ibreak
-#import config_generator
+import config_generator
 import core
 import pytesseract
 
