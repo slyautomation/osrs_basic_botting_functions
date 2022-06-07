@@ -976,7 +976,7 @@ def Image_Rec_single_closest(image, threshold=0.7, clicker='left', playarea=True
     return True
 
 def bank_ready(deposit_second=True):
-    bank = Image_count('images/bank_deposit.png', 0.75)
+    bank = Image_count('bank_deposit.png', 0.75)
     print("bank deposit open:", bank)
     if bank > 0:
         if deposit_second:
@@ -987,13 +987,13 @@ def bank_ready(deposit_second=True):
     return False
 
 def invent_enabled():
-    return Image_count('images/inventory_enabled.png', threshold=0.99)
+    return Image_count('inventory_enabled.png', threshold=0.99)
 
 def run_enabled():
-    return Image_count('images/run_enabled.png', threshold=0.99)
+    return Image_count('run_enabled.png', threshold=0.99)
 
 def make_enabled(make='make_craft.png'):
-    return Image_count('images/' + make, threshold=0.9)
+    return Image_count(make, threshold=0.9)
 
 def image_Rec_clicker(image, event, iheight=5, iwidth=5, threshold=0.7, clicker='left', ispace=20, playarea=True, fast=False):
     global icoord
