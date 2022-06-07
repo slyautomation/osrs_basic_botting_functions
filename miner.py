@@ -3,7 +3,7 @@ import datetime
 
 from threading import Thread
 
-from functions import Image_count
+from functions import Image_count, invent_enabled
 from functions import image_Rec_clicker
 from functions import screen_Image
 from functions import release_drop_item
@@ -93,7 +93,8 @@ def Miner_Image():
     screen_Image(150, 150, 600, 750, 'images/miner_img.png')
 
 def drop_ore():
-    #print("dropping ore starting...")
+    global actions
+    actions = "dropping ore starting..."
     invent_crop()
     drop_item()
     image_Rec_clicker(r'copper_ore.png', 'dropping item', threshold=0.8, playarea=False)
@@ -152,16 +153,16 @@ def findarea_single(ore, cropx, cropy):
 
 
 def count_gems():
-    return Image_count('images/gem_icon.png')
+    return Image_count('gem_icon.png')
 
 def count_geo():
-    return Image_count('images/geo_icon.png')
+    return Image_count('geo_icon.png')
 
 def count_gems2():
-    return Image_count('images/gem_icon2.png')
+    return Image_count('gem_icon2.png')
 
 def inv_count(name):
-    return Image_count('images/' + name + '_ore.png')
+    return Image_count(name + '_ore.png')
 
 def timer_countdown():
     global Run_Duration_hours
@@ -171,7 +172,7 @@ def timer_countdown():
     #print(final)
     for i in range(final):
         # the exact output you're looking for:
-        print(bcolors.OK + f'\r[%-10s] %d%%' % ('='*round((i/final)*10), round((i/final)*100)), f'time left: {t_end - time.time() :.2f} secs | coords: {spot} | miner status: {mined_text} | ore: {ore_count} | gems: {gem_count} | clues: {clue_count}', end='')
+        print(bcolors.OK + f'\r[%-10s] %d%%' % ('='*round((i/final)*10), round((i/final)*100)), f'time left: {t_end - time.time() :.2f} secs | coords: {spot} | miner status: {mined_text} | ore: {ore_count} | gems: {gem_count} | clues: {clue_count} | actions: {actions}', end='')
         time.sleep(1)
 
 def count_items():
@@ -196,6 +197,10 @@ def powerminer_text(ore, num, Take_Human_Break=False, Run_Duration_hours=5):
     powerlist = ['tin', 'copper', 'coal', 'iron', 'gold', 'clay', 'red', 'green', 'amber']
     t_end = time.time() + (60 * 60 * Run_Duration_hours)
     while time.time() < t_end:
+        invent = invent_enabled()
+        if invent == 0:
+            actions = 'opening inventory'
+            pyautogui.press('esc')
         time_left = str(datetime.timedelta(seconds=round(t_end - time.time(), 0)))
         actions = 'None'
         randomizer(timer_break, ibreak)
@@ -265,10 +270,12 @@ if __name__ == "__main__":
     amber = 8
     print('Will break in: %.2f' % (ibreak / 60) + ' minutes ')
     print("Mine Ore Selected:", powerlist[tin])
-                # | ore | marker color | take break | how long to run for in hours
-    Run_Duration_hours = 3
+
+    # --------- CHANGE TO RUN FOR AMOUNT OF HOURS ----------------
+    Run_Duration_hours = 0.1
     t1 = Thread(target=timer_countdown)
     t1.start()
+                # | ore | marker color | take break | how long to run for in hours
     powerminer_text(copper, red, Take_Human_Break=True, Run_Duration_hours=Run_Duration_hours)
 
     #os.system('shutdown -s -f')
