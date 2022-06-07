@@ -228,8 +228,8 @@ def powercutter(color, type, firemaking=False, bank_items=True, spot='', Take_Hu
             if firemaking:
                 if spot != '':
                     firespot(spot)
-                random_breaks(5, 8)
-                w = random.randrange(20, 26)
+                random_breaks(0.1, 5)
+                w = random.randrange(0, 3)
                 while invent_count > w:
                     invent_count = Image_count(type + '_icon.png')
                     print("wood: ", invent_count)
