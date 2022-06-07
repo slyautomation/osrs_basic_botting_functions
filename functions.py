@@ -72,7 +72,7 @@ def deposit_all_Bank():
 
 
 def invent_crop():
-    return screen_Image(620, 480, 820, 750, 'inventshot.png')
+    return screen_Image(620, 480, 820, 750, 'images/inventshot.png')
 
 
 def random_inventory():
@@ -134,16 +134,16 @@ def resize_quick():
     bottom = 67
 
     im = ImageGrab.grab(bbox=(left, top, right, bottom))
-    im.save('screen_resize.png', 'png')
+    im.save('images/screen_resize.png', 'png')
 def resizeImage():
     resize_quick()
-    png = 'screen_resize.png'
+    png = 'images/screen_resize.png'
     im = Image.open(png)
     # saves new cropped image
     width, height = im.size
     new_size = (width * 4, height * 4)
     im1 = im.resize(new_size)
-    im1.save('textshot.png')
+    im1.save('images/textshot.png')
 
 
 def Miner_Image_quick():
@@ -153,7 +153,7 @@ def Miner_Image_quick():
     bottom = 750
 
     im = ImageGrab.grab(bbox=(left, top, right, bottom))
-    im.save('miner_img.png', 'png')
+    im.save('images/miner_img.png', 'png')
 
 def Image_to_Text(preprocess, image, parse_config='--psm 7'):
     resizeImage()
@@ -189,23 +189,23 @@ def Image_to_Text(preprocess, image, parse_config='--psm 7'):
 def screen_Image_new(name='screenshot.png'):
     x, y, w, h = core.getWindow(data[0]['Config']['client_title'])
     im = ImageGrab.grab(bbox=(x, y, x+w, y+h))
-    im.save(name, 'png')
+    im.save('images/' + name, 'png')
 
 def screen_Image(left=0, top=0, right=0, bottom=0, name='screenshot.png'):
 
     myScreenshot = ImageGrab.grab() #pyautogui.screenshot()
-    myScreenshot.save('screenshot.png', 'png')
+    myScreenshot.save('images/screenshot.png', 'png')
     if left != 0 or top != 0 or right != 0 or bottom != 0:
-        png = 'screenshot.png'
+        png = 'images/screenshot.png'
         im = Image.open(png)  # uses PIL library to open image in memory
         im = im.crop((left, top, right, bottom))  # defines crop points
-        im.save(name)  # saves new cropped image
+        im.save('images/' + name)  # saves new cropped image
         # print('screeenshot saved')
 
 
 def Image_color_new():
     screen_Image_new('screenshot2.png')
-    image = cv2.imread('screenshot2.png')
+    image = cv2.imread('images/screenshot2.png')
     # define the list of boundaries
     red = ([0, 0, 180], [80, 80, 255])  # 0 Index
     green = ([0, 180, 0], [80, 255, 80])  # 1 Index
@@ -233,7 +233,7 @@ def Image_color_new():
 
 def Image_color(left=0, top=0, right=0, bottom=0):
     screen_Image(left, top, right, bottom)
-    image = cv2.imread('screenshot.png')
+    image = cv2.imread('images/screenshot.png')
     # define the list of boundaries
     red = ([0, 0, 180], [80, 80, 255])  # 0 Index
     green = ([0, 180, 0], [80, 255, 80])  # 1 Index
@@ -291,7 +291,7 @@ def teleport_home():
 
 def change_brown_black():
     # Load the aerial image and convert to HSV colourspace
-    image = cv2.imread("textshot.png")
+    image = cv2.imread("images/textshot.png")
     #hsv = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
     # define the list of boundaries
     # BGR
@@ -305,11 +305,11 @@ def change_brown_black():
     # Change image to red where we found brown
     image[mask > 0] = (0, 0, 0)
 
-    cv2.imwrite("textshot.png", image)
+    cv2.imwrite("images/textshot.png", image)
 
 def find_Object_precise(item, deep=20, left=0, top=0, right=0, bottom=0):
     screen_Image(left, top, right, bottom)
-    image = cv2.imread('screenshot.png')
+    image = cv2.imread('images/screenshot.png')
 
     # define the list of boundaries
     # B, G, R
@@ -353,7 +353,7 @@ def find_Object_precise(item, deep=20, left=0, top=0, right=0, bottom=0):
     return False
 
 def add_blank_square_to_image(filename, left, top):
-    image_name_output = 'blank_image.png'
+    image_name_output = 'images/blank_image.png'
     mode = 'RGBA'
     size = (25, 25)
     color = (255, 255, 255, 255)
@@ -364,12 +364,12 @@ def add_blank_square_to_image(filename, left, top):
     frontImage = Image.open(image_name_output)
     background = Image.open(filename)
     background.paste(frontImage, pos, frontImage.convert('RGBA'))
-    background.save('screenshot.png', format='png')
+    background.save('images/screenshot.png', format='png')
 
 def find_Object_closest(item, left=0, top=0, right=0, bottom=0, clicker='left', size=1):
     screen_Image(left, top, right, bottom)
-    add_blank_square_to_image('screenshot.png', left, top)
-    image = cv2.imread('screenshot.png')
+    add_blank_square_to_image('images/screenshot.png', left, top)
+    image = cv2.imread('images/screenshot.png')
 
     # define the list of boundaries
     # B, G, R
@@ -428,7 +428,7 @@ def find_Object_closest(item, left=0, top=0, right=0, bottom=0, clicker='left', 
 
 def find_Object(item, left=0, top=0, right=0, bottom=0):
     screen_Image(left, top, right, bottom)
-    image = cv2.imread('screenshot.png')
+    image = cv2.imread('images/screenshot.png')
 
     # define the list of boundaries
     # B, G, R
@@ -473,7 +473,7 @@ def find_Object(item, left=0, top=0, right=0, bottom=0):
 
 def find_Object_right_quick(item, left=0, top=0, right=0, bottom=0, y_range=40):
     screen_Image(left, top, right, bottom)
-    image = cv2.imread('screenshot.png')
+    image = cv2.imread('images/screenshot.png')
 
     # define the list of boundaries
     # B, G, R
@@ -529,7 +529,7 @@ def find_Object_right_quick(item, left=0, top=0, right=0, bottom=0, y_range=40):
 
 def find_Object_right(item, left=0, top=0, right=0, bottom=0, y_range=40):
     screen_Image(left, top, right, bottom)
-    image = cv2.imread('screenshot.png')
+    image = cv2.imread('images/screenshot.png')
 
     # define the list of boundaries
     # B, G, R
@@ -601,10 +601,10 @@ def spaces(a):
 def skill_lvl_up():
     counter = 0
     myScreenshot = ImageGrab.grab()
-    myScreenshot.save(r"screen.png")
-    img_rgb = cv2.imread(r"screen.png")
+    myScreenshot.save(r"images/screen.png")
+    img_rgb = cv2.imread(r"images/screen.png")
     img_gray = cv2.cvtColor(img_rgb, cv2.COLOR_BGR2GRAY)
-    template = cv2.imread('Congrats_flag.png', 0)
+    template = cv2.imread('images/Congrats_flag.png', 0)
     w, h = template.shape[::-1]
     res = cv2.matchTemplate(img_gray, template, cv2.TM_CCOEFF_NORMED)
     threshold = 0.8
@@ -618,9 +618,9 @@ def skill_lvl_up():
 def skill_lvl_up_new():
     counter = 0
     screen_Image_new("screen.png")
-    img_rgb = cv2.imread(r"screen.png")
+    img_rgb = cv2.imread(r"images/screen.png")
     img_gray = cv2.cvtColor(img_rgb, cv2.COLOR_BGR2GRAY)
-    template = cv2.imread('Congrats_flag.png', 0)
+    template = cv2.imread('images/Congrats_flag.png', 0)
     w, h = template.shape[::-1]
     res = cv2.matchTemplate(img_gray, template, cv2.TM_CCOEFF_NORMED)
     threshold = 0.8
@@ -628,7 +628,7 @@ def skill_lvl_up_new():
     for pt in zip(*loc[::-1]):
         cv2.rectangle(img_rgb, pt, (pt[0] + w, pt[1] + h), (0, 0, 255), 2)
         counter += 1
-    # cv2.imwrite('res.png', img_rgb)
+    # cv2.imwrite('images/res.png', img_rgb)
     return counter
 
 def pick_item_right(v, u, option=1):
@@ -716,7 +716,7 @@ def deposit_secondItem():
 
 def mini_map_image(image, iwidth=0, iheight=0, threshold=0.7, clicker='left', xspace=0, yspace=0):
     screen_Image(1941 - 1280, 27, 2106 - 1280, 190, 'mini_map.png')
-    img_rgb = cv2.imread('mini_map.png')
+    img_rgb = cv2.imread('images/mini_map.png')
     #print('screenshot taken')
     img_gray = cv2.cvtColor(img_rgb, cv2.COLOR_BGR2GRAY)
     template = cv2.imread(image, 0)
@@ -735,7 +735,7 @@ def mini_map_image(image, iwidth=0, iheight=0, threshold=0.7, clicker='left', xs
         print(False)
         return False
     else:
-        # cv2.imwrite('res.png', img_rgb)
+        # cv2.imwrite('images/res.png', img_rgb)
         x = random.randrange(xspace, iwidth + 1 + xspace) + (1941 - 1280)
         y = random.randrange(yspace, iheight + 1 + yspace) + 27
         icoord = pt[0] + x
@@ -753,7 +753,7 @@ def mini_map_bool(image, threshold=0.7):
     screen_Image(1941 - 1280, 27, 2106 - 1280, 190, 'mini_map.png')
     global icoord
     global iflag
-    img_rgb = cv2.imread('mini_map.png')
+    img_rgb = cv2.imread('images/mini_map.png')
     # print('screenshot taken')
     img_gray = cv2.cvtColor(img_rgb, cv2.COLOR_BGR2GRAY)
     template = cv2.imread(image, 0)
@@ -770,7 +770,7 @@ def mini_map_bool(image, threshold=0.7):
     screen_Image(1941 - 1280, 27, 2106 - 1280, 190, 'mini_map.png')
     global icoord
     global iflag
-    img_rgb = cv2.imread('mini_map.png')
+    img_rgb = cv2.imread('images/mini_map.png')
     # print('screenshot taken')
     img_gray = cv2.cvtColor(img_rgb, cv2.COLOR_BGR2GRAY)
     template = cv2.imread(image, 0)
@@ -806,7 +806,7 @@ def xp_quick():
 def xp_gain_check(image, threshold=0.6):
     xp_quick()
     global iflag
-    img_rgb = cv2.imread('xp_gain.png')
+    img_rgb = cv2.imread('images/xp_gain.png')
     img_gray = cv2.cvtColor(img_rgb, cv2.COLOR_BGR2GRAY)
     template = cv2.imread(image, 0)
     pt = None
@@ -827,12 +827,12 @@ def McropImage_quick():
     bottom = 750
 
     im = ImageGrab.grab(bbox=(left, top, right, bottom))
-    im.save('screenshot2.png', 'png')
+    im.save('images/screenshot2.png', 'png')
 
 
 def findarea_attack_quick(object, deep=20):
     McropImage_quick()
-    image = cv2.imread(r"screenshot2.png")
+    image = cv2.imread(r"images/screenshot2.png")
 
     # B, G, R
     # --------------------- ADD OBJECTS -------------------
@@ -890,7 +890,7 @@ def Image_Rec_single(image, event, iheight=5, iwidth=5, threshold=0.7, clicker='
         screen_Image(0, 0, 600, 750)
     else:
         screen_Image(620, 480, 820, 750)
-    img_rgb = cv2.imread('screenshot.png')
+    img_rgb = cv2.imread('images/screenshot.png')
     # print('screenshot taken')
     img_gray = cv2.cvtColor(img_rgb, cv2.COLOR_BGR2GRAY)
     template = cv2.imread(image, 0)
@@ -933,8 +933,8 @@ def Image_Rec_single(image, event, iheight=5, iwidth=5, threshold=0.7, clicker='
 
 def Image_Rec_single_closest(image, threshold=0.7, clicker='left', playarea=True):
     myScreenshot = ImageGrab.grab()
-    myScreenshot.save('screenshot.png')
-    img_rgb = cv2.imread('screenshot.png')
+    myScreenshot.save('images/screenshot.png')
+    img_rgb = cv2.imread('images/screenshot.png')
     img_gray = cv2.cvtColor(img_rgb, cv2.COLOR_BGR2GRAY)
     template = cv2.imread(image, 0)
     w, h = template.shape[::-1]
@@ -976,7 +976,7 @@ def Image_Rec_single_closest(image, threshold=0.7, clicker='left', playarea=True
     return True
 
 def bank_ready(deposit_second=True):
-    bank = Image_count('bank_deposit.png', 0.75)
+    bank = Image_count('images/bank_deposit.png', 0.75)
     print("bank deposit open:", bank)
     if bank > 0:
         if deposit_second:
@@ -987,13 +987,13 @@ def bank_ready(deposit_second=True):
     return False
 
 def invent_enabled():
-    return Image_count('inventory_enabled.png', threshold=0.99)
+    return Image_count('images/inventory_enabled.png', threshold=0.99)
 
 def run_enabled():
-    return Image_count('run_enabled.png', threshold=0.99)
+    return Image_count('images/run_enabled.png', threshold=0.99)
 
 def make_enabled(make='make_craft.png'):
-    return Image_count(make, threshold=0.9)
+    return Image_count('images/' + make, threshold=0.9)
 
 def image_Rec_clicker(image, event, iheight=5, iwidth=5, threshold=0.7, clicker='left', ispace=20, playarea=True, fast=False):
     global icoord
@@ -1002,7 +1002,7 @@ def image_Rec_clicker(image, event, iheight=5, iwidth=5, threshold=0.7, clicker=
         screen_Image(0, 0, 600, 750)
     else:
         screen_Image(620, 480, 820, 750)
-    img_rgb = cv2.imread('screenshot.png')
+    img_rgb = cv2.imread('images/screenshot.png')
     img_gray = cv2.cvtColor(img_rgb, cv2.COLOR_BGR2GRAY)
     template = cv2.imread(image, 0)
     w, h = template.shape[::-1]
@@ -1046,7 +1046,7 @@ def image_Rec_inventory(image, threshold=0.8, clicker='left', iheight=5, iwidth=
     global icoord
     global iflag
     invent_crop()
-    img_rgb = cv2.imread('inventshot.png')
+    img_rgb = cv2.imread('images/inventshot.png')
     img_gray = cv2.cvtColor(img_rgb, cv2.COLOR_BGR2GRAY)
     template = cv2.imread(image, 0)
     w, h = template.shape[::-1]
@@ -1075,7 +1075,7 @@ def image_Rec_inventory(image, threshold=0.8, clicker='left', iheight=5, iwidth=
 def Image_count(object, threshold=0.8, left=0, top=0, right=0, bottom=0):
     counter = 0
     screen_Image(left, top, right, bottom, name='screenshot.png')
-    img_rgb = cv2.imread('screenshot.png')
+    img_rgb = cv2.imread('images/screenshot.png')
     img_gray = cv2.cvtColor(img_rgb, cv2.COLOR_BGR2GRAY)
     template = cv2.imread(object, 0)
     w, h = template.shape[::-1]
@@ -1114,7 +1114,7 @@ def random_breaks(minsec, maxsec):
 
 def findarea(object):
     screen_Image()
-    image = cv2.imread('screenshot.png')
+    image = cv2.imread('images/screenshot.png')
     red = ([0, 0, 180], [80, 80, 255])  # 0 Index
     green = ([0, 180, 0], [80, 255, 80])  # 1 Index
     amber = ([0, 200, 200], [60, 255, 255])  # 2 Index
