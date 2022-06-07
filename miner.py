@@ -191,10 +191,14 @@ def print_progress(time_left, spot, mined_text, powerlist, ore, actions):
 
 def powerminer_text(ore, num, Take_Human_Break=False, Run_Duration_hours=5):
     global spot, mined_text, time_left, powerlist, actions, powerlist, t_end, gem_count, ore_count, clue_count
+    powerlist = ['tin', 'copper', 'coal', 'iron', 'gold', 'clay', 'red', 'green', 'amber']
+    print("Mine Ore Selected:", powerlist[ore])
+    t1 = Thread(target=timer_countdown)
+    t1.start()
     spot = (0,0)
     actions = 'None'
     mined_text = 'Not Mining'
-    powerlist = ['tin', 'copper', 'coal', 'iron', 'gold', 'clay', 'red', 'green', 'amber']
+
     t_end = time.time() + (60 * 60 * Run_Duration_hours)
     while time.time() < t_end:
         invent = invent_enabled()
@@ -269,12 +273,11 @@ if __name__ == "__main__":
     green = 7
     amber = 8
     print('Will break in: %.2f' % (ibreak / 60) + ' minutes ')
-    print("Mine Ore Selected:", powerlist[tin])
+
 
     # --------- CHANGE TO RUN FOR AMOUNT OF HOURS ----------------
     Run_Duration_hours = 0.1
-    t1 = Thread(target=timer_countdown)
-    t1.start()
+
                 # | ore | marker color | take break | how long to run for in hours
     powerminer_text(copper, red, Take_Human_Break=True, Run_Duration_hours=Run_Duration_hours)
 
