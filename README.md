@@ -43,20 +43,6 @@ Tutorial on firemaking code click link: https://youtu.be/bHZCQUChG_k
 
 ## Quick module install Steps
 
-in terminal type: 
-
-pip install pytesseract==0.3.3
-
-pip install opencv-python
-
-pip install pyautogui
-
-pip install pypiwin32
-
-### Super Quick Setup and install in pycharm:
-
-
-
 in terminal type:
 
 pip install -r requirements.txt
