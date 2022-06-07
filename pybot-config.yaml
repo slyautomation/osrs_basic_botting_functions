@@ -2,4 +2,5 @@
     client_title: OpenOSRS
     file_path_to_client: \.openosrs\
     pc_profile: C:\Users\MMH
-    tesseract_path: C:\Program Files\Tesseract-OCR\tesseract
+    tesseract_path: C:\Program Files\Tesseract-OCR\
+    enable_on_start: true
