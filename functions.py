@@ -756,7 +756,7 @@ def mini_map_bool(image, threshold=0.7):
     img_rgb = cv2.imread('images/mini_map.png')
     # print('screenshot taken')
     img_gray = cv2.cvtColor(img_rgb, cv2.COLOR_BGR2GRAY)
-    template = cv2.imread(image, 0)
+    template = cv2.imread('images/' + image, 0)
     w, h = template.shape[::-1]
     pt = None
     res = cv2.matchTemplate(img_gray, template, cv2.TM_CCOEFF_NORMED)
@@ -773,7 +773,7 @@ def mini_map_bool(image, threshold=0.7):
     img_rgb = cv2.imread('images/mini_map.png')
     # print('screenshot taken')
     img_gray = cv2.cvtColor(img_rgb, cv2.COLOR_BGR2GRAY)
-    template = cv2.imread(image, 0)
+    template = cv2.imread('images/' + image, 0)
     w, h = template.shape[::-1]
     pt = None
     # print('getting match requirements')
