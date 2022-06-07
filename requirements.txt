@@ -12,3 +12,6 @@ pytesseract==0.3.3
 PyTweening==1.0.3
 pywin32==300
 pyyaml==6.0
+requests==2.27.1
+simplejson==3.17.6
+urllib3==1.26.9
