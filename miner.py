@@ -36,7 +36,11 @@ global timer_break
 global ibreak
 import slyautomation_title
 
-
+class bcolors:
+    OK = '\033[92m' #GREEN
+    WARNING = '\033[93m' #YELLOW
+    FAIL = '\033[91m' #RED
+    RESET = '\033[0m' #RESET COLOR
 
 def random_break(start, c):
     global newTime_break
@@ -167,7 +171,7 @@ def timer_countdown():
     #print(final)
     for i in range(final):
         # the exact output you're looking for:
-        print(f'\r[%-10s] %d%%' % ('='*round((i/final)*10), round((i/final)*100)), f'time left: {t_end - time.time() :.2f} secs | coords: {spot} | miner status: {mined_text} | ore: {ore_count} | gems: {gem_count} | clues: {clue_count}', end='')
+        print(bcolors.OK + f'\r[%-10s] %d%%' % ('='*round((i/final)*10), round((i/final)*100)), f'time left: {t_end - time.time() :.2f} secs | coords: {spot} | miner status: {mined_text} | ore: {ore_count} | gems: {gem_count} | clues: {clue_count}', end='')
         time.sleep(1)
 
 def count_items():
@@ -180,7 +184,7 @@ def count_items():
         clue_count = int(count_geo())
         time.sleep(0.1)
 def print_progress(time_left, spot, mined_text, powerlist, ore, actions):
-    print(
+    print(bcolors.OK +
         f'\rtime left: {time_left} | coords: {spot} | miner status: {mined_text} | ore: {int(inv_count(powerlist[ore]))} | gems: {int(count_gems() + count_gems2())} | clues: {int(count_geo())} | actions: {actions}',
         end='')
 
@@ -265,6 +269,6 @@ if __name__ == "__main__":
     Run_Duration_hours = 3
     t1 = Thread(target=timer_countdown)
     t1.start()
-    powerminer_text(tin, red, Take_Human_Break=True, Run_Duration_hours=Run_Duration_hours)
+    powerminer_text(copper, red, Take_Human_Break=True, Run_Duration_hours=Run_Duration_hours)
 
     #os.system('shutdown -s -f')
