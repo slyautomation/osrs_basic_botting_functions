@@ -246,8 +246,7 @@ if __name__ == "__main__":
     ibreak = random.randrange(300, 2000)
     timer_break = timer()
 
-    t1 = Thread(target=timer_countdown)
-    t1.start()
+
     # ----- ORE -------
     tin = 0
     copper = 1
@@ -264,6 +263,8 @@ if __name__ == "__main__":
     print("Mine Ore Selected:", powerlist[tin])
                 # | ore | marker color | take break | how long to run for in hours
     Run_Duration_hours = 3
+    t1 = Thread(target=timer_countdown)
+    t1.start()
     powerminer_text(tin, red, Take_Human_Break=True, Run_Duration_hours=Run_Duration_hours)
 
     #os.system('shutdown -s -f')
