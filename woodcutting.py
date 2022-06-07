@@ -1,3 +1,5 @@
+from threading import Thread
+
 import numpy as np
 import cv2
 import pyautogui
@@ -39,6 +41,11 @@ global timer
 global timer_break
 global ibreak
 
+class bcolors:
+    OK = '\033[92m' #GREEN
+    WARNING = '\033[93m' #YELLOW
+    FAIL = '\033[91m' #RED
+    RESET = '\033[0m' #RESET COLOR
 
 def random_break(start, c):
     global newTime_break
@@ -69,8 +76,9 @@ def timer():
 
 
 def random_pause():
+    global actions
     b = random.uniform(20, 250)
-    print('pausing for ' + str(b) + ' seconds')
+    actions = 'pausing for ' + str(b) + ' seconds'
     time.sleep(b)
     newTime_break = True
 
@@ -84,29 +92,23 @@ options = {0: random_inventory,
            4: random_pause}
 
 def drop_wood(type):
-    print("dropping wood starting...")
+    global actions
+    actions = "dropping wood starting..."
     invent_crop()
     drop_item()
     image_Rec_clicker(type + '_icon.png', 'dropping item', 5, 5, 0.9, 'left', 10, False)
     release_drop_item()
-    print("dropping wood done")
+    return "dropping wood done"
 
 
 def firespot(spot):
     firespots = ['firespot_varrock_wood', 'firespot_draynor_willow', 'firespot_draynor_oak'
         , 'firespot_farador_oak', 'firespot_draynor_wood', 'firespot_lumbridge_wood']
 
-    xy_firespots = [[45, 57], [50, 40], [80, 40], [25, 20], [25, 20], [-15, -5]]
-
+    xy_firespots = [[45, 55], [50, 40], [80, 40], [25, 20], [25, 20], [-15, -5]]
     x = xy_firespots[firespots.index(spot)][0]
     y = xy_firespots[firespots.index(spot)][1]
-    print(spot)
-    print(mini_map_image(spot + '.png', x, y, 0.7, 'left', 14, 0))
-    # print(mini_map_image(spot + '.png',  45, 57, 0.7, 'left', 5, 0)) # varrock wood
-    # print(mini_map_image(spot + '.png', 50, 40, 0.7, 'left', 5, 0)) # draynor willow
-    # print(mini_map_image(spot + '.png', 80, 40, 0.7, 'left', 5, 0)) # draynor oak
-    # print(mini_map_image(spot + '.png', 25, 20, 0.7, 'left', 5, 0))  # farador oak
-    # print(mini_map_image(spot + '.png', 25, 20, 0.7, 'left', 5, 0))  # draynor wood
+    mini_map_image(spot + '.png', x, y, 0.7, 'left', 15, 0)
 
 def invent_enabled():
     return Image_count('inventory_enabled.png', threshold=0.99)
@@ -115,6 +117,7 @@ def bank_spot():
     functions.find_Object_precise(1, 5, 0, 0, 860, 775)
 
 def deposit_bank_items(type):
+    global actions
     bank = Image_count('bank_deposit.png', 0.75)
     if bank > 0:
         functions.deposit_all_Bank()
@@ -129,20 +132,15 @@ def deposit_bank_items(type):
         mini_map_image('draynor_bank_spot.png', 35, 40, 0.7, 'left', 10, 10)
         return bank
     else:
-        print("bank inventory not found")
+        actions = "bank inventory not found"
         mini_map_image('draynor_bank_spot.png', 10, 40, 0.8, 'left', 10, 10)
         random_breaks(5, 10)
         bank_spot()
         return bank
-def pick_random_tree_spot(color):
-    if color == 'red':
-        find_Object(0)  # 0 red # 2 amber
-    else:
-        find_Object(2)  # 0 red # 2 amber
 
 def change_brown_black():
     # Load the aerial image and convert to HSV colourspace
-    image = cv2.imread("textshot.png")
+    image = cv2.imread('images/textshot.png')
     #hsv = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
     # define the list of boundaries
     # BGR
@@ -156,7 +154,7 @@ def change_brown_black():
     # Change image to red where we found brown
     image[mask > 0] = (0, 0, 0)
 
-    cv2.imwrite("textshot.png", image)
+    cv2.imwrite('images/textshot.png', image)
 def resize_quick():
     left = 25
     top = 49
@@ -164,22 +162,22 @@ def resize_quick():
     bottom = 70
 
     im = ImageGrab.grab(bbox=(left, top, right, bottom))
-    im.save('screen_resize.png', 'png')
+    im.save('images/screen_resize.png', 'png')
 def resizeImage():
     resize_quick()
-    png = 'screen_resize.png'
+    png = 'images/screen_resize.png'
     im = Image.open(png)
     # saves new cropped image
     width, height = im.size
     new_size = (width * 4, height * 4)
     im1 = im.resize(new_size)
-    im1.save('textshot.png')
+    im1.save('images/textshot.png')
 
 def Image_to_Text(preprocess, image, parse_config='--psm 7'):
     resizeImage()
     change_brown_black()
     # construct the argument parse and parse the arguments
-    image = cv2.imread(image)
+    image = cv2.imread('images/' + image)
     image = cv2.bitwise_not(image)
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     # check to see if we should apply thresholding to preprocess the
@@ -205,89 +203,152 @@ def Image_to_Text(preprocess, image, parse_config='--psm 7'):
     os.remove(filename)
     #print(text)
     return text
-def powercutter(color, type, firemaking=False, bank_items=True, spot='', Take_Human_Break=False, Run_Duration_hours=6):
+
+def doFireMaking(spot,type,ws,we):
+    global invent_count, wood_count, actions, clue_count
+    if spot == '':
+        return
+    firespot(spot)
+    random_breaks(5, 8)
+    w = random.randrange(ws, we)
+    while invent_count > w:
+        actions = 'Burning Wood'
+        clue_count = Image_count('clue_nest.png')
+        wood_count = Image_count(type + '_icon.png')
+        invent_count = wood_count + clue_count
+        #print("wood: ", invent_count)
+        random_breaks(0.1, 2)
+        Image_Rec_single('tinderbox.png', 'burning wood', 5, 5, 0.9, 'left', 8, False)
+        random_breaks(0.1, 1)
+        Image_Rec_single(type + '_icon.png', 'burning wood', 5, 5, 0.9, 'left', 8, False)
+        fire = False
+        time_start = time.time()
+        while not fire:
+            fire = xp_gain_check('firemaking_xp.png')
+            if not fire:
+                fire = xp_gain_check('firemaking_xp2.png')
+            actions = 'Burning Wood: ' + str(fire) + ' | seconds count: %.2f' % time_end
+            time_end = time.time() - time_start
+            #print("seconds count: %.2f" % time_end)
+            if time_end > 30:
+                invent_count = 0
+                fire = True
+                break
+def doBanking(type):
+    global actions
+    invent = invent_enabled()
+    if invent == 0:
+        actions = 'opening inventory'
+        pyautogui.press('esc')
+    mini_map_image('draynor_bank_spot.png', 10, 40, 0.8, 'left', 10, 10)
+    random_breaks(9.5, 11)
+    bank_spot()
+    random_breaks(2, 5)
+    bank = deposit_bank_items(type)
+    random_breaks(9.5, 11)
+    while bank == 0:
+        bank = deposit_bank_items(type)
+    random_breaks(0, 1)
+
+def doCutting(cutting, color, Take_Human_Break):
+    global cutting_text, actions, coords
+    if cutting.lower() != 'woodcutting' and cutting.lower() != 'uoodcutting' and cutting.lower() != 'voodcutting' and cutting.lower() != 'joodcuttine' and cutting.lower() != 'foodcuttir' and cutting.lower() != 'foodcuttin' and cutting.lower() != 'joodcuttinc':
+        cutting_text = 'Not Cutting'
+        random_breaks(0.2, 3)
+        coords = find_Object(color)
+        random_breaks(8, 10)
+    if skill_lvl_up() != 0:
+        actions = 'leveled up...'
+        random_breaks(0.2, 3)
+        pyautogui.press('space')
+        random_breaks(0.1, 3)
+        pyautogui.press('space')
+        a = random.randrange(0, 2)
+        # print(a)
+        spaces(a)
+    if Take_Human_Break:
+        c = random.triangular(0.1, 5, 0.5)
+        time.sleep(c)
+
+def timer_countdown():
+    global Run_Duration_hours
     t_end = time.time() + (60 * 60 * Run_Duration_hours)
-    # using the datetime.fromtimestamp() function
+    #print(t_end)
+    final = round((60 * 60 * Run_Duration_hours) / 1)
+    #print(final)
+    for i in range(final):
+        # the exact output you're looking for:
+        print(bcolors.OK + f'\r[%-10s] %d%%' % ('='*round((i/final)*10), round((i/final)*100)), f'time left: {t_end - time.time() :.2f} secs | coords: {coords} | cutting status: {cutting_text} | wood: {wood_count} | clues: {clue_count} | actions: {actions}', end='')
+        time.sleep(1)
+
+def count_items():
+    global Run_Duration_hours
+    t_end = time.time() + (60 * 60 * Run_Duration_hours)
+    while time.time() < t_end:
+        global wood_type, powerlist, wood_count, mined_text, clue_count
+        wood_count = int(Image_count(wood_type + '_icon.png'))
+        clue_count = int(Image_count('clue_nest.png'))
+        time.sleep(0.1)
+def print_progress(time_left, coords, cutting_text, wood_count, clue_count, type, actions):
+    print(bcolors.OK +
+        f'\rtime left: {time_left} | coords: {coords} | cutting status: {cutting_text} | wood: {int(wood_count)} '
+        f'| clues: {int(clue_count)} | actions: {actions}',
+        end='')
+
+def powercutter(color=0, type='wood', firemaking=False, bank_items=True, spot='', ws=0, we=3, Take_Human_Break=False, Run_Duration_hours=6):
+    global coords, cutting_text, time_left, powerlist, actions, powerlist, t_end, wood_count, clue_count, invent_count
+    powerlist = ['wood', 'oak', 'willow', 'maple', 'yew', 'magic', 'red']
+    t_end = time.time() + (60 * 60 * Run_Duration_hours)
+    wood_type = type
+    print("Wood Type Selected:", wood_type)
+    print("Banking:", bank_items)
+    print("Firemaking:", firemaking)
+    t1 = Thread(target=timer_countdown)
+    t1.start()
     date_time = datetime.datetime.fromtimestamp(t_end)
-    print(date_time)
+    #print(date_time)
     if firemaking:
         inv = 26
     else:
         inv = 27
     while time.time() < t_end:
+        actions = 'None'
         randomizer(timer_break, ibreak)
         invent = functions.invent_enabled()
-        print(invent)
         if invent == 0:
-            print('opening inventory 1')
+            actions = 'opening inventory'
             pyautogui.press('esc')
         # invent_crop()
-        invent_count = Image_count(type + '_icon.png')
-        print("wood: ", invent_count)
+        clue_count = Image_count('clue_nest.png')
+        wood_count = Image_count(type + '_icon.png')
+        invent_count = wood_count + clue_count
+        #print("wood: ", invent_count)
         if invent_count > inv:
             if firemaking:
-                if spot != '':
-                    firespot(spot)
-                random_breaks(0.1, 5)
-                w = random.randrange(0, 3)
-                while invent_count > w:
-                    invent_count = Image_count(type + '_icon.png')
-                    print("wood: ", invent_count)
-                    random_breaks(0.1, 2)
-                    Image_Rec_single('tinderbox.png', 'burning wood', 5, 5, 0.9, 'left', 8, False)
-                    random_breaks(0.1, 1)
-                    Image_Rec_single(type + '_icon.png', 'burning wood', 5, 5, 0.9, 'left', 8, False)
-                    fire = False
-                    time_start = time.time()
-                    while not fire:
-                        fire = xp_gain_check('firemaking_xp.png')
-                        if not fire:
-                            fire = xp_gain_check('firemaking_xp2.png')
-                        print(fire)
-                        time_end = time.time() - time_start
-                        print("seconds count: %02d", time_end)
-                        if time_end > 30:
-                            invent_count = 0
-                            fire = True
-                            break
+                doFireMaking(spot, type, ws, we)
             if bank_items:
-                invent = invent_enabled()
-                print(invent)
-                if invent == 0:
-                    print('opening inventory')
-                    pyautogui.press('esc')
-                mini_map_image('draynor_bank_spot.png', 10, 40, 0.8, 'left', 10, 10)
-                random_breaks(9.5, 11)
-                bank_spot()
-                random_breaks(2, 5)
-                bank = deposit_bank_items(type)
-                random_breaks(9.5, 11)
-                while bank == 0:
-                    bank = deposit_bank_items(type)
-                random_breaks(0, 1)
+                doBanking(type)
             random_breaks(0.2, 5)
             drop_wood(type)
             random_breaks(0.2, 5)
-        resizeImage()
-        fished = Image_to_Text('thresh', 'textshot.png')
-        print(fished)
-        if fished.lower() != 'woodcutting' and fished.lower() != 'uoodcutting' and fished.lower() != 'voodcutting' and fished.lower() != 'joodcuttine' and fished.lower() != 'foodcuttir' and fished.lower() != 'foodcuttin' and fished.lower() != 'joodcuttinc':
-            random_breaks(0.2, 3)
-            pick_random_tree_spot(color)
-            random_breaks(8, 10)
-        if skill_lvl_up() != 0:
-            print('level up')
-            random_breaks(0.2, 3)
-            pyautogui.press('space')
-            random_breaks(0.1, 3)
-            pyautogui.press('space')
-            a = random.randrange(0, 2)
-            # print(a)
-            spaces(a)
-        if Take_Human_Break:
-            c = random.triangular(0.1, 5, 0.5)
-            time.sleep(c)
+        cutting_text = Image_to_Text('thresh', 'textshot.png')
+        #print(cutting_text)
+        doCutting(cutting_text, color, Take_Human_Break)
 
+
+coords = (0, 0)
+actions = 'None'
+cutting_text = 'Not Cutting'
+time_left = 0
+
+#-------------------------------
+
+invent_count = 0
+wood_type = 'wood'
+wood_count = 0
+bird_count = 0
+clue_count = 0
+#-------------------------------
 
 if __name__ == "__main__":
     time.sleep(2)
@@ -296,9 +357,23 @@ if __name__ == "__main__":
     y = random.randrange(400, 500)
     pyautogui.click(x, y, button='right')
     ibreak = random.randrange(300, 2000)
-    print('will break in   ' + str(ibreak / 60) + ' minutes')
+    print('Will break in: %.2f' % (ibreak / 60) + ' minutes ')
     timer_break = timer()
-    firespots = ['firespot_varrock_wood', 'firespot_draynor_willow', 'firespot_draynor_oak'
-        , 'firespot_farador_oak', 'firespot_draynor_wood', 'firespot_lumbridge_wood']
+    # ----- OBJECT MARKER COLOR ------
+    red = 0
+    yellow = 2
+    green = 1
+    purple = 3
+    blue = 4
 
-    powercutter('yellow', 'wood', firemaking=True, bank_items=False, spot='firespot_lumbridge_wood', Take_Human_Break=True, Run_Duration_hours=4.2)
+    # ----- LIST OF WOOD TYPES --------
+    powerlist = ['wood', 'oak', 'willow', 'maple', 'yew', 'magic', 'red']
+
+    # --------- CHANGE TO RUN FOR AMOUNT OF HOURS ----------------
+    Run_Duration_hours = 0.1
+
+    firespots = ['firespot_varrock_wood', 'firespot_draynor_willow', 'firespot_draynor_oak'
+        , 'firespot_farador_oak', 'firespot_draynor_wood']
+    powercutter(red, 'wood', firemaking=True, bank_items=False,
+                spot='firespot_varrock_wood',
+                Take_Human_Break=True, Run_Duration_hours=Run_Duration_hours)
