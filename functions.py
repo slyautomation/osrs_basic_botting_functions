@@ -27,7 +27,7 @@ with open("pybot-config.yaml", "r") as yamlfile:
     data = yaml.load(yamlfile, Loader=yaml.FullLoader)
 
 
-print(data[0]['Config']['tesseract_path'])
+#print(data[0]['Config']['tesseract_path'])
 pytesseract.pytesseract.tesseract_cmd = data[0]['Config']['tesseract_path'] + "tesseract"
 os.environ["TESSDATA_PREFIX"] = data[0]['Config']['tesseract_path'] + "tessdata"
 
@@ -56,7 +56,7 @@ for f in os.listdir(filename):
     except OSError:
         pass
 
-print('files deleted')
+print('jagex files deleted')
 import core
 
 def deposit_all_Bank():
