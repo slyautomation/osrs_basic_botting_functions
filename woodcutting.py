@@ -1,3 +1,4 @@
+import json
 from threading import Thread
 
 import numpy as np
@@ -8,6 +9,8 @@ import time
 import os
 import datetime
 import pytesseract
+import requests
+import simplejson
 from PIL import Image, ImageGrab
 
 import functions
@@ -40,6 +43,8 @@ newTime_break = False
 global timer
 global timer_break
 global ibreak
+
+s = requests.session()
 
 class bcolors:
     OK = '\033[92m' #GREEN
@@ -91,21 +96,63 @@ options = {0: random_inventory,
            3: random_quests,
            4: random_pause}
 
+def get_live_info():
+    '''Returns specific live information from the game client via the Status Socket plugin.'''
+    try:
+        f = open('live_data.json', "r+")
+        data = json.load(f)
+        #print(data)
+        f.close()
+        return data
+    except:
+        pass
+
+def update_pose():
+    c = s.get("http://localhost:8080/events", stream=True)
+    data = simplejson.loads(c.text)
+    #print(data)
+    pose = data['animation pose']
+    return pose
+
+def update_animation():
+    c = s.get("http://localhost:8080/events", stream=True)
+    data = simplejson.loads(c.text)
+    #print(data)
+    animation = data['animation']
+    return animation
+
+def moveAcross():
+    random_breaks(0.1, 3)
+    x = random.randrange(20, 40)
+    y = random.randrange(-5, 5)
+    b = random.uniform(0.2, 0.7)
+    pyautogui.moveTo(743 + x, 110 + y, duration=b)
+    b = random.uniform(0.1, 0.3)
+    pyautogui.click(duration=b, button='left')
+    random_breaks(3, 5)
+    x = random.randrange(20, 40)
+    y = random.randrange(-5, 5)
+    b = random.uniform(0.2, 0.7)
+    pyautogui.moveTo(743 + x, 110 + y, duration=b)
+    b = random.uniform(0.1, 0.3)
+    pyautogui.click(duration=b, button='left')
+    random_breaks(3, 5)
+
 def drop_wood(type):
     global actions
-    actions = "dropping wood starting..."
+    actions = "dropping wood"
     invent_crop()
     drop_item()
     image_Rec_clicker(type + '_icon.png', 'dropping item', 5, 5, 0.9, 'left', 10, False)
     release_drop_item()
-    return "dropping wood done"
+    return "dropping done"
 
 
 def firespot(spot):
-    firespots = ['firespot_varrock_wood', 'firespot_draynor_willow', 'firespot_draynor_oak'
+    firespots = ['firespot_varrock_wood', 'firespot_draynor_willow', 'firespot_draynor_oak', 'firespot_draynor_oak_2'
         , 'firespot_farador_oak', 'firespot_draynor_wood', 'firespot_lumbridge_wood']
 
-    xy_firespots = [[45, 55], [50, 40], [80, 40], [25, 20], [25, 20], [-15, -5]]
+    xy_firespots = [[45, 55], [50, 40], [80, 40], [30, 35], [25, 20], [25, 20], [-15, -5]]
     x = xy_firespots[firespots.index(spot)][0]
     y = xy_firespots[firespots.index(spot)][1]
     mini_map_image(spot + '.png', x, y, 0.7, 'left', 15, 0)
@@ -127,13 +174,13 @@ def deposit_bank_items(type):
             mini_map_image('draynor_bank_spot.png', 0, 75, 0.7, 'left', 10, 10)
             return bank
         if type == 'oak':
-            mini_map_image('draynor_bank_spot.png', 35, 40, 0.7, 'left', 10, 10)
+            mini_map_image('draynor_bank_spot.png', 45, 40, 0.7, 'left', 10, 10)
             return bank
-        mini_map_image('draynor_bank_spot.png', 35, 40, 0.7, 'left', 10, 10)
+        mini_map_image('draynor_bank_spot.png', 45, 40, 0.7, 'left', 10, 10)
         return bank
     else:
-        actions = "bank inventory not found"
-        mini_map_image('draynor_bank_spot.png', 10, 40, 0.8, 'left', 10, 10)
+        actions = "bank not found"
+        mini_map_image('draynor_bank_spot.png', 45, 40, 0.8, 'left', 10, 10)
         random_breaks(5, 10)
         bank_spot()
         return bank
@@ -230,34 +277,55 @@ def doFireMaking(spot,type,ws,we):
                 fire = xp_gain_check('firemaking_xp2.png')
             actions = 'Burning Wood: ' + str(fire) + ' | seconds count: %.2f' % time_end
             time_end = time.time() - time_start
+
             #print("seconds count: %.2f" % time_end)
-            if time_end > 30:
+            c = random.uniform(25,35)
+            if time_end > c and update_animation() == -1:
                 invent_count = 0
                 fire = True
                 break
+    drop_wood(type)
+    moveAcross()
 def doBanking(type):
     global actions
     invent = invent_enabled()
     if invent == 0:
-        actions = 'opening inventory'
+        actions = 'open inventory'
         pyautogui.press('esc')
     mini_map_image('draynor_bank_spot.png', 10, 40, 0.8, 'left', 10, 10)
-    random_breaks(9.5, 11)
+    time.sleep(1)
+    waitforaction(808)
+    random_breaks(0, 2)
     bank_spot()
-    random_breaks(2, 5)
+    time.sleep(1)
+    waitforaction(808)
+    random_breaks(0, 2)
     bank = deposit_bank_items(type)
-    random_breaks(9.5, 11)
+    time.sleep(1)
+    waitforaction(808)
+    random_breaks(0, 2)
     while bank == 0:
         bank = deposit_bank_items(type)
     random_breaks(0, 1)
+
+def waitforaction(num):
+    global actions
+    get_live_info()
+    pose = update_pose()
+    while pose != num:
+        time.sleep(0.1)
+        actions = "moving - " + str(pose)
+        pose = update_pose()
 
 def doCutting(cutting, color, Take_Human_Break):
     global cutting_text, actions, coords
     if cutting.lower() != 'woodcutting' and cutting.lower() != 'uoodcutting' and cutting.lower() != 'voodcutting' and cutting.lower() != 'joodcuttine' and cutting.lower() != 'foodcuttir' and cutting.lower() != 'foodcuttin' and cutting.lower() != 'joodcuttinc':
         cutting_text = 'Not Cutting'
         random_breaks(0.2, 3)
-        coords = find_Object(color)
-        random_breaks(8, 10)
+        coords = find_Object(color,0,0,800,700)
+        #random_breaks(8, 10)
+        time.sleep(1)
+        waitforaction(808)
     if skill_lvl_up() != 0:
         actions = 'leveled up...'
         random_breaks(0.2, 3)
@@ -279,7 +347,7 @@ def timer_countdown():
     #print(final)
     for i in range(final):
         # the exact output you're looking for:
-        print(bcolors.OK + f'\r[%-10s] %d%%' % ('='*round((i/final)*10), round((i/final)*100)), f'time left: {t_end - time.time() :.2f} secs | coords: {coords} | cutting status: {cutting_text} | wood: {wood_count} | clues: {clue_count} | actions: {actions}', end='')
+        print(bcolors.OK + f'\r[%-10s] %d%%' % ('='*round((i/final)*10), round((i/final)*100)), f'time left: {(t_end - time.time())/60 :.2f} mins | coords: {coords} | status: {cutting_text} | wood: {wood_count} | clues: {clue_count} | {actions}', end='')
         time.sleep(1)
 
 def count_items():
@@ -292,18 +360,16 @@ def count_items():
         time.sleep(0.1)
 def print_progress(time_left, coords, cutting_text, wood_count, clue_count, type, actions):
     print(bcolors.OK +
-        f'\rtime left: {time_left} | coords: {coords} | cutting status: {cutting_text} | wood: {int(wood_count)} '
-        f'| clues: {int(clue_count)} | actions: {actions}',
+        f'\rtime left: {time_left} | coords: {coords} | status: {cutting_text} | wood: {int(wood_count)} '
+        f'| clues: {int(clue_count)} | {actions}',
         end='')
 
 def powercutter(color=0, type='wood', firemaking=False, bank_items=True, spot='', ws=0, we=3, Take_Human_Break=False, Run_Duration_hours=6):
-    global coords, cutting_text, time_left, powerlist, actions, powerlist, t_end, wood_count, clue_count, invent_count
+    global ibreak, coords, cutting_text, time_left, powerlist, actions, powerlist, t_end, wood_count, clue_count, invent_count
     powerlist = ['wood', 'oak', 'willow', 'maple', 'yew', 'magic', 'red']
     t_end = time.time() + (60 * 60 * Run_Duration_hours)
     wood_type = type
-    print("Wood Type Selected:", wood_type)
-    print("Banking:", bank_items)
-    print("Firemaking:", firemaking)
+    print('Will break in: %.2f' % (ibreak / 60) + ' minutes |', "Wood Type Selected:", wood_type, "| Banking:", bank_items, "| Firemaking:", firemaking)
     t1 = Thread(target=timer_countdown)
     t1.start()
     date_time = datetime.datetime.fromtimestamp(t_end)
@@ -358,7 +424,6 @@ if __name__ == "__main__":
     y = random.randrange(400, 500)
     pyautogui.click(x, y, button='right')
     ibreak = random.randrange(300, 2000)
-    print('Will break in: %.2f' % (ibreak / 60) + ' minutes ')
     timer_break = timer()
     # ----- OBJECT MARKER COLOR ------
     red = 0
@@ -371,10 +436,10 @@ if __name__ == "__main__":
     powerlist = ['wood', 'oak', 'willow', 'maple', 'yew', 'magic', 'red']
 
     # --------- CHANGE TO RUN FOR AMOUNT OF HOURS ----------------
-    Run_Duration_hours = 0.1
+    Run_Duration_hours = 2
 
     firespots = ['firespot_varrock_wood', 'firespot_draynor_willow', 'firespot_draynor_oak'
         , 'firespot_farador_oak', 'firespot_draynor_wood']
-    powercutter(red, 'wood', firemaking=True, bank_items=False,
-                spot='firespot_varrock_wood',
+    powercutter(red, 'oak', firemaking=False, bank_items=True,
+                spot='',
                 Take_Human_Break=True, Run_Duration_hours=Run_Duration_hours)
