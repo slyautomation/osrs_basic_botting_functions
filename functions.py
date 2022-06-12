@@ -206,6 +206,8 @@ def screen_Image(left=0, top=0, right=0, bottom=0, name='screenshot.png'):
 def Image_color_new():
     screen_Image_new('screenshot2.png')
     image = cv2.imread('images/screenshot2.png')
+    image = cv2.rectangle(image, pt1=(600, 0), pt2=(850, 200), color=(0, 0, 0), thickness=-1)
+    image = cv2.rectangle(image, pt1=(0, 0), pt2=(150, 100), color=(0, 0, 0), thickness=-1)
     # define the list of boundaries
     red = ([0, 0, 180], [80, 80, 255])  # 0 Index
     green = ([0, 180, 0], [80, 255, 80])  # 1 Index
@@ -234,6 +236,8 @@ def Image_color_new():
 def Image_color(left=0, top=0, right=0, bottom=0):
     screen_Image(left, top, right, bottom)
     image = cv2.imread('images/screenshot.png')
+    image = cv2.rectangle(image, pt1=(600, 0), pt2=(850, 200), color=(0, 0, 0), thickness=-1)
+    image = cv2.rectangle(image, pt1=(0, 0), pt2=(150, 100), color=(0, 0, 0), thickness=-1)
     # define the list of boundaries
     red = ([0, 0, 180], [80, 80, 255])  # 0 Index
     green = ([0, 180, 0], [80, 255, 80])  # 1 Index
@@ -310,7 +314,8 @@ def change_brown_black():
 def find_Object_precise(item, deep=20, left=0, top=0, right=0, bottom=0):
     screen_Image(left, top, right, bottom)
     image = cv2.imread('images/screenshot.png')
-
+    image = cv2.rectangle(image, pt1=(600, 0), pt2=(850, 200), color=(0, 0, 0), thickness=-1)
+    image = cv2.rectangle(image, pt1=(0, 0), pt2=(150, 100), color=(0, 0, 0), thickness=-1)
     # define the list of boundaries
     # B, G, R
 
@@ -429,6 +434,8 @@ def find_Object_closest(item, left=0, top=0, right=0, bottom=0, clicker='left', 
 def find_Object(item, left=0, top=0, right=0, bottom=0):
     screen_Image(left, top, right, bottom)
     image = cv2.imread('images/screenshot.png')
+    image = cv2.rectangle(image, pt1=(600, 0), pt2=(850, 200), color=(0, 0, 0), thickness=-1)
+    image = cv2.rectangle(image, pt1=(0, 0), pt2=(150, 100), color=(0, 0, 0), thickness=-1)
 
     # define the list of boundaries
     # B, G, R
@@ -474,6 +481,8 @@ def find_Object(item, left=0, top=0, right=0, bottom=0):
 def find_Object_right_quick(item, left=0, top=0, right=0, bottom=0, y_range=40):
     screen_Image(left, top, right, bottom)
     image = cv2.imread('images/screenshot.png')
+    image = cv2.rectangle(image, pt1=(600, 0), pt2=(850, 200), color=(0, 0, 0), thickness=-1)
+    image = cv2.rectangle(image, pt1=(0, 0), pt2=(150, 100), color=(0, 0, 0), thickness=-1)
 
     # define the list of boundaries
     # B, G, R
@@ -530,7 +539,8 @@ def find_Object_right_quick(item, left=0, top=0, right=0, bottom=0, y_range=40):
 def find_Object_right(item, left=0, top=0, right=0, bottom=0, y_range=40):
     screen_Image(left, top, right, bottom)
     image = cv2.imread('images/screenshot.png')
-
+    image = cv2.rectangle(image, pt1=(600, 0), pt2=(850, 200), color=(0, 0, 0), thickness=-1)
+    image = cv2.rectangle(image, pt1=(0, 0), pt2=(150, 100), color=(0, 0, 0), thickness=-1)
     # define the list of boundaries
     # B, G, R
 
