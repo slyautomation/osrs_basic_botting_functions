@@ -26,14 +26,14 @@ def getWindow_Linux(data):
     w = rect[2] - x - 50
     h = rect[3] - y - 30
     # Find center
-    print('window width:', w, 'window height:', h)
+    #print('window width:', w, 'window height:', h)
     return x, y, w, h
     
 def findWindow_runelite():  # find window name returns PID of the window
     global hwnd
     hwnd = win32gui.FindWindow(None, "RuneLite")
     # hwnd = win32gui.GetForegroundWindow()860
-    print('findWindow:', hwnd)
+    #print('findWindow:', hwnd)
     win32gui.SetActiveWindow(hwnd)
     # win32gui.ShowWindow(hwnd)
     win32gui.MoveWindow(hwnd, 0, 0, 865, 830, True)
@@ -42,7 +42,7 @@ def findWindow_openosrs():  # find window name returns PID of the window
     global hwnd
     hwnd = win32gui.FindWindow(None, "OpenOSRS")
     # hwnd = win32gui.GetForegroundWindow()860
-    print('findWindow:', hwnd)
+    #print('findWindow:', hwnd)
     win32gui.SetActiveWindow(hwnd)
     # win32gui.ShowWindow(hwnd)
     win32gui.MoveWindow(hwnd, 0, 0, 865, 830, True)
@@ -51,7 +51,7 @@ def findWindow(data):  # find window name returns PID of the window
     global hwnd
     hwnd = win32gui.FindWindow(None, data)
     # hwnd = win32gui.GetForegroundWindow()860
-    print('findWindow:', hwnd)
+    #print('findWindow:', hwnd)
     win32gui.SetActiveWindow(hwnd)
     # win32gui.ShowWindow(hwnd)
     win32gui.MoveWindow(hwnd, 0, 0, 865, 830, True)
@@ -60,7 +60,7 @@ def getWindow(data):  # find window name returns PID of the window
     global hwnd
     hwnd = win32gui.FindWindow(None, data)
     # hwnd = win32gui.GetForegroundWindow()860
-    print('findWindow:', hwnd)
+    #print('findWindow:', hwnd)
     win32gui.SetActiveWindow(hwnd)
     win32gui.SetForegroundWindow(hwnd)
     rect = win32gui.GetWindowRect(hwnd)
@@ -72,7 +72,7 @@ def getWindow(data):  # find window name returns PID of the window
     w = rect[2] - x - 50
     h = rect[3] - y - 30
     # Find center
-    print('window width:', w, 'window height:', h)
+    #print('window width:', w, 'window height:', h)
     return x, y, w, h
 
 print('Operating system:', platform.system())
