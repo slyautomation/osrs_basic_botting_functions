@@ -94,7 +94,7 @@ def Miner_Image():
 
 def drop_ore():
     global actions
-    actions = "dropping ore starting..."
+    actions = "drop ore."
     invent_crop()
     drop_item()
     image_Rec_clicker(r'copper_ore.png', 'dropping item', threshold=0.8, playarea=False)
@@ -104,7 +104,7 @@ def drop_ore():
     image_Rec_clicker(r'tin_ore.png', 'dropping item', threshold=0.8, playarea=False)
     release_drop_item()
     #print("dropping ore done")
-    return "dropping ore done"
+    return "drop ore done"
 
 
 def findarea_single(ore, cropx, cropy):
@@ -172,7 +172,7 @@ def timer_countdown():
     #print(final)
     for i in range(final):
         # the exact output you're looking for:
-        print(bcolors.OK + f'\r[%-10s] %d%%' % ('='*round((i/final)*10), round((i/final)*100)), f'time left: {t_end - time.time() :.2f} secs | coords: {spot} | miner status: {mined_text} | ore: {ore_count} | gems: {gem_count} | clues: {clue_count} | actions: {actions}', end='')
+        print(bcolors.OK + f'\r[%-10s] %d%%' % ('='*round((i/final)*10), round((i/final)*100)), f'time left: {(t_end - time.time())/60 :.2f} mins | coords: {spot} | status: {mined_text} | ore: {ore_count} | gems: {gem_count} | clues: {clue_count} | {actions}', end='')
         time.sleep(1)
 
 def count_items():
@@ -186,13 +186,13 @@ def count_items():
         time.sleep(0.1)
 def print_progress(time_left, spot, mined_text, powerlist, ore, actions):
     print(bcolors.OK +
-        f'\rtime left: {time_left} | coords: {spot} | miner status: {mined_text} | ore: {int(inv_count(powerlist[ore]))} | gems: {int(count_gems() + count_gems2())} | clues: {int(count_geo())} | actions: {actions}',
+        f'\rtime left: {time_left} | coords: {spot} | status: {mined_text} | ore: {int(inv_count(powerlist[ore]))} | gems: {int(count_gems() + count_gems2())} | clues: {int(count_geo())} | {actions}',
         end='')
 
 def powerminer_text(ore, num, Take_Human_Break=False, Run_Duration_hours=5):
     global spot, mined_text, time_left, powerlist, actions, powerlist, t_end, gem_count, ore_count, clue_count
     powerlist = ['tin', 'copper', 'coal', 'iron', 'gold', 'clay', 'red', 'green', 'amber']
-    print("Mine Ore Selected:", powerlist[ore])
+    print("Will break in: %.2f" % (ibreak / 60) + " minutes |", "Mine Ore Selected:", powerlist[ore])
     t1 = Thread(target=timer_countdown)
     t1.start()
     spot = (0,0)
@@ -272,8 +272,6 @@ if __name__ == "__main__":
     red = 6
     green = 7
     amber = 8
-    print('Will break in: %.2f' % (ibreak / 60) + ' minutes ')
-
 
     # --------- CHANGE TO RUN FOR AMOUNT OF HOURS ----------------
     Run_Duration_hours = 0.1
