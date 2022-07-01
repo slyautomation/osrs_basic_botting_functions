@@ -316,6 +316,7 @@ def find_Object_precise(item, deep=20, left=0, top=0, right=0, bottom=0):
     image = cv2.imread('images/screenshot.png')
     image = cv2.rectangle(image, pt1=(600, 0), pt2=(850, 200), color=(0, 0, 0), thickness=-1)
     image = cv2.rectangle(image, pt1=(0, 0), pt2=(150, 100), color=(0, 0, 0), thickness=-1)
+
     # define the list of boundaries
     # B, G, R
 
@@ -343,18 +344,15 @@ def find_Object_precise(item, deep=20, left=0, top=0, right=0, bottom=0):
         c = max(contours, key=cv2.contourArea)
         x, y, w, h = cv2.boundingRect(c)
 
-        whalf = max(round(w / 2), 1)
-        hhalf = max(round(h / 2), 1)
-
-        x = random.randrange(x + whalf - deep, x + max(whalf + deep, 1))
-        print('x: ', x)
-        y = random.randrange(y + hhalf - deep, y + max(hhalf + deep, 1))
-        print('y: ', y)
+        x = random.randrange(x + 1, x + max(w-1, 2))
+        #print('x: ', x)
+        y = random.randrange(y + 1, y + max(h-1, 2))
+        #print('y: ', y)
         b = random.uniform(0.2, 0.4)
         pyautogui.moveTo(x, y, duration=b)
         b = random.uniform(0.01, 0.05)
         pyautogui.click(duration=b)
-        return True
+        return (x, y)
     return False
 
 def add_blank_square_to_image(filename, left, top):
@@ -375,6 +373,8 @@ def find_Object_closest(item, left=0, top=0, right=0, bottom=0, clicker='left', 
     screen_Image(left, top, right, bottom)
     add_blank_square_to_image('images/screenshot.png', left, top)
     image = cv2.imread('images/screenshot.png')
+    image = cv2.rectangle(image, pt1=(600, 0), pt2=(850, 200), color=(0, 0, 0), thickness=-1)
+    image = cv2.rectangle(image, pt1=(0, 0), pt2=(150, 100), color=(0, 0, 0), thickness=-1)
 
     # define the list of boundaries
     # B, G, R
@@ -436,7 +436,7 @@ def find_Object(item, left=0, top=0, right=0, bottom=0):
     image = cv2.imread('images/screenshot.png')
     image = cv2.rectangle(image, pt1=(600, 0), pt2=(850, 200), color=(0, 0, 0), thickness=-1)
     image = cv2.rectangle(image, pt1=(0, 0), pt2=(150, 100), color=(0, 0, 0), thickness=-1)
-
+    #cv2.imwrite('images/screenshot3.png', image)
     # define the list of boundaries
     # B, G, R
 
@@ -460,21 +460,21 @@ def find_Object(item, left=0, top=0, right=0, bottom=0):
         ret, thresh = cv2.threshold(mask, 40, 255, 0)
         contours, hierarchy = cv2.findContours(thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
     if len(contours) != 0:
-        print(len(contours))
+        #print(len(contours))
         # find the biggest countour (c) by the area
         c = max(contours, key=cv2.contourArea)
         #print('max:', c)
         x, y, w, h = cv2.boundingRect(c)
 
         x = random.randrange(x + 5, x + max(w - 5, 6)) + left  # 950,960
-        print('x: ', x)
+        #print('x: ', x)
         y = random.randrange(y + 5, y + max(h - 5, 6)) + top  # 490,500
-        print('y: ', y)
+        #print('y: ', y)
         b = random.uniform(0.2, 0.4)
         pyautogui.moveTo(x, y, duration=b)
         b = random.uniform(0.01, 0.05)
         pyautogui.click(duration=b)
-        return True
+        return (x, y)
     else:
         return False
 
