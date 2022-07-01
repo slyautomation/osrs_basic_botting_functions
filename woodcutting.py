@@ -43,6 +43,7 @@ newTime_break = False
 global timer
 global timer_break
 global ibreak
+plugins_enabled = False
 
 s = requests.session()
 
@@ -294,15 +295,24 @@ def doBanking(type):
         pyautogui.press('esc')
     mini_map_image('draynor_bank_spot.png', 10, 40, 0.8, 'left', 10, 10)
     time.sleep(1)
-    waitforaction(808)
+    if plugins_enabled:
+        waitforaction(808)
+    else:
+        random_breaks(9.5, 11)
     random_breaks(0, 2)
     bank_spot()
     time.sleep(1)
-    waitforaction(808)
+    if plugins_enabled:
+        waitforaction(808)
+    else:
+        random_breaks(2, 5)
     random_breaks(0, 2)
     bank = deposit_bank_items(type)
     time.sleep(1)
-    waitforaction(808)
+    if plugins_enabled:
+        waitforaction(808)
+    else:
+        random_breaks(9.5, 11)
     random_breaks(0, 2)
     while bank == 0:
         bank = deposit_bank_items(type)
@@ -325,7 +335,10 @@ def doCutting(cutting, color, Take_Human_Break):
         coords = find_Object(color,0,0,800,700)
         #random_breaks(8, 10)
         time.sleep(1)
-        waitforaction(808)
+        if plugins_enabled:
+            waitforaction(808)
+        else:
+            random_breaks(8, 10)
     if skill_lvl_up() != 0:
         actions = 'leveled up...'
         random_breaks(0.2, 3)
