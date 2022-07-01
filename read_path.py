@@ -1,8 +1,13 @@
 import random
+import yaml
 
+with open("pybot-config.yaml", "r") as yamlfile:
+    data = yaml.load(yamlfile, Loader=yaml.FullLoader)
+
+pc_profile = data[0]['Config']['cpc_profile']
 
 def get_current_path():
-    with open(r'C:\Users\i7 8700\Desktop\paths.txt', 'r') as file:
+    with open(pc_profile + r'\Desktop\paths.txt', 'r') as file:
         path_array = []
         data = file.read().replace('\n', '')
         data = data.replace('[','')
@@ -20,7 +25,7 @@ def get_current_path():
     return path_array
 
 def get_current_path_random():
-    with open(r'C:\Users\i7 8700\Desktop\paths.txt', 'r') as file:
+    with open(pc_profile + r'\Desktop\paths.txt', 'r') as file:
         path_array = []
         data = file.read().replace('\n', '')
         data = data.replace('[','')
