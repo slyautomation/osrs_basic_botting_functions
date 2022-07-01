@@ -204,7 +204,7 @@ def screen_Image(left=0, top=0, right=0, bottom=0, name='screenshot.png'):
 
 
 def Image_color_new():
-    screen_Image_new('screenshot2.png')
+    screen_Image_new('images/screenshot2.png')
     image = cv2.imread('images/screenshot2.png')
     image = cv2.rectangle(image, pt1=(600, 0), pt2=(850, 200), color=(0, 0, 0), thickness=-1)
     image = cv2.rectangle(image, pt1=(0, 0), pt2=(150, 100), color=(0, 0, 0), thickness=-1)
@@ -627,7 +627,7 @@ def skill_lvl_up():
 
 def skill_lvl_up_new():
     counter = 0
-    screen_Image_new("screen.png")
+    screen_Image_new("images/screen.png")
     img_rgb = cv2.imread(r"images/screen.png")
     img_gray = cv2.cvtColor(img_rgb, cv2.COLOR_BGR2GRAY)
     template = cv2.imread('images/Congrats_flag.png', 0)
@@ -997,13 +997,13 @@ def bank_ready(deposit_second=True):
     return False
 
 def invent_enabled():
-    return Image_count('inventory_enabled.png', threshold=0.99)
+    return Image_count('images/inventory_enabled.png', threshold=0.99)
 
 def run_enabled():
-    return Image_count('run_enabled.png', threshold=0.99)
+    return Image_count('images/run_enabled.png', threshold=0.99)
 
 def make_enabled(make='make_craft.png'):
-    return Image_count(make, threshold=0.9)
+    return Image_count('images/' + make, threshold=0.9)
 
 def image_Rec_clicker(image, event, iheight=5, iwidth=5, threshold=0.7, clicker='left', ispace=20, playarea=True, fast=False):
     global icoord
@@ -1084,7 +1084,7 @@ def image_Rec_inventory(image, threshold=0.8, clicker='left', iheight=5, iwidth=
 
 def Image_count(object, threshold=0.8, left=0, top=0, right=0, bottom=0):
     counter = 0
-    screen_Image(left, top, right, bottom, name='screenshot.png')
+    screen_Image(left, top, right, bottom, name='images/screenshot.png')
     img_rgb = cv2.imread('images/screenshot.png')
     img_gray = cv2.cvtColor(img_rgb, cv2.COLOR_BGR2GRAY)
     template = cv2.imread('images/' + object, 0)
