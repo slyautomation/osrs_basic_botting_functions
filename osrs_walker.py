@@ -12,7 +12,12 @@ from past.builtins import execfile
 
 from osrs_return_data_status import update_run_energy
 from read_path import get_current_path, get_current_path_random
+import yaml
 
+with open("pybot-config.yaml", "r") as yamlfile:
+    data = yaml.load(yamlfile, Loader=yaml.FullLoader)
+
+client_title = data[0]['Config']['client_title']
 
 
 class Walking():
@@ -161,7 +166,7 @@ class Walking():
 
     def turn_run_on(self) -> None:
         """Turns on run energy."""
-        window = self.get_window('OpenOSRS')
+        window = self.get_window(client_title)
         run_on = self.get_run_button(window)
         x = run_on[0] + random.randrange(-3, 3)
         y = run_on[1] + random.randrange(-3, 3)
