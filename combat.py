@@ -5,7 +5,6 @@ import random
 import time
 import argparse
 import os
-import core
 global hwnd
 global iflag
 global icoord
@@ -20,6 +19,7 @@ from functions import random_skills
 from functions import random_inventory
 from functions import image_Rec_clicker
 import functions
+import core
 
 iflag = False
 
