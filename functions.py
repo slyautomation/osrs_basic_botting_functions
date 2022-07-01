@@ -342,11 +342,15 @@ def find_Object_precise(item, deep=20, left=0, top=0, right=0, bottom=0):
     if len(contours) != 0:
         # find the biggest countour (c) by the area
         c = max(contours, key=cv2.contourArea)
-        x, y, w, h = cv2.boundingRect(c)
+        print(c)
+        print(np.squeeze(c))
+        print(Polygon(np.squeeze(c)))
 
-        x = random.randrange(x + 1, x + max(w-1, 2))
-        #print('x: ', x)
-        y = random.randrange(y + 1, y + max(h-1, 2))
+        minx, miny, maxx, maxy = Polygon(np.squeeze(c)).bounds
+        print(minx, miny, maxx, maxy)
+
+        x = random.randrange(minx + 1, maxx - 1)
+        y = random.randrange(miny + 1, maxy - 1)
         #print('y: ', y)
         b = random.uniform(0.2, 0.4)
         pyautogui.moveTo(x, y, duration=b)
