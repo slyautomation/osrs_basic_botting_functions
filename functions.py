@@ -1084,7 +1084,7 @@ def image_Rec_inventory(image, threshold=0.8, clicker='left', iheight=5, iwidth=
 
 def Image_count(object, threshold=0.8, left=0, top=0, right=0, bottom=0):
     counter = 0
-    screen_Image(left, top, right, bottom, name='images/screenshot.png')
+    screen_Image(left, top, right, bottom, name='screenshot.png')
     img_rgb = cv2.imread('images/screenshot.png')
     img_gray = cv2.cvtColor(img_rgb, cv2.COLOR_BGR2GRAY)
     template = cv2.imread('images/' + object, 0)
