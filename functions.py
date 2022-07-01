@@ -1003,7 +1003,7 @@ def run_enabled():
     return Image_count('run_enabled.png', threshold=0.99)
 
 def make_enabled(make='make_craft.png'):
-    return Image_count('make, threshold=0.9)
+    return Image_count(make, threshold=0.9)
 
 def image_Rec_clicker(image, event, iheight=5, iwidth=5, threshold=0.7, clicker='left', ispace=20, playarea=True, fast=False):
     global icoord
