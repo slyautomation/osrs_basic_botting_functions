@@ -882,18 +882,17 @@ def findarea_attack_quick(object, deep=20):
             # draw the biggest contour (c) in green
             whalf = max(round(w / 2), 1)
             hhalf = max(round(h / 2), 1)
-
             # cv2.rectangle(output, (x, y), (x + w, y + h), (0, 255, 0), 2)
             x = random.randrange(x + 150 + whalf - deep, x + 150 + max(whalf + deep, 1))  # 950,960
-            print('attack x: ', x)
+            #print('attack x: ', x)
             y = random.randrange(y + 150 + hhalf - deep, y + 150 + max(hhalf + deep, 1))  # 490,500
-            print('attack y: ', y)
+            #print('attack y: ', y)
             b = random.uniform(0.05, 0.1)
             pyautogui.moveTo(x, y, duration=b)
             b = random.uniform(0.01, 0.05)
             pyautogui.click(duration=b)
-            return True
-    return False
+            return (x,y)
+    return (0,0)
     # show the images
     # cv2.imshow("Result", np.hstack([image, output]))
 
