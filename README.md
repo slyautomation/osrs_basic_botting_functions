@@ -48,7 +48,7 @@ client_title: Is the title of the application window usually Runelite if you hav
 
 enable_on_start: if you don't want the config window to pop up each time, enter as false
 
-file_path_to_client: the head folder where the OSRS client is stored usually \.runelite\ or \.openosrs\
+file_path_to_client: the head folder where the OSRS client is stored usually .runelite or .openosrs
 
 pc_profile: is the user profile of the pc so it can find runelite or openosrs
 
