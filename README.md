@@ -58,8 +58,9 @@ tesseract_path: Is the folder address to tesseract-ocr program
 
 ![image](https://user-images.githubusercontent.com/81003470/177748476-6b190ed9-d1b2-4677-96c5-2b47859f2ee6.png)
 
-[#f03c15]Note: copy the format below make sure to include the slashes (\).
-
+```diff
+- Note: copy the format below make sure to include the slashes (\).
+```
 ![image](https://user-images.githubusercontent.com/81003470/177748290-e8337717-0f06-4aeb-afc9-19056bbebc23.png)
 
 ## Woodcutting
