@@ -23,6 +23,41 @@ For the full video tutorial click link: https://www.youtube.com/watch?v=C7ZY4KYp
 
 This video is more about how it was created at the start core.py is how to make the python script focus on the old school runescape application and adjust the window size so all the scripts run as intended. Then functions.py is where all the different kinds of shortcut functions are placed to reference the mini map, or a piece of code to do color detection or open the inventory.
 
+## Quick module install Steps
+
+in terminal type:
+
+pip install -r requirements.txt
+
+tesseract-ocr = https://sourceforge.net/projects/tesseract-ocr-alt/files/tesseract-ocr-setup-3.02.02.exe/download
+
+Tutorial on installing tesseract-OCR: https://youtube.com/watch?v=X3snnwzJfEw&t=25m15s
+
+## Runelite Setup
+Tutorial on runelite setup click link: https://youtube.com/watch?v=JO2FvkJwppA
+
+### pybot-config.yaml (configuration file)
+
+![image](https://user-images.githubusercontent.com/81003470/177748290-e8337717-0f06-4aeb-afc9-19056bbebc23.png)
+
+client_title: Is the title of the application window usually Runelite if you have completed the steps for the Runelite Setup, if not then enter RuneLite - username or OpenOSRS
+
+![image](https://user-images.githubusercontent.com/81003470/177749000-e7b09b9d-26fc-43ab-95cd-2a84ad12fcc3.png)
+
+![image](https://user-images.githubusercontent.com/81003470/177749289-c6b11dfe-1fe0-4d5d-a67f-bf53d62839ce.png)
+
+enable_on_start: if you don't want the config window to pop up each time, enter as false
+
+file_path_to_client: the head folder where the OSRS client is stored usually \.runelite\ or \.openosrs\
+
+pc_profile: is the user profile of the pc so it can find runelite or openosrs
+
+![image](https://user-images.githubusercontent.com/81003470/177750475-75e97359-907d-4c2a-b36d-0ada31594fd8.png)
+
+tesseract_path: Is the folder address to tesseract-ocr program
+
+![image](https://user-images.githubusercontent.com/81003470/177748476-6b190ed9-d1b2-4677-96c5-2b47859f2ee6.png)
+
 ## Woodcutting
 
 ### features
@@ -41,20 +76,6 @@ Tutorial on firemaking code click link: https://youtu.be/bHZCQUChG_k
 
 ![image](https://user-images.githubusercontent.com/81003470/172408690-510ff90b-0197-4959-a7a8-201e1620b79b.png)
 
-## Quick module install Steps
-
-in terminal type:
-
-pip install -r requirements.txt
-
-
-tesseract-ocr = https://sourceforge.net/projects/tesseract-ocr-alt/files/tesseract-ocr-setup-3.02.02.exe/download
-
-
-Tutorial on installing tesseract-OCR: https://youtube.com/watch?v=X3snnwzJfEw&t=25m15s
-
-## Runelite Setup
-Tutorial on runelite setup click link: https://youtube.com/watch?v=JO2FvkJwppA
 ## fishing.py
 - Turn on fishing plugin.
 - Make sure to have net for prawn fishing or a rod and bait/feathers for fish.
