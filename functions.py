@@ -5,9 +5,12 @@ import cv2
 import pyautogui
 import random
 import time
+
+from shapely.geometry import Polygon
+
 import slyautomation_title
 import yaml
-from PIL import Image, ImageEnhance, ImageOps, ImageGrab
+from PIL import Image, ImageGrab
 import os
 
 global hwnd
@@ -76,8 +79,8 @@ def invent_crop():
 
 
 def random_inventory():
-    global newTime_break
-    print('inventory tab')
+    global newTime_break, actions
+    actions = 'inventory tab'
     b = random.uniform(1.5, 15)
     pyautogui.press('f4')
     time.sleep(b)
@@ -89,8 +92,8 @@ def random_inventory():
 
 
 def random_combat():
-    global newTime_break
-    print('combat tab')
+    global newTime_break, actions
+    actions = 'combat tab'
     b = random.uniform(1.5, 15)
     pyautogui.press('f1')
     time.sleep(b)
@@ -102,8 +105,8 @@ def random_combat():
 
 
 def random_skills():
-    global newTime_break
-    print('skills tab')
+    global newTime_break, actions
+    actions = 'skills tab'
     b = random.uniform(1.5, 15)
     pyautogui.press('f2')
     time.sleep(b)
@@ -115,8 +118,8 @@ def random_skills():
 
 
 def random_quests():
-    global newTime_break
-    print('quest tab')
+    global newTime_break, actions
+    actions = 'quest tab'
     b = random.uniform(1.5, 15)
     pyautogui.press('f3')
     time.sleep(b)
@@ -265,12 +268,12 @@ def Image_color(left=0, top=0, right=0, bottom=0):
 
 
 def exit_bank():
-    print('exit bank')
+    #print('exit bank')
     c = random.uniform(0.3, 0.7)
     x = random.randrange(523, 540)
-    print('x: ', x)
+    #print('x: ', x)
     y = random.randrange(40, 55)
-    print('y: ', y)
+    #print('y: ', y)
     b = random.uniform(0.15, 0.6)
     pyautogui.moveTo(x, y, duration=b)
     b = random.uniform(0.1, 0.19)
@@ -342,12 +345,12 @@ def find_Object_precise(item, deep=20, left=0, top=0, right=0, bottom=0):
     if len(contours) != 0:
         # find the biggest countour (c) by the area
         c = max(contours, key=cv2.contourArea)
-        print(c)
-        print(np.squeeze(c))
-        print(Polygon(np.squeeze(c)))
+        #print(c)
+        #print(np.squeeze(c))
+        #print(Polygon(np.squeeze(c)))
 
         minx, miny, maxx, maxy = Polygon(np.squeeze(c)).bounds
-        print(minx, miny, maxx, maxy)
+        #print(minx, miny, maxx, maxy)
 
         x = random.randrange(minx + 1, maxx - 1)
         y = random.randrange(miny + 1, maxy - 1)
@@ -358,6 +361,8 @@ def find_Object_precise(item, deep=20, left=0, top=0, right=0, bottom=0):
         pyautogui.click(duration=b)
         return (x, y)
     return False
+
+
 
 def add_blank_square_to_image(filename, left, top):
     image_name_output = 'images/blank_image.png'
@@ -407,24 +412,24 @@ def find_Object_closest(item, left=0, top=0, right=0, bottom=0, clicker='left', 
         contours, hierarchy = cv2.findContours(thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
         cnt = contours
         for c in cnt:
-            print(cv2.contourArea(c))
-            print(cv2.boundingRect(c))
+            #print(cv2.contourArea(c))
+            #print(cv2.boundingRect(c))
             if cv2.contourArea(c) > size:
                 x1, y1, w1, h1 = cv2.boundingRect(c)
                 close_list.append(abs(abs(pos[0] - x1) + abs(pos[1] - y1)))
                 close_points.append((x1, y1))
     if len(contours) == 0:
-        print('not found')
+        #print('not found')
         return False
-    print(close_list)
-    print(close_points)
+    #print(close_list)
+    #print(close_points)
     if len(close_list) == 0:
        return False
     min_value = min(close_list)
     min_index = close_list.index(min_value)
     coords = close_points[min_index]
-    print(coords)
-    print('min_value:', min_value, '| min_index:', min_index)
+    #print(coords)
+    #print('min_value:', min_value, '| min_index:', min_index)
     x = random.randrange(5, 20)
     y = random.randrange(5, 20)
     icoord = coords[0] + x + left
@@ -467,7 +472,7 @@ def find_Object(item, left=0, top=0, right=0, bottom=0):
         #print(len(contours))
         # find the biggest countour (c) by the area
         c = max(contours, key=cv2.contourArea)
-        #print('max:', c)
+        #print(contours)
         x, y, w, h = cv2.boundingRect(c)
 
         x = random.randrange(x + 5, x + max(w - 5, 6)) + left  # 950,960
@@ -512,18 +517,18 @@ def find_Object_right_quick(item, left=0, top=0, right=0, bottom=0, y_range=40):
         contours, hierarchy = cv2.findContours(thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
         cnt = contours[0]
         a = cv2.pointPolygonTest(cnt, (pyautogui.position()[0], pyautogui.position()[1]), True)
-        print(a)
+        #print(a)
     if len(contours) != 0:
-        print(len(contours))
+        #print(len(contours))
         # find the biggest countour (c) by the area
         c = max(contours, key=cv2.contourArea)
         #print('max:', c)
         x, y, w, h = cv2.boundingRect(c)
 
         x = random.randrange(x + 5, x + max(w - 5, 6))  # 950,960
-        print('x: ', x)
+        #print('x: ', x)
         y = random.randrange(y + 5, y + max(h - 5, 6))  # 490,500
-        print('y: ', y)
+        #print('y: ', y)
         b = random.uniform(0.05, 0.1)
         pyautogui.moveTo(x, y, duration=b)
         b = random.uniform(0.01, 0.05)
@@ -569,18 +574,18 @@ def find_Object_right(item, left=0, top=0, right=0, bottom=0, y_range=40):
         contours, hierarchy = cv2.findContours(thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
         cnt = contours[0]
         a = cv2.pointPolygonTest(cnt, (pyautogui.position()[0], pyautogui.position()[1]), True)
-        print(a)
+        #print(a)
     if len(contours) != 0:
-        print(len(contours))
+        #print(len(contours))
         # find the biggest countour (c) by the area
         c = max(contours, key=cv2.contourArea)
         #print('max:', c)
         x, y, w, h = cv2.boundingRect(c)
 
         x = random.randrange(x + 5, x + max(w - 5, 6))  # 950,960
-        print('x: ', x)
+        #print('x: ', x)
         y = random.randrange(y + 5, y + max(h - 5, 6))  # 490,500
-        print('y: ', y)
+        #print('y: ', y)
         b = random.uniform(0.2, 0.4)
         pyautogui.moveTo(x, y, duration=b)
         b = random.uniform(0.01, 0.05)
@@ -597,12 +602,13 @@ def find_Object_right(item, left=0, top=0, right=0, bottom=0, y_range=40):
     else:
         return False
 def spaces(a):
+    global actions
     if a == 1:
         d = random.uniform(0.05, 0.1)
         time.sleep(d)
         pyautogui.press('space')
     if a == 0:
-        print("none")
+        actions = "none"
     if a == 2:
         d = random.uniform(0.05, 0.1)
         time.sleep(d)
@@ -649,7 +655,7 @@ def pick_item_right(v, u, option=1):
     c = random.uniform(0.3, 0.7)
     d = random.uniform(0.05, 0.15)
     x = random.randrange(v - 10, v + 10)
-    print('x: ', x)
+    #print('x: ', x)
     y = random.randrange(u - 5, u + 5)
     b = random.uniform(0.3, 0.7)
     pyautogui.moveTo(x, y, duration=b)
@@ -657,7 +663,7 @@ def pick_item_right(v, u, option=1):
     pyautogui.click(button='right')
     time.sleep(c)
     w = random.randrange(0, 10) + x
-    print('x: ', x)
+    #print('x: ', x)
     one = random.randrange(40, 45) + y
     two = random.randrange(50, 55) + y
     three = random.randrange(60, 65) + y
@@ -676,7 +682,7 @@ def pick_item_right(v, u, option=1):
                    8: eight
     }
     z = right_order[option]
-    print('y: ', y)
+    #print('y: ', y)
     pyautogui.moveTo(w, z, duration=b)
     b = random.uniform(0.1, 0.19)
     pyautogui.click(duration=b)
@@ -687,7 +693,7 @@ def pick_item_new(v, u):
     c = random.uniform(0.3, 0.7)
     d = random.uniform(0.05, 0.15)
     x = random.randrange(v, v + 1)
-    print('x: ', x)
+    #print('x: ', x)
     y = random.randrange(u, u + 1)
     b = random.uniform(0.2, 0.6)
     pyautogui.moveTo(x, y, duration=b)
@@ -699,7 +705,7 @@ def pick_item(v, u):
     c = random.uniform(0.3, 0.7)
     d = random.uniform(0.05, 0.15)
     x = random.randrange(v - 10, v + 10)
-    print('x: ', x)
+    #print('x: ', x)
     y = random.randrange(u - 5, u + 5)
     b = random.uniform(0.2, 0.6)
     pyautogui.moveTo(x, y, duration=b)
@@ -718,10 +724,10 @@ def deposit_secondItem():
     c = random.uniform(0.3, 0.7)
     x = random.randrange(690, 715)  # 950,960
     z = x
-    print('x: ', x)
+    #print('x: ', x)
     y = random.randrange(495, 515)  # 490,500
     w = y
-    print('y: ', y)
+    #print('y: ', y)
     b = random.uniform(0.2, 0.7)
     pyautogui.moveTo(x, y, duration=b)
     b = random.uniform(0.1, 0.3)
@@ -731,24 +737,14 @@ def deposit_secondItem():
 def mini_map_image(image, iwidth=0, iheight=0, threshold=0.7, clicker='left', xspace=0, yspace=0):
     screen_Image(1941 - 1280, 27, 2106 - 1280, 190, 'mini_map.png')
     img_rgb = cv2.imread('images/mini_map.png')
-    #print('screenshot taken')
     img_gray = cv2.cvtColor(img_rgb, cv2.COLOR_BGR2GRAY)
     template = cv2.imread('images/' + image, 0)
-    # w, h = template.shape[::-1]
+    #w, h = template.shape[::-1]
     pt = None
-    #print('getting match requirements')
     res = cv2.matchTemplate(img_gray, template, cv2.TM_CCOEFF_NORMED)
     threshold = threshold
     loc = np.where(res >= threshold)
-    #print('determine loc and threshold')
     for pt in zip(*loc[::-1]):
-        ass = 1
-        #cv2.rectangle(img_rgb, pt, (pt[0] + w, pt[1] + h), (0, 0, 255), 2)
-        #print('contour found')
-    if pt is None:
-        print(False)
-        return False
-    else:
         # cv2.imwrite('images/res.png', img_rgb)
         x = random.randrange(iwidth, iwidth + 1 + xspace) + 661
         y = random.randrange(iheight, iheight + 1 + yspace) + 27
@@ -758,9 +754,8 @@ def mini_map_image(image, iwidth=0, iheight=0, threshold=0.7, clicker='left', xs
         pyautogui.moveTo(icoord, duration=b)
         b = random.uniform(0.1, 0.3)
         pyautogui.click(icoord, duration=b, button=clicker)
-        print(True)
+        # print(True)
         return True
-    print(False)
     return False
 
 def mini_map_bool(image, threshold=0.7):
@@ -779,34 +774,6 @@ def mini_map_bool(image, threshold=0.7):
     for pt in zip(*loc[::-1]):
         return True
     return False
-
-def mini_map_bool(image, threshold=0.7):
-    screen_Image(1941 - 1280, 27, 2106 - 1280, 190, 'mini_map.png')
-    global icoord
-    global iflag
-    img_rgb = cv2.imread('images/mini_map.png')
-    # print('screenshot taken')
-    img_gray = cv2.cvtColor(img_rgb, cv2.COLOR_BGR2GRAY)
-    template = cv2.imread('images/' + image, 0)
-    w, h = template.shape[::-1]
-    pt = None
-    # print('getting match requirements')
-    res = cv2.matchTemplate(img_gray, template, cv2.TM_CCOEFF_NORMED)
-    threshold = threshold
-    loc = np.where(res >= threshold)
-    # print('determine loc and threshold')
-    # if len(loc[0]) == 0:
-    # exit()
-    iflag = False
-    for pt in zip(*loc[::-1]):
-        cv2.rectangle(img_rgb, pt, (pt[0] + w, pt[1] + h), (0, 0, 255), 2)
-    # print('result of pt')
-    if pt is None:
-        iflag = False
-        # print(event, 'Not Found...')
-    else:
-        iflag = True
-    return iflag
 
 def xp_quick():
     left = 560
@@ -916,6 +883,7 @@ def Image_Rec_single(image, event, iheight=5, iwidth=5, threshold=0.7, clicker='
     # print('determine loc and threshold')
     # if len(loc[0]) == 0:
     # exit()
+    icoord = (0,0)
     iflag = False
     event = event
     for pt in zip(*loc[::-1]):
@@ -923,6 +891,7 @@ def Image_Rec_single(image, event, iheight=5, iwidth=5, threshold=0.7, clicker='
     # print('result of pt')
     if pt is None:
         iflag = False
+        return iflag, icoord
         # print(event, 'Not Found...')
     else:
         iflag = True
@@ -958,20 +927,20 @@ def Image_Rec_single_closest(image, threshold=0.7, clicker='left', playarea=True
     close_list = []
     close_points = []
     pos = pyautogui.position()
-    print((pos[0],pos[1]))
+    #print((pos[0],pos[1]))
     for pt in zip(*loc[::-1]):
         close_list.append(abs(abs(pos[0] - pt[0]) + abs(pos[1] - pt[1])))
         close_points.append(pt)
     if pt is None:
-        print('not found')
+        #print('not found')
         return False
-    print(close_list)
-    print(close_points)
+    #print(close_list)
+    #print(close_points)
     min_value = min(close_list)
     min_index = close_list.index(min_value)
     coords = close_points[min_index]
-    print(coords)
-    print('min_value:', min_value, '| min_index:', min_index)
+    #print(coords)
+    #print('min_value:', min_value, '| min_index:', min_index)
     if playarea == False:
         cropx = 620
         cropy = 480
@@ -990,7 +959,7 @@ def Image_Rec_single_closest(image, threshold=0.7, clicker='left', playarea=True
 
 def bank_ready(deposit_second=True):
     bank = Image_count('bank_deposit.png', 0.75)
-    print("bank deposit open:", bank)
+    #print("bank deposit open:", bank)
     if bank > 0:
         if deposit_second:
             deposit_secondItem()
@@ -1099,7 +1068,19 @@ def Image_count(object, threshold=0.8, left=0, top=0, right=0, bottom=0):
         counter += 1
     return counter
 
-
+def invent_count(object, threshold=0.8):
+    screen_Image(620, 480, 820, 750, 'inventshot.png')
+    counter = 0
+    img_rgb = cv2.imread('images/inventshot.png')
+    img_gray = cv2.cvtColor(img_rgb, cv2.COLOR_BGR2GRAY)
+    template = cv2.imread('images/' + object, 0)
+    w, h = template.shape[::-1]
+    res = cv2.matchTemplate(img_gray, template, cv2.TM_CCOEFF_NORMED)
+    loc = np.where(res >= threshold)
+    for pt in zip(*loc[::-1]):
+        cv2.rectangle(img_rgb, pt, (pt[0] + w, pt[1] + h), (0, 0, 255), 2)
+        counter += 1
+    return counter
 def drop_item():
     pyautogui.keyUp('shift')
     c = random.uniform(0.1, 0.2)
