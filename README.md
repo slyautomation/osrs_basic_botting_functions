@@ -107,7 +107,6 @@ Tutorial on mining code click link: https://youtube.com/watch?v=dkD5gXcgQYI
 - Turn on NPC Indicators plugin
 - Change Highlight colour to #ff00ffff
 
-
 ![image](https://user-images.githubusercontent.com/81003470/177981614-830a435a-81f5-4d95-bd07-10cca3008a04.png)
 
 - Hold Shift and Right Click on NPC/Mob and select Tag-All
@@ -119,6 +118,9 @@ Tutorial on mining code click link: https://youtube.com/watch?v=dkD5gXcgQYI
 
 ![image](https://user-images.githubusercontent.com/81003470/177982195-47de25fa-f300-4362-bea7-0aa1b2cff258.png)
 
+- To add or use a NPC/Mob not on the list add it to the monster_array as ['each iteration captured by the combat_text'] and add to monster_list the name
+
+![image](https://user-images.githubusercontent.com/81003470/177983040-28802f6f-bb57-4120-837b-830464215ee5.png)
 
 Tutorial on combat code click link: https://youtube.com/watch?v=llGbhVfU1Bc
 
