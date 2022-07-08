@@ -90,6 +90,9 @@ Tutorial on fishing code click link: https://youtube.com/watch?v=5K-nMy9Pdvg
 ## mining.py
 - Turn on mining plugin.
 - Mark ore spots using the object marker to green. 
+
+![image](https://user-images.githubusercontent.com/81003470/177980804-669ebd1d-0f9c-4102-8b86-efef42a7d1de.png)
+
 - Make sure to equip a pick axe.
 
 - enter the ore type, the marker color and how long to run in hours (Change Run_Duration_hours) 
