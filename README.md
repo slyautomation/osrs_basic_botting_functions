@@ -104,6 +104,20 @@ Tutorial on mining code click link: https://youtube.com/watch?v=dkD5gXcgQYI
 
 
 ## combat.py
+- Turn on NPC Indicators plugin
+- Change Highlight colour to #ff00ffff
+![image](https://user-images.githubusercontent.com/81003470/177981614-830a435a-81f5-4d95-bd07-10cca3008a04.png)
+
+- Hold Shift and Right Click on NPC/Mob and select Tag-All
+
+![image](https://user-images.githubusercontent.com/81003470/177981922-1f356fe0-7aa9-4ac9-9b61-7180025b115e.png)
+
+- In the Combat script change the first value to the NPC/Mob name
+- Change Run_duraction_hours to the number of hours to run script for
+
+![image](https://user-images.githubusercontent.com/81003470/177982195-47de25fa-f300-4362-bea7-0aa1b2cff258.png)
+
+
 Tutorial on combat code click link: https://youtube.com/watch?v=llGbhVfU1Bc
 
 ## smithing.py
