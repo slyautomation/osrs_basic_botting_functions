@@ -194,6 +194,9 @@ def rim_minetobank():
         time.sleep(c)
         step = 4
 
+def nums(first_number, last_number, step=1):
+    return range(first_number, last_number+1, step)
+
 def rim_minetoclay():
     global actions
     actions = 'start of function'
@@ -214,8 +217,17 @@ def rim_minetoclay():
     x = -5
     y = -10
     if step == 1:
-        while functions.mini_map_image('clay_deposit_spot5.png', x, 5, 0.9, 'left') != True:
+        spot = functions.mini_map_image('clay_deposit_spot5.png', x, 5, 0.85, 'left')
+        while spot != True:
             actions = 'finding 1st clay mine step'
+            for i in nums(1, 5):
+                if i == 5 or i == 3:
+                    y = 15
+                spot = functions.mini_map_image('clay_deposit_spot' + str(i) + '.png', x, y, 0.85, 'left')
+                if spot:
+                    break
+
+
         time.sleep(c)
         actions = '1st step to mine clay'
         step = 2
