@@ -83,232 +83,199 @@ options = {0: random_inventory,
            4: random_pause}
 
 
+def determine_position_to_bank():
+    global ore_count, gem_count, clue_count, actions
+    if ore_count + gem_count + clue_count < 27:
+        return 4
+    if functions.mini_map_bool('port_sarim_spot_water.png', 0.85):
+        actions = 'player located @ step 2'
+        return 2
+    if functions.mini_map_bool('port_sarim_jewl.png', 0.85):
+        actions = 'player located @ step 1'
+        return 1
+    if functions.mini_map_bool('rim_mine_spot1.png', 0.85):
+        actions = 'player located @ step 0'
+        return 0
+    else:
+        return 0
 
+def determine_position_to_clay():
+    global ore_count, gem_count, clue_count, actions
+    if ore_count + gem_count + clue_count > 27:
+        return 6
+    if functions.mini_map_bool('clay_deposit_spot5.png', 0.85):
+        actions = 'player located @ step 1 Spot 5'
+        return 1
+    if functions.mini_map_bool('port_sarim_spot_water.png', 0.85):
+        actions = 'player located @ step 2'
+        return 2
+    if functions.mini_map_bool('port_sarim_jewl.png', 0.85):
+        actions = 'player located @ step 3'
+        return 3
+    if functions.mini_map_bool('rim_mine_spot1.png', 0.85):
+        actions = 'player located @ step 4'
+        return 5
+    if functions.mini_map_bool('bank_deposit.png', 0.85):
+        actions = 'player located @ step 0'
+        return 0
+    else:
+        return 0
 
 def rim_minetobank():
     global actions
+    step = 0
+    step = determine_position_to_bank()
     c = random.uniform(14, 15)
-    x = 45
-    y = 5
-    while Image_Rec_single('rim_mine_spot1.png', 'rim mining spot', x, y, 0.7, 'left') != True:
-        actions = 'finding 1st step to bank'
-    time.sleep(c)
-    actions = '1st step to bank'
+    x = 60
+    y = 25
+    if step == 0:
+        while functions.mini_map_image('rim_mine_spot1.png', x, y, 0.8, 'left') != True:
+            actions = 'finding 1st step to bank'
+        time.sleep(c)
+        actions = '1st step to bank'
+        step = 1
 
     c = random.uniform(9, 10)
     x = 10
     y = 1
-    while Image_Rec_single('port_sarim_jewl.png', 'To Port Sarmin Jewlery', x, y, 0.7, 'left') != True:
-        actions = 'finding 2nd step to bank'
-    time.sleep(c)
-    actions = '2nd step to bank'
+    if step == 1:
+        while functions.mini_map_image('port_sarim_jewl.png', x, y, 0.8, 'left') != True:
+            actions = 'finding 2nd step to bank'
+        time.sleep(c)
+        actions = '2nd step to bank'
+
 
     c = random.uniform(9, 10)
-    x = 52
+    x = 50
     y = -25
-    while Image_Rec_single('port_sarim_jewl.png', 'To Port Sarmin Jewlery', x, y, 0.7, 'left') != True:
-        actions = "finding 3rd step to bank"
-
-    time.sleep(c)
-    actions = '3rd step to bank'
+    if step == 1:
+        while functions.mini_map_image('port_sarim_jewl.png', x, y, 0.8, 'left') != True:
+            actions = 'finding 3rd step to bank'
+        time.sleep(c)
+        actions = '3rd step to bank'
+        step = 2
 
     c = random.uniform(11, 12)
     x = 75
     y = 25
-    while Image_Rec_single('port_sarim_spot_water.png', 'To Port Sarmin Watery', x, y, 0.7, 'left') != True:
-        actions = "finding 4th step to bank"
-    time.sleep(c)
-    actions = '4th step to bank'
+    if step == 2:
+        while functions.mini_map_image('port_sarim_spot_water.png', x, y, 0.8, 'left') != True:
+            actions = "finding 4th step to bank"
+        time.sleep(c)
+        actions = '4th step to bank'
+        step = 3
 
-    b = random.uniform(0.175, 0.677)
-    x = random.randrange(750, 755)
-    #print('x: ', x)
-    y = random.randrange(175, 180)
-    #print('y: ', y)
-    c = random.uniform(10, 12)
-    pyautogui.click(x, y, 1, duration=b, button='left')
-    time.sleep(c)
-    actions = '5th step to bank'
-    b = random.uniform(0.175, 0.677)
-    x = random.randrange(750, 755)  # 1755,1765
-    #print('x: ', x)
-    y = random.randrange(140, 145)  # 175,185
-    #print('y: ', y)
-    c = random.uniform(9, 10)
-    pyautogui.click(x, y, 1, duration=b, button='left')
-    actions = 'last step to bank'
-    time.sleep(c)
-    c = random.uniform(2.1, 3)
-    find_banker()
-    actions = 'finding deposit box'
-    time.sleep(c)
-    depositbox()
-    actions = 'finished deposit end of function'
-    c = random.uniform(1, 5)
-    time.sleep(c)
+    if step == 3:
+        b = random.uniform(0.175, 0.677)
+        x = random.randrange(750, 755)
+        #print('x: ', x)
+        y = random.randrange(175, 180)
+        #print('y: ', y)
+        c = random.uniform(10, 12)
+        pyautogui.click(x, y, 1, duration=b, button='left')
+        time.sleep(c)
+        actions = '5th step to bank'
+        b = random.uniform(0.175, 0.677)
+        x = random.randrange(750, 755)  # 1755,1765
+        #print('x: ', x)
+        y = random.randrange(140, 145)  # 175,185
+        #print('y: ', y)
+        c = random.uniform(9, 10)
+        pyautogui.click(x, y, 1, duration=b, button='left')
+        actions = 'last step to bank'
+        time.sleep(c)
+        c = random.uniform(2.1, 3)
+        find_banker()
+        actions = 'finding deposit box'
+        time.sleep(c)
+        depositbox()
+        actions = 'finished deposit end of function'
+        c = random.uniform(1, 5)
+        time.sleep(c)
+        step = 4
+
 def rim_minetoclay():
     global actions
     actions = 'start of function'
-    b = random.uniform(0.175, 0.677)
-    x = random.randrange(710, 725)
-    #print('x: ', x)
-    y = random.randrange(50, 60)
-    #print('y: ', y)
-    c = random.uniform(10, 12)
-    pyautogui.click(x, y, 1, duration=b, button='left')
-    time.sleep(c)
-    actions = '1st step to mining clay'
+    step = 0
+    step = determine_position_to_clay()
+    if step == 0:
+        b = random.uniform(0.175, 0.677)
+        x = random.randrange(710, 725)
+        #print('x: ', x)
+        y = random.randrange(50, 60)
+        #print('y: ', y)
+        c = random.uniform(10, 12)
+        pyautogui.click(x, y, 1, duration=b, button='left')
+        time.sleep(c)
+        actions = '0 step to mining clay'
+        step = 1
     c = random.uniform(11, 12)
     x = -5
     y = -10
-    while Image_Rec_single('clay_deposit_spot2.png', 'To Port Sarmin Watery', x, y, 0.9, 'left') != True:
-        Image_Rec_single('clay_deposit_spot1.png', 'To Port Sarmin Watery', x, y, 0.9, 'left')
-        Image_Rec_single('clay_deposit_spot3.png', 'To Port Sarmin Watery', x, y, 0.9, 'left')
-        actions = 'finding 2nd clay mine step'
-    time.sleep(c)
-    actions = '2nd step to mine clay'
-
+    if step == 1:
+        while functions.mini_map_image('clay_deposit_spot5.png', x, 5, 0.9, 'left') != True:
+            actions = 'finding 1st clay mine step'
+        time.sleep(c)
+        actions = '1st step to mine clay'
+        step = 2
     c = random.uniform(11, 12)
     x = 0
     y = 40
-    while Image_Rec_single('port_sarim_spot_water.png', 'To Port Sarmin Watery', x, y, 0.7, 'left') != True:
-        actions = 'finding 2nd clay mine step'
-    time.sleep(c)
-    actions = '2nd step to mine clay'
+    if step == 2:
+        while functions.mini_map_image('port_sarim_spot_water.png', x, y, 0.85, 'left') != True:
+            actions = 'finding 2nd clay mine step'
+        time.sleep(c)
+        actions = '2nd step to mine clay'
+        step = 3
 
     c = random.uniform(9, 10)
     x = -15
     y = -10
-    while Image_Rec_single('port_sarim_jewl.png', 'To Port Sarmin Jewlery', x, y, 0.7, 'left') != True:
-        actions = 'finding 3rd clay mine step'
-    time.sleep(c)
-    actions = '3rd step to mine clay'
+    if step == 3:
+        while functions.mini_map_image('port_sarim_jewl.png', x, y, 0.85, 'left') != True:
+            actions = 'finding 3rd clay mine step'
+        time.sleep(c)
+        actions = '3rd step to mine clay'
+        step = 4
 
     c = random.uniform(9, 10)
     x = -50
     y = 30
-    while Image_Rec_single('port_sarim_jewl.png', 'To Port Sarmin Jewlery', x, y, 0.7, 'left') != True:
-        actions = 'finding 4th clay mine step'
-    time.sleep(c)
-    actions = '4th step to mine clay'
+    if step == 4:
+        while functions.mini_map_image('port_sarim_jewl.png', x, y, 0.85, 'left') != True:
+            actions = 'finding 4th clay mine step'
+        time.sleep(c)
+        actions = '4th step to mine clay'
+        step = 5
 
     c = random.uniform(14, 15)
     x = -8
     y = 33
-    while Image_Rec_single('rim_mine_spot1.png', 'rim mining spot', x, y, 0.7, 'left') != True:
-        actions = 'finding 5th clay mine step'
-    time.sleep(c)
-    actions = '5th step to mine clay'
+    if step == 5:
+        while functions.mini_map_image('rim_mine_spot1.png', x, y, 0.9, 'left') != True:
+            actions = 'finding 5th clay mine step'
+        time.sleep(c)
+        actions = '5th step to mine clay'
+        step = 6
 
 def find_banker():
-    find_Object_precise(0, 5, 0, 0, 610, 775)  # red
+    find_Object_precise(0, 5, 0, 0, 700, 800)  # red
 
 def depositbox():
     global actions
-    c = random.uniform(3.5, 4.5)
-    b = random.uniform(0.25, 0.65)
-    x = random.randrange(370, 390)  # 950,960
-    #print('x: ', x)
-    y = random.randrange(440, 460)  # 490,500
-    #print('y: ', y)
-    pyautogui.moveTo(x, y, duration=b)
-    b = random.uniform(0.1, 0.19)
-    pyautogui.click(duration=b)
-    actions = 'depositing clay'
-
-def Image_Rec_single(image, event, iwidth, iheight, threshold, clicker, ispace=5):
-    global icoord
-    global iflag
-    screen_Image(0, 0, 860, 820)
-    img_rgb = cv2.imread('screenshot.png')
-    # print('screenshot taken')
-    img_gray = cv2.cvtColor(img_rgb, cv2.COLOR_BGR2GRAY)
-    template = cv2.imread(image, 0)
-    w, h = template.shape[::-1]
-    pt = None
-    # print('getting match requirements')
-    res = cv2.matchTemplate(img_gray, template, cv2.TM_CCOEFF_NORMED)
-    threshold = threshold
-    loc = np.where(res >= threshold)
-    # print('determine loc and threshold')
-    # if len(loc[0]) == 0:
-    # exit()
-    iflag = False
-    event = event
-    for pt in zip(*loc[::-1]):
-        cv2.rectangle(img_rgb, pt, (pt[0] + w, pt[1] + h), (0, 0, 255), 2)
-    # print('result of pt')
-    if pt is None:
-        iflag = False
-        # print(event, 'Not Found...')
-    else:
-        iflag = True
-        # cv2.imwrite('res.png', img_rgb)
-        # print(event, 'Found...')
-        x = random.randrange(iwidth, iwidth + ispace)
-        y = random.randrange(iheight, iheight + ispace)
-        icoord = pt[0] + x
-        icoord = (icoord, pt[1] + y)
-        b = random.uniform(0.2, 0.7)
-        pyautogui.moveTo(icoord, duration=b)
-        b = random.uniform(0.1, 0.3)
-        pyautogui.click(icoord, duration=b, button=clicker)
-    return iflag
-
-def Miner_Image_quick():
-    left = 150
-    top = 150
-    right = 600
-    bottom = 750
-
-    im = ImageGrab.grab(bbox=(left, top, right, bottom))
-    im.save('miner_img.png', 'png')
-
-
-def findarea_single(ore, cropx=150, cropy=150):
-    Miner_Image_quick()
-    image = cv2.imread(r"miner_img.png")
-
-    # B, G, R
-#--------------------- ADD OBJECTS -------------------
-    tin = ([103, 86, 65], [145, 133, 128])
-    copper = ([35, 70, 120], [65, 110, 170])
-    coal = ([20, 30, 30], [30, 50, 50])
-    iron = ([15, 20, 40], [25, 40, 70])
-    iron2 = ([17, 20, 42], [25, 38, 70])
-    clay = ([50, 105, 145], [60, 125, 165])
-    red = ([0, 0, 180], [80, 80, 255])
-    green = ([0, 180, 0], [80, 255, 80])
-    amber = ([0, 160, 160], [80, 255, 255])
-    # --------------------- ADD OBJECTS -------------------
-    ore_list = [tin, copper, coal, iron, iron2, clay, red, green, amber]
-    boundaries = [ore_list[ore]]
-    # loop over the boundaries
-    for (lower, upper) in boundaries:
-        # create NumPy arrays from the boundaries
-        lower = np.array(lower, dtype="uint8")
-        upper = np.array(upper, dtype="uint8")
-        # find the colors within the specified boundaries and apply
-        # the mask
-        mask = cv2.inRange(image, lower, upper)
-        output = cv2.bitwise_and(image, image, mask=mask)
-        ret, thresh = cv2.threshold(mask, 40, 255, 0)
-        contours, hierarchy = cv2.findContours(thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
-    if len(contours) != 0:
-        # find the biggest countour (c) by the area
-        c = max(contours, key=cv2.contourArea)
-
-        x, y, w, h = cv2.boundingRect(c)
-        x = random.randrange(x + 5, x + max(w - 5, 6)) + cropx  # 950,960
-        #print('x: ', x)
-        y = random.randrange(y + 5, y + max(h - 5, 6)) + cropy # 490,500
-        #print('y: ', y)
-        b = random.uniform(0.1, 0.2)
+    if functions.Image_count('bank_deposit.png', 0.65) > 0:
+        b = random.uniform(0.25, 0.65)
+        x = random.randrange(370, 390)  # 950,960
+        y = random.randrange(440, 460)  # 490,500
         pyautogui.moveTo(x, y, duration=b)
-        b = random.uniform(0.02, 0.07)
+        b = random.uniform(0.1, 0.19)
         pyautogui.click(duration=b)
-        return (x, y)
-    return(0,0)
+        actions = 'successful deposit...'
+        return True
+    actions = 'deposit box not found...'
+    return False
+
 def count_gems():
     return Image_count('gem_icon.png')
 def count_geo():
@@ -334,9 +301,21 @@ def moneymaker_clay(Take_Human_Break=False, Run_Duration_hours=4, color=6):
     print("Will break in: %.2f" % (ibreak / 60) + " minutes |", "Mine Ore Selected: Clay")
     t1 = Thread(target=timer_countdown)
     t1.start()
-
     t_end = time.time() + (60 * 60 * Run_Duration_hours)
+    gem_count = int(count_gems() + count_gems2())
+    ore_count = int(inv_count('clay'))
+    clue_count = int(count_geo())
+    if ore_count + gem_count + clue_count > 27:
+        rim_minetobank()
     while time.time() < t_end:
+        invent = functions.invent_enabled()
+        step = determine_position_to_clay()
+        if step != 0 and invent == 0:
+            actions = 'opening inventory'
+            pyautogui.press('esc')
+        step = determine_position_to_clay()
+        if step != 5:
+            rim_minetoclay()
         randomizer(timer_break, ibreak)
         r = random.uniform(0.1, 1)
         gem_count = int(count_gems() + count_gems2())
@@ -349,14 +328,15 @@ def moneymaker_clay(Take_Human_Break=False, Run_Duration_hours=4, color=6):
             rim_minetobank()
             actions = 'Going to Mining Spot'
             rim_minetoclay()
-
-        resizeImage()
         mined_text = Image_to_Text('thresh', 'textshot.png')
         if mined_text.lower() != 'mining' and mined_text.lower() != 'mininq':
-            actions = 'Not mining'
-            spot = findarea_single(color)
+            #actions = 'Not mining'
+            spot = functions.find_Object(color)
             if Take_Human_Break:
                 c = random.triangular(0.05, 30, 0.5)
+                time.sleep(c)
+            else:
+                c = random.triangular(0.05, 0.1, 0.08)
                 time.sleep(c)
 
 
@@ -364,18 +344,21 @@ x = random.randrange(100, 250)
 y = random.randrange(400, 500)
 pyautogui.click(x, y, button='right')
 ibreak = random.randrange(300, 2000)
-print('will break in   ' + str(ibreak / 60) + ' minutes')
 timer_break = timer()
 spot = (0, 0)
 actions = 'None'
 mined_text = 'Not Mining'
-# ----- OBJECT MARKER COLOR ------
-red = 6
-green = 7
-amber = 8
+ore_count = 0
+gem_count = 0
+clue_count = 0
+
+# ----- OBJECT MARKER COLOR FOR CLAY ------
+red = 0
+green = 1
+amber = 2
 
 # --------- CHANGE TO RUN FOR AMOUNT OF HOURS ----------------
 Run_Duration_hours = 4
 
-moneymaker_clay(True, Run_Duration_hours, red)
+moneymaker_clay(Take_Human_Break=False, Run_Duration_hours=Run_Duration_hours, color=green)
 
