@@ -104,7 +104,19 @@ def determine_position_to_clay():
     if ore_count + gem_count + clue_count > 27:
         return 6
     if functions.mini_map_bool('clay_deposit_spot5.png', 0.85):
-        actions = 'player located @ step 1 Spot 5'
+        actions = 'player located @ step 1 Spot 5 _5'
+        return 1
+    if functions.mini_map_bool('clay_deposit_spot4.png', 0.85):
+        actions = 'player located @ step 1 Spot 5 _4'
+        return 1
+    if functions.mini_map_bool('clay_deposit_spot3.png', 0.85):
+        actions = 'player located @ step 1 Spot 5 _3'
+        return 1
+    if functions.mini_map_bool('clay_deposit_spot2.png', 0.85):
+        actions = 'player located @ step 1 Spot 5 _2'
+        return 1
+    if functions.mini_map_bool('clay_deposit_spot1.png', 0.85):
+        actions = 'player located @ step 1 Spot 5 _1'
         return 1
     if functions.mini_map_bool('port_sarim_spot_water.png', 0.85):
         actions = 'player located @ step 2'
@@ -188,7 +200,11 @@ def rim_minetobank():
         find_banker()
         actions = 'finding deposit box'
         time.sleep(c)
-        depositbox()
+        while not depositbox():
+            c = random.uniform(2.1, 3)
+            find_banker()
+            actions = 'finding deposit box'
+            time.sleep(c)
         actions = 'finished deposit end of function'
         c = random.uniform(1, 5)
         time.sleep(c)
@@ -225,6 +241,7 @@ def rim_minetoclay():
                     y = 15
                 spot = functions.mini_map_image('clay_deposit_spot' + str(i) + '.png', x, y, 0.85, 'left')
                 if spot:
+                    actions = '1st clay mine step found'
                     break
 
 
@@ -284,6 +301,12 @@ def depositbox():
         b = random.uniform(0.1, 0.19)
         pyautogui.click(duration=b)
         actions = 'successful deposit...'
+        gem_count = int(count_gems() + count_gems2())
+        ore_count = int(inv_count('clay'))
+        clue_count = int(count_geo())
+        total_invent = gem_count + ore_count + clue_count
+        if total_invent > 0:
+            return False
         return True
     actions = 'deposit box not found...'
     return False
@@ -314,6 +337,10 @@ def moneymaker_clay(Take_Human_Break=False, Run_Duration_hours=4, color=6):
     t1 = Thread(target=timer_countdown)
     t1.start()
     t_end = time.time() + (60 * 60 * Run_Duration_hours)
+    invent = functions.invent_enabled()
+    if invent == 0:
+        actions = 'opening inventory'
+        pyautogui.press('esc')
     gem_count = int(count_gems() + count_gems2())
     ore_count = int(inv_count('clay'))
     clue_count = int(count_geo())
@@ -325,7 +352,6 @@ def moneymaker_clay(Take_Human_Break=False, Run_Duration_hours=4, color=6):
         if step != 0 and invent == 0:
             actions = 'opening inventory'
             pyautogui.press('esc')
-        step = determine_position_to_clay()
         if step != 5:
             rim_minetoclay()
         randomizer(timer_break, ibreak)
