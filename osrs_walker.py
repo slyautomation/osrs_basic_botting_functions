@@ -8,8 +8,6 @@ from time import sleep
 import math
 import json
 
-from past.builtins import execfile
-
 from osrs_return_data_status import update_run_energy
 from read_path import get_current_path, get_current_path_random
 import yaml
