@@ -101,23 +101,26 @@ def determine_position_to_bank():
 
 def determine_position_to_clay():
     global ore_count, gem_count, clue_count, actions
+    gem_count = int(count_gems() + count_gems2())
+    ore_count = int(inv_count('clay'))
+    clue_count = int(count_geo())
     if ore_count + gem_count + clue_count > 27:
         return 6
-    if functions.mini_map_bool('clay_deposit_spot5.png', 0.85):
-        actions = 'player located @ step 1 Spot 5 _5'
-        return 1
+    if functions.mini_map_bool('clay_deposit_spot1.png', 0.85):
+        actions = 'player located @ step 1 Spot 5 _1'
+        return 0
     if functions.mini_map_bool('clay_deposit_spot4.png', 0.85):
         actions = 'player located @ step 1 Spot 5 _4'
         return 0
+    if functions.mini_map_bool('clay_deposit_spot5.png', 0.85):
+        actions = 'player located @ step 1 Spot 5 _5'
+        return 1
     if functions.mini_map_bool('clay_deposit_spot3.png', 0.85):
         actions = 'player located @ step 1 Spot 5 _3'
         return 1
     if functions.mini_map_bool('clay_deposit_spot2.png', 0.85):
         actions = 'player located @ step 1 Spot 5 _2'
         return 1
-    if functions.mini_map_bool('clay_deposit_spot1.png', 0.85):
-        actions = 'player located @ step 1 Spot 5 _1'
-        return 0
     if functions.mini_map_bool('port_sarim_spot_water.png', 0.85):
         actions = 'player located @ step 2'
         return 2
@@ -237,8 +240,8 @@ def rim_minetoclay():
         while spot != True:
             actions = 'finding 1st clay mine step'
             for i in nums(1, 5):
-                if i == 5 or i == 3:
-                    y = 15
+                if i == 5 or i == 3 or i == 1:
+                    y = 5
                 spot = functions.mini_map_image('clay_deposit_spot' + str(i) + '.png', x, y, 0.85, 'left')
                 if spot:
                     actions = '1st clay mine step found _' + str(i)
@@ -289,11 +292,11 @@ def rim_minetoclay():
         step = 6
 
 def find_banker():
-    find_Object_precise(0, 5, 0, 0, 700, 800)  # red
+    find_Object_precise(0, 0, 0, 700, 800)  # red
 
 def depositbox():
     global actions
-    if functions.Image_count('bank_deposit.png', 0.65) > 0:
+    if functions.Image_count_alpha('bank_deposit_box.png', 0.8, 0, 0, 700, 800) > 0:
         b = random.uniform(0.25, 0.65)
         x = random.randrange(370, 390)  # 950,960
         y = random.randrange(440, 460)  # 490,500
@@ -346,6 +349,7 @@ def moneymaker_clay(Take_Human_Break=False, Run_Duration_hours=4, color=6):
     clue_count = int(count_geo())
     if ore_count + gem_count + clue_count > 27:
         rim_minetobank()
+        rim_minetoclay()
     step = determine_position_to_clay()
     if step != 5:
         rim_minetoclay()
