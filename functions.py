@@ -310,7 +310,7 @@ def change_brown_black():
 
     cv2.imwrite("images/textshot.png", image)
 
-def find_Object_precise(item, deep=20, left=0, top=0, right=0, bottom=0):
+def find_Object_precise(item, left=0, top=0, right=0, bottom=0):
     screen_Image(left, top, right, bottom)
     image = cv2.imread('images/screenshot.png')
     image = cv2.rectangle(image, pt1=(600, 0), pt2=(850, 200), color=(0, 0, 0), thickness=-1)
@@ -1064,6 +1064,20 @@ def Image_count(object, threshold=0.8, left=0, top=0, right=0, bottom=0):
         counter += 1
     return counter
 
+def Image_count_alpha(small_image, threshold=0.7, left=0, top=0, right=0, bottom=0):
+    counter = 0
+    screen_Image(left, top, right, bottom, name='screenshot.png')
+    large_image = cv2.imread('images/screenshot.png')
+    template = cv2.imread('images/' + small_image, cv2.IMREAD_UNCHANGED)
+    a, w, h = template.shape[::-1]
+    pt = None
+    res = cv2.matchTemplate(large_image, template[..., :3], cv2.TM_CCOEFF_NORMED, mask=template[..., 3])
+    threshold = threshold
+    loc = np.where(res >= threshold)
+    for pt in zip(*loc[::-1]):
+        cv2.rectangle(large_image, pt, (pt[0] + w, pt[1] + h), (0, 0, 255), 2)
+        counter += 1
+    return counter
 def invent_count(object, threshold=0.8):
     screen_Image(620, 480, 820, 750, 'inventshot.png')
     counter = 0
