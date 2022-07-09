@@ -13,7 +13,6 @@ global iflag
 global icoord
 from PIL import Image
 # from matplotlib import pyplot as plt
-from Dialogue_Decrypter import determineText
 
 iflag = False
 def RcropImage():
