@@ -195,15 +195,11 @@ def screen_Image_new(name='screenshot.png'):
     im.save('images/' + name, 'png')
 
 def screen_Image(left=0, top=0, right=0, bottom=0, name='screenshot.png'):
-
-    myScreenshot = ImageGrab.grab() #pyautogui.screenshot()
-    myScreenshot.save('images/screenshot.png', 'png')
     if left != 0 or top != 0 or right != 0 or bottom != 0:
-        png = 'images/screenshot.png'
-        im = Image.open(png)  # uses PIL library to open image in memory
-        im = im.crop((left, top, right, bottom))  # defines crop points
-        im.save('images/' + name)  # saves new cropped image
-        # print('screeenshot saved')
+        myScreenshot = ImageGrab.grab(bbox=(left, top, right, bottom))
+    else:
+        myScreenshot = ImageGrab.grab()
+    myScreenshot.save('images/' + name)
 
 
 def Image_color_new():
