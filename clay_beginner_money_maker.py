@@ -108,7 +108,7 @@ def determine_position_to_clay():
         return 1
     if functions.mini_map_bool('clay_deposit_spot4.png', 0.85):
         actions = 'player located @ step 1 Spot 5 _4'
-        return 1
+        return 0
     if functions.mini_map_bool('clay_deposit_spot3.png', 0.85):
         actions = 'player located @ step 1 Spot 5 _3'
         return 1
@@ -117,7 +117,7 @@ def determine_position_to_clay():
         return 1
     if functions.mini_map_bool('clay_deposit_spot1.png', 0.85):
         actions = 'player located @ step 1 Spot 5 _1'
-        return 1
+        return 0
     if functions.mini_map_bool('port_sarim_spot_water.png', 0.85):
         actions = 'player located @ step 2'
         return 2
@@ -222,7 +222,7 @@ def rim_minetoclay():
         b = random.uniform(0.175, 0.677)
         x = random.randrange(710, 725)
         #print('x: ', x)
-        y = random.randrange(50, 60)
+        y = random.randrange(60, 70)
         #print('y: ', y)
         c = random.uniform(10, 12)
         pyautogui.click(x, y, 1, duration=b, button='left')
@@ -231,7 +231,7 @@ def rim_minetoclay():
         step = 1
     c = random.uniform(11, 12)
     x = -5
-    y = -10
+    y = 0
     if step == 1:
         spot = functions.mini_map_image('clay_deposit_spot5.png', x, 5, 0.85, 'left')
         while spot != True:
@@ -241,7 +241,7 @@ def rim_minetoclay():
                     y = 15
                 spot = functions.mini_map_image('clay_deposit_spot' + str(i) + '.png', x, y, 0.85, 'left')
                 if spot:
-                    actions = '1st clay mine step found'
+                    actions = '1st clay mine step found _' + str(i)
                     break
 
 
@@ -346,14 +346,14 @@ def moneymaker_clay(Take_Human_Break=False, Run_Duration_hours=4, color=6):
     clue_count = int(count_geo())
     if ore_count + gem_count + clue_count > 27:
         rim_minetobank()
+    step = determine_position_to_clay()
+    if step != 5:
+        rim_minetoclay()
     while time.time() < t_end:
         invent = functions.invent_enabled()
-        step = determine_position_to_clay()
-        if step != 0 and invent == 0:
+        if invent == 0:
             actions = 'opening inventory'
             pyautogui.press('esc')
-        if step != 5:
-            rim_minetoclay()
         randomizer(timer_break, ibreak)
         r = random.uniform(0.1, 1)
         gem_count = int(count_gems() + count_gems2())
@@ -369,7 +369,7 @@ def moneymaker_clay(Take_Human_Break=False, Run_Duration_hours=4, color=6):
         mined_text = Image_to_Text('thresh', 'textshot.png')
         if mined_text.lower() != 'mining' and mined_text.lower() != 'mininq':
             #actions = 'Not mining'
-            spot = functions.find_Object(color)
+            spot = functions.find_Object(color, 0, 0, 700, 800)
             if Take_Human_Break:
                 c = random.triangular(0.05, 30, 0.5)
                 time.sleep(c)
