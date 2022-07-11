@@ -162,7 +162,7 @@ def invent_enabled():
     return Image_count('inventory_enabled.png', threshold=0.99)
 
 def bank_spot():
-    functions.find_Object_precise(1, 5, 0, 0, 860, 775)
+    functions.find_Object_precise(1, 0, 0, 860, 775)
 
 def deposit_bank_items(type):
     global actions
