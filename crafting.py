@@ -96,11 +96,11 @@ def pick_silver_bars():
 
 
 def bank_spot_edgville():
-    find_Object_precise(1, 5, 0, 0, 860, 775)  # green
+    find_Object_precise(1, 0, 0, 860, 775)  # green
 
 
 def craft_spot_edgville():
-    find_Object_precise(0, 5, 0, 0, 860, 775)  # red
+    find_Object_precise(0, 0, 0, 860, 775)  # red
 
 
 def craft_gold_ring():
