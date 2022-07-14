@@ -156,7 +156,9 @@ Tutorial: TBA
 - Use main map and right click then select 'set target', run server.py and then run osrs_walker.py.
 - ![ezgif com-gif-maker (1)](https://user-images.githubusercontent.com/81003470/140738915-4ba2106a-ec4f-4a89-97e9-46eacca6f792.gif)
 
+## Troubleshooting 
 
+python venv/Scripts/pywin32_postinstall.py -install
 
 ## Wiki
 [Wiki page on function descriptions and purpose](https://github.com/slyautomation/osrs_basic_botting_functions/wiki/Purpose-and-Definition-of-Functions-including-argument-s-usage)
