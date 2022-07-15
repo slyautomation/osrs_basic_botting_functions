@@ -1064,19 +1064,38 @@ def Image_count(object, threshold=0.8, left=0, top=0, right=0, bottom=0):
         counter += 1
     return counter
 
-def Image_count_alpha(small_image, threshold=0.7, left=0, top=0, right=0, bottom=0):
+def Image_count_alpha(temp, threshold=0.89, left=0, top=0, right=0, bottom=0):
     counter = 0
     screen_Image(left, top, right, bottom, name='screenshot.png')
-    large_image = cv2.imread('images/screenshot.png')
-    template = cv2.imread('images/' + small_image, cv2.IMREAD_UNCHANGED)
-    a, w, h = template.shape[::-1]
-    pt = None
-    res = cv2.matchTemplate(large_image, template[..., :3], cv2.TM_CCOEFF_NORMED, mask=template[..., 3])
+    # read screenshot
+    img = cv2.imread('images/screenshot.png')
+    # read pawn image template
+    # template = cv2.imread('chess_template.png', cv2.IMREAD_UNCHANGED)
+    template = cv2.imread('images/' + temp, cv2.IMREAD_UNCHANGED)
+    hh, ww = template.shape[:2]
+    # extract pawn base image and alpha channel and make alpha 3 channels
+    temp_a = template[:, :, 0:3]
+    alpha = template[:, :, 3]
+    alpha = cv2.merge([alpha, alpha, alpha])
+    # set threshold
     threshold = threshold
-    loc = np.where(res >= threshold)
-    for pt in zip(*loc[::-1]):
-        cv2.rectangle(large_image, pt, (pt[0] + w, pt[1] + h), (0, 0, 255), 2)
-        counter += 1
+    # do masked template matching and save correlation image
+    corr_img = cv2.matchTemplate(img, temp_a, cv2.TM_CCORR_NORMED, mask=alpha)
+    # search for max score
+    result = img.copy()
+    max_val = 1
+    while max_val > threshold:
+
+        # find max value of correlation image
+        min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(corr_img)
+        #print(max_val, max_loc)
+
+        if max_val > threshold:
+            # draw match on copy of input
+            counter += 1
+            cv2.rectangle(result, max_loc, (max_loc[0] + ww, max_loc[1] + hh), (0, 0, 255), 2)
+        else:
+            break
     return counter
 def invent_count(object, threshold=0.8):
     screen_Image(620, 480, 820, 750, 'inventshot.png')
