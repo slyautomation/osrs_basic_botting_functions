@@ -23,7 +23,7 @@ def skill_lvl_up():
     myScreenshot.save(r"screen.png")
     img_rgb = cv2.imread('screen.png')
     img_gray = cv2.cvtColor(img_rgb, cv2.COLOR_BGR2GRAY)
-    template = cv2.imread('Congrats_flag.png', 0)
+    template = cv2.imread('images/' + 'Congrats_flag.png', 0)
     w, h = template.shape[::-1]
     res = cv2.matchTemplate(img_gray, template, cv2.TM_CCOEFF_NORMED)
     threshold = 0.8
@@ -34,27 +34,7 @@ def skill_lvl_up():
     cv2.imwrite('res.png', img_rgb)
     return counter
 
-def steal_drop_tea(x,y):
-    c = random.uniform(0.15, 0.23)
-    b = random.uniform(0.5, 0.7)
-    z = random.uniform(x-5, x+10)
-    w = random.uniform(y-5, y+10)
-    pyautogui.moveTo(z, w, duration=b)
-    time.sleep(c)
-    pyautogui.click()
-    x = random.randrange(5, 40)  # x = random.randrange(1795, 1800)
-    print('x: ', x)
-    y = random.randrange(5, 40)  # y = random.randrange(50, 60)
-    print('y: ', y)
-    c = random.uniform(6.5, 8.1)
-    d = random.uniform(0.15, 0.23)
-    e = random.uniform(0.15, 0.25)
-    time.sleep(c)
-    pyautogui.keyDown('shift')
-    time.sleep(d)
-    image_Rec_inventory('tea_icon.png','dropping item', 0.9, 'left')
-    time.sleep(e)
-    pyautogui.keyUp('shift')
+
 
 def xp_check():
     return bool_alpha('thieving.png', 0.8, 560, 95, 610, 135)
@@ -71,7 +51,7 @@ def bool_alpha(temp, threshold=0.89, left=0, top=0, right=0, bottom=0):
     # read screenshot
     img = cv2.imread('screenshot_bool.png')
     # read image template
-    template = cv2.imread(temp, cv2.IMREAD_UNCHANGED)
+    template = cv2.imread('images/' + temp, cv2.IMREAD_UNCHANGED)
     # extract base image and alpha channel and make alpha 3 channels
     temp_a = template[:, :, 0:3]
     alpha = template[:, :, 3]
@@ -91,7 +71,7 @@ def value_alpha(temp, threshold=0.89, left=0, top=0, right=0, bottom=0):
     # read screenshot
     img = cv2.imread('screenshot_bool.png')
     # read image template
-    template = cv2.imread(temp, cv2.IMREAD_UNCHANGED)
+    template = cv2.imread('images/' + temp, cv2.IMREAD_UNCHANGED)
     # extract base image and alpha channel and make alpha 3 channels
     temp_a = template[:, :, 0:3]
     alpha = template[:, :, 3]
@@ -113,7 +93,7 @@ def Image_count_alpha(temp, threshold=0.89, left=0, top=0, right=0, bottom=0):
     img = cv2.imread('screenshot.png')
     # read pawn image template
     # template = cv2.imread('chess_template.png', cv2.IMREAD_UNCHANGED)
-    template = cv2.imread(temp, cv2.IMREAD_UNCHANGED)
+    template = cv2.imread('images/' + temp, cv2.IMREAD_UNCHANGED)
     hh, ww = template.shape[:2]
     # extract pawn base image and alpha channel and make alpha 3 channels
     temp_a = template[:, :, 0:3]
