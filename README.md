@@ -143,6 +143,14 @@ Tutorial on combat code click link: https://youtube.com/watch?v=llGbhVfU1Bc
 ### Improvements to add
  - Stop or eat when health is low (warning this does not stop when health is low)
 
+### steal_tea() 
+ 
+ - Hold shift and mark object Tea Stall (Make sure the color is red)
+ 
+ ![image](https://user-images.githubusercontent.com/81003470/179394490-dede3956-f7c5-48b4-9d1d-fc501d25d9a3.png)
+ 
+ ![image](https://user-images.githubusercontent.com/81003470/179394511-cad0e25a-a314-45f4-a957-44952eee55ba.png)
+
 
 ## smithing.py
 
