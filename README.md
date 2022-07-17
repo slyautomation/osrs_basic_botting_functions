@@ -124,6 +124,12 @@ Tutorial on mining code click link: https://youtube.com/watch?v=dkD5gXcgQYI
 
 Tutorial on combat code click link: https://youtube.com/watch?v=llGbhVfU1Bc
 
+## thieving.py
+
+- Turn on NPC Indicators plugin
+- Change Highlight colour to #ff00ffff
+- Hold Shift and Right Click on NPC/Mob and select Tag
+
 ## smithing.py
 
 Tutorial on smithing code click link: https://youtube.com/watch?v=YezEeVjoP6o
