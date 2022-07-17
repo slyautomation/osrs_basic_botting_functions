@@ -137,6 +137,11 @@ Tutorial on combat code click link: https://youtube.com/watch?v=llGbhVfU1Bc
 - Make sure pickpocket will be actioned on left click (some npcs even on always right click have 'talk to' as left click option)
   
 ![image](https://user-images.githubusercontent.com/81003470/179394074-85e3e1b1-e942-437b-8d01-0d024a5817ee.png)
+ 
+- To stop script hold down the capslock key
+ 
+### Improvements to add
+ - Stop or eat when health is low (warning this does not stop when health is low)
 
 
 ## smithing.py
