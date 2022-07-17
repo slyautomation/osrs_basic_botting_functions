@@ -76,16 +76,16 @@ def pick_mithril_bars():
     random_breaks(0.5, 1.5)
 
 def bank_spot_edgeville():
-    find_Object_precise(1, 8) #green
+    find_Object_precise(1) #green
 
 def bank_spot_varrock():
-    find_Object_precise(2, 8) #amber
+    find_Object_precise(2) #amber
 
 def water_spot_edgeville():
-    find_Object_precise(0, 5, 0, 0, 610, 775) #red
+    find_Object_precise(0, 0, 0, 610, 775) #red
 
 def smith_spot_varrock():
-    find_Object_precise(0, 5, 0, 0, 610, 775) #red
+    find_Object_precise(0, 0, 0, 610, 775) #red
 
 def cast_superheat():
     pick_item(2029 - 1280, 573)

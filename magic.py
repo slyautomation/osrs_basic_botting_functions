@@ -1,7 +1,6 @@
 import random
 import time
 import pyautogui
-import pytesseract
 from functions import pick_item
 from functions import random_combat
 from functions import random_quests
@@ -62,7 +61,6 @@ def random_pause():
     newTime_break = True
 
 
-pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract'
 iflag = False
 
 options = {0: random_inventory,

@@ -23,6 +23,46 @@ For the full video tutorial click link: https://www.youtube.com/watch?v=C7ZY4KYp
 
 This video is more about how it was created at the start core.py is how to make the python script focus on the old school runescape application and adjust the window size so all the scripts run as intended. Then functions.py is where all the different kinds of shortcut functions are placed to reference the mini map, or a piece of code to do color detection or open the inventory.
 
+## Quick module install Steps
+
+in terminal type:
+
+pip install -r requirements.txt
+
+tesseract-ocr = https://sourceforge.net/projects/tesseract-ocr-alt/files/tesseract-ocr-setup-3.02.02.exe/download
+
+Tutorial on installing tesseract-OCR: https://youtube.com/watch?v=X3snnwzJfEw&t=25m15s
+
+## Runelite Setup
+Tutorial on runelite setup click link: https://youtube.com/watch?v=JO2FvkJwppA
+
+### pybot-config.yaml (configuration file)
+
+![image](https://user-images.githubusercontent.com/81003470/177748290-e8337717-0f06-4aeb-afc9-19056bbebc23.png)
+
+client_title: Is the title of the application window usually Runelite if you have completed the steps for the Runelite Setup, if not then enter RuneLite - username or OpenOSRS
+
+![image](https://user-images.githubusercontent.com/81003470/177749000-e7b09b9d-26fc-43ab-95cd-2a84ad12fcc3.png)
+
+![image](https://user-images.githubusercontent.com/81003470/177749289-c6b11dfe-1fe0-4d5d-a67f-bf53d62839ce.png)
+
+enable_on_start: if you don't want the config window to pop up each time, enter as false
+
+file_path_to_client: the head folder where the OSRS client is stored usually .runelite or .openosrs
+
+pc_profile: is the user profile of the pc so it can find runelite or openosrs
+
+![image](https://user-images.githubusercontent.com/81003470/177750475-75e97359-907d-4c2a-b36d-0ada31594fd8.png)
+
+tesseract_path: Is the folder address to tesseract-ocr program
+
+![image](https://user-images.githubusercontent.com/81003470/177748476-6b190ed9-d1b2-4677-96c5-2b47859f2ee6.png)
+
+```diff
+- Note: copy the format below make sure to include the slashes (\).
+```
+![image](https://user-images.githubusercontent.com/81003470/177748290-e8337717-0f06-4aeb-afc9-19056bbebc23.png)
+
 ## Woodcutting
 
 ### features
@@ -41,20 +81,6 @@ Tutorial on firemaking code click link: https://youtu.be/bHZCQUChG_k
 
 ![image](https://user-images.githubusercontent.com/81003470/172408690-510ff90b-0197-4959-a7a8-201e1620b79b.png)
 
-## Quick module install Steps
-
-in terminal type:
-
-pip install -r requirements.txt
-
-
-tesseract-ocr = https://sourceforge.net/projects/tesseract-ocr-alt/files/tesseract-ocr-setup-3.02.02.exe/download
-
-
-Tutorial on installing tesseract-OCR: https://youtube.com/watch?v=X3snnwzJfEw&t=25m15s
-
-## Runelite Setup
-Tutorial on runelite setup click link: https://youtube.com/watch?v=JO2FvkJwppA
 ## fishing.py
 - Turn on fishing plugin.
 - Make sure to have net for prawn fishing or a rod and bait/feathers for fish.
@@ -64,6 +90,9 @@ Tutorial on fishing code click link: https://youtube.com/watch?v=5K-nMy9Pdvg
 ## mining.py
 - Turn on mining plugin.
 - Mark ore spots using the object marker to green. 
+
+![image](https://user-images.githubusercontent.com/81003470/177980804-669ebd1d-0f9c-4102-8b86-efef42a7d1de.png)
+
 - Make sure to equip a pick axe.
 
 - enter the ore type, the marker color and how long to run in hours (Change Run_Duration_hours) 
@@ -75,6 +104,24 @@ Tutorial on mining code click link: https://youtube.com/watch?v=dkD5gXcgQYI
 
 
 ## combat.py
+- Turn on NPC Indicators plugin
+- Change Highlight colour to #ff00ffff
+
+![image](https://user-images.githubusercontent.com/81003470/177981614-830a435a-81f5-4d95-bd07-10cca3008a04.png)
+
+- Hold Shift and Right Click on NPC/Mob and select Tag-All
+
+![image](https://user-images.githubusercontent.com/81003470/177981922-1f356fe0-7aa9-4ac9-9b61-7180025b115e.png)
+
+- In the Combat script change the first value to the NPC/Mob name
+- Change Run_duraction_hours to the number of hours to run script for
+
+![image](https://user-images.githubusercontent.com/81003470/177982195-47de25fa-f300-4362-bea7-0aa1b2cff258.png)
+
+- To add or use a NPC/Mob not on the list add it to the monster_array as ['each iteration captured by the combat_text'] and add to monster_list the name
+
+![image](https://user-images.githubusercontent.com/81003470/177983040-28802f6f-bb57-4120-837b-830464215ee5.png)
+
 Tutorial on combat code click link: https://youtube.com/watch?v=llGbhVfU1Bc
 
 ## smithing.py
@@ -109,7 +156,9 @@ Tutorial: TBA
 - Use main map and right click then select 'set target', run server.py and then run osrs_walker.py.
 - ![ezgif com-gif-maker (1)](https://user-images.githubusercontent.com/81003470/140738915-4ba2106a-ec4f-4a89-97e9-46eacca6f792.gif)
 
+## Troubleshooting 
 
+python venv/Scripts/pywin32_postinstall.py -install
 
 ## Wiki
 [Wiki page on function descriptions and purpose](https://github.com/slyautomation/osrs_basic_botting_functions/wiki/Purpose-and-Definition-of-Functions-including-argument-s-usage)

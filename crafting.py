@@ -27,6 +27,11 @@ global timer
 global timer_break
 global ibreak
 
+class bcolors:
+    OK = '\033[92m' #GREEN
+    WARNING = '\033[93m' #YELLOW
+    FAIL = '\033[91m' #RED
+    RESET = '\033[0m' #RESET COLOR
 
 def random_break(start, c):
     global newTime_break
@@ -91,11 +96,11 @@ def pick_silver_bars():
 
 
 def bank_spot_edgville():
-    find_Object_precise(1, 5, 0, 0, 860, 775)  # green
+    find_Object_precise(1, 0, 0, 860, 775)  # green
 
 
 def craft_spot_edgville():
-    find_Object_precise(0, 5, 0, 0, 860, 775)  # red
+    find_Object_precise(0, 0, 0, 860, 775)  # red
 
 
 def craft_gold_ring():
@@ -108,7 +113,17 @@ def craft_sapphire_ring():
     random_breaks(0.5, 1.5)
 
 
+def timer_countdown():
+    global invent_count, smithing_text, actions, coords, inv
+
+    for i in range(invent_count):
+        # the exact output you're looking for:
+        print(bcolors.OK + f'\r[%-10s] %d%%' % ('='*round((i/invent_count)*10), round((i/invent_count)*100)), f'bars left: {inv} | coords: {coords} | status: {actions}', end='')
+        time.sleep(1)
+
 def craft_bar_items(num, type, craft_item, run_time_minutes=360):
+    global invent_count, actions, inv
+    invent_count = num
     # run_time_minutes 6hrs by default
     t_end = time.time() + 60 * run_time_minutes
     while time.time() < t_end or num <= 0:
@@ -127,22 +142,25 @@ def craft_bar_items(num, type, craft_item, run_time_minutes=360):
         barlist = ['gold_bar.png', 'silver_bar.png', 'gold_bar.png']
         while j > 0:
             invent = invent_enabled()
-            print(invent)
+            #print(invent)
             if invent == 0:
                 pyautogui.press('esc')
             bank_spot_edgville()
+            actions = 'Going to Bank'
             bank = get_bank_craft_items(type)
             random_breaks(9.5, 11)
             while bank == 0:
                 bank = get_bank_craft_items(type)
             random_breaks(0.05, 0.2)
             inv = Image_count(barlist[type])  # 0 or 1
+            actions = 'To Crafting spot'
             craft_spot_edgville()
             random_breaks(9.5, 11)
             craft_options[craft_item]()
             while inv > 0:
+                actions = 'Crafting...'
                 if skill_lvl_up() != 0:
-                    print('level up')
+                    actions = 'level up'
                     random_breaks(0.2, 3)
                     pyautogui.press('space')
                     random_breaks(0.1, 3)
@@ -150,22 +168,24 @@ def craft_bar_items(num, type, craft_item, run_time_minutes=360):
                     a = random.randrange(0, 2)         
                     # print(a)
                     spaces(a)
+                    actions = 'To Crafting spot'
                     craft_spot_edgville()
                     random_breaks(1, 2)
                     craft_options[craft_item]()
                 inv = Image_count(barlist[type])
-                print(inv)
+                #print(inv)
             j -= 1
             num = j
-            print("number of crafting left:", num)
-            random_breaks(0.4, 0.8)
+            invent_count = num
+            random_breaks(0.1, 1.5)
 
 def invent_enabled():
     return Image_count('inventory_enabled.png', threshold=0.9)
 
 def get_bank_craft_items(type):
+    global actions
     bank = Image_count('bank_deposit.png', 0.75)
-    print("bank deposit open:", bank)
+    actions = "bank deposit open:", bank
     pick_options = {0: pick_gold_bars,
                     1: pick_silver_bars,
                     2: pick_sapphires
@@ -177,10 +197,25 @@ def get_bank_craft_items(type):
         exit_bank()
         return bank
     else:
-        print("bank inventory not found")
+        actions =  "bank inventory not found"
         bank_spot_edgville()
         return bank
-# run_time_minutes 6hrs by default
 
+inv = 0
+coords = (0, 0)
+actions = 'None'
+time_left = 0
+invent_count = 0
+#-------------------------------
+
+number_of_bars = 28
+
+pick_gold_bars = 0,
+pick_silver_bars = 1,
+pick_sapphires = 2
+
+# what to craft---- {bar_type}_{item_type} 'gold_ring'
+
+#-------------------------------
 if __name__ == "__main__":
-    craft_bar_items(2000, 0, 'gold_ring', run_time_minutes=360)
+    craft_bar_items(number_of_bars, pick_gold_bars, 'gold_ring', run_time_minutes=360)

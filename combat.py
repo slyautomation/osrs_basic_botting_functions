@@ -1,3 +1,5 @@
+from threading import Thread
+
 import numpy as np
 import cv2
 import pyautogui
@@ -31,6 +33,11 @@ global timer
 global timer_break
 global ibreak
 
+class bcolors:
+    OK = '\033[92m' #GREEN
+    WARNING = '\033[93m' #YELLOW
+    FAIL = '\033[91m' #RED
+    RESET = '\033[0m' #RESET COLOR
 
 def timer():
     startTime = time.time()
@@ -38,8 +45,9 @@ def timer():
 
 
 def random_pause():
+    global actions
     b = random.uniform(20, 250)
-    print('pausing for ' + str(b) + ' seconds')
+    actions = 'pausing for ' + str(b) + ' seconds'
     time.sleep(b)
     newTime_break = True
 
@@ -73,25 +81,37 @@ def randomizer(timer_breaks, ibreaks):
 
     # b = random.uniform(4, 5)
 
+def timer_countdown():
+    global Run_Duration_hours
+    t_end = time.time() + (60 * 60 * Run_Duration_hours)
+    #print(t_end)
+    final = round((60 * 60 * Run_Duration_hours) / 1)
+    #print(final)
+    for i in range(final):
+        # the exact output you're looking for:
+        print(bcolors.OK + f'\r[%-10s] %d%%' % ('='*round((i/final)*10), round((i/final)*100)), f'time left: {(t_end - time.time())/60 :.2f} mins | coords: {coords} | combat text: {combat_text} | {actions}', end='')
+        time.sleep(1)
 
 
 def powerattack_text(monster='chicken', burybones=True, Pickup_loot=False, Take_Human_Break=False, Run_Duration_hours=6):
+    global ibreak, coords, combat_text, time_left, powerlist, actions, powerlist, t_end
+    print('Will break in: %.2f' % (ibreak / 60) + ' minutes |', "Mob Selected:", monster)
+    t1 = Thread(target=timer_countdown)
+    t1.start()
     t_end = time.time() + (60 * 60 * Run_Duration_hours)
     # using the datetime.fromtimestamp() function
-    date_time = datetime.datetime.fromtimestamp(t_end)
-    print(date_time)
+    #date_time = datetime.datetime.fromtimestamp(t_end)
+    #print(date_time)
     group = monster_list.index(monster)
     while time.time() < t_end:
         randomizer(timer_break, ibreak)
         r = random.uniform(0.1, 5)
         resizeImage()
-        mined = Image_to_Text('thresh', 'textshot.png')
-        print(mined)
-        print(monster_array[group])
+        combat_text = Image_to_Text('thresh', 'textshot.png')
         attack = 0
         for monsters in monster_array[group]:
             # print(monsters)
-            if mined.lower() != monsters:
+            if combat_text.lower() != monsters:
                 attack += 1
         if attack == len(monster_array[group]):
             d = random.uniform(0.05, 0.1)
@@ -100,32 +120,38 @@ def powerattack_text(monster='chicken', burybones=True, Pickup_loot=False, Take_
                 c = random.uniform(0.6, 1)
                 time.sleep(c)
             if Pickup_loot:
-                if findarea_attack_quick(2, 5):  # pick up highlighted loot
+                coords = findarea_attack_quick(2, 5)
+                if coords[0] != 0:  # pick up highlighted loot
                     c = random.uniform(3, 5)
                     time.sleep(c)
-            if findarea_attack_quick(3):  # attack npc/monster
+            coords = findarea_attack_quick(3)
+            if coords[0] != 0:   # attack npc/monster
                 c = random.uniform(3, 5)
                 time.sleep(c)
                 if Take_Human_Break:
                     c = random.triangular(0.1, 50, 3)
                     time.sleep(c)
 
+coords = (0, 0)
+actions = 'None'
+combat_text = 'Not in Combat'
+time_left = 0
 
 if __name__ == "__main__":
-    # do whatever you do
     # ----- UPDATE WITH ALL VARIATIONS OF MONSTER'S IMAGE TO TEXT RESULT IN LINE WITH MONSTER_LIST -----
     monster_array = [
         ['chicken'], ['guard', 'gua rd'], ['cow', 'cou'], ['monk'], ['imp'], ['skeleton'], ['dwarf', 'dwarf‘']
     ]
-    # --------------------------------------------------------------------------------------------------
-    monster_list = ['chicken', 'guard', 'cow', 'monk', 'imp', 'skeleton', 'dwarf']
-
-    resizeImage()
     x = random.randrange(100, 250)
     y = random.randrange(400, 500)
     pyautogui.click(x, y, button='right')
     ibreak = random.randrange(300, 2000)
-    print('will break in   ' + str(ibreak / 60) + ' minutes')
     timer_break = timer()
-    powerattack_text('cow', Take_Human_Break=False, Run_Duration_hours=4)
+
+    # --------- CHANGE TO RUN FOR AMOUNT OF HOURS ----------------
+    Run_Duration_hours = 2
+    # --------------------------------------------------------------------------------------------------
+    monster_list = ['chicken', 'guard', 'cow', 'monk', 'imp', 'skeleton', 'dwarf']
+
+    powerattack_text('cow', Take_Human_Break=False, Run_Duration_hours=Run_Duration_hours)
     #os.system('shutdown -s -f')
