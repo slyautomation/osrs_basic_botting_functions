@@ -16,3 +16,4 @@ requests==2.27.1
 simplejson==3.17.6
 urllib3==1.26.9
 Shapely==1.8.2
+keyboard==0.13.5
