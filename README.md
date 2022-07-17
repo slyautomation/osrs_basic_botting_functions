@@ -126,9 +126,18 @@ Tutorial on combat code click link: https://youtube.com/watch?v=llGbhVfU1Bc
 
 ## thieving.py
 
+### steal_man() Works with Knights, Goblins and Thieves etc.
+
 - Turn on NPC Indicators plugin
 - Change Highlight colour to #ff00ffff
-- Hold Shift and Right Click on NPC/Mob and select Tag
+- Hold Shift and Right Click on NPC/Mob and select Tag <Man><Knigt> etc.
+
+![image](https://user-images.githubusercontent.com/81003470/179393733-d8a16835-c051-4399-9614-528f8748afde.png)
+ 
+- Make sure pickpocket will be actioned on left click (some npcs even on always right click have 'talk to' as left click option)
+  
+![image](https://user-images.githubusercontent.com/81003470/179394074-85e3e1b1-e942-437b-8d01-0d024a5817ee.png)
+
 
 ## smithing.py
 
