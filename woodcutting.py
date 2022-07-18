@@ -281,7 +281,7 @@ def doFireMaking(spot,type,ws,we):
 
             #print("seconds count: %.2f" % time_end)
             c = random.uniform(25,35)
-            if time_end > c and update_animation() == -1:
+            if time_end > c:
                 invent_count = 0
                 fire = True
                 break
