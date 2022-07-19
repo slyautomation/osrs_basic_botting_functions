@@ -1,6 +1,7 @@
 import pyautogui
 import random
 import time
+import functions
 from fishing import pick_random_fishing_spot
 
 from functions import random_combat, skill_lvl_up, Image_to_Text, spaces, resizeImage, find_Object_precise
@@ -9,7 +10,7 @@ from functions import random_skills
 from functions import random_inventory
 from functions import random_breaks
 from functions import Image_Rec_single
-import functions
+
 global hwnd
 global iflag
 global icoord
@@ -65,7 +66,6 @@ def timer():
 iflag = False
 
 
-
 def bank_booth():
     c = random.uniform(0.6, 0.8)
     b = random.uniform(0.12, 0.28)
@@ -104,42 +104,6 @@ def deposit_secondItem():
     b = random.uniform(0.1, 0.3)
     pyautogui.click(duration=b, button='left')
     time.sleep(c)
-
-
-def pizza():
-    a = random.triangular(0.1, 0.5, 5)
-    bank = False
-    while bank == False:
-        find_Object_precise(1, 0, 0, 620, 775)
-        b = random.triangular(0.1, 10, 0.5)
-        time.sleep(b)
-        bank = functions.bank_ready(False)
-        print("bank deposit open:", bank)
-    pick_item(490, 635)  # deposit all
-    print('deposited')
-    pick_item(135, 125)  # flour
-    pick_item(185, 125)  # water
-    print('items taken')
-    time.sleep(a)
-    exit_bank()
-    invent = functions.invent_enabled()
-    print(invent)
-    if invent == 0:
-        pyautogui.press('esc')
-    a = random.triangular(0.1, 0.5, 5)
-    time.sleep(a)
-    pick_item(660, 515)
-    pick_item(745, 625)
-    a = random.triangular(1, 2, 5)
-    time.sleep(a)
-    pyautogui.press('3')
-    inv = Image_count('flour.png')
-    while inv > 2:
-        time.sleep(0.6)
-        inv = Image_count('flour.png', 0.97)
-        print(inv)
-    time.sleep(a)
-    print("ready")
 
 
 def wine():
@@ -213,6 +177,41 @@ def pastry():
     time.sleep(a)
     print("ready")
 
+def pizza():
+    a = random.triangular(0.1, 0.5, 5)
+    bank = False
+    while bank == False:
+        find_Object_precise(0, 5, 0, 0, 620, 775)
+        b = random.triangular(3, 10, 3.5)
+        time.sleep(b)
+        bank = functions.bank_ready(False)
+        print("bank deposit open:", bank)
+    pick_item(490, 635)  # deposit all
+    print('deposited')
+    pick_item(185, 125)  # flour
+    pick_item(230, 125)  # water
+    print('items taken')
+    time.sleep(a)
+    exit_bank()
+    invent = functions.invent_enabled()
+    print(invent)
+    if invent == 0:
+        pyautogui.press('esc')
+    a = random.triangular(0.1, 0.5, 5)
+    time.sleep(a)
+    pick_item(660, 515)
+    pick_item(745, 625)
+    a = random.triangular(1, 2, 5)
+    time.sleep(a)
+    pyautogui.press('3')
+    inv = Image_count('flour.png')
+    while inv > 2:
+        time.sleep(0.6)
+        inv = Image_count('flour.png', 0.97)
+        print(inv)
+    time.sleep(a)
+    print("ready")
+
 def pieshell():
     a = random.uniform(0.1, 0.35)
     bank_booth()
@@ -245,83 +244,79 @@ def make_banking_food(volume, bank_food):
 
 def to_alkarid_cookspot():
     print("to cookspot")
-    while mini_map_image('alkarid_fishspot_step_1.png', 10, -10, 0.7, 'left', 15, 10) == False:
-        mini_map_image('alkarid_fishspot_step_1.png', 10, -10, 0.7, 'left', 15, 10)
+    while mini_map_image('images/alkarid_fishspot_step_1.png', 10, -100,  0.7, 'left', 15, 10 ) == False:
+        mini_map_image('images/alkarid_fishspot_step_1.png', 10, -100,  0.7, 'left', 15, 10)
         print("step 1 to cooking spot  not found")
     random_breaks(5, 8)
 
-    while mini_map_image('alkarid_fishspot_step_1.png', 10, -50, 0.7, 'left', 15, 10) == False:
-        mini_map_image('alkarid_fishspot_step_1.png', 10, -50, 0.7, 'left', 15, 10)
+    while mini_map_image('images/alkarid_fishspot_step_1.png',10, -50,   0.7, 'left',10, 15 ) == False:
+        mini_map_image('images/alkarid_fishspot_step_1.png', 10, -50,  0.7, 'left',10, 15)
         print("step 1 to cooking spot  not found")
     random_breaks(5, 8)
 
-    while mini_map_image('alkarid_fishspot_step_2.png', 10, 0, 0.7, 'left', 15, 10) == False:
-        mini_map_image('alkarid_fishspot_step_2.png', 10, 0, 0.7, 'left', 15, 10)
+    while mini_map_image('images/alkarid_fishspot_step_2.png', 15, 10,  0.7, 'left', 10, 0) == False:
+        mini_map_image('images/alkarid_fishspot_step_2.png', 15, 10,  0.7, 'left', 10, 0)
         print("step 2 to cooking spot  not found")
     random_breaks(5, 8)
 
-    while mini_map_image('alkarid_fishspot_step_2.png', 10, -30, 0.7, 'left', 15, 10) == False:
-        mini_map_image('alkarid_fishspot_step_2.png', 10, -30, 0.7, 'left', 15, 10)
+    while mini_map_image('images/alkarid_fishspot_step_2.png',10, -30, 0.7, 'left',15, 10 ) == False:
+        mini_map_image('images/alkarid_fishspot_step_2.png',10,-30, 0.7, 'left', 15, 10)
         print("step 2 to cooking spot  not found")
     random_breaks(5, 8)
-    find_Object(1)  # green
+    find_Object(1, left=0, top=0, right=1890-1280, bottom=800)  # green
     random_breaks(5, 8)
 
 
 def to_alkarid_fishspot():
     print("to fishspot")
-    while mini_map_image('alkarid_fishspot_step_2.png', 10, 0, 0.7, 'left', 15, 10) == False:
-        mini_map_image('alkarid_fishspot_step_2.png', 10, 0, 0.7, 'left', 15, 10)
+    while mini_map_image('images/alkarid_fishspot_step_2.png',15, 10, 0.7, 'left', 10, 0) == False:
+        mini_map_image('images/alkarid_fishspot_step_2.png', 15, 10, 0.7, 'left', 10, 0)
         print("step 1 to fishing spot not found")
 
     random_breaks(5, 8)
 
-    while mini_map_image('alkarid_fishspot_step_2.png', 10, 40, 0.7, 'left', 15, 10) == False:
-        mini_map_image('alkarid_fishspot_step_2.png', 10, 40, 0.7, 'left', 15, 10)
+    while mini_map_image('images/alkarid_fishspot_step_2.png', 15, 10, 0.7, 'left', 10, 40) == False:
+        mini_map_image('images/alkarid_fishspot_step_2.png', 15, 10, 0.7, 'left', 10, 40)
         print("step 1 to fishing spot not found")
 
     random_breaks(5, 8)
 
-    while mini_map_image('alkarid_fishspot_step_3.png', 10, 30, 0.7, 'left', 15, 10) == False:
-        mini_map_image('alkarid_fishspot_step_3.png', 10, 30, 0.7, 'left', 15, 10)
+    while mini_map_image('images/alkarid_fishspot_step_3.png', 15, 10,  0.7, 'left', 10, 30) == False:
+        mini_map_image('images/alkarid_fishspot_step_3.png', 15, 10,  0.7, 'left', 10, 30)
         print("step 1 to fishing spot not found")
 
     random_breaks(5, 8)
 
-    while mini_map_image('alkarid_fishspot_step_1.png', 30, 5, 0.7, 'left', 15, 10) == False:
-        mini_map_image('alkarid_fishspot_step_1.png', 30, 5, 0.7, 'left', 15, 10)
+    while mini_map_image('images/alkarid_fishspot_step_1.png', 15, 10,  0.7, 'left',30, 5) == False:
+        mini_map_image('images/alkarid_fishspot_step_1.png',  15, 10,  0.7, 'left', 30, 5)
         print("step 2 to fishing spot  not found")
 
     random_breaks(10, 12)
-    pick_random_fishing_spot('prawn_fish')
+    pick_random_fishing_spot('images/prawn_fish')
     random_breaks(3, 5)
-
-
-
-
 
 def drop_prawns():
     invent_crop()
     drop_item()
-    image_Rec_clicker(r'prawn_fish.png', 'dropping item', 5, 5, 0.6, 'left', 10, 620, 480, False)
+    image_Rec_clicker(r'images/prawn_fish.png', 'dropping item', 5, 5, 0.6, 'left', 10, False)
     release_drop_item()
 
 def drop_fish():
     invent_crop()
     drop_item()
-    image_Rec_clicker(r'salmon_fish.png', 'dropping item', 5, 5, 0.7, 'left', 10, 620, 480, False)
+    image_Rec_clicker(r'images/salmon_fish.png', 'dropping item', 5, 5, 0.7, 'left', 10, False)
     release_drop_item()
 
 def cook_all_fish_fire(Take_Human_Break=False):
-    Image_Rec_single('salmon_fish.png','cook fish', 5, 5, 0.99, 'left', 8, 620, 480, False)
+    Image_Rec_single('images/salmon_fish.png','cook fish', 5, 5, 0.99, 'left', 8, False)
     random_breaks(0.1, 0.25)
     find_Object_precise(1, deep=5)  # green
     random_breaks(1, 1.5)
     pyautogui.press('space')
-    salmon_1 = Image_count('salmon_fish.png', 0.99)
-    trout_1 = Image_count('trout_fish.png', 0.99)
-    salmon_2 = Image_count('salmon_cooked.png', 0.99)
-    trout_2 = Image_count('trout_cooked.png', 0.99)
+    salmon_1 = Image_count('images/salmon_fish.png', 0.99)
+    trout_1 = Image_count('images/trout_fish.png', 0.99)
+    salmon_2 = Image_count('images/salmon_cooked.png', 0.99)
+    trout_2 = Image_count('images/trout_cooked.png', 0.99)
     if salmon_1 is None:
         salmon_1 = 0
     if salmon_2 is None:
@@ -332,10 +327,10 @@ def cook_all_fish_fire(Take_Human_Break=False):
         trout_2 = 0
     all_prawns = (int(salmon_1) + int(trout_1)) - (int(salmon_2) + int(trout_2))
     while all_prawns > 0:
-        salmon_1 = Image_count('salmon_fish.png', 0.99)
-        trout_1 = Image_count('trout_fish.png', 0.99)
-        salmon_2 = Image_count('salmon_cooked.png', 0.99)
-        trout_2 = Image_count('trout_cooked.png', 0.99)
+        salmon_1 = Image_count('images/salmon_fish.png', 0.99)
+        trout_1 = Image_count('images/trout_fish.png', 0.99)
+        salmon_2 = Image_count('images/salmon_cooked.png', 0.99)
+        trout_2 = Image_count('images/trout_cooked.png', 0.99)
         if salmon_1 is None:
             salmon_1 = 0
         if salmon_2 is None:
@@ -349,15 +344,15 @@ def cook_all_fish_fire(Take_Human_Break=False):
         cooking_time = False
         time_start = time.time()
         while not cooking_time:
-            cooking_time = xp_gain_check('cooking_xp.png')
+            cooking_time = xp_gain_check('images/cooking_xp.png')
             if not cooking_time:
-                cooking_time = xp_gain_check('cooking_xp2.png')
+                cooking_time = xp_gain_check('images/cooking_xp2.png')
             print(cooking_time)
             time_end = time.time() - time_start
             print("seconds count: %02d", time_end)
             x = random.uniform(7, 10)
             if time_end > x:
-                Image_Rec_single('salmon_fish.png','cook fish', 5, 5, 0.99, 'left', 8, 620, 480, False)
+                Image_Rec_single('images/salmon_fish.png','cook fish', 5, 5, 0.99, 'left', 8, False)
                 random_breaks(0.1, 0.25)
                 find_Object_precise(1, deep=5)  # green
                 random_breaks(1, 1.5)
@@ -370,14 +365,18 @@ def cook_all_fish_fire(Take_Human_Break=False):
 
 
 def cook_all_critters(Take_Human_Break=False):
+    invent = functions.invent_enabled()
+    print(invent)
+    if invent == 0:
+        pyautogui.press('esc')
     random_breaks(0.1, 0.25)
     #find_Object(1)  # green
     random_breaks(0.6, 1.2)
     pyautogui.press('space')
-    prawn_1 = Image_count('prawn_fish.png')
-    prawn_2 = Image_count('prawn_cooked.png', 0.99)
-    prawn_4 = Image_count('anch_cooked.png', 0.99)
-    prawn_3 = Image_count('prawn_burnt.png', 0.99)
+    prawn_1 = Image_count('images/prawn_fish.png')
+    prawn_2 = Image_count('images/prawn_cooked.png', 0.99)
+    prawn_4 = Image_count('images/anch_cooked.png', 0.99)
+    prawn_3 = Image_count('images/prawn_burnt.png', 0.99)
     if prawn_1 is None:
         prawn_1 = 0
     if prawn_2 is None:
@@ -388,10 +387,10 @@ def cook_all_critters(Take_Human_Break=False):
         prawn_4 = 0
     all_prawns = int(prawn_1) - (int(prawn_2) + int(prawn_3) + int(prawn_4))
     while all_prawns > 0:
-        prawn_1 = Image_count('prawn_fish.png')
-        prawn_2 = Image_count('prawn_cooked.png', 0.99)
-        prawn_4 = Image_count('anch_cooked.png', 0.99)
-        prawn_3 = Image_count('prawn_burnt.png', 0.99)
+        prawn_1 = Image_count('images/prawn_fish.png')
+        prawn_2 = Image_count('images/prawn_cooked.png', 0.99)
+        prawn_4 = Image_count('images/anch_cooked.png', 0.99)
+        prawn_3 = Image_count('images/prawn_burnt.png', 0.99)
         if prawn_1 is None:
             prawn_1 = 0
         if prawn_2 is None:
@@ -405,40 +404,48 @@ def cook_all_critters(Take_Human_Break=False):
         cooking_time = False
         time_start = time.time()
         while not cooking_time:
-            cooking_time = xp_gain_check('cooking_xp.png')
+            cooking_time = xp_gain_check('images/cooking_xp.png')
             if not cooking_time:
-                cooking_time = xp_gain_check('cooking_xp2.png')
+                cooking_time = xp_gain_check('images/cooking_xp2.png')
             print(cooking_time)
             time_end = time.time() - time_start
             print("seconds count: %02d", time_end)
             x = random.uniform(7, 10)
             if time_end > x:
                 random_breaks(0.1, 0.25)
-                find_Object(1)  # green
+                find_Object(1,left=0, top=0, right=1890-1280, bottom=800)  # green
                 random_breaks(0.6, 1.2)
                 pyautogui.press('space')
                 cooking_time = True
                 break
         if Take_Human_Break:
-            c = random.uniform(0.1, 50)
+            c = random.triangular(0.1, 5, 0.5)
             time.sleep(c)
 
 
-def alkarid_powercook_and_fish(Take_Human_Break=False):
-    j = 0
-    while j < 10:
-        if Image_count('prawn_fish.png') + Image_count(r'sea_puzzle.png') > 27:
+def alkarid_powercook_and_fish(Take_Human_Break=False, Run_Duration_hours=6):
+    t_end = time.time() + (60 * 60 * Run_Duration_hours)
+    while time.time() < t_end:
+        invent = functions.invent_enabled()
+        print(invent)
+        if invent == 0:
+            pyautogui.press('esc')
+        if Image_count('images/prawn_fish.png') + Image_count(r'images/sea_puzzle.png') > 27:
             to_alkarid_cookspot()
         else:
             to_alkarid_fishspot()
-        invent = Image_count('prawn_fish.png') + Image_count(r'sea_puzzle.png')
+        invent = Image_count('images/prawn_fish.png') + Image_count(r'images/sea_puzzle.png')
         while invent < 27:
+            invent = functions.invent_enabled()
+            print(invent)
+            if invent == 0:
+                pyautogui.press('esc')
             resizeImage()
-            fished = Image_to_Text('thresh', 'textshot.png')
+            fished = Image_to_Text('thresh', 'images/textshot.png')
             print(fished)
-            if fished.lower() != 'fishing' and fished.lower() != 'plt]' and fished.lower() != 'ele]':
+            if fished.lower() != 'fishing' and fished.lower() != 'plt]' and fished.lower() != 'ele]' and fished.lower() != 'fishinq':
                 random_breaks(0.2, 3)
-                pick_random_fishing_spot('prawn_fish')
+                pick_random_fishing_spot('images/prawn_fish')
                 random_breaks(5, 10)
             if skill_lvl_up() != 0:
                 print('level up')
@@ -450,7 +457,7 @@ def alkarid_powercook_and_fish(Take_Human_Break=False):
                 # print(a)
                 spaces(a)
             invent_crop()
-            invent = Image_count('prawn_fish.png') + Image_count(r'sea_puzzle.png')
+            invent = Image_count('images/prawn_fish.png') + Image_count(r'images/sea_puzzle.png')
             print("fish & clues: ", invent)
         to_alkarid_cookspot()
         cook_all_critters(Take_Human_Break)
@@ -461,5 +468,5 @@ if __name__ == "__main__":
     x = random.randrange(100, 250)
     y = random.randrange(400, 500)
     pyautogui.click(x, y, button='right')
-    alkarid_powercook_and_fish(Take_Human_Break=False)
+    alkarid_powercook_and_fish(Take_Human_Break=True, Run_Duration_hours=3)
     #make_banking_food(1000, 'pizza') # makes 1000 food at the bank
