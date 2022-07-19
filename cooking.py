@@ -292,7 +292,7 @@ def to_alkarid_fishspot():
         print("step 2 to fishing spot  not found")
 
     random_breaks(10, 12)
-    pick_random_fishing_spot('images/prawn_fish')
+    pick_random_fishing_spot('prawn_fish')
     random_breaks(3, 5)
 
 def drop_prawns():
