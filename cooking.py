@@ -110,7 +110,7 @@ def pizza():
     a = random.triangular(0.1, 0.5, 5)
     bank = False
     while bank == False:
-        find_Object_precise(1, 5, 0, 0, 620, 775)
+        find_Object_precise(1, 0, 0, 620, 775)
         b = random.triangular(0.1, 10, 0.5)
         time.sleep(b)
         bank = functions.bank_ready(False)
@@ -461,5 +461,5 @@ if __name__ == "__main__":
     x = random.randrange(100, 250)
     y = random.randrange(400, 500)
     pyautogui.click(x, y, button='right')
-    #alkarid_powercook_and_fish(Take_Human_Break=False)
-    make_banking_food(1000, 'pizza') # makes 1000 food at the bank
+    alkarid_powercook_and_fish(Take_Human_Break=False)
+    #make_banking_food(1000, 'pizza') # makes 1000 food at the bank
