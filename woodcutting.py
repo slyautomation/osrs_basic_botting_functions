@@ -123,8 +123,8 @@ def update_animation():
     return animation
 
 def moveAcross():
-    global spot
-    if spot != 'firespot_draynor_willow':
+    global s_spot
+    if s_spot != 'firespot_draynor_willow':
         random_breaks(0.1, 3)
         x = random.randrange(20, 40)
         y = random.randrange(-5, 5)
@@ -380,7 +380,8 @@ def print_progress(time_left, coords, cutting_text, wood_count, clue_count, type
         end='')
 
 def powercutter(color=0, type='wood', firemaking=False, bank_items=True, spot='', ws=0, we=3, Take_Human_Break=False, Run_Duration_hours=6):
-    global ibreak, coords, cutting_text, time_left, powerlist, actions, powerlist, t_end, wood_count, clue_count, invent_count
+    global ibreak, coords, cutting_text, time_left, powerlist, actions, powerlist, t_end, wood_count, clue_count, invent_count, s_spot
+    s_spot = spot
     powerlist = ['wood', 'oak', 'willow', 'maple', 'yew', 'magic', 'red']
     t_end = time.time() + (60 * 60 * Run_Duration_hours)
     wood_type = type
@@ -422,7 +423,7 @@ coords = (0, 0)
 actions = 'None'
 cutting_text = 'Not Cutting'
 time_left = 0
-
+s_spot = ''
 #-------------------------------
 
 invent_count = 0
