@@ -123,21 +123,23 @@ def update_animation():
     return animation
 
 def moveAcross():
-    random_breaks(0.1, 3)
-    x = random.randrange(20, 40)
-    y = random.randrange(-5, 5)
-    b = random.uniform(0.2, 0.7)
-    pyautogui.moveTo(743 + x, 110 + y, duration=b)
-    b = random.uniform(0.1, 0.3)
-    pyautogui.click(duration=b, button='left')
-    random_breaks(3, 5)
-    x = random.randrange(20, 40)
-    y = random.randrange(-5, 5)
-    b = random.uniform(0.2, 0.7)
-    pyautogui.moveTo(743 + x, 110 + y, duration=b)
-    b = random.uniform(0.1, 0.3)
-    pyautogui.click(duration=b, button='left')
-    random_breaks(3, 5)
+    global spot
+    if spot != 'firespot_draynor_willow':
+        random_breaks(0.1, 3)
+        x = random.randrange(20, 40)
+        y = random.randrange(-5, 5)
+        b = random.uniform(0.2, 0.7)
+        pyautogui.moveTo(743 + x, 110 + y, duration=b)
+        b = random.uniform(0.1, 0.3)
+        pyautogui.click(duration=b, button='left')
+        random_breaks(3, 5)
+        x = random.randrange(20, 40)
+        y = random.randrange(-5, 5)
+        b = random.uniform(0.2, 0.7)
+        pyautogui.moveTo(743 + x, 110 + y, duration=b)
+        b = random.uniform(0.1, 0.3)
+        pyautogui.click(duration=b, button='left')
+        random_breaks(3, 5)
 
 def drop_wood(type):
     global actions
