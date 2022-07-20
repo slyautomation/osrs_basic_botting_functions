@@ -244,8 +244,8 @@ def make_banking_food(volume, bank_food):
 
 def to_alkarid_cookspot():
     print("to cookspot")
-    while mini_map_image('alkarid_fishspot_step_1.png', 10, -100,  0.7, 'left', 15, 10 ) == False:
-        mini_map_image('alkarid_fishspot_step_1.png', 10, -100,  0.7, 'left', 15, 10)
+    while mini_map_image('alkarid_fishspot_step_1.png', 10, -20,  0.7, 'left', 15, 10 ) == False:
+        mini_map_image('alkarid_fishspot_step_1.png', 10, -20,  0.7, 'left', 15, 10)
         print("step 1 to cooking spot  not found")
     random_breaks(5, 8)
 
