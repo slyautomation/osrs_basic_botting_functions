@@ -8,7 +8,7 @@ Other python files will also use tesseract-OCR to detect text within images usin
 ## Setup
 
 ```diff
-Note: PC Monitor settings - change resoultion to 1920x1080 panel and text of apps was set to 100%.
+Note: PC Monitor settings - change resolution to 1920x1080 panel and text of apps was set to 100%.
 ```
 Right click and select Display Settings
 
