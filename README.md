@@ -7,7 +7,19 @@ Other python files will also use tesseract-OCR to detect text within images usin
 
 ## Setup
 
-installing pycharm
+```diff
+Note: PC Monitor settings - change resoultion to 1920x1080 panel and text of apps was set to 100%.
+```
+Right click and select Display Settings
+
+![image](https://user-images.githubusercontent.com/81003470/180430422-181e478b-43ed-4d1e-89ba-93c942af7313.png)
+
+In the Scale And Layout section - Change size of text to 100% and Set Display Resolution to 1920 x 1080 for best results.
+
+![image](https://user-images.githubusercontent.com/81003470/180430706-dba89331-09b0-4626-9d42-1a07a0885c41.png)
+
+
+### Installing Pycharm
 <a href="https://www.jetbrains.com/pycharm/download/#section=windows">pycharm</a> 
 
 <a href="https://www.jetbrains.com/pycharm/download/download-thanks.html?platform=windows&code=PCC">pycharm windows</a>
