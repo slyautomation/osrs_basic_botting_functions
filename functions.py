@@ -348,8 +348,8 @@ def find_Object_precise(item, left=0, top=0, right=0, bottom=0):
         minx, miny, maxx, maxy = Polygon(np.squeeze(c)).bounds
         #print(minx, miny, maxx, maxy)
 
-        x = random.randrange(minx + 1, maxx - 1)
-        y = random.randrange(miny + 1, maxy - 1)
+        x = random.randrange(minx + 1, max(minx + 2,maxx - 1))
+        y = random.randrange(miny + 1, max(miny + 2,maxy - 1))
         #print('y: ', y)
         b = random.uniform(0.2, 0.4)
         pyautogui.moveTo(x, y, duration=b)
