@@ -371,7 +371,7 @@ def moneymaker_clay(Take_Human_Break=False, Run_Duration_hours=4, color=6):
             actions = 'Going to Mining Spot'
             rim_minetoclay()
         mined_text = Image_to_Text('thresh', 'textshot.png')
-        if mined_text.lower() != 'mining' and mined_text.lower() != 'mininq':
+        if mined_text.strip().lower() != 'mining' and mined_text.strip().lower() != 'mininq':
             #actions = 'Not mining'
             spot = functions.find_Object(color, 0, 0, 700, 800)
             if Take_Human_Break:
