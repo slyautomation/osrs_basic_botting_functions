@@ -443,7 +443,7 @@ def alkarid_powercook_and_fish(Take_Human_Break=False, Run_Duration_hours=6):
             resizeImage()
             fished = Image_to_Text('thresh', 'textshot.png')
             print(fished)
-            if fished.lower() != 'fishing' and fished.lower() != 'plt]' and fished.lower() != 'ele]' and fished.lower() != 'fishinq':
+            if fished.strip().lower() != 'fishing' and fished.lower() != 'plt]' and fished.lower() != 'ele]' and fished.lower() != 'fishinq':
                 random_breaks(0.2, 3)
                 pick_random_fishing_spot('prawn_fish')
                 random_breaks(5, 10)
