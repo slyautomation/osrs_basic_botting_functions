@@ -111,7 +111,7 @@ def powerattack_text(monster='chicken', burybones=True, Pickup_loot=False, Take_
         attack = 0
         for monsters in monster_array[group]:
             # print(monsters)
-            if combat_text.lower() != monsters:
+            if combat_text.strip().lower() != monsters:
                 attack += 1
         if attack == len(monster_array[group]):
             d = random.uniform(0.05, 0.1)
