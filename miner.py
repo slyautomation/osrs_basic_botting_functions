@@ -223,7 +223,7 @@ def powerminer_text(ore, num, Take_Human_Break=False, Run_Duration_hours=5):
             random_breaks(0.2, 0.7)
         mined_text = Image_to_Text('thresh', 'textshot.png')
         #print_progress(time_left, spot, mined_text, powerlist, ore, actions)
-        if mined_text.lower() != 'mining' and mined_text.lower() != 'mininq':
+        if mined_text.strip().lower() != 'mining' and mined_text.strip().lower() != 'mininq':
             mined_text = 'Not Mining'
             #print_progress(time_left, spot, mined_text, powerlist, ore, actions)
             #random_breaks(0.05, 0.1)
