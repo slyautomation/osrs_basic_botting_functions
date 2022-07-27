@@ -130,7 +130,7 @@ def powerfisher(fish_type, Run_Duration_hours=6):
         resizeImage()
         fishing_text = Image_to_Text('thresh', 'textshot.png')
         # print(fished)
-        if fishing_text.strip().lower() != 'fishing' and fishing_text.lower() != 'ishing' and fishing_text.lower() != 'pishing':
+        if fishing_text.strip().lower() != 'fishing' and fishing_text.strip().lower() != 'ishing' and fishing_text.strip().lower() != 'pishing':
             random_breaks(0.2, 3)
             pick_random_fishing_spot(fish_type)
             random_breaks(5, 10)
