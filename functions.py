@@ -36,7 +36,7 @@ try:
     data[0]['Config']['tesseract_path'].index("(x86)")
     os.environ["TESSDATA_PREFIX"] = data[0]['Config']['tesseract_path']
 except ValueError:
-    os.environ["TESSDATA_PREFIX"] = data[0]['Config']['tesseract_path'] + "tessdata"
+    os.environ["TESSDATA_PREFIX"] = data[0]['Config']['tesseract_path'] #+ "tessdata"
 
 
 filename = data[0]['Config']['pc_profile']
