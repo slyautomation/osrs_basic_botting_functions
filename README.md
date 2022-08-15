@@ -116,7 +116,7 @@ Tutorial on mining code click link: https://youtube.com/watch?v=dkD5gXcgQYI
 
 
 ## combat.py
-- Turn on NPC Indicators plugin
+- Turn on NPC Indicators plugin and Opponent Information plugin
 - Change Highlight colour to #ff00ffff
 
 ![image](https://user-images.githubusercontent.com/81003470/177981614-830a435a-81f5-4d95-bd07-10cca3008a04.png)
