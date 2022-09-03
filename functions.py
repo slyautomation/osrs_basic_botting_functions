@@ -784,23 +784,36 @@ def xp_quick():
     im = ImageGrab.grab(bbox=(left, top, right, bottom))
     im.save('images/xp_gain.png', 'png')
 
-def xp_gain_check(image, threshold=0.6):
+def xp_gain_check(image, threshold=0.7):
     xp_quick()
     global iflag
-    img_rgb = cv2.imread('images/xp_gain.png')
-    img_gray = cv2.cvtColor(img_rgb, cv2.COLOR_BGR2GRAY)
-    template = cv2.imread('images/' + image, 0)
-    pt = None
-    res = cv2.matchTemplate(img_gray, template, cv2.TM_CCOEFF_NORMED)
-    threshold = threshold
-    loc = np.where(res >= threshold)
     iflag = False
-    for pt in zip(*loc[::-1]):
-        iflag = True
-    if pt is None:
-        iflag = False
-    return iflag
+    # read screenshot
+    img = cv2.imread('images/xp_gain.png')
 
+    template = cv2.imread('images/' + image, cv2.IMREAD_UNCHANGED)
+    hh, ww = template.shape[:2]
+    temp_a = template[:, :, 0:3]
+    alpha = template[:, :, 3]
+    alpha = cv2.merge([alpha, alpha, alpha])
+    # set threshold
+    threshold = threshold
+    # do masked template matching and save correlation image
+    corr_img = cv2.matchTemplate(img, temp_a, cv2.TM_CCORR_NORMED, mask=alpha)
+    # search for max score
+    #result = img.copy()
+    max_val = 1
+    while max_val > threshold:
+        # find max value of correlation image
+        min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(corr_img)
+        # print(max_val, max_loc)
+
+        if max_val > threshold:
+            # draw match on copy of input
+            return True
+        else:
+            return False
+        
 def McropImage_quick():
     left = 150
     top = 150
