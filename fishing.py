@@ -144,7 +144,7 @@ def powerfisher(fish_type, Run_Duration_hours=6):
             # print(a)
             spaces(a)
         actions = 'none'
-        # invent_crop()
+        invent_crop()
         fish_count = functions.invent_count(fish_type + '.png')
         clue_count = Image_count(r'sea_puzzle.png')
         invent = fish_count + clue_count
