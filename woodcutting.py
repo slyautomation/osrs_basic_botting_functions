@@ -43,7 +43,6 @@ newTime_break = False
 global timer
 global timer_break
 global ibreak
-plugins_enabled = False
 
 s = requests.session()
 
@@ -275,9 +274,9 @@ def doFireMaking(spot,type,ws,we):
         time_start = time.time()
         time_end = 0
         while not fire:
-            fire = xp_gain_check('firemaking_xp.png')
+            fire = xp_gain_check('firemaking_xp.png', 0.9)
             if not fire:
-                fire = xp_gain_check('firemaking_xp2.png')
+                fire = xp_gain_check('firemaking_xp2.png', 0.9)
             actions = 'Burning Wood: ' + str(fire) + ' | seconds count: %.2f' % time_end
             time_end = time.time() - time_start
 
@@ -447,6 +446,8 @@ if __name__ == "__main__":
     green = 1
     purple = 3
     blue = 4
+    # ----- SET TO TRUE IF USING SOCKET/HTTP PLUGIN
+    plugins_enabled = False
 
     # ----- LIST OF WOOD TYPES --------
     powerlist = ['wood', 'oak', 'willow', 'maple', 'yew', 'magic', 'red']
