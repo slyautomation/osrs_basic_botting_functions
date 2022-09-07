@@ -85,6 +85,10 @@ In Runescape setting,  set the following:
 
 ![image](https://user-images.githubusercontent.com/81003470/188833473-7de48c91-dd03-44fd-a7a6-081e18ca0fa5.png)
 
+- Under INterfaces ensure Game Client layout is Resizable - Modern Layout
+- Show data orbs enabled
+
+![image](https://user-images.githubusercontent.com/81003470/188834061-becf3678-9ec3-4115-845a-b11102b3b384.png)
 
 ## Woodcutting
 
