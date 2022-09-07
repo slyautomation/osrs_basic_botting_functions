@@ -170,12 +170,13 @@ This only works at the Rimmington mine and banks at Port Sarim deposit box.
 - The Start location when running the clay_beginner_money_maker.py is at the Rimmington Mine start next to the clay deposits
  
 ![image](https://user-images.githubusercontent.com/81003470/188813727-27fb9e27-ad1b-421c-8c0e-7c6c9f87be6e.png)
-
-- Set compass directly north, click the on the compass to reset straight.
-
+```diff
+- IMPORTANT! Set compass directly north, click the on the compass to reset straight. 
+ Otherwise the walker from deposit box to rimmington mine won't work.
+```
 ![image](https://user-images.githubusercontent.com/81003470/188813195-22c0aabc-b7d8-4d08-87db-4045b33486d3.png)
 
-- Mark clay spots next to the east fence line using the object marker to green. 
+- Mark clay spots next to the east fence line using the object marker to green, red or amber. 
 
 ![image](https://user-images.githubusercontent.com/81003470/188812536-c27bec72-e463-43e2-82af-322004526e28.png)
 
@@ -189,7 +190,7 @@ This is the path that is takes:
  
 Make sure to select the color that you highlighted the clay ores and set the Run Duration to the number of hours:
  
- ![image](https://user-images.githubusercontent.com/81003470/188814212-8131f6fb-b0f4-4a04-af18-0e740462d39d.png)
+![image](https://user-images.githubusercontent.com/81003470/188814212-8131f6fb-b0f4-4a04-af18-0e740462d39d.png)
 
 
 ## smithing.py
