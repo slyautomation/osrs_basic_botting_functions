@@ -49,6 +49,8 @@ try:
     os.remove(filename + random_file)
 except OSError:
     pass
+except FileNotFoundError:
+    pass
 
 if platform.system() == 'Linux' or platform.system() == 'Mac':
     filename = filename + "/jagexcache/oldschool/LIVE/"
@@ -61,6 +63,8 @@ for f in os.listdir(filename):
             continue
         os.remove(os.path.join(filename, f))
     except OSError:
+        pass
+    except FileNotFoundError:
         pass
 
 print('jagex files deleted')
