@@ -34,9 +34,9 @@ with open("pybot-config.yaml", "r") as yamlfile:
 pytesseract.pytesseract.tesseract_cmd = data[0]['Config']['tesseract_path'] + "tesseract"
 try:
     data[0]['Config']['tesseract_path'].index("(x86)")
-    os.environ["TESSDATA_PREFIX"] = data[0]['Config']['tesseract_path']
+    os.environ["TESSDATA_PREFIX"] = data[0]['Config']['tesseract_path'] # + "tessdata" # uncomment if error if pytesseract
 except ValueError:
-    os.environ["TESSDATA_PREFIX"] = data[0]['Config']['tesseract_path'] + "tessdata"
+    os.environ["TESSDATA_PREFIX"] = data[0]['Config']['tesseract_path'] # + "tessdata" # uncomment if error if pytesseract
 
 
 filename = data[0]['Config']['pc_profile']
