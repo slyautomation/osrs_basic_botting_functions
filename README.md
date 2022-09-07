@@ -184,7 +184,13 @@ This only works at the Rimmington mine and banks at Port Sarim deposit box.
 ![image](https://user-images.githubusercontent.com/81003470/188812816-541fd87c-e1b0-4fd9-8509-b3b83df67ef3.png)
 
 This is the path that is takes:
+
 ![image](https://user-images.githubusercontent.com/81003470/188812094-800e6793-2827-449b-a090-5bb6d14ebec4.png)
+ 
+Make sure to select the color that you highlighted the clay ores and set the Run Duration to the number of hours:
+ 
+ ![image](https://user-images.githubusercontent.com/81003470/188814212-8131f6fb-b0f4-4a04-af18-0e740462d39d.png)
+
 
 ## smithing.py
 
