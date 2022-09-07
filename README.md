@@ -163,6 +163,25 @@ Tutorial on combat code click link: https://youtube.com/watch?v=llGbhVfU1Bc
  
  ![image](https://user-images.githubusercontent.com/81003470/179394511-cad0e25a-a314-45f4-a957-44952eee55ba.png)
 
+## Clay Money Maker
+This only works at the Rimmington mine and banks at Port Sarim deposit box.
+- Turn on mining plugin.
+- Make sure to equip a pick axe.
+
+- Set compass directly north, click the on the compass to reset straight.
+
+![image](https://user-images.githubusercontent.com/81003470/188813195-22c0aabc-b7d8-4d08-87db-4045b33486d3.png)
+
+- Mark clay spots next to the east fence line using the object marker to green. 
+
+![image](https://user-images.githubusercontent.com/81003470/188812536-c27bec72-e463-43e2-82af-322004526e28.png)
+
+- Mark the deposit box at Port Sarim using the object marker to red.
+
+![image](https://user-images.githubusercontent.com/81003470/188812816-541fd87c-e1b0-4fd9-8509-b3b83df67ef3.png)
+
+This is the path that is takes:
+![image](https://user-images.githubusercontent.com/81003470/188812094-800e6793-2827-449b-a090-5bb6d14ebec4.png)
 
 ## smithing.py
 
