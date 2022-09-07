@@ -176,7 +176,9 @@ This only works at the Rimmington mine and banks at Port Sarim deposit box.
 ```
 ![image](https://user-images.githubusercontent.com/81003470/188813195-22c0aabc-b7d8-4d08-87db-4045b33486d3.png)
 
-- Mark clay spots next to the east fence line using the object marker to green, red or amber. 
+- Mark clay spots next to the east fence line using the object marker to green (optional are red or amber). 
+ 
+![image](https://user-images.githubusercontent.com/81003470/177980804-669ebd1d-0f9c-4102-8b86-efef42a7d1de.png)
 
 ![image](https://user-images.githubusercontent.com/81003470/188812536-c27bec72-e463-43e2-82af-322004526e28.png)
 
