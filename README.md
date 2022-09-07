@@ -75,6 +75,17 @@ tesseract_path: Is the folder address to tesseract-ocr program
 ```
 ![image](https://user-images.githubusercontent.com/81003470/177748290-e8337717-0f06-4aeb-afc9-19056bbebc23.png)
 
+In Runescape setting,  set the following:
+
+- Ideally under display, enable hide roofs, camera zoom, screen brightness matching below.
+
+![image](https://user-images.githubusercontent.com/81003470/188833251-0e285e58-541c-4ba2-bf33-065581e9d38e.png)
+
+- Under controls, enable shift click to drop items, and set inventory shortcut to ESC keystroke.
+
+![image](https://user-images.githubusercontent.com/81003470/188833473-7de48c91-dd03-44fd-a7a6-081e18ca0fa5.png)
+
+
 ## Woodcutting
 
 ### features
