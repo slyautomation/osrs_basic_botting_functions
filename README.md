@@ -167,6 +167,9 @@ Tutorial on combat code click link: https://youtube.com/watch?v=llGbhVfU1Bc
 This only works at the Rimmington mine and banks at Port Sarim deposit box.
 - Turn on mining plugin.
 - Make sure to equip a pick axe.
+- The Start location when running the clay_beginner_money_maker.py is at the Rimmington Mine start next to the clay deposits
+ 
+![image](https://user-images.githubusercontent.com/81003470/188813727-27fb9e27-ad1b-421c-8c0e-7c6c9f87be6e.png)
 
 - Set compass directly north, click the on the compass to reset straight.
 
