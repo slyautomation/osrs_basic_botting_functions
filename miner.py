@@ -102,7 +102,11 @@ def drop_ore():
     image_Rec_clicker(r'coal_ore.png', 'dropping item', threshold=0.8, playarea=False)
     image_Rec_clicker(r'iron_ore.png', 'dropping item', threshold=0.8, playarea=False)
     image_Rec_clicker(r'tin_ore.png', 'dropping item', threshold=0.8, playarea=False)
+    image_Rec_clicker(r'gem_icon.png', 'dropping item', threshold=0.8, playarea=False)
+    image_Rec_clicker(r'gem_icon2.png', 'dropping item', threshold=0.8, playarea=False)
+    image_Rec_clicker(r'gem_icon3.png', 'dropping item', threshold=0.8, playarea=False)
     release_drop_item()
+    time.sleep(3)
     #print("dropping ore done")
     return "drop ore done"
 
@@ -161,6 +165,9 @@ def count_geo():
 def count_gems2():
     return Image_count('gem_icon2.png')
 
+def count_gems3():
+    return Image_count('gem_icon3.png')
+
 def inv_count(name):
     return Image_count(name + '_ore.png')
 
@@ -180,7 +187,7 @@ def count_items():
     t_end = time.time() + (60 * 60 * Run_Duration_hours)
     while time.time() < t_end:
         global ore, powerlist, ore_count, mined_text, gem_count, clue_count
-        gem_count = int(count_gems() + count_gems2())
+        gem_count = int(count_gems() + count_gems2() + count_gems3())
         ore_count = int(inv_count(powerlist[ore]))
         clue_count = int(count_geo())
         time.sleep(0.1)
@@ -274,9 +281,9 @@ if __name__ == "__main__":
     amber = 8
 
     # --------- CHANGE TO RUN FOR AMOUNT OF HOURS ----------------
-    Run_Duration_hours = 0.1
+    Run_Duration_hours = 10
 
                 # | ore | marker color | take break | how long to run for in hours
-    powerminer_text(copper, red, Take_Human_Break=True, Run_Duration_hours=Run_Duration_hours)
+    powerminer_text(iron, red, Take_Human_Break=False, Run_Duration_hours=Run_Duration_hours)
 
     #os.system('shutdown -s -f')

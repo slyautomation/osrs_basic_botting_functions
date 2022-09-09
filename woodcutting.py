@@ -467,6 +467,6 @@ if __name__ == "__main__":
 
     firespots = ['firespot_varrock_wood', 'firespot_draynor_willow', 'firespot_draynor_oak'
         , 'firespot_farador_oak', 'firespot_draynor_wood']
-    powercutter(red, 'oak', firemaking=False, bank_items=True,
+    powercutter(yellow, 'maple', firemaking=False, bank_items=False,
                 spot='',
                 Take_Human_Break=True, Run_Duration_hours=Run_Duration_hours)
