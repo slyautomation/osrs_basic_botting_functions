@@ -121,24 +121,26 @@ def update_animation():
     animation = data['animation']
     return animation
 
-def moveAcross():
+def moveAcross(move):
     global s_spot
-    if s_spot != 'firespot_draynor_willow':
-        random_breaks(0.1, 3)
-        x = random.randrange(20, 40)
-        y = random.randrange(-5, 5)
-        b = random.uniform(0.2, 0.7)
-        pyautogui.moveTo(743 + x, 110 + y, duration=b)
-        b = random.uniform(0.1, 0.3)
-        pyautogui.click(duration=b, button='left')
-        random_breaks(3, 5)
-        x = random.randrange(20, 40)
-        y = random.randrange(-5, 5)
-        b = random.uniform(0.2, 0.7)
-        pyautogui.moveTo(743 + x, 110 + y, duration=b)
-        b = random.uniform(0.1, 0.3)
-        pyautogui.click(duration=b, button='left')
-        random_breaks(3, 5)
+    if move != 0:
+        if s_spot != 'firespot_draynor_willow':
+            random_breaks(0.1, 3)
+            x = random.randrange(20, 40)
+            y = random.randrange(-5, 5)
+            b = random.uniform(0.2, 0.7)
+            pyautogui.moveTo(743 + x, 110 + y, duration=b)
+            b = random.uniform(0.1, 0.3)
+            pyautogui.click(duration=b, button='left')
+            random_breaks(3, 5)
+            if move > 1:
+                x = random.randrange(20, 40)
+                y = random.randrange(-5, 5)
+                b = random.uniform(0.2, 0.7)
+                pyautogui.moveTo(743 + x, 110 + y, duration=b)
+                b = random.uniform(0.1, 0.3)
+                pyautogui.click(duration=b, button='left')
+                random_breaks(3, 5)
 
 def drop_wood(type):
     global actions
@@ -255,6 +257,7 @@ def Image_to_Text(preprocess, image, parse_config='--psm 7'):
 
 def doFireMaking(spot,type,ws,we):
     global invent_count, wood_count, actions, clue_count
+    wood_burned = 0
     if spot == '':
         return
     firespot(spot)
@@ -274,6 +277,7 @@ def doFireMaking(spot,type,ws,we):
         time_start = time.time()
         time_end = 0
         while not fire:
+            wood_burned += 1
             fire = xp_gain_check('firemaking_xp.png', 0.9)
             if not fire:
                 fire = xp_gain_check('firemaking_xp2.png', 0.9)
@@ -287,7 +291,13 @@ def doFireMaking(spot,type,ws,we):
                 fire = True
                 break
     drop_wood(type)
-    moveAcross()
+    if wood_burned <= 5:
+        moveAcross(0)
+    if wood_burned >= 5 and wood_burned <= 10:
+        moveAcross(1)
+    if wood_burned > 10:
+        moveAcross(2)
+        
 def doBanking(type):
     global actions
     invent = invent_enabled()
