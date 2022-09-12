@@ -252,3 +252,6 @@ python venv/Scripts/pywin32_postinstall.py -install
 Consider donating if you found the project fun and learnt more about python.
 
 https://www.buymeacoffee.com/slyautomatG
+
+![image](https://user-images.githubusercontent.com/81003470/189619323-7152343a-e9dc-42ce-92b5-960203607bdb.png)
+
