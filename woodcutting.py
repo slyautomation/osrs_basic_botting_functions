@@ -16,10 +16,8 @@ from PIL import Image, ImageGrab
 import functions
 from functions import Image_count
 from functions import image_Rec_clicker
-from functions import screen_Image
 from functions import release_drop_item
 from functions import drop_item
-from functions import random_breaks
 from functions import invent_crop
 from functions import Image_Rec_single
 from functions import skill_lvl_up
@@ -43,6 +41,7 @@ newTime_break = False
 global timer
 global timer_break
 global ibreak
+
 
 s = requests.session()
 
@@ -142,6 +141,7 @@ def moveAcross(move):
                 pyautogui.click(duration=b, button='left')
                 random_breaks(3, 5)
 
+
 def drop_wood(type):
     global actions
     actions = "dropping wood"
@@ -153,10 +153,10 @@ def drop_wood(type):
 
 
 def firespot(spot):
-    firespots = ['firespot_varrock_wood', 'firespot_draynor_willow', 'firespot_draynor_oak', 'firespot_draynor_oak_2'
+    firespots = ['firespot_varrock_wood', 'firespot_draynor_willow', 'firespot_draynor_oak'
         , 'firespot_farador_oak', 'firespot_draynor_wood', 'firespot_lumbridge_wood']
 
-    xy_firespots = [[45, 55], [50, 40], [80, 40], [30, 35], [25, 20], [25, 20], [-15, -5]]
+    xy_firespots = [[45, 55], [50, 40], [30, 35], [25, 20], [25, 20], [-15, -5]]
     x = xy_firespots[firespots.index(spot)][0]
     y = xy_firespots[firespots.index(spot)][1]
     mini_map_image(spot + '.png', x, y, 0.7, 'left', 15, 0)
@@ -297,7 +297,7 @@ def doFireMaking(spot,type,ws,we):
         moveAcross(1)
     if wood_burned > 10:
         moveAcross(2)
-        
+
 def doBanking(type):
     global actions
     invent = invent_enabled()
@@ -373,34 +373,49 @@ def timer_countdown():
         # the exact output you're looking for:
         print(bcolors.OK + f'\r[%-10s] %d%%' % ('='*round((i/final)*10), round((i/final)*100)), f'time left: {(t_end - time.time())/60 :.2f} mins | coords: {coords} | status: {cutting_text} | wood: {wood_count} | clues: {clue_count} | {actions}', end='')
         time.sleep(1)
+        if ex:
+            exit()
 
 def count_items():
     global Run_Duration_hours
     t_end = time.time() + (60 * 60 * Run_Duration_hours)
     while time.time() < t_end:
-        global wood_type, powerlist, wood_count, mined_text, clue_count
+        global wood_type, powerlist, wood_count, mined_text, clue_count, ex
         wood_count = int(Image_count(wood_type + '_icon.png'))
         clue_count = int(Image_count('clue_nest.png'))
         time.sleep(0.1)
-def print_progress(time_left, coords, cutting_text, wood_count, clue_count, type, actions):
+        if ex:
+            exit()
+
+def print_progress(time_left, coords, cutting_text, wood_count, clue_count, actions):
     print(bcolors.OK +
         f'\rtime left: {time_left} | coords: {coords} | status: {cutting_text} | wood: {int(wood_count)} '
         f'| clues: {int(clue_count)} | {actions}',
         end='')
 
-def powercutter(color=0, type='wood', firemaking=False, bank_items=True, spot='', ws=0, we=3, Take_Human_Break=False, Run_Duration_hours=6):
-    global ibreak, coords, cutting_text, time_left, powerlist, actions, powerlist, t_end, wood_count, clue_count, invent_count, s_spot
+def powercutter(color=0, type='wood', action_taken='none', spot='', ws=0, we=3, Take_Human_Break=False, Run_Duration_hours=6):
+    global ex, ibreak, coords, cutting_text, time_left, powerlist, actions, powerlist, t_end, wood_count, clue_count, invent_count, s_spot
     s_spot = spot
     powerlist = ['wood', 'oak', 'willow', 'maple', 'yew', 'magic', 'red']
     t_end = time.time() + (60 * 60 * Run_Duration_hours)
     wood_type = type
-    print('Will break in: %.2f' % (ibreak / 60) + ' minutes |', "Wood Type Selected:", wood_type, "| Banking:", bank_items, "| Firemaking:", firemaking)
+    print('Will break in: %.2f' % (ibreak / 60) + ' minutes |', "Wood Type Selected:", wood_type, "| Action Taken:", action_taken)
     t1 = Thread(target=timer_countdown)
     t1.start()
     date_time = datetime.datetime.fromtimestamp(t_end)
     #print(date_time)
-    if firemaking:
+    if action_taken == 'firemake':
         inv = 26
+        if spot == '':
+            print('\n' + bcolors.FAIL +' ↓ Pick Below, No firespot selected, add firespot to spot value and restart script \n' +
+                         'firespot_varrock_wood \nfirespot_draynor_willow \nfirespot_draynor_oak' +
+            '\nfirespot_farador_oak \nfirespot_draynor_wood \nfirespot_lumbridge_wood')
+            ex = True
+            exit()
+        if int(Image_count('tinderbox.png')) == 0:
+            print('\n' + bcolors.FAIL + 'No Tinderbox found, add to inventory in the first slot \n')
+            ex = True
+            exit()
     else:
         inv = 27
     while time.time() < t_end:
@@ -416,9 +431,9 @@ def powercutter(color=0, type='wood', firemaking=False, bank_items=True, spot=''
         invent_count = wood_count + clue_count
         #print("wood: ", invent_count)
         if invent_count > inv:
-            if firemaking:
+            if action_taken == 'firemake':
                 doFireMaking(spot, type, ws, we)
-            if bank_items:
+            if action_taken == 'bank':
                 doBanking(type)
             random_breaks(0.2, 5)
             drop_wood(type)
@@ -427,7 +442,7 @@ def powercutter(color=0, type='wood', firemaking=False, bank_items=True, spot=''
         #print(cutting_text)
         doCutting(cutting_text, color, Take_Human_Break)
 
-
+ex = False
 coords = (0, 0)
 actions = 'None'
 cutting_text = 'Not Cutting'
@@ -441,6 +456,9 @@ wood_count = 0
 bird_count = 0
 clue_count = 0
 #-------------------------------
+
+
+
 
 if __name__ == "__main__":
     time.sleep(2)
@@ -456,17 +474,24 @@ if __name__ == "__main__":
     green = 1
     purple = 3
     blue = 4
-    # ----- SET TO TRUE IF USING SOCKET/HTTP PLUGIN
-    plugins_enabled = False
 
+    plugins_enabled = False
     # ----- LIST OF WOOD TYPES --------
     powerlist = ['wood', 'oak', 'willow', 'maple', 'yew', 'magic', 'red']
 
     # --------- CHANGE TO RUN FOR AMOUNT OF HOURS ----------------
-    Run_Duration_hours = 2
+    Run_Duration_hours = 0.5
+
+    # ---------- CHOOSE ACTION TAKEN ------------
+    woodcut_and_firemake = 'firemake' # only works at draynor cuts and deposits wood at bank, make sure to pick firespot
+
+    bank_and_woodcut = 'bank' # only works at draynor cuts and deposits wood at bank
+
+    just_woodcut = 'woodcut' # woodcutting only drops wood on full inventory
 
     firespots = ['firespot_varrock_wood', 'firespot_draynor_willow', 'firespot_draynor_oak'
-        , 'firespot_farador_oak', 'firespot_draynor_wood']
-    powercutter(red, 'oak', firemaking=False, bank_items=True,
-                spot='',
+        , 'firespot_draynor_wood', 'firespot_lumbridge_wood']
+    
+    powercutter(red, 'oak', action_taken=woodcut_and_firemake,
+                spot='firespot_draynor_oak',
                 Take_Human_Break=True, Run_Duration_hours=Run_Duration_hours)
