@@ -253,5 +253,5 @@ Consider donating if you found the project fun and learnt more about python.
 
 https://www.buymeacoffee.com/slyautomatG
  
-<img src="https://user-images.githubusercontent.com/81003470/187099761-76ec5f2e-5fae-4787-8d84-34ff6e5cc9f9.png](https://user-images.githubusercontent.com/81003470/189619323-7152343a-e9dc-42ce-92b5-960203607bdb.png)" width="120">
+<img src="https://user-images.githubusercontent.com/81003470/187099761-76ec5f2e-5fae-4787-8d84-34ff6e5cc9f9.png" width="120">
 
