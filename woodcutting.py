@@ -278,9 +278,9 @@ def doFireMaking(spot,type,ws,we):
         time_end = 0
         while not fire:
             wood_burned += 1
-            fire = xp_gain_check('firemaking_xp.png', 0.9)
+            fire = xp_gain_check('firemaking_xp.png', 0.85)
             if not fire:
-                fire = xp_gain_check('firemaking_xp2.png', 0.9)
+                fire = xp_gain_check('firemaking_xp2.png', 0.85)
             actions = 'Burning Wood: ' + str(fire) + ' | seconds count: %.2f' % time_end
             time_end = time.time() - time_start
 
