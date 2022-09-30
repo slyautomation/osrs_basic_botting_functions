@@ -401,7 +401,7 @@ def find_Object_closest(item, left=0, top=0, right=0, bottom=0, clicker='left', 
     boundaries = [object_list[item]]
     close_list = []
     close_points = []
-    pos = (423, 434)
+    pos = (pyautogui.position().x, pyautogui.position().y)
     # loop over the boundaries
     for (lower, upper) in boundaries:
         # create NumPy arrays from the boundaries
