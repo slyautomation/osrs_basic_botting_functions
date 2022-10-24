@@ -1,3 +1,4 @@
+import re
 from threading import Thread
 
 import numpy as np
@@ -108,10 +109,11 @@ def powerattack_text(monster='chicken', burybones=True, Pickup_loot=False, Take_
         r = random.uniform(0.1, 5)
         resizeImage()
         combat_text = Image_to_Text('thresh', 'textshot.png')
+        combat_text = re.sub('[^A-Za-z0-9]+', ' ', combat_text)
         attack = 0
         for monsters in monster_array[group]:
-            # print(monsters)
-            if combat_text.strip().lower() != monsters:
+            #print(monsters)
+            if combat_text.strip().lower().find(monsters) == -1:
                 attack += 1
         if attack == len(monster_array[group]):
             d = random.uniform(0.05, 0.1)
@@ -137,10 +139,11 @@ actions = 'None'
 combat_text = 'Not in Combat'
 time_left = 0
 
+
 if __name__ == "__main__":
     # ----- UPDATE WITH ALL VARIATIONS OF MONSTER'S IMAGE TO TEXT RESULT IN LINE WITH MONSTER_LIST -----
     monster_array = [
-        ['chicken'], ['guard', 'gua rd'], ['cow', 'cou'], ['monk'], ['imp'], ['skeleton'], ['dwarf', 'dwarf‘']
+        ['chicken'], ['guard', 'gua rd'], ['cow', 'cou'], ['monk'], ['imp'], ['skeleton'], ['dwarf'], ['giant frog', 'giant', 'frog']
     ]
     x = random.randrange(100, 250)
     y = random.randrange(400, 500)
@@ -149,9 +152,9 @@ if __name__ == "__main__":
     timer_break = timer()
 
     # --------- CHANGE TO RUN FOR AMOUNT OF HOURS ----------------
-    Run_Duration_hours = 2
+    Run_Duration_hours = 1
     # --------------------------------------------------------------------------------------------------
-    monster_list = ['chicken', 'guard', 'cow', 'monk', 'imp', 'skeleton', 'dwarf']
+    monster_list = ['chicken', 'guard', 'cow', 'monk', 'imp', 'skeleton', 'dwarf', 'giant frog']
 
-    powerattack_text('cow', Take_Human_Break=False, Run_Duration_hours=Run_Duration_hours)
+    powerattack_text('giant frog', Take_Human_Break=False, Run_Duration_hours=Run_Duration_hours)
     #os.system('shutdown -s -f')
