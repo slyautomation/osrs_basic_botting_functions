@@ -341,7 +341,7 @@ def waitforaction(num):
 
 def doCutting(cutting, color, Take_Human_Break):
     global cutting_text, actions, coords
-    if cutting.lower() != 'woodcutting' and cutting.lower() != 'uoodcutting' and cutting.lower() != 'voodcutting' and cutting.lower() != 'joodcuttine' and cutting.lower() != 'foodcuttir' and cutting.lower() != 'foodcuttin' and cutting.lower() != 'joodcuttinc':
+    if cutting.strip().lower() != 'woodcutting' and cutting.strip().lower() != 'uoodcutting' and cutting.strip().lower() != 'voodcutting' and cutting.strip().lower() != 'joodcuttine' and cutting.strip().lower() != 'foodcuttir' and cutting.strip().lower() != 'foodcuttin' and cutting.strip().lower() != 'joodcuttinc':
         cutting_text = 'Not Cutting'
         random_breaks(0.2, 3)
         coords = find_Object(color,0,0,800,700)
@@ -351,6 +351,7 @@ def doCutting(cutting, color, Take_Human_Break):
             waitforaction(808)
         else:
             random_breaks(8, 10)
+    cutting_text = cutting.strip().lower()
     if skill_lvl_up() != 0:
         actions = 'leveled up...'
         random_breaks(0.2, 3)
