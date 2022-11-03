@@ -406,6 +406,11 @@ def powercutter(color=0, type='wood', action_taken='none', spot='', ws=0, we=3, 
     t1.start()
     date_time = datetime.datetime.fromtimestamp(t_end)
     #print(date_time)
+    if action_taken == 'bank':
+        if int(Image_count('tinderbox.png')) > 0:
+            print('\n' + bcolors.FAIL + 'Tinderbox found, remove from inventory to bank wood \n')
+            ex = True
+            exit()
     if action_taken == 'firemake':
         inv = 26
         if spot == '':
