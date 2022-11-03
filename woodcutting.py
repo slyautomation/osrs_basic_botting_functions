@@ -187,6 +187,7 @@ def deposit_bank_items(type):
         mini_map_image('draynor_bank_spot.png', 45, 40, 0.8, 'left', 10, 10)
         random_breaks(5, 10)
         bank_spot()
+        random_breaks(5, 7)
         return bank
 
 def change_brown_black():
