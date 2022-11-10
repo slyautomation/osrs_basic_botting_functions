@@ -344,9 +344,9 @@ def cook_all_fish_fire(Take_Human_Break=False):
         cooking_time = False
         time_start = time.time()
         while not cooking_time:
-            cooking_time = xp_gain_check('cooking_xp.png')
+            cooking_time = xp_gain_check('cooking_xp.png', 0.8)
             if not cooking_time:
-                cooking_time = xp_gain_check('cooking_xp2.png')
+                cooking_time = xp_gain_check('cooking_xp2.png', 0.8)
             print(cooking_time)
             time_end = time.time() - time_start
             print("seconds count: %02d", time_end)
@@ -404,10 +404,9 @@ def cook_all_critters(Take_Human_Break=False):
         cooking_time = False
         time_start = time.time()
         while not cooking_time:
-            cooking_time = xp_gain_check('cooking_xp.png')
+            cooking_time = xp_gain_check('cooking_xp.png', 0.8)
             if not cooking_time:
-                cooking_time = xp_gain_check('cooking_xp2.png')
-            print(cooking_time)
+                cooking_time = xp_gain_check('cooking_xp2.png', 0.8)
             time_end = time.time() - time_start
             print("seconds count: %02d", time_end)
             x = random.uniform(7, 10)
@@ -432,6 +431,8 @@ def alkarid_powercook_and_fish(Take_Human_Break=False, Run_Duration_hours=6):
             pyautogui.press('esc')
         if Image_count('prawn_fish.png') + Image_count(r'sea_puzzle.png') > 27:
             to_alkarid_cookspot()
+            cook_all_critters(Take_Human_Break)
+            drop_prawns()
         else:
             to_alkarid_fishspot()
         invent = Image_count('prawn_fish.png') + Image_count(r'sea_puzzle.png')
@@ -441,8 +442,7 @@ def alkarid_powercook_and_fish(Take_Human_Break=False, Run_Duration_hours=6):
             if invent == 0:
                 pyautogui.press('esc')
             resizeImage()
-            fished = Image_to_Text('thresh', 'textshot.png')
-            print(fished)
+            fishing_text = Image_to_Text('thresh', 'textshot.png')
             if fishing_text.strip().lower() != 'fishing' and fishing_text.strip().lower() != 'fishinq' and fishing_text.strip().lower() != 'ishing' and fishing_text.strip().lower() != 'pishing':
                 random_breaks(0.2, 3)
                 pick_random_fishing_spot('prawn_fish')
