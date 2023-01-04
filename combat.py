@@ -8,6 +8,10 @@ import random
 import time
 import argparse
 import os
+
+import requests
+import simplejson
+
 global hwnd
 global iflag
 global icoord
@@ -110,11 +114,15 @@ def powerattack_text(monster='chicken', burybones=True, Pickup_loot=False, Take_
         resizeImage()
         combat_text = Image_to_Text('thresh', 'textshot.png')
         combat_text = re.sub('[^A-Za-z0-9]+', ' ', combat_text)
+        print(combat_text)
         attack = 0
         for monsters in monster_array[group]:
             #print(monsters)
             if combat_text.strip().lower().find(monsters) == -1:
                 attack += 1
+        if Plugin_Enabled:
+            if attack == monster:
+                attack = 1
         if attack == len(monster_array[group]):
             d = random.uniform(0.05, 0.1)
             time.sleep(d)
@@ -136,9 +144,22 @@ def powerattack_text(monster='chicken', burybones=True, Pickup_loot=False, Take_
 
 coords = (0, 0)
 actions = 'None'
-combat_text = 'Not in Combat'
+combat_text = 'Not in Combsat'
 time_left = 0
 
+
+def plugin(category='npc name'):
+    c = s.get("http://localhost:8081/events", stream=True)
+    data = simplejson.loads(c.text)
+    data[category]
+    #print(data[category])
+    return data[category]
+
+# ------ SET TO TRUE IF USING HTTPSERVER PLUGIN --------
+
+Plugin_Enabled = True
+if Plugin_Enabled:
+    s = requests.session()
 
 if __name__ == "__main__":
     # ----- UPDATE WITH ALL VARIATIONS OF MONSTER'S IMAGE TO TEXT RESULT IN LINE WITH MONSTER_LIST -----
@@ -152,9 +173,9 @@ if __name__ == "__main__":
     timer_break = timer()
 
     # --------- CHANGE TO RUN FOR AMOUNT OF HOURS ----------------
-    Run_Duration_hours = 1
+    Run_Duration_hours = 4.3
     # --------------------------------------------------------------------------------------------------
     monster_list = ['chicken', 'guard', 'cow', 'monk', 'imp', 'skeleton', 'dwarf', 'giant frog']
 
-    powerattack_text('giant frog', Take_Human_Break=False, Run_Duration_hours=Run_Duration_hours)
+    powerattack_text('chicken', Take_Human_Break=True, Run_Duration_hours=Run_Duration_hours)
     #os.system('shutdown -s -f')
