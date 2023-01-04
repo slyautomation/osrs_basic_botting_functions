@@ -102,8 +102,49 @@ def drop_fish():
     actions = "all fish dropped"
 
 
+def find_fish(left=0, top=0, right=800, bottom=800, boundaries=[([110, 100, 10], [195, 180, 80])]):
+    functions.screen_Image(left, top, right, bottom)
+    image = cv2.imread('images/screenshot.png')
+    image = cv2.rectangle(image, pt1=(600, 0), pt2=(850, 200), color=(0, 0, 0), thickness=-1)
+    image = cv2.rectangle(image, pt1=(0, 0), pt2=(150, 100), color=(0, 0, 0), thickness=-1)
+    #cv2.imwrite('images/screenshot3.png', image)
+    # define the list of boundaries
+    # B, G, R
+
+    # loop over the boundaries
+    for (lower, upper) in boundaries:
+        # create NumPy arrays from the boundaries
+        lower = np.array(lower, dtype="uint8")
+        upper = np.array(upper, dtype="uint8")
+        # find the colors within the specified boundaries and apply
+        # the mask
+        mask = cv2.inRange(image, lower, upper)
+        output = cv2.bitwise_and(image, image, mask=mask)
+        ret, thresh = cv2.threshold(mask, 40, 255, 0)
+        contours, hierarchy = cv2.findContours(thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
+    if len(contours) != 0:
+        #print(len(contours))
+        # find the biggest countour (c) by the area
+        c = max(contours, key=cv2.contourArea)
+        #print(contours)
+        x, y, w, h = cv2.boundingRect(c)
+        print(x, y, w, h)
+        x = random.randrange(x + 5, x + max(w - 5, 6)) + left  # 950,960
+        #print('x: ', x)
+        y = random.randrange(y + 5, y + max(h - 5, 6)) + top  # 490,500
+        #print('y: ', y)
+        b = random.uniform(0.2, 0.4)
+        pyautogui.moveTo(x, y, duration=b)
+        b = random.uniform(0.01, 0.05)
+        pyautogui.click(duration=b)
+        # show the images
+        #cv2.imshow("Result", np.hstack([image, output]))
+        #cv2.waitKey(0)
+        return (x, y)
+    else:
+        return False
 def pick_random_fishing_spot(type):
-    Image_Rec_single(type + '.png', 'picking fishing spot', 5, 5, 0.7, 'left', 10)
+    find_fish()
 
 
 def timer_countdown():
@@ -146,6 +187,8 @@ def powerfisher(fish_type, Run_Duration_hours=6):
         actions = 'none'
         invent_crop()
         fish_count = functions.invent_count(fish_type + '.png')
+        if fish_type == 'prawn_fish':
+            fish_count = functions.invent_count(fish_type + '.png', 0.95) + functions.invent_count('anch_fish.png', 0.95)
         clue_count = Image_count(r'sea_puzzle.png')
         invent = fish_count + clue_count
         if fish_type == 'prawn_fish' or fish_type == 'lobster_fish':
@@ -181,5 +224,5 @@ if __name__ == "__main__":
     ibreak = random.randrange(300, 2000)
     timer_break = timer()
     # --------- CHANGE TO RUN FOR AMOUNT OF HOURS ----------------
-    Run_Duration_hours = 2
+    Run_Duration_hours = 5.1
     powerfisher(fish_type, Run_Duration_hours=Run_Duration_hours)
