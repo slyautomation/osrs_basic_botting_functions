@@ -41,31 +41,39 @@ except ValueError:
 
 filename = data[0]['Config']['pc_profile']
 
+osrs = data[0]['Config']['file_path_to_client']
+
 live_file = "jagex_cl_oldschool_LIVE.dat"
 
 random_file = "random.dat"
 try:
-    os.remove(filename + live_file)
-    os.remove(filename + random_file)
+    os.remove(filename + osrs + live_file)
+    os.remove(filename + osrs + random_file)
 except OSError:
     pass
 except FileNotFoundError:
     pass
 
 if platform.system() == 'Linux' or platform.system() == 'Mac':
-    filename = filename + "/jagexcache/oldschool/LIVE/"
+    filename = filename + osrs + "/jagexcache/oldschool/LIVE/"
 else:
-    filename = filename + "\\jagexcache\\oldschool\\LIVE\\"
+    filename = filename + osrs + "\\jagexcache\\oldschool\\LIVE\\"
 
-for f in os.listdir(filename):
-    try:
-        if not f.startswith("main_file"):
-            continue
-        os.remove(os.path.join(filename, f))
-    except OSError:
-        pass
-    except FileNotFoundError:
-        pass
+try:    
+    for f in os.listdir(filename):
+        try:
+            if not f.startswith("main_file"):
+                continue
+            os.remove(os.path.join(filename, f))
+        except OSError:
+            pass
+        except FileNotFoundError:
+            pass
+
+except OSError:
+    pass
+except FileNotFoundError:
+    pass
 
 print('jagex files deleted')
 import core
