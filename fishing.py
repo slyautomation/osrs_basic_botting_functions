@@ -144,8 +144,8 @@ def find_fish(left=0, top=0, right=800, bottom=800, boundaries=[([110, 100, 10],
     else:
         return False
 def pick_random_fishing_spot(type):
-    find_fish()
-
+    fish = find_fish()
+    return fish
 
 def timer_countdown():
     global Run_Duration_hours
