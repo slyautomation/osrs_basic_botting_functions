@@ -70,9 +70,9 @@ def Image_Single_clicker(image, event, threshold, clicker):
         #print(event, 'Found...')
         icoord = pt[0] + x
         icoord = (icoord, pt[1] + y)
-        b = random.uniform(0.05, 0.2)
+        b = random.uniform(0.01, 0.2)
         pyautogui.moveTo(icoord, duration=b)
-        b = random.uniform(0.1, 0.13)
+        b = random.uniform(0.01, 0.13)
         pyautogui.click(icoord, duration=b, button=clicker)
     return icoord
 def Image_Rec_clicker(image, event, threshold, clicker):
@@ -172,7 +172,7 @@ def pick_string_bow_bank():
     z = random.randrange(55, 60) + y
     print('y: ', y)
     pyautogui.moveTo(w, z, duration=b)
-    b = random.uniform(0.1, 0.19)
+    b = random.uniform(0.01, 0.19)
     pyautogui.click(duration=b)
     c = random.uniform(0.1, 2.6)
     time.sleep(c)
