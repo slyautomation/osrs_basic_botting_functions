@@ -111,9 +111,9 @@ def Image_Rec_clicker(image, event, threshold, clicker):
             #print(event, 'Found...')
             icoord = pt[0] + x
             icoord = (icoord, pt[1] + y)
-            b = random.uniform(0.12, 0.17)
+            b = random.uniform(0.1, 0.17)
             pyautogui.moveTo(icoord,duration=b)
-            b = random.uniform(0.1, 0.13)
+            b = random.uniform(0.01, 0.2)
             pyautogui.click(icoord, duration=b, button=clicker)
     return iflag
 def Image_Rec_clicker2(image, event, iheight, iwidth, threshold, clicker):
@@ -149,20 +149,20 @@ def Image_Rec_clicker2(image, event, iheight, iwidth, threshold, clicker):
         # print(event, 'Found...')
         icoord = pt[0] + iheight
         icoord = (icoord, pt[1] + iwidth)
-        b = random.uniform(0.2, 0.7)
+        b = random.uniform(0.1, 0.7)
         pyautogui.moveTo(icoord, duration=b)
-        b = random.uniform(0.1, 0.3)
+        b = random.uniform(0.01, 0.3)
         pyautogui.click(icoord, duration=b, button=clicker)
     return iflag
 
 
 def pick_string_bow_bank():
-    c = random.uniform(0.3, 0.9)
-    d = random.uniform(0.05, 0.15)
+    c = random.uniform(0.1, 0.9)
+    d = random.uniform(0.01, 0.15)
     x = random.randrange(170, 195)
     print('x: ', x)
     y = random.randrange(150, 170)
-    b = random.uniform(0.5, 1.2)
+    b = random.uniform(0.1, 1.2)
     pyautogui.moveTo(x, y, duration=b)
     time.sleep(d)
     pyautogui.click(button='right')
@@ -174,15 +174,15 @@ def pick_string_bow_bank():
     pyautogui.moveTo(w, z, duration=b)
     b = random.uniform(0.1, 0.19)
     pyautogui.click(duration=b)
-    c = random.uniform(1.7, 2.6)
+    c = random.uniform(0.1, 2.6)
     time.sleep(c)
 
-    c = random.uniform(0.3, 0.9)
+    c = random.uniform(0.1, 0.9)
     d = random.uniform(0.05, 0.15)
     x = random.randrange(460, 490)
     print('x: ', x)
     y = random.randrange(120, 130)
-    b = random.uniform(0.5, 1.2)
+    b = random.uniform(0.1, 1.2)
     pyautogui.moveTo(x, y, duration=b)
     time.sleep(d)
     pyautogui.click(button='right')
@@ -192,18 +192,18 @@ def pick_string_bow_bank():
     z = random.randrange(55, 60) + y
     print('y: ', y)
     pyautogui.moveTo(w, z, duration=b)
-    b = random.uniform(0.1, 0.19)
+    b = random.uniform(0.01, 0.19)
     pyautogui.click(duration=b)
-    c = random.uniform(1.7, 2.6)
+    c = random.uniform(0.1, 2.6)
     time.sleep(c)
 
 def pick_flecting_wood_bank():
-    c = random.uniform(0.3, 0.9)
-    d = random.uniform(0.05, 0.15)
+    c = random.uniform(0.1, 0.9)
+    d = random.uniform(0.01, 0.15)
     x = random.randrange(125, 145)
     print('x: ', x)
     y = random.randrange(120, 130)
-    b = random.uniform(0.5, 1.2)
+    b = random.uniform(0.1, 1.2)
     pyautogui.moveTo(x, y, duration=b)
     time.sleep(d)
     pyautogui.click(button='right')
@@ -213,18 +213,18 @@ def pick_flecting_wood_bank():
     z = random.randrange(68, 72) + y
     print('y: ', y)
     pyautogui.moveTo(w, z, duration=b)
-    b = random.uniform(0.1, 0.19)
+    b = random.uniform(0.01, 0.19)
     pyautogui.click(duration=b)
-    c = random.uniform(1.7, 2.6)
+    c = random.uniform(0.1, 2.6)
     time.sleep(c)
 
 def pick_roots_bank():
-    c = random.uniform(0.3, 0.9)
-    d = random.uniform(0.05, 0.15)
+    c = random.uniform(0.1, 0.9)
+    d = random.uniform(0.01, 0.15)
     x = random.randrange(125, 145)
     print('x: ', x)
     y = random.randrange(120, 130)
-    b = random.uniform(0.5, 1.2)
+    b = random.uniform(0.1, 1.2)
     pyautogui.moveTo(x, y, duration=b)
     time.sleep(d)
     pyautogui.click(button='right')
@@ -236,7 +236,7 @@ def pick_roots_bank():
     pyautogui.moveTo(w, z, duration=b)
     b = random.uniform(0.1, 0.19)
     pyautogui.click(duration=b)
-    c = random.uniform(1.7, 2.6)
+    c = random.uniform(0.1, 2.6)
     time.sleep(c)
 
 def skill_lvl_up():
@@ -258,35 +258,35 @@ def skill_lvl_up():
 
 def make_crossbow_lumb_climbstairs_down():
     c = random.uniform(6,8)
-    d = random.uniform(0.08, 0.15)
+    d = random.uniform(0.01, 0.15)
     x = random.randrange(730, 750)
     print('x: ', x)
     y = random.randrange(170, 180)
     print('y: ', y)
-    b = random.uniform(0.3, 0.7)
+    b = random.uniform(0.1, 0.7)
     pyautogui.moveTo(x, y, duration=b)
     time.sleep(d)
     pyautogui.click(button='left')
     time.sleep(c)
-    c = random.uniform(1.5, 2)
-    d = random.uniform(0.08, 0.15)
+    c = random.uniform(0.1, 2)
+    d = random.uniform(0.01, 0.15)
     x = random.randrange(360, 390)
     print('x: ', x)
     y = random.randrange(425, 445)
     print('y: ', y)
-    b = random.uniform(0.3, 0.7)
+    b = random.uniform(0.1, 0.7)
     pyautogui.moveTo(x, y, duration=b)
     time.sleep(d)
     pyautogui.click(button='left')
     time.sleep(c)
 def make_crossbow_lumb_climbstairs_up():
     c = random.uniform(8, 10)
-    d = random.uniform(0.08, 0.15)
+    d = random.uniform(0.01, 0.15)
     x = random.randrange(200, 240)
     print('x: ', x)
     y = random.randrange(620, 650)
     print('y: ', y)
-    b = random.uniform(0.3, 0.7)
+    b = random.uniform(0.1, 0.7)
     pyautogui.moveTo(x, y, duration=b)
     time.sleep(d)
     pyautogui.click(button='left')
@@ -295,12 +295,12 @@ def make_crossbow_lumb_climbstairs_up():
 
 def make_crossbow_crafting_lumb():
     c = random.uniform(8, 10)
-    d = random.uniform(0.08, 0.15)
+    d = random.uniform(0.01, 0.15)
     x = random.randrange(490, 540)
     print('x: ', x)
     y = random.randrange(70, 115)
     print('y: ', y)
-    b = random.uniform(0.3, 0.7)
+    b = random.uniform(0.1, 0.7)
     pyautogui.moveTo(x, y, duration=b)
     time.sleep(d)
     pyautogui.click(button='left')
@@ -309,12 +309,12 @@ def make_crossbow_crafting_lumb():
 
 def make_crossbow_string_bank_lumb():
     c = random.uniform(8, 10)
-    d = random.uniform(0.08, 0.15)
+    d = random.uniform(0.01, 0.15)
     x = random.randrange(490, 540)
     print('x: ', x)
     y = random.randrange(70, 115)
     print('y: ', y)
-    b = random.uniform(0.3, 0.7)
+    b = random.uniform(0.1, 0.7)
     pyautogui.moveTo(x, y, duration=b)
     time.sleep(d)
     pyautogui.click(button='left')
@@ -341,21 +341,21 @@ def fletch_darts():
     time.sleep(c)
 
 def fletch_bolts():
-    c = random.uniform(0.09, 0.13)
-    b = random.uniform(0.062, 0.091)
+    c = random.uniform(0.01, 0.13)
+    b = random.uniform(0.01, 0.091)
     x = random.randrange(645, 665)  # 950,960
     y = random.randrange(495, 515)  # 490,500
     pyautogui.moveTo(x, y, duration=b)
-    b = random.uniform(0.05, 0.06)
+    b = random.uniform(0.01, 0.06)
     pyautogui.click(duration=b)
     time.sleep(c)
 
-    c = random.uniform(0.7, 1.2)
-    b = random.uniform(0.062, 0.12)
+    c = random.uniform(0.1, 1.2)
+    b = random.uniform(0.01, 0.12)
     x = random.randrange(695, 715)  # 950,960
     y = random.randrange(495, 515)  # 490,500
     pyautogui.moveTo(x, y, duration=b)
-    b = random.uniform(0.05, 0.09)
+    b = random.uniform(0.01, 0.09)
     pyautogui.click(duration=b)
     time.sleep(c)
     pyautogui.press('space')
@@ -363,21 +363,21 @@ def fletch_bolts():
     time.sleep(c)
 
 def string_bow(bow):
-    c = random.uniform(1.2, 1.5)
-    b = random.uniform(0.21, 0.44)
+    c = random.uniform(0.1, 1.5)
+    b = random.uniform(0.1, 0.44)
     x = random.randrange(690, 715)  # 950,960
     y = random.randrange(495, 515)  # 490,500
     pyautogui.moveTo(x, y, duration=b)
-    b = random.uniform(0.05, 0.09)
+    b = random.uniform(0.01, 0.09)
     pyautogui.click(duration=b)
     time.sleep(c)
 
-    c = random.uniform(1.2, 1.5)
-    b = random.uniform(0.062, 0.12)
+    c = random.uniform(0.1, 1.5)
+    b = random.uniform(0.01, 0.12)
     x = random.randrange(775, 795)  # 950,960
     y = random.randrange(570, 590)  # 490,500
     pyautogui.moveTo(x, y, duration=b)
-    b = random.uniform(0.05, 0.09)
+    b = random.uniform(0.01, 0.09)
     pyautogui.click(duration=b)
     time.sleep(c)
     pyautogui.press(bow)
@@ -386,8 +386,8 @@ def string_bow(bow):
 
 
 def string_bows(name, x, y, x2, y2):
-    c = random.uniform(1, 6)
-    e = random.uniform(0.5, 0.9)
+    c = random.uniform(0.1, 6)
+    e = random.uniform(0.1, 0.9)
     error_c = 0
     while bank_ready(False) == False:
         if error_c > 3:
@@ -409,10 +409,10 @@ def string_bows(name, x, y, x2, y2):
     x = random.uniform(40, 45)
     while wood_inv('images/stringbow_icon.png') > 0 or time_end < x:
         Image_Rec_single_closest('images/stringbow_icon.png', 0.7, 'left')
-        e = random.uniform(0.5, 0.9)
+        e = random.uniform(0.1, 0.9)
         time.sleep(e)
         Image_Rec_single_closest(name, 0.95, 'left')
-        e = random.uniform(0.5, 0.9)
+        e = random.uniform(0.1, 0.9)
         time.sleep(e)
         pyautogui.press('space')
         while skill_lvl_up() == 0:
@@ -421,7 +421,7 @@ def string_bows(name, x, y, x2, y2):
             time.sleep(e)
             while functions.make_enabled('make_string.png') == 1:
                 pyautogui.press('space')
-                e = random.uniform(0.5, 0.9)
+                e = random.uniform(0.1, 0.9)
                 time.sleep(e)
             print('skills are: ', skill_lvl_up())
             print('wood left: ', wood_inv('images/stringbow_icon.png'))
@@ -432,10 +432,10 @@ def string_bows(name, x, y, x2, y2):
             break
             if skill_lvl_up() == 1:
                 Image_Rec_single_closest('images/stringbow_icon.png', 0.7, 'left')
-                e = random.uniform(0.5, 0.9)
+                e = random.uniform(0.1, 0.9)
                 time.sleep(e)
                 Image_Rec_single_closest(name, 0.7, 'left')
-                e = random.uniform(0.5, 0.9)
+                e = random.uniform(0.1, 0.9)
                 time.sleep(e)
                 pyautogui.press('space')
     time.sleep(c)
@@ -474,9 +474,9 @@ def Image_Rec_single_closest(image, threshold=0.7, clicker='left'):
     y = random.randrange(5, 20) + 480
     icoord = coords[0] + x
     icoord = (icoord, coords[1] + y)
-    b = random.uniform(0.2, 0.7)
+    b = random.uniform(0.1, 0.7)
     pyautogui.moveTo(icoord, duration=b)
-    b = random.uniform(0.1, 0.3)
+    b = random.uniform(0.01, 0.3)
     pyautogui.click(icoord, duration=b, button=clicker)
     return close_points
 
@@ -519,7 +519,7 @@ def fletch_bows(name, x_i, y_i, number, i=55):
             print('wood left: ', wood_inv(name))
             while functions.make_enabled() == 1:
                 pyautogui.press(number)
-                e = random.uniform(0.5, 0.9)
+                e = random.uniform(0.1, 0.9)
                 time.sleep(e)
             if wood_inv(name) == 0:
                 break
