@@ -419,7 +419,7 @@ def string_bows(name, x, y, x2, y2):
             time_end = time.time() - time_start
             e = random.uniform(0.1, 0.4)
             time.sleep(e)
-            while functions.make_enabled('images/make_string.png') == 1:
+            while functions.make_enabled('make_string.png') == 1:
                 pyautogui.press('space')
                 e = random.uniform(0.5, 0.9)
                 time.sleep(e)
@@ -442,7 +442,7 @@ def string_bows(name, x, y, x2, y2):
 
 def Image_Rec_single_closest(image, threshold=0.7, clicker='left'):
     functions.screen_Image(620, 480, 820, 750, 'closest.png')
-    img_rgb = cv2.imread('closest.png')
+    img_rgb = cv2.imread('images/closest.png')
     img_gray = cv2.cvtColor(img_rgb, cv2.COLOR_BGR2GRAY)
     template = cv2.imread(image, 0)
     w, h = template.shape[::-1]
@@ -460,14 +460,16 @@ def Image_Rec_single_closest(image, threshold=0.7, clicker='left'):
     if pt is None:
         print('not found')
         return False
-    cv2.imwrite('res.png', img_rgb)
-    print(close_list)
-    print(close_points)
-    min_value = min(close_list)
-    min_index = close_list.index(min_value)
-    coords = close_points[min_index]
+    #cv2.imwrite('res.png', img_rgb)
+    pick_random_item = random.randrange(0, len(close_points))
+    #print(close_points)
+    #print("list: ", str(len(close_points)))
+    #min_value = min(close_list)
+    #min_index = close_list.index(min_value)
+    #coords = close_points[min_index]
+    coords = close_points[pick_random_item]
     print(coords)
-    print('min_value:', min_value, '| min_index:', min_index)
+    #print('min_value:', min_value, '| min_index:', min_index)
     x = random.randrange(5, 20) + 620
     y = random.randrange(5, 20) + 480
     icoord = coords[0] + x
