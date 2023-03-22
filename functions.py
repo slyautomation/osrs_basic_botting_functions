@@ -80,13 +80,13 @@ import core
 
 def deposit_all_Bank():
     banker = 50
-    b = random.uniform(0.4, 0.77)
+    b = random.uniform(0.1, 0.77)
     x = random.randrange(480, 500)  # x = random.randrange(1040, 1050)
     y = random.randrange(623, 637)  # y = random.randrange(775, 805)
     pyautogui.moveTo(x, y, duration=b)
     b = random.uniform(0.1, 0.23)
     pyautogui.click(duration=b, button='left')
-    c = random.uniform(3.5, 4.5)
+    c = random.uniform(0.1, 4.5)
     time.sleep(c)
 
 
@@ -97,11 +97,11 @@ def invent_crop():
 def random_inventory():
     global newTime_break, actions
     actions = 'inventory tab'
-    b = random.uniform(1.5, 15)
+    b = random.uniform(0.1, 15)
     pyautogui.press('f4')
     time.sleep(b)
     pyautogui.press('f4')
-    b = random.uniform(1.5, 2)
+    b = random.uniform(0.1, 2)
     time.sleep(b)
     pyautogui.press('esc')
     newTime_break = True
@@ -110,11 +110,11 @@ def random_inventory():
 def random_combat():
     global newTime_break, actions
     actions = 'combat tab'
-    b = random.uniform(1.5, 15)
+    b = random.uniform(0.1, 15)
     pyautogui.press('f1')
     time.sleep(b)
     pyautogui.press('f1')
-    b = random.uniform(1.5, 2)
+    b = random.uniform(0.1, 2)
     time.sleep(b)
     pyautogui.press('esc')
     newTime_break = True
@@ -123,11 +123,11 @@ def random_combat():
 def random_skills():
     global newTime_break, actions
     actions = 'skills tab'
-    b = random.uniform(1.5, 15)
+    b = random.uniform(0.1, 15)
     pyautogui.press('f2')
     time.sleep(b)
     pyautogui.press('f2')
-    b = random.uniform(1.5, 2)
+    b = random.uniform(0.1, 2)
     time.sleep(b)
     pyautogui.press('esc')
     newTime_break = True
@@ -136,11 +136,11 @@ def random_skills():
 def random_quests():
     global newTime_break, actions
     actions = 'quest tab'
-    b = random.uniform(1.5, 15)
+    b = random.uniform(0.1, 15)
     pyautogui.press('f3')
     time.sleep(b)
     pyautogui.press('f3')
-    b = random.uniform(1.5, 2)
+    b = random.uniform(0.1, 2)
     time.sleep(b)
     pyautogui.press('esc')
     newTime_break = True
@@ -281,14 +281,14 @@ def Image_color(left=0, top=0, right=0, bottom=0):
 
 def exit_bank():
     #print('exit bank')
-    c = random.uniform(0.3, 0.7)
+    c = random.uniform(0.1, 0.7)
     x = random.randrange(523, 540)
     #print('x: ', x)
     y = random.randrange(40, 55)
     #print('y: ', y)
-    b = random.uniform(0.15, 0.6)
+    b = random.uniform(0.1, 0.6)
     pyautogui.moveTo(x, y, duration=b)
-    b = random.uniform(0.1, 0.19)
+    b = random.uniform(0.1, 0.3)
     pyautogui.click(duration=b, button='left')
     time.sleep(c)
 
@@ -367,7 +367,7 @@ def find_Object_precise(item, left=0, top=0, right=0, bottom=0):
         x = random.randrange(minx + 1, max(minx + 2,maxx - 1))
         y = random.randrange(miny + 1, max(miny + 2,maxy - 1))
         #print('y: ', y)
-        b = random.uniform(0.2, 0.4)
+        b = random.uniform(0.1, 0.4)
         pyautogui.moveTo(x, y, duration=b)
         b = random.uniform(0.01, 0.05)
         pyautogui.click(duration=b)
@@ -446,7 +446,7 @@ def find_Object_closest(item, left=0, top=0, right=0, bottom=0, clicker='left', 
     y = random.randrange(5, 20)
     icoord = coords[0] + x + left
     icoord = (icoord, coords[1] + y + top)
-    b = random.uniform(0.2, 0.7)
+    b = random.uniform(0.1, 0.7)
     pyautogui.moveTo(icoord, duration=b)
     b = random.uniform(0.1, 0.3)
     pyautogui.click(icoord, duration=b, button=clicker)
@@ -491,7 +491,7 @@ def find_Object(item, left=0, top=0, right=0, bottom=0):
         #print('x: ', x)
         y = random.randrange(y + 5, y + max(h - 5, 6)) + top  # 490,500
         #print('y: ', y)
-        b = random.uniform(0.2, 0.4)
+        b = random.uniform(0.1, 0.4)
         pyautogui.moveTo(x, y, duration=b)
         b = random.uniform(0.01, 0.05)
         pyautogui.click(duration=b)
@@ -541,17 +541,17 @@ def find_Object_right_quick(item, left=0, top=0, right=0, bottom=0, y_range=40):
         #print('x: ', x)
         y = random.randrange(y + 5, y + max(h - 5, 6))  # 490,500
         #print('y: ', y)
-        b = random.uniform(0.05, 0.1)
+        b = random.uniform(0.01, 0.1)
         pyautogui.moveTo(x, y, duration=b)
         b = random.uniform(0.01, 0.05)
         pyautogui.click(duration=b, button='right')
-        d = random.uniform(0.2,0.4)
+        d = random.uniform(0.1,0.4)
         time.sleep(d)
         b = random.uniform(0.01, 0.05)
         c = random.randrange(0, 40)
         y = random.randrange(y_range, y_range+5)
         pyautogui.move(c, y, duration=b)
-        b = random.uniform(0.05, 0.1)
+        b = random.uniform(0.01, 0.1)
         pyautogui.click(duration=b)
         return True
     else:
@@ -598,11 +598,11 @@ def find_Object_right(item, left=0, top=0, right=0, bottom=0, y_range=40):
         #print('x: ', x)
         y = random.randrange(y + 5, y + max(h - 5, 6))  # 490,500
         #print('y: ', y)
-        b = random.uniform(0.2, 0.4)
+        b = random.uniform(0.1, 0.4)
         pyautogui.moveTo(x, y, duration=b)
         b = random.uniform(0.01, 0.05)
         pyautogui.click(duration=b, button='right')
-        d = random.uniform(0.2,0.5)
+        d = random.uniform(0.1,0.5)
         time.sleep(d)
         b = random.uniform(0.01, 0.05)
         c = random.randrange(0, 40)
@@ -664,12 +664,12 @@ def skill_lvl_up_new():
     return counter
 
 def pick_item_right(v, u, option=1):
-    c = random.uniform(0.3, 0.7)
+    c = random.uniform(0.1, 0.7)
     d = random.uniform(0.05, 0.15)
     x = random.randrange(v - 10, v + 10)
     #print('x: ', x)
     y = random.randrange(u - 5, u + 5)
-    b = random.uniform(0.3, 0.7)
+    b = random.uniform(0.1, 0.7)
     pyautogui.moveTo(x, y, duration=b)
     time.sleep(d)
     pyautogui.click(button='right')
@@ -702,24 +702,24 @@ def pick_item_right(v, u, option=1):
     time.sleep(c)
 
 def pick_item_new(v, u):
-    c = random.uniform(0.3, 0.7)
-    d = random.uniform(0.05, 0.15)
+    c = random.uniform(0.1, 0.7)
+    d = random.uniform(0.01, 0.15)
     x = random.randrange(v, v + 1)
     #print('x: ', x)
     y = random.randrange(u, u + 1)
-    b = random.uniform(0.2, 0.6)
+    b = random.uniform(0.1, 0.6)
     pyautogui.moveTo(x, y, duration=b)
     time.sleep(d)
     pyautogui.click(button='left')
     time.sleep(c)
 
 def pick_item(v, u):
-    c = random.uniform(0.3, 0.7)
-    d = random.uniform(0.05, 0.15)
+    c = random.uniform(0.1, 0.7)
+    d = random.uniform(0.01, 0.15)
     x = random.randrange(v - 10, v + 10)
     #print('x: ', x)
     y = random.randrange(u - 5, u + 5)
-    b = random.uniform(0.2, 0.6)
+    b = random.uniform(0.1, 0.6)
     pyautogui.moveTo(x, y, duration=b)
     time.sleep(d)
     pyautogui.click(button='left')
@@ -733,14 +733,14 @@ def deposit_secondItem_new():
         pick_item(x+w - 115, y+h - 295)
 
 def deposit_secondItem():
-    c = random.uniform(0.3, 0.7)
+    c = random.uniform(0.1, 0.7)
     x = random.randrange(690, 715)  # 950,960
     z = x
     #print('x: ', x)
     y = random.randrange(495, 515)  # 490,500
     w = y
     #print('y: ', y)
-    b = random.uniform(0.2, 0.7)
+    b = random.uniform(0.1, 0.7)
     pyautogui.moveTo(x, y, duration=b)
     b = random.uniform(0.1, 0.3)
     pyautogui.click(duration=b, button='left')
@@ -762,7 +762,7 @@ def mini_map_image(image, iwidth=0, iheight=0, threshold=0.7, clicker='left', xs
         y = random.randrange(iheight, iheight + 1 + yspace) + 27
         icoord = pt[0] + x
         icoord = (icoord, pt[1] + y)
-        b = random.uniform(0.2, 0.7)
+        b = random.uniform(0.1, 0.7)
         pyautogui.moveTo(icoord, duration=b)
         b = random.uniform(0.1, 0.3)
         pyautogui.click(icoord, duration=b, button=clicker)
@@ -879,7 +879,7 @@ def findarea_attack_quick(object, deep=20):
             #print('attack x: ', x)
             y = random.randrange(y + 150 + hhalf - deep, y + 150 + max(hhalf + deep, 1))  # 490,500
             #print('attack y: ', y)
-            b = random.uniform(0.05, 0.1)
+            b = random.uniform(0.01, 0.1)
             pyautogui.moveTo(x, y, duration=b)
             b = random.uniform(0.01, 0.05)
             pyautogui.click(duration=b)
@@ -932,7 +932,7 @@ def Image_Rec_single(image, event, iheight=5, iwidth=5, threshold=0.7, clicker='
         y = random.randrange(iheight, iheight + ispace) + cropy
         icoord = pt[0] + iheight + x
         icoord = (icoord, pt[1] + iwidth + y)
-        b = random.uniform(0.2, 0.7)
+        b = random.uniform(0.1, 0.7)
         pyautogui.moveTo(icoord, duration=b)
         b = random.uniform(0.1, 0.3)
         pyautogui.click(icoord, duration=b, button=clicker)
@@ -976,7 +976,7 @@ def Image_Rec_single_closest(image, threshold=0.7, clicker='left', playarea=True
     y = random.randrange(5, 20) + cropy
     icoord = coords[0] + x
     icoord = (icoord, coords[1] + y)
-    b = random.uniform(0.2, 0.7)
+    b = random.uniform(0.1, 0.7)
     pyautogui.moveTo(icoord, duration=b)
     b = random.uniform(0.1, 0.3)
     pyautogui.click(icoord, duration=b, button=clicker)
@@ -1142,7 +1142,7 @@ def invent_count(object, threshold=0.8):
 def drop_item():
     pyautogui.keyUp('shift')
     c = random.uniform(0.1, 0.2)
-    d = random.uniform(0.2, 0.23)
+    d = random.uniform(0.1, 0.23)
 
     time.sleep(c)
     pyautogui.keyDown('shift')
@@ -1150,7 +1150,7 @@ def drop_item():
 
 
 def release_drop_item():
-    e = random.uniform(0.2, 0.3)
+    e = random.uniform(0.1, 0.3)
     f = random.uniform(0.1, 0.2)
 
     time.sleep(e)
