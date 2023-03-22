@@ -84,7 +84,7 @@ def deposit_all_Bank():
     x = random.randrange(480, 500)  # x = random.randrange(1040, 1050)
     y = random.randrange(623, 637)  # y = random.randrange(775, 805)
     pyautogui.moveTo(x, y, duration=b)
-    b = random.uniform(0.1, 0.23)
+    b = random.uniform(0.01, 0.23)
     pyautogui.click(duration=b, button='left')
     c = random.uniform(0.1, 4.5)
     time.sleep(c)
@@ -288,7 +288,7 @@ def exit_bank():
     #print('y: ', y)
     b = random.uniform(0.1, 0.6)
     pyautogui.moveTo(x, y, duration=b)
-    b = random.uniform(0.1, 0.3)
+    b = random.uniform(0.01, 0.3)
     pyautogui.click(duration=b, button='left')
     time.sleep(c)
 
@@ -448,7 +448,7 @@ def find_Object_closest(item, left=0, top=0, right=0, bottom=0, clicker='left', 
     icoord = (icoord, coords[1] + y + top)
     b = random.uniform(0.1, 0.7)
     pyautogui.moveTo(icoord, duration=b)
-    b = random.uniform(0.1, 0.3)
+    b = random.uniform(0.01, 0.3)
     pyautogui.click(icoord, duration=b, button=clicker)
     return close_points
 
@@ -608,7 +608,7 @@ def find_Object_right(item, left=0, top=0, right=0, bottom=0, y_range=40):
         c = random.randrange(0, 40)
         y = random.randrange(y_range, y_range+5)
         pyautogui.move(c, y, duration=b)
-        b = random.uniform(0.1, 0.3)
+        b = random.uniform(0.01, 0.3)
         pyautogui.click(duration=b)
         return True
     else:
@@ -665,7 +665,7 @@ def skill_lvl_up_new():
 
 def pick_item_right(v, u, option=1):
     c = random.uniform(0.1, 0.7)
-    d = random.uniform(0.05, 0.15)
+    d = random.uniform(0.01, 0.15)
     x = random.randrange(v - 10, v + 10)
     #print('x: ', x)
     y = random.randrange(u - 5, u + 5)
@@ -742,7 +742,7 @@ def deposit_secondItem():
     #print('y: ', y)
     b = random.uniform(0.1, 0.7)
     pyautogui.moveTo(x, y, duration=b)
-    b = random.uniform(0.1, 0.3)
+    b = random.uniform(0.01, 0.3)
     pyautogui.click(duration=b, button='left')
     time.sleep(c)
 
@@ -764,7 +764,7 @@ def mini_map_image(image, iwidth=0, iheight=0, threshold=0.7, clicker='left', xs
         icoord = (icoord, pt[1] + y)
         b = random.uniform(0.1, 0.7)
         pyautogui.moveTo(icoord, duration=b)
-        b = random.uniform(0.1, 0.3)
+        b = random.uniform(0.01, 0.3)
         pyautogui.click(icoord, duration=b, button=clicker)
         # print(True)
         return True
@@ -934,7 +934,7 @@ def Image_Rec_single(image, event, iheight=5, iwidth=5, threshold=0.7, clicker='
         icoord = (icoord, pt[1] + iwidth + y)
         b = random.uniform(0.1, 0.7)
         pyautogui.moveTo(icoord, duration=b)
-        b = random.uniform(0.1, 0.3)
+        b = random.uniform(0.01, 0.3)
         pyautogui.click(icoord, duration=b, button=clicker)
     return iflag, icoord
 
@@ -978,7 +978,7 @@ def Image_Rec_single_closest(image, threshold=0.7, clicker='left', playarea=True
     icoord = (icoord, coords[1] + y)
     b = random.uniform(0.1, 0.7)
     pyautogui.moveTo(icoord, duration=b)
-    b = random.uniform(0.1, 0.3)
+    b = random.uniform(0.01, 0.3)
     pyautogui.click(icoord, duration=b, button=clicker)
     return True
 
@@ -1074,7 +1074,7 @@ def image_Rec_inventory(image, threshold=0.8, clicker='left', iheight=5, iwidth=
             icoord = (icoord, pt[1] + iwidth + y)
             b = random.uniform(0.1, 0.3)
             pyautogui.moveTo(icoord, duration=b)
-            b = random.uniform(0.05, 0.15)
+            b = random.uniform(0.01, 0.15)
             pyautogui.click(icoord, duration=b, button=clicker)
     return iflag
 
