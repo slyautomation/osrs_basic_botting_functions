@@ -85,14 +85,14 @@ def pick_gold_bars():
 
 def pick_sapphires():
     pick_item(1751 - 1280, 123)  # pick in bank
-    random_breaks(0.5, 1.5)
+    random_breaks(0.1, 1.5)
     pick_item(1703 - 1280, 159)  # pick in bank
-    random_breaks(0.5, 1.5)
+    random_breaks(0.1, 1.5)
 
 
 def pick_silver_bars():
     pick_item(1751 - 1280, 198)  # 375 # pick in bank
-    random_breaks(0.5, 1.5)
+    random_breaks(0.1, 1.5)
 
 
 def bank_spot_edgville():
@@ -105,12 +105,12 @@ def craft_spot_edgville():
 
 def craft_gold_ring():
     pick_item(1389 - 1280, 277)  # 375
-    random_breaks(0.5, 1.5)
+    random_breaks(0.1, 1.5)
 
 
 def craft_sapphire_ring():
     pick_item(1439 - 1280, 277)  # 375
-    random_breaks(0.5, 1.5)
+    random_breaks(0.1, 1.5)
 
 
 def timer_countdown():
@@ -161,7 +161,7 @@ def craft_bar_items(num, type, craft_item, run_time_minutes=360):
                 actions = 'Crafting...'
                 if skill_lvl_up() != 0:
                     actions = 'level up'
-                    random_breaks(0.2, 3)
+                    random_breaks(0.1, 3)
                     pyautogui.press('space')
                     random_breaks(0.1, 3)
                     pyautogui.press('space')
@@ -192,7 +192,7 @@ def get_bank_craft_items(type):
                     }
     if bank > 0:
         deposit_secondItem()
-        random_breaks(0.3, 0.5)
+        random_breaks(0.1, 0.5)
         pick_options[type]()
         exit_bank()
         return bank
