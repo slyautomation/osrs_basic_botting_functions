@@ -61,21 +61,21 @@ def cleaning_weeds(weed):
     image_Rec_clicker(str(weed) + '_grime.png','cleaning weed', threshold=0.8, fast=True, playarea=False)
 
 def combine_items():
-    c = random.uniform(0.3,0.9)
-    b = random.uniform(0.21, 0.44)
+    c = random.uniform(0.1,0.9)
+    b = random.uniform(0.1, 0.44)
     x = random.randrange(692, 712)  # 950,960
     y = random.randrange(497, 512)  # 490,500
     pyautogui.moveTo(x, y, duration=b)
-    b = random.uniform(0.05, 0.09)
+    b = random.uniform(0.01, 0.09)
     pyautogui.click(duration=b)
     time.sleep(c)
 
-    c = random.uniform(0.8, 1)
-    b = random.uniform(0.062, 0.12)
+    c = random.uniform(0.1, 1)
+    b = random.uniform(0.01, 0.12)
     x = random.randrange(777, 792)  # 950,960
     y = random.randrange(612, 628)  # 570, 590 # 490,500
     pyautogui.moveTo(x, y, duration=b)
-    b = random.uniform(0.05, 0.09)
+    b = random.uniform(0.01, 0.09)
     pyautogui.click(duration=b)
     time.sleep(c)
     pyautogui.press('space')
@@ -83,24 +83,24 @@ def combine_items():
     #time.sleep(c)
 
 def single_pick_potion_item(v,u):
-    c = random.uniform(0.3, 0.7)
-    d = random.uniform(0.05, 0.15)
+    c = random.uniform(0.1, 0.7)
+    d = random.uniform(0.01, 0.15)
     x = random.randrange(v-10, v+10)
     print('x: ', x)
     y = random.randrange(u-5, u+5)
-    b = random.uniform(0.3, 0.7)
+    b = random.uniform(0.1, 0.7)
     pyautogui.moveTo(x, y, duration=b)
     time.sleep(d)
     pyautogui.click(button='left')
     time.sleep(c)
 
 def pick_potion_item(v,u):
-    c = random.uniform(0.3, 0.7)
-    d = random.uniform(0.05, 0.15)
+    c = random.uniform(0.1, 0.7)
+    d = random.uniform(0.01, 0.15)
     x = random.randrange(v-10, v+10)
     print('x: ', x)
     y = random.randrange(u-5, u+5)
-    b = random.uniform(0.3, 0.7)
+    b = random.uniform(0.1, 0.7)
     pyautogui.moveTo(x, y, duration=b)
     time.sleep(d)
     pyautogui.click(button='right')
@@ -112,14 +112,14 @@ def pick_potion_item(v,u):
     pyautogui.moveTo(w, z, duration=b)
     b = random.uniform(0.1, 0.19)
     pyautogui.click(duration=b)
-    c = random.uniform(0.25, 0.5)
+    c = random.uniform(0.1, 0.5)
     time.sleep(c)
 
 def grind_horns(item):
-    c = random.uniform(0.3, 0.8)
+    c = random.uniform(0.1, 0.8)
     find_Object(1)
     time.sleep(c)
-    c = random.uniform(0.2, 0.6)
+    c = random.uniform(0.1, 0.6)
     deposit_secondItem()
     time.sleep(c)
     pick_potion_item(470, 485)
@@ -141,7 +141,7 @@ def grind_horns(item):
     time.sleep(c)
 def cast_superglass(v,u):
     c = random.uniform(0.1, 0.3)
-    d = random.uniform(0.05, 0.15)
+    d = random.uniform(0.01, 0.15)
     x = random.randrange(v-5, v+5)
     #print('x: ', x)
     y = random.randrange(u-5, u+5)
@@ -151,7 +151,7 @@ def cast_superglass(v,u):
     pyautogui.click(button='left')
     time.sleep(c)
 def pick_seaweed(v,u):
-    c = random.uniform(0.05, 0.2)
+    c = random.uniform(0.01, 0.2)
     d = random.uniform(0.01, 0.05)
     x = random.randrange(v-8, v+8)
     #print('x: ', x)
@@ -161,12 +161,12 @@ def pick_seaweed(v,u):
     time.sleep(d)
     pyautogui.click(button='left')
     time.sleep(c)
-    c = random.uniform(0.05, 0.2)
+    c = random.uniform(0.01, 0.2)
     d = random.uniform(0.01, 0.05)
     x = random.randrange(v - 9, v + 9)
     #print('x: ', x)
     y = random.randrange(u - 5, u + 5)
-    b = random.uniform(0.05, 0.2)
+    b = random.uniform(0.02, 0.2)
     pyautogui.moveTo(x, y, duration=b)
     time.sleep(d)
     pyautogui.click(button='left')
@@ -204,24 +204,24 @@ def pick_bucket_sand(v,u):
 
 
 def pick_all_item(v,u):
-    c = random.uniform(0.3, 0.8)
+    c = random.uniform(0.1, 0.8)
     d = random.uniform(0.05, 0.15)
     x = random.randrange(v-10, v+10)
     print('x: ', x)
     y = random.randrange(u-5, u+5)
-    b = random.uniform(0.5, 0.85)
+    b = random.uniform(0.1, 0.85)
     pyautogui.moveTo(x, y, duration=b)
     time.sleep(d)
     pyautogui.click(button='left')
     time.sleep(c)
 
 def pick_grimy_item(v,u):
-    c = random.uniform(0.3, 0.8)
-    d = random.uniform(0.05, 0.15)
+    c = random.uniform(0.1, 0.8)
+    d = random.uniform(0.01, 0.15)
     x = random.randrange(v-10, v+10)
     print('x: ', x)
     y = random.randrange(u-5, u+5)
-    b = random.uniform(0.5, 0.85)
+    b = random.uniform(0.1, 0.85)
     pyautogui.moveTo(x, y, duration=b)
     time.sleep(d)
     pyautogui.click(button='right')
@@ -249,7 +249,7 @@ def takepotion():
             if potion is False:
                 potion = Image_Rec_single('prayer1_potion.png', 'taking potion', 0.95, 'left')
 def superglass_money():
-    a = random.uniform(0.2, 0.35)
+    a = random.uniform(0.1, 0.35)
     find_Object(1)
     deposit_secondItem()
     pick_bucket_sand(472,269)
@@ -291,7 +291,7 @@ def clean_weeds(x,y,name):
 
 
 def make_poition(item):
-    c = random.uniform(0.3, 0.6)
+    c = random.uniform(0.1, 0.6)
     error_c = 0
     while functions.bank_ready(False) == False:
         if error_c > 3:
