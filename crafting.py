@@ -80,7 +80,7 @@ options = {0: random_inventory,
 
 def pick_gold_bars():
     pick_item(1751 - 1280, 123)  # pick in bank
-    random_breaks(0.5, 1.5)
+    random_breaks(0.1, 1.5)
 
 
 def pick_sapphires():
