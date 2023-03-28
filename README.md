@@ -249,6 +249,16 @@ python venv/Scripts/pywin32_postinstall.py -install
 ## Wiki
 [Wiki page on function descriptions and purpose](https://github.com/slyautomation/osrs_basic_botting_functions/wiki/Purpose-and-Definition-of-Functions-including-argument-s-usage)
 
+
+Using the top banner in pycharm under file goto setttings.
+![image](https://user-images.githubusercontent.com/81003470/228144071-2b3d145c-4a5b-4781-9516-c347b37a3cff.png)
+
+Then in settings under the tools section click on terminal. and you'll need to change the shell path to cmd.exe. at the moment your default terminal is powershell
+Image
+![image](https://user-images.githubusercontent.com/81003470/228144090-056bc599-449e-47d6-b742-3df2704b21a1.png)
+
+You'll now be able to type in the pip command no issues
+
 Consider donating if you found the project fun and learnt more about python.
 
 https://www.buymeacoffee.com/slyautomatG
