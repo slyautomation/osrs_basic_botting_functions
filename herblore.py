@@ -15,8 +15,39 @@ from functions import find_Object, deposit_all_Bank, deposit_secondItem, \
     exit_bank, image_Rec_clicker, Image_Rec_single
 iflag = False
 icoord = []
-
-
+pyautogui.FAILSAFE = False
+def Image_Rec_single_closest(image, threshold=0.7, clicker='left'):
+    functions.screen_Image(620, 480, 820, 750, 'closest.png')
+    img_rgb = cv2.imread('images/closest.png')
+    img_gray = cv2.cvtColor(img_rgb, cv2.COLOR_BGR2GRAY)
+    template = cv2.imread(image, 0)
+    w, h = template.shape[::-1]
+    pt = None
+    res = cv2.matchTemplate(img_gray, template, cv2.TM_CCOEFF_NORMED)
+    threshold = threshold
+    loc = np.where(res >= threshold)
+    close_list = []
+    close_points = []
+    pos = pyautogui.position()
+    for pt in zip(*loc[::-1]):
+        cv2.rectangle(img_rgb, pt, (pt[0] + w, pt[1] + h), (0, 0, 255), 2)
+        close_list.append(abs(abs(pos[0] - pt[0]) + abs(pos[1] - pt[1])))
+        close_points.append(pt)
+    if pt is None:
+        print('not found')
+        return False
+    pick_random_item = random.randrange(0, len(close_points))
+    coords = close_points[pick_random_item]
+    print(coords)
+    x = random.randrange(5, 20) + 620
+    y = random.randrange(5, 20) + 480
+    icoord = coords[0] + x
+    icoord = (icoord, coords[1] + y)
+    b = random.uniform(0.1, 0.7)
+    pyautogui.moveTo(icoord, duration=b)
+    b = random.uniform(0.01, 0.3)
+    pyautogui.click(icoord, duration=b, button=clicker)
+    return close_points
 
 
 def vial_inv(vial):
@@ -25,7 +56,7 @@ def vial_inv(vial):
     myScreenshot.save(r"screen.png")
     img_rgb = cv2.imread('screen.png')
     img_gray = cv2.cvtColor(img_rgb, cv2.COLOR_BGR2GRAY)
-    template = cv2.imread(str(vial) + '_icon.png', 0)
+    template = cv2.imread('images/' + str(vial) + '_icon.png', 0)
     w, h = template.shape[::-1]
     res = cv2.matchTemplate(img_gray, template, cv2.TM_CCOEFF_NORMED)
     threshold = 0.8
@@ -43,7 +74,7 @@ def skill_lvl_up():
     myScreenshot.save(r"screen.png")
     img_rgb = cv2.imread('screen.png')
     img_gray = cv2.cvtColor(img_rgb, cv2.COLOR_BGR2GRAY)
-    template = cv2.imread('Congrats_flag.png', 0)
+    template = cv2.imread('images/Congrats_flag.png', 0)
     w, h = template.shape[::-1]
     res = cv2.matchTemplate(img_gray, template, cv2.TM_CCOEFF_NORMED)
     threshold = 0.8
@@ -60,27 +91,23 @@ def cleaning_weeds(weed):
     print('y: ', y)
     image_Rec_clicker(str(weed) + '_grime.png','cleaning weed', threshold=0.8, fast=True, playarea=False)
 
-def combine_items():
+def combine_items(item, Pause=False):
+    Image_Rec_single_closest("images/vial_water.png") # water
     c = random.uniform(0.1,0.9)
-    b = random.uniform(0.1, 0.44)
-    x = random.randrange(692, 712)  # 950,960
-    y = random.randrange(497, 512)  # 490,500
-    pyautogui.moveTo(x, y, duration=b)
-    b = random.uniform(0.01, 0.09)
-    pyautogui.click(duration=b)
     time.sleep(c)
-
+    Image_Rec_single_closest("images/" + item + "_icon.png") # item
     c = random.uniform(0.1, 1)
-    b = random.uniform(0.01, 0.12)
-    x = random.randrange(777, 792)  # 950,960
-    y = random.randrange(612, 628)  # 570, 590 # 490,500
-    pyautogui.moveTo(x, y, duration=b)
-    b = random.uniform(0.01, 0.09)
-    pyautogui.click(duration=b)
     time.sleep(c)
     pyautogui.press('space')
-    #c = random.uniform(6, 14.5)
-    #time.sleep(c)
+    c = random.uniform(1, 2)
+    time.sleep(c)
+    while functions.make_enabled("make_herb.png") == 1:
+        pyautogui.press('space')
+        e = random.uniform(0.1, 0.9)
+        time.sleep(e)
+    if Pause:
+        c = random.uniform(0, 10)
+        time.sleep(c)
 
 def single_pick_potion_item(v,u):
     c = random.uniform(0.1, 0.7)
@@ -115,30 +142,30 @@ def pick_potion_item(v,u):
     c = random.uniform(0.1, 0.5)
     time.sleep(c)
 
-def grind_horns(item):
-    c = random.uniform(0.1, 0.8)
-    find_Object(1)
-    time.sleep(c)
-    c = random.uniform(0.1, 0.6)
-    deposit_secondItem()
-    time.sleep(c)
-    pick_potion_item(470, 485)
-    c = random.uniform(0.1, 0.25)
-    exit_bank()
-    time.sleep(c)
-    combine_items()
-    while vial_inv(item) > 0:  # harra #guam #toad
-        while skill_lvl_up() == 0:
-            print('skills are: ', skill_lvl_up())
-            print('items left: ', vial_inv(item))  # guam #harra
-            print('keep making money!!!')
-            if vial_inv(item) == 0:  # guam #harra
-                break
-        if vial_inv(item) == 0:  # guam #harra
-            break
-        if skill_lvl_up() == 1:
-            break
-    time.sleep(c)
+# def grind_horns(item):
+#     c = random.uniform(0.1, 0.8)
+#     find_Object(1)
+#     time.sleep(c)
+#     c = random.uniform(0.1, 0.6)
+#     deposit_secondItem()
+#     time.sleep(c)
+#     pick_potion_item(470, 485)
+#     c = random.uniform(0.1, 0.25)
+#     exit_bank()
+#     time.sleep(c)
+#     combine_items()
+#     while vial_inv(item) > 0:  # harra #guam #toad
+#         while skill_lvl_up() == 0:
+#             print('skills are: ', skill_lvl_up())
+#             print('items left: ', vial_inv(item))  # guam #harra
+#             print('keep making money!!!')
+#             if vial_inv(item) == 0:  # guam #harra
+#                 break
+#         if vial_inv(item) == 0:  # guam #harra
+#             break
+#         if skill_lvl_up() == 1:
+#             break
+#     time.sleep(c)
 def cast_superglass(v,u):
     c = random.uniform(0.1, 0.3)
     d = random.uniform(0.01, 0.15)
@@ -290,7 +317,7 @@ def clean_weeds(x,y,name):
 
 
 
-def make_poition(item):
+def make_potion(item, vialx, vialy, herbx, herby):
     c = random.uniform(0.1, 0.6)
     error_c = 0
     while functions.bank_ready(False) == False:
@@ -302,13 +329,13 @@ def make_poition(item):
         error_c += 1
     deposit_all_Bank()
     time.sleep(c)
-    single_pick_potion_item(185, 124) # water
+    single_pick_potion_item(vialx, vialy) # water
     c = random.uniform(0.1, 0.25)
-    single_pick_potion_item(230, 124)
+    single_pick_potion_item(herbx, herby) # herb item
     c = random.uniform(0.1, 0.25)
     exit_bank()
     time.sleep(c)
-    combine_items()
+    combine_items(item)
     while vial_inv(item) > 0: #harra #guam #toad
         while skill_lvl_up() == 0:
             print('skills are: ', skill_lvl_up())
@@ -341,13 +368,13 @@ def weedcleaning(i, x, y, name):
 def potionmaking(i):
     j = round(i/14)
     while j > 0:
-            make_poition('guam')
+            make_potion('guam', 232, 307, 183, 341) # item, vialx, vialy, herbx, herby
             #make_poition('irit', 426,444)
             #make_poition('irit', 328, 160)
             j -= 1
 
 if __name__ == "__main__":
     #superglassmaking(50)
-    potionmaking(6402)
-    #weedcleaning(2986, 137, 124, 'harra')
+    weedcleaning(100, 185, 305, 'guam')
+    potionmaking(100)
     #os.system('shutdown -s -f')
