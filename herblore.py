@@ -368,13 +368,21 @@ def weedcleaning(i, x, y, name):
 def potionmaking(i):
     j = round(i/14)
     while j > 0:
+            # used to make unfinished potions, 'item' is the herb name
+            # vailx and vialy is the bank inventory of the vials of water
+            # herbx and herby is the bank inventory for the herb
             make_potion('guam', 232, 307, 183, 341) # item, vialx, vialy, herbx, herby
-            #make_poition('irit', 426,444)
-            #make_poition('irit', 328, 160)
             j -= 1
 
 if __name__ == "__main__":
     #superglassmaking(50)
+    # weedcleaning is used to clean herbs, the function values order is:
+    # number of grimy herbs to clean.
+    # the x and y of the grimy herb in the bank inventory.
+    # name of the 'herb'. #guam #harra #ranarr #irit #kwuarm #avan #cada #lant #cad #mar #tar
     weedcleaning(100, 185, 305, 'guam')
+    
+    # potionmaking is used to make unfinished potions refer to the potionmaking function to make changes.
+    # The variable it takes is the number of unfinished potions to make.
     potionmaking(100)
     #os.system('shutdown -s -f')
