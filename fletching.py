@@ -538,10 +538,25 @@ def fletch_bows(name, x_i, y_i, number, i=55):
 
 j = round(6800/14)
 while j > 0:
+    # string_bows used to string bows variables for function is:
+    # file path for the bows image, 
+    # the x and y for the bow item in the bank inventory
+    # the x and y for the bow string in the bank inventory
     string_bows('images/magic_longbow.png', 327, 336, 378, 269)
+    
+    # fletch_bows is used to fletch wood into shafts or bows. can also be used to cut gems into bolt tips.
+    # fletch bows variables are: # file path for the gem or the wood type: #ruby_icon  #sapphire_icon #diamond_icon #wood_icon #oak_icon #maple_icon
+    # the x and y for the item in the bank inventory
+    # the number or space to press to make the type of bow, shafts or bolt tips.
+    # use 80 for making bolt tips else use 55 due to the timing of fletching items
+    
     #fletch_bows('images/ruby_icon.png', 330, 126, 'space', 80)
     print('actions left:', j)
+    
+    # fletch_bolts is used for adding feathers to shafts, bolt tips to bolts or arrow tips to shafts.
     #fletch_bolts()
+    
+    # fletch_darts are used to make unfinished dart tips with feathers or unfinished bolts with feathers
     #fletch_darts()
     j -= 1
 #os.system('shutdown -s -f')
