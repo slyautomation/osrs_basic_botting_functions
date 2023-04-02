@@ -359,8 +359,16 @@ def fletch_bolts():
     pyautogui.click(duration=b)
     time.sleep(c)
     pyautogui.press('space')
+    time_start = time.time()
+    time_end = 0
     c = random.uniform(12.5, 14.5)
-    time.sleep(c)
+    while time_end < c:
+        if functions.make_enabled('make_how.png') == 1:
+            pyautogui.press('space')
+        time_end = time.time() - time_start
+        if skill_lvl_up() == 1:
+            break
+        time.sleep(0.1)
 
 def string_bow(bow):
     c = random.uniform(0.1, 1.5)
