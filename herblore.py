@@ -379,7 +379,7 @@ if __name__ == "__main__":
     # weedcleaning is used to clean herbs, the function values order is:
     # number of grimy herbs to clean.
     # the x and y of the grimy herb in the bank inventory.
-    # name of the 'herb'. #guam #harra #ranarr #irit #kwuarm #avan #cada #lant #cad #mar #tar
+    # name of the 'herb'. #guam #harra #ranarr #irit #kwuarm #avan #cada #lant #cad #marre #tar
     weedcleaning(100, 185, 305, 'guam')
     
     # potionmaking is used to make unfinished potions refer to the potionmaking function to make changes.
