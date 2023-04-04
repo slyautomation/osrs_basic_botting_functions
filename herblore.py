@@ -336,8 +336,13 @@ def make_potion(item, vialx, vialy, herbx, herby):
     exit_bank()
     time.sleep(c)
     combine_items(item)
-    while vial_inv(item) > 0: #harra #guam #toad
+    time_start = time.time()
+    time_end = 0
+    i = 9
+    x = random.uniform(i, i+5)
+    while vial_inv(item) > 0 and time_end < x: #harra #guam #toad
         while skill_lvl_up() == 0:
+            time_end = time.time() - time_start
             print('skills are: ', skill_lvl_up())
             print('items left: ', vial_inv(item)) #guam #harra
             print('keep making money!!!')
