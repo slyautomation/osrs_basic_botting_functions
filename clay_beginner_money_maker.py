@@ -1,5 +1,6 @@
 from threading import Thread
 
+import keyboard
 from PIL import ImageGrab
 
 import core
@@ -296,7 +297,7 @@ def find_banker():
 
 def depositbox():
     global actions
-    if functions.Image_count_alpha('bank_deposit_box.png', 0.8, 0, 0, 700, 800) > 0:
+    if functions.Image_count('bank_deposit.png', 0.8, 0, 0, 700, 800) > 0:
         b = random.uniform(0.25, 0.65)
         x = random.randrange(370, 390)  # 950,960
         y = random.randrange(440, 460)  # 490,500
@@ -324,18 +325,23 @@ def inv_count(name):
     return Image_count(name + '_ore.png')
 
 def timer_countdown():
-    global Run_Duration_hours
+    global Run_Duration_hours, stop_script
     t_end = time.time() + (60 * 60 * Run_Duration_hours)
     #print(t_end)
     final = round((60 * 60 * Run_Duration_hours) / 1)
     #print(final)
     for i in range(final):
+        caps = keyboard.is_pressed('capslock')
+        if caps or stop_script:
+            stop_script = True
+            print('\n manually stopped script!!!')
+            exit()
         # the exact output you're looking for:
         print(bcolors.OK + f'\r[%-10s] %d%%' % ('='*round((i/final)*10), round((i/final)*100)), f'time left: {(t_end - time.time())/60 :.2f} mins | coords: {spot} | status: {mined_text} | ore: {ore_count} | gems: {gem_count} | clues: {clue_count} | {actions}', end='')
         time.sleep(1)
 
 def moneymaker_clay(Take_Human_Break=False, Run_Duration_hours=4, color=6):
-    global spot, mined_text, time_left, powerlist, actions, powerlist, t_end, gem_count, ore_count, clue_count
+    global stop_script, spot, mined_text, time_left, powerlist, actions, powerlist, t_end, gem_count, ore_count, clue_count
     print("Will break in: %.2f" % (ibreak / 60) + " minutes |", "Mine Ore Selected: Clay")
     t1 = Thread(target=timer_countdown)
     t1.start()
@@ -354,6 +360,11 @@ def moneymaker_clay(Take_Human_Break=False, Run_Duration_hours=4, color=6):
     if step != 5:
         rim_minetoclay()
     while time.time() < t_end:
+        caps = keyboard.is_pressed('capslock')
+        if caps or stop_script:
+            stop_script = True
+            print('\n manually stopped script!!!')
+            exit()
         invent = functions.invent_enabled()
         if invent == 0:
             actions = 'opening inventory'
@@ -393,7 +404,7 @@ mined_text = 'Not Mining'
 ore_count = 0
 gem_count = 0
 clue_count = 0
-
+stop_script = False
 # ----- OBJECT MARKER COLOR FOR CLAY ------
 red = 0
 green = 1
@@ -401,6 +412,6 @@ amber = 2
 
 # --------- CHANGE TO RUN FOR AMOUNT OF HOURS ----------------
 Run_Duration_hours = 4
-
+# TO STOP SCRIPT WHILE MINING HOLD CAPSLOCK KEY
 moneymaker_clay(Take_Human_Break=False, Run_Duration_hours=Run_Duration_hours, color=green)
 
