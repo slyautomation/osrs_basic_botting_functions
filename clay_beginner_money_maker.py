@@ -298,13 +298,15 @@ def find_banker():
 def depositbox():
     global actions
     if functions.Image_count('bank_deposit.png', 0.8, 0, 0, 700, 800) > 0:
-        b = random.uniform(0.25, 0.65)
+        b = random.uniform(0.1, 0.65)
         x = random.randrange(370, 390)  # 950,960
         y = random.randrange(440, 460)  # 490,500
         pyautogui.moveTo(x, y, duration=b)
-        b = random.uniform(0.1, 0.19)
+        b = random.uniform(0.01, 0.1)
         pyautogui.click(duration=b)
         actions = 'successful deposit...'
+        c = random.uniform(0.1, 1)
+        time.sleep(c)
         gem_count = int(count_gems() + count_gems2())
         ore_count = int(inv_count('clay'))
         clue_count = int(count_geo())
@@ -376,7 +378,7 @@ def moneymaker_clay(Take_Human_Break=False, Run_Duration_hours=4, color=6):
         clue_count = int(count_geo())
         inventory = gem_count + ore_count + clue_count
         if inventory > 27:
-            random_breaks(0.2, 0.7)
+            random_breaks(0.1, 0.7)
             actions = 'Going to Bank'
             rim_minetobank()
             actions = 'Going to Mining Spot'
