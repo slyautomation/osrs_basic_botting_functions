@@ -91,7 +91,7 @@ options = {0: random_inventory,
 
 def drop_fish():
     global actions
-    actions = "droping fish"
+    actions = "dropping fish"
     invent_crop()
     drop_item()
     image_Rec_clicker(r'prawn_fish.png', 'dropping item', 5, 5, 0.9, 'left', 10, False, False)
@@ -196,6 +196,10 @@ def powerfisher(fish_type, Run_Duration_hours=6):
         else:
             z = 26
         if invent > z - 2:
+            invent = functions.invent_enabled()
+            if invent == 0:
+                actions = 'opening inventory'
+                pyautogui.press('esc')
             random_breaks(0.2, 0.7)
             drop_fish()
             random_breaks(0.2, 0.7)
