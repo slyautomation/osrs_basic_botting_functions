@@ -114,7 +114,7 @@ def powerattack_text(monster='chicken', burybones=True, Pickup_loot=False, Take_
         resizeImage()
         combat_text = Image_to_Text('thresh', 'textshot.png')
         combat_text = re.sub('[^A-Za-z0-9]+', ' ', combat_text)
-        print(combat_text)
+        #print(combat_text)
         attack = 0
         for monsters in monster_array[group]:
             #print(monsters)
