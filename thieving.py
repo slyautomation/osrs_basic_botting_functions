@@ -188,6 +188,10 @@ def steal_man():
         time_end = time.time() - time_start
         c = random.uniform(3, 5)
         if time_end > c:
+            invent = functions.invent_enabled()
+            if invent == 0:
+                actions = 'opening inventory'
+                pyautogui.press('esc')
             min_val, max_val, min_loc, max_loc = value_alpha('money_bag_2.png')
             if max_val == 1:
                 x = max_loc[0] + random.randrange(1, 15)
