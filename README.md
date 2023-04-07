@@ -3,6 +3,8 @@
 Full tutorial on creating Functions for automation using Python for osrs botting. 
 The example used will be woodcutting, where the script will use colour detection using opencv and use pyautogui to move the mouse, click and use the keyboard to drop items using an image recognition module that will detect the wood icons in the inventory.
 
+Consider donating if you found the project fun and learnt more about python: https://www.buymeacoffee.com/slyautomatG
+
 Other python files will also use tesseract-OCR to detect text within images using tesseract-OCR image to text recognition functions.
 
 ## Setup
@@ -259,8 +261,6 @@ Image
 
 You'll now be able to type in the pip command no issues
 
-Consider donating if you found the project fun and learnt more about python.
 
-https://www.buymeacoffee.com/slyautomatG
  
 
