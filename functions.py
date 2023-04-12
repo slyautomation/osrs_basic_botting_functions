@@ -796,7 +796,7 @@ def xp_quick():
     im = ImageGrab.grab(bbox=(left, top, right, bottom))
     im.save('images/xp_gain.png', 'png')
 
-def xp_gain_check(image, threshold=0.7):
+def xp_gain_check(image, threshold=0.95):
     xp_quick()
     global iflag
     iflag = False
@@ -814,17 +814,14 @@ def xp_gain_check(image, threshold=0.7):
     corr_img = cv2.matchTemplate(img, temp_a, cv2.TM_CCORR_NORMED, mask=alpha)
     # search for max score
     #result = img.copy()
-    max_val = 1
-    while max_val > threshold:
-        # find max value of correlation image
-        min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(corr_img)
+    max_val = 0
+    min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(corr_img)
         # print(max_val, max_loc)
-
-        if max_val > threshold:
-            # draw match on copy of input
-            return True
-        else:
-            return False
+    if max_val > threshold:
+         # draw match on copy of input
+        return True
+    else:
+        return False
         
 def McropImage_quick():
     left = 150
