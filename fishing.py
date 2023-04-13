@@ -102,7 +102,7 @@ def drop_fish():
     actions = "all fish dropped"
 
 
-def find_fish(left=0, top=0, right=800, bottom=800, boundaries=[([110, 100, 10], [195, 180, 80])]):
+def find_fish(showCoords=False, left=0, top=0, right=800, bottom=800, boundaries=[([110, 100, 10], [195, 180, 80])]):
     functions.screen_Image(left, top, right, bottom)
     image = cv2.imread('images/screenshot.png')
     image = cv2.rectangle(image, pt1=(600, 0), pt2=(850, 200), color=(0, 0, 0), thickness=-1)
@@ -128,7 +128,9 @@ def find_fish(left=0, top=0, right=800, bottom=800, boundaries=[([110, 100, 10],
         c = max(contours, key=cv2.contourArea)
         #print(contours)
         x, y, w, h = cv2.boundingRect(c)
-        print(x, y, w, h)
+        #image = cv2.rectangle(image, pt1=(x, y), pt2=(x+w, y+h), color=(0, 0, 255), thickness=2)
+        if showCoords:
+            print(x, y, w, h)
         x = random.randrange(x + 5, x + max(w - 5, 6)) + left  # 950,960
         #print('x: ', x)
         y = random.randrange(y + 5, y + max(h - 5, 6)) + top  # 490,500
@@ -143,7 +145,7 @@ def find_fish(left=0, top=0, right=800, bottom=800, boundaries=[([110, 100, 10],
         return (x, y)
     else:
         return False
-def pick_random_fishing_spot(type):
+def pick_random_fishing_spot(showCoords=False):
     fish = find_fish()
     return fish
 
@@ -218,6 +220,7 @@ fish_type = 'prawn_fish'
 fish_count = 0
 clue_count = 0
 #-------------------------------
+
 
 if __name__ == "__main__":
     time.sleep(2)
