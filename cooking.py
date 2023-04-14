@@ -20,7 +20,7 @@ from functions import pick_item, mini_map_image, random_breaks, find_Object, Ima
 from functions import pick_item_right
 from functions import exit_bank
 
-
+pyautogui.FAILSAFE = False
 def random_pause():
     b = random.uniform(20, 250)
     print('pausing for ' + str(b) + ' seconds')
@@ -339,6 +339,9 @@ def cook_all_fish_fire(Take_Human_Break=False):
         time_start = time.time()
         while not cooking_time:
             all_prawns = count_cook_rod()
+            if functions.make_enabled('make_how.png') == 1:
+                pyautogui.press('space')
+                cooking_time = True
             if skill_lvl_up() != 0:
                 random_breaks(0.1, 0.25)
                 find_Object(1, left=0, top=0, right=1890 - 1280, bottom=800)  # green
