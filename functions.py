@@ -791,15 +791,13 @@ def xp_quick():
     left = 560
     top = 95
     right = 595
-    bottom = 135
+    bottom = 150
 
     im = ImageGrab.grab(bbox=(left, top, right, bottom))
     im.save('images/xp_gain.png', 'png')
 
-def xp_gain_check(image, threshold=0.95):
+def xp_gain_check(image, threshold=0.95, showCoords=False):
     xp_quick()
-    global iflag
-    iflag = False
     # read screenshot
     img = cv2.imread('images/xp_gain.png')
 
@@ -816,7 +814,8 @@ def xp_gain_check(image, threshold=0.95):
     #result = img.copy()
     max_val = 0
     min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(corr_img)
-        # print(max_val, max_loc)
+    if showCoords:
+        print(max_val, max_loc)
     if max_val > threshold:
          # draw match on copy of input
         return True
