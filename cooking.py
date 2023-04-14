@@ -308,16 +308,11 @@ def drop_fish():
     image_Rec_clicker(r'salmon_fish.png', 'dropping item', 5, 5, 0.7, 'left', 10, False)
     release_drop_item()
 
-def cook_all_fish_fire(Take_Human_Break=False):
-    Image_Rec_single('salmon_fish.png','cook fish', 5, 5, 0.99, 'left', 8, False)
-    random_breaks(0.1, 0.25)
-    find_Object_precise(1, deep=5)  # green
-    random_breaks(1, 1.5)
-    pyautogui.press('space')
-    salmon_1 = Image_count('salmon_fish.png', 0.99)
-    trout_1 = Image_count('trout_fish.png', 0.99)
-    salmon_2 = Image_count('salmon_cooked.png', 0.99)
-    trout_2 = Image_count('trout_cooked.png', 0.99)
+def count_cook_rod():
+    salmon_1 = functions.invent_count('salmon_fish.png', 0.99)
+    trout_1 = functions.invent_count('trout_fish.png', 0.99)
+    salmon_2 = functions.invent_count('salmon_cooked.png', 0.99)
+    trout_2 = functions.invent_count('trout_cooked.png', 0.99)
     if salmon_1 is None:
         salmon_1 = 0
     if salmon_2 is None:
@@ -327,37 +322,48 @@ def cook_all_fish_fire(Take_Human_Break=False):
     if trout_2 is None:
         trout_2 = 0
     all_prawns = (int(salmon_1) + int(trout_1)) - (int(salmon_2) + int(trout_2))
+    return all_prawns
+def cook_all_fish_fire(Take_Human_Break=False):
+    Image_Rec_single('salmon_fish.png','cook fish', 5, 5, 0.99, 'left', 8, False)
+    random_breaks(0.1, 1)
+    find_Object(1, left=0, top=0, right=1890-1280, bottom=800)  # green
+    random_breaks(5, 8)
+    pyautogui.press('space')
+    random_breaks(0.1, 1)
+    if functions.make_enabled('make_how.png') == 1:
+        pyautogui.press('space')
+    all_prawns = count_cook_rod()
     while all_prawns > 0:
-        salmon_1 = Image_count('salmon_fish.png', 0.99)
-        trout_1 = Image_count('trout_fish.png', 0.99)
-        salmon_2 = Image_count('salmon_cooked.png', 0.99)
-        trout_2 = Image_count('trout_cooked.png', 0.99)
-        if salmon_1 is None:
-            salmon_1 = 0
-        if salmon_2 is None:
-            salomn_2 = 0
-        if trout_1 is None:
-            trout_1 = 0
-        if trout_2 is None:
-            trout_2 = 0
-        all_prawns = (int(salmon_1) + int(trout_1)) - (int(salmon_2) + int(trout_2))
-        print('cooking still: ', all_prawns)
+        all_prawns = count_cook_rod()
         cooking_time = False
         time_start = time.time()
         while not cooking_time:
-            cooking_time = xp_gain_check('cooking_xp.png', 0.8)
+            all_prawns = count_cook_rod()
+            if skill_lvl_up() != 0:
+                random_breaks(0.1, 0.25)
+                find_Object(1, left=0, top=0, right=1890 - 1280, bottom=800)  # green
+                random_breaks(0.6, 1.2)
+                pyautogui.press('space')
+                cooking_time = True
+            if all_prawns <= 0:
+                print('all fish cooked')
+                cooking_time = True
+                break
+            print('cooking still: ', all_prawns)
+            cooking_time = xp_gain_check('cooking_xp.png', 0.9)
             if not cooking_time:
-                cooking_time = xp_gain_check('cooking_xp2.png', 0.8)
+                cooking_time = xp_gain_check('cooking_xp2.png', 0.9)
             print(cooking_time)
             time_end = time.time() - time_start
             print('seconds count: %.2f' % time_end)
             x = random.uniform(7, 10)
             if time_end > x:
                 Image_Rec_single('salmon_fish.png','cook fish', 5, 5, 0.99, 'left', 8, False)
-                random_breaks(0.1, 0.25)
-                find_Object_precise(1, deep=5)  # green
-                random_breaks(1, 1.5)
-                pyautogui.press('space')
+                random_breaks(0.1, 0.5)
+                find_Object(1, left=0, top=0, right=1890 - 1280, bottom=800)  # green
+                random_breaks(0.1, 0.5)
+                if functions.make_enabled('make_how.png') == 1:
+                    pyautogui.press('space')
                 cooking_time = True
                 break
         if Take_Human_Break:
@@ -382,6 +388,12 @@ def cook_all_critters(Take_Human_Break=False):
         time_start = time.time()
         while not cooking_time:
             all_prawns = count_cook()
+            if skill_lvl_up() != 0:
+                random_breaks(0.1, 0.25)
+                find_Object(1, left=0, top=0, right=1890 - 1280, bottom=800)  # green
+                random_breaks(0.6, 1.2)
+                pyautogui.press('space')
+                cooking_time = True
             if all_prawns <= 0:
                 cooking_time = True
                 break
@@ -419,6 +431,39 @@ def count_cook():
     all_prawns = int(prawn_1) - (int(prawn_2) + int(prawn_3) + int(prawn_4))
     return all_prawns
 
+def barb_village_powercook_and_fish(Run_Duration_hours=6, invent_full=27):
+    t_end = time.time() + (60 * 60 * Run_Duration_hours)
+    while time.time() < t_end:
+        invent = functions.invent_enabled()
+        #print(invent)
+        if invent == 0:
+            pyautogui.press('esc')
+        invent = functions.invent_count('salmon_fish.png') + functions.invent_count(r'sea_puzzle.png')
+        while invent < invent_full:
+            invent = functions.invent_enabled()
+            #print(invent)
+            if invent == 0:
+                pyautogui.press('esc')
+            resizeImage()
+            fishing_text = Image_to_Text('thresh', 'textshot.png')
+            if fishing_text.strip().lower() != 'fishing' and fishing_text.strip().lower() != 'fishinq' and fishing_text.strip().lower() != 'ishing' and fishing_text.strip().lower() != 'pishing':
+                random_breaks(0.2, 3)
+                pick_random_fishing_spot('salmon_fish')
+                random_breaks(5, 10)
+            if skill_lvl_up() != 0:
+                print("\rfish & clues: ", invent, 'leveled up!', end='')
+                random_breaks(0.2, 3)
+                pyautogui.press('space')
+                random_breaks(0.1, 3)
+                pyautogui.press('space')
+                a = random.randrange(0, 2)
+                # print(a)
+                spaces(a)
+            invent_crop()
+            invent = functions.invent_count('salmon_fish.png') + functions.invent_count('sea_puzzle.png')
+            print("\rfish & clues: ", invent, end='')
+        cook_all_fish_fire()
+        drop_fish()
 def alkarid_powercook_and_fish(Take_Human_Break=False, Run_Duration_hours=6):
     t_end = time.time() + (60 * 60 * Run_Duration_hours)
     while time.time() < t_end:
@@ -460,11 +505,13 @@ def alkarid_powercook_and_fish(Take_Human_Break=False, Run_Duration_hours=6):
         cook_all_critters(Take_Human_Break)
         drop_prawns()
 
+
 # while True:
 #     print("\rfish & clues: ", count_cook(), end='')
 if __name__ == "__main__":
     x = random.randrange(100, 250)
     y = random.randrange(400, 500)
     pyautogui.click(x, y, button='right')
-    alkarid_powercook_and_fish(Take_Human_Break=True, Run_Duration_hours=3)
+    barb_village_powercook_and_fish(Run_Duration_hours=6, invent_full=24)
+    #alkarid_powercook_and_fish(Take_Human_Break=True, Run_Duration_hours=3)
     #make_banking_food(1000, 'pizza') # makes 1000 food at the bank
