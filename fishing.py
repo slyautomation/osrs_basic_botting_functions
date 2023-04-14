@@ -102,7 +102,7 @@ def drop_fish():
     actions = "all fish dropped"
 
 
-def find_fish(showCoords=False, left=0, top=0, right=800, bottom=800, boundaries=[([110, 100, 10], [195, 180, 80])]):
+def find_fish(showCoords=False, left=0, top=0, right=800, bottom=800, boundaries=[([110, 100, 0], [195, 180, 60])]):
     functions.screen_Image(left, top, right, bottom)
     image = cv2.imread('images/screenshot.png')
     image = cv2.rectangle(image, pt1=(600, 0), pt2=(850, 200), color=(0, 0, 0), thickness=-1)
