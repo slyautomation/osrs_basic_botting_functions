@@ -791,7 +791,7 @@ def xp_quick():
     left = 560
     top = 95
     right = 595
-    bottom = 150
+    bottom = 220
 
     im = ImageGrab.grab(bbox=(left, top, right, bottom))
     im.save('images/xp_gain.png', 'png')
