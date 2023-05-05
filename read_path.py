@@ -4,7 +4,7 @@ import yaml
 with open("pybot-config.yaml", "r") as yamlfile:
     data = yaml.load(yamlfile, Loader=yaml.FullLoader)
 
-pc_profile = data[0]['Config']['cpc_profile']
+pc_profile = data[0]['Config']['pc_profile']
 
 def get_current_path():
     with open(pc_profile + r'\Desktop\paths.txt', 'r') as file:
