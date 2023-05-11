@@ -1,11 +1,11 @@
-import platform
+import config_generator
+import core
 
 import numpy as np
 import cv2
 import pyautogui
 import random
 import time
-
 from shapely.geometry import Polygon
 
 import slyautomation_title
@@ -13,7 +13,10 @@ import yaml
 from PIL import Image, ImageGrab
 import os
 
+
+import platform
 global hwnd
+hwnd = 0
 global iflag
 global icoord
 iflag = False
@@ -22,15 +25,12 @@ newTime_break = False
 global timer
 global timer_break
 global ibreak
-import config_generator
-import core
+
 import pytesseract
 
 with open("pybot-config.yaml", "r") as yamlfile:
     data = yaml.load(yamlfile, Loader=yaml.FullLoader)
 
-
-#print(data[0]['Config']['tesseract_path'])
 pytesseract.pytesseract.tesseract_cmd = data[0]['Config']['tesseract_path'] + "tesseract"
 try:
     data[0]['Config']['tesseract_path'].index("(x86)")
@@ -74,9 +74,8 @@ except OSError:
     pass
 except FileNotFoundError:
     pass
-
+#
 print('jagex files deleted')
-import core
 
 def deposit_all_Bank():
     banker = 50
