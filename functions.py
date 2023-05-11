@@ -745,7 +745,31 @@ def deposit_secondItem():
     pyautogui.click(duration=b, button='left')
     time.sleep(c)
 
-def mini_map_image(image, iwidth=0, iheight=0, threshold=0.7, clicker='left', xspace=0, yspace=0, Debug=False):
+def max_point(x, y, radius):
+    # Calculate the distance between the point (x, y) and the center of the circle
+    x = x - 745
+    y = y - 110
+    print(x,y)
+    distance = math.sqrt(x**2 + y**2)
+    print(distance)
+    # If the distance is less than or equal to the radius, the point is inside the circle
+    if distance <= radius:
+        x = x + 745
+        y = y + 110
+        return x, y, True
+
+    # If the distance is greater than the radius, the point is outside the circle
+    # Calculate the angle between the point and the x-axis
+    angle = math.atan2(y, x)
+
+    # Calculate the maximum x and y coordinates that are on the circle
+    max_x = radius * math.cos(angle)
+    max_y = radius * math.sin(angle)
+    max_x = max_x + 744
+    max_y = max_y + 109
+    return max_x, max_y, False
+
+def mini_map_image(image, iwidth=0, iheight=0, threshold=0.7, clicker='left', xspace=0, yspace=0, Debug=True):
     screen_Image(661, 27, 826, 190, 'mini_map.png')
     img_rgb = cv2.imread('images/mini_map.png')
     img_gray = cv2.cvtColor(img_rgb, cv2.COLOR_BGR2GRAY)
@@ -761,13 +785,12 @@ def mini_map_image(image, iwidth=0, iheight=0, threshold=0.7, clicker='left', xs
         x_1 = random.randrange(iwidth, iwidth + 1 + xspace)
         y_1 = random.randrange(iheight, iheight + 1 + yspace)
         if Debug:
-            print(x_1,y_1)
-
-        x = min(max(675, pt[0] + x_1 + 661), 815)
-        y = min(max(48, pt[1] + y_1 + 27), 180)
+            print("random points:", x_1,y_1)
+            print("final points:", 661 + pt[0] + x_1, 27 + pt[1] + y_1)
+        x, y, within_circle = max_point(661 + pt[0] + x_1, 27 + pt[1] + y_1, 74)
         icoord = (x, y)
         if Debug:
-            print(icoord)
+            print(icoord, within_circle)
         b = random.uniform(0.1, 0.7)
         pyautogui.moveTo(icoord, duration=b)
         b = random.uniform(0.01, 0.3)
