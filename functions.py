@@ -81,10 +81,10 @@ def deposit_all_Bank():
     banker = 50
     b = random.uniform(0.1, 0.77)
     x = random.randrange(480, 500)  # x = random.randrange(1040, 1050)
-    y = random.randrange(623, 637)  # y = random.randrange(775, 805)
+    y = random.randrange(626, 647)  # y = random.randrange(775, 805)
     pyautogui.moveTo(x, y, duration=b)
-    b = random.uniform(0.01, 0.23)
-    pyautogui.click(duration=b, button='left')
+    b = random.uniform(0.01, 0.1)
+    pyautogui.click(x, y, duration=b, button='left')
     c = random.uniform(0.1, 4.5)
     time.sleep(c)
 
@@ -745,8 +745,8 @@ def deposit_secondItem():
     pyautogui.click(duration=b, button='left')
     time.sleep(c)
 
-def mini_map_image(image, iwidth=0, iheight=0, threshold=0.7, clicker='left', xspace=0, yspace=0):
-    screen_Image(1941 - 1280, 27, 2106 - 1280, 190, 'mini_map.png')
+def mini_map_image(image, iwidth=0, iheight=0, threshold=0.7, clicker='left', xspace=0, yspace=0, Debug=False):
+    screen_Image(661, 27, 826, 190, 'mini_map.png')
     img_rgb = cv2.imread('images/mini_map.png')
     img_gray = cv2.cvtColor(img_rgb, cv2.COLOR_BGR2GRAY)
     template = cv2.imread('images/' + image, 0)
@@ -756,17 +756,27 @@ def mini_map_image(image, iwidth=0, iheight=0, threshold=0.7, clicker='left', xs
     threshold = threshold
     loc = np.where(res >= threshold)
     for pt in zip(*loc[::-1]):
-        # cv2.imwrite('images/res.png', img_rgb)
-        x = random.randrange(iwidth, iwidth + 1 + xspace) + 661
-        y = random.randrange(iheight, iheight + 1 + yspace) + 27
-        icoord = pt[0] + x
-        icoord = (icoord, pt[1] + y)
+        if Debug:
+            cv2.imwrite('images/res.png', img_rgb)
+        x_1 = random.randrange(iwidth, iwidth + 1 + xspace)
+        y_1 = random.randrange(iheight, iheight + 1 + yspace)
+        if Debug:
+            print(x_1,y_1)
+
+        x = min(max(675, pt[0] + x_1 + 661), 815)
+        y = min(max(48, pt[1] + y_1 + 27), 180)
+        icoord = (x, y)
+        if Debug:
+            print(icoord)
         b = random.uniform(0.1, 0.7)
         pyautogui.moveTo(icoord, duration=b)
         b = random.uniform(0.01, 0.3)
         pyautogui.click(icoord, duration=b, button=clicker)
-        # print(True)
+        if Debug:
+            print(True)
         return True
+    if Debug:
+        print(False)
     return False
 
 def mini_map_bool(image, threshold=0.7):
