@@ -427,6 +427,9 @@ def runecrafting_air_runes(bankrune_x=185,bankrune_y=305):
 bank_runes_position_x = 375
 bank_runes_position_y = 123
 Run_Duration_Hours = 4
+# object mark / highlught bank booth in falador green
+# mark / highlight object marker for the entrance to air alter yellow
+# mark / highlight object marker inside the air alter yellow and exit portal green
 
 if __name__ == "__main__":
     x = random.randrange(100, 250)
