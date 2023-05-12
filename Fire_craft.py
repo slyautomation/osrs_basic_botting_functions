@@ -1,3 +1,5 @@
+import os
+
 import numpy as np
 import cv2
 import pyautogui
@@ -102,6 +104,7 @@ def determine_position_to_firealter():
 
 
 def to_fire_craft():
+    global bank_runes_position_x, bank_runes_position_x
     step = 0
     invent = invent_enabled()
     print(invent)
@@ -118,7 +121,7 @@ def to_fire_craft():
         functions.find_Object(1, left=0, top=0, right=w_win, bottom=h_win)
         c = random.uniform(8, 10)
         time.sleep(c)
-        get_runes()
+        get_runes(bank_runes_position_x, bank_runes_position_y)
 
     if step == 0:
         time_start = time.time()
@@ -455,18 +458,19 @@ def make_runes():
 def count_runes():
     return Image_count('rune_icon.png', threshold=0.8)
 
-def get_runes():
+def get_runes(bank_x, bank_y):
     bank = Image_count('bank_deposit.png', 0.7)
     print("bank deposit open:", bank)
     if bank > 0:
-        pick_item(1770 - 1280, 635)
-        pick_item(1655 - 1280, 194)
-        exit_bank()
+        functions.deposit_all_Bank()
+        pick_item(bank_x, bank_y)
+        functions.exit_bank()
     else:
         print("bank inventory not found")
         making_fire_runes()
 
 def last_step_tofirealter():
+    global bank_runes_position_x, bank_runes_position_y
     time_start = time.time()
     time_end = time.time() - time_start
     x = random.uniform(7, 10)
@@ -479,12 +483,12 @@ def last_step_tofirealter():
             if laststep == True:
                 break
         if laststep == False:
-            making_fire_runes()
+            making_fire_runes(bank_runes_position_x, bank_runes_position_y)
             break
     random_breaks(9, 12)
 
 
-def making_fire_runes():
+def making_fire_runes(bank_x, bank_y):
     print("start of fire runecrafting script")
     a = 1  # random.randrange(1, 3)
     options = {1: to_fire_craft
@@ -504,12 +508,23 @@ def making_fire_runes():
     functions.find_Object(1, left=0, top=0, right=w_win, bottom=h_win)
     c = random.uniform(8, 10)
     time.sleep(c)
-    get_runes()
+    get_runes(bank_x, bank_y)
+
+
+bank_runes_position_x = 375
+bank_runes_position_y = 123
+Run_Duration_Hours = 4
+
+# object mark/ highlight bank chest in duel arena green
+# object mark/ highlight entrance to fire alter yellow
+# object mark/ highlight inside the fire alter yellow and the exit portal green
 
 if __name__ == "__main__":
     x = random.randrange(100, 250)
     y = random.randrange(400, 500)
     pyautogui.click(x, y, button='right')
-    j = 0
-    while j < 10:
-        making_fire_runes()
+    t_end = time.time() + (60 * 60 * Run_Duration_Hours)
+    while time.time() < t_end:
+        making_fire_runes(bank_runes_position_x, bank_runes_position_y)
+    #os.system('shutdown -s -f')
+    
