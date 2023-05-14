@@ -1,3 +1,7 @@
+import os
+
+import cv2
+import numpy as np
 import pyautogui
 import random
 import time
@@ -79,7 +83,38 @@ def bank_booth():
     pyautogui.click()
     time.sleep(c)
 
-
+def Image_Rec_single_random(image, threshold=0.7, clicker='left'):
+    functions.screen_Image(620, 480, 820, 750, 'closest.png')
+    img_rgb = cv2.imread('images/closest.png')
+    img_gray = cv2.cvtColor(img_rgb, cv2.COLOR_BGR2GRAY)
+    template = cv2.imread('images/' + image, 0)
+    w, h = template.shape[::-1]
+    pt = None
+    res = cv2.matchTemplate(img_gray, template, cv2.TM_CCOEFF_NORMED)
+    threshold = threshold
+    loc = np.where(res >= threshold)
+    close_list = []
+    close_points = []
+    pos = pyautogui.position()
+    for pt in zip(*loc[::-1]):
+        cv2.rectangle(img_rgb, pt, (pt[0] + w, pt[1] + h), (0, 0, 255), 2)
+        close_list.append(abs(abs(pos[0] - pt[0]) + abs(pos[1] - pt[1])))
+        close_points.append(pt)
+    if pt is None:
+        print('not found')
+        return False
+    pick_random_item = random.randrange(0, len(close_points))
+    coords = close_points[pick_random_item]
+    print(coords)
+    x = random.randrange(5, 20) + 620
+    y = random.randrange(5, 20) + 480
+    icoord = coords[0] + x
+    icoord = (icoord, coords[1] + y)
+    b = random.uniform(0.1, 0.7)
+    pyautogui.moveTo(icoord, duration=b)
+    b = random.uniform(0.01, 0.3)
+    pyautogui.click(icoord, duration=b, button=clicker)
+    return close_points
 def deposit_secondItem():
     c = random.uniform(0.4, 0.8)
     x = random.randrange(695, 715)  # 950,960
@@ -105,7 +140,81 @@ def deposit_secondItem():
     pyautogui.click(duration=b, button='left')
     time.sleep(c)
 
+def item_inv(item):
+    counter = 0
+    myScreenshot = pyautogui.screenshot()
+    myScreenshot.save(r"screen.png")
+    img_rgb = cv2.imread('screen.png')
+    img_gray = cv2.cvtColor(img_rgb, cv2.COLOR_BGR2GRAY)
+    template = cv2.imread('images/' + str(item), 0)
+    w, h = template.shape[::-1]
+    res = cv2.matchTemplate(img_gray, template, cv2.TM_CCOEFF_NORMED)
+    threshold = 0.8
+    loc = np.where(res >= threshold)
+    for pt in zip(*loc[::-1]):
+        cv2.rectangle(img_rgb, pt, (pt[0] + w, pt[1] + h), (0, 0, 255), 2)
+        counter += 1
+    #cv2.imwrite('res.png', img_rgb)
+    return counter
+def make_item(volume, name, name2, x_i, y_i, x_i2, y_i2, number, i=55):
+    j = round(volume/ 14)
+    while j > 0:
+        error_c = 0
+        while functions.bank_ready(False) == False:
+            if error_c > 3:
+                exit()
+            find_Object(1)
+            c = random.uniform(1, 3)
+            time.sleep(c)
+            error_c += 1
+        c = random.uniform(0.1, 0.6)
+        functions.deposit_all_Bank()
+        time.sleep(c)
+        pick_item(x_i, y_i)
+        pick_item(x_i2, y_i2)
+        exit_bank()
+        invent = functions.invent_enabled()
+        print(invent)
+        if invent == 0:
+            pyautogui.press('esc')
+        time_start = time.time()
+        time_end = 0
+        x = random.uniform(i, i+5)
+        while item_inv(name) > 0 and time_end < x:
+            invent = functions.invent_enabled()
+            print(invent)
+            if invent == 0:
+                pyautogui.press('esc')
+            e = random.uniform(0.1, 0.4)
+            time.sleep(e)
+            Image_Rec_single_random(name2, 0.7, 'left')
+            e = random.uniform(0.1, 0.9)
+            time.sleep(e)
+            Image_Rec_single_random(name, 0.7, 'left')
+            e = random.uniform(0.1, 1.1)
+            time.sleep(e)
+            pyautogui.press(number)
+            while skill_lvl_up() == 0 and time_end < x:
+                time_end = time.time() - time_start
+                print('seconds count: %.2f' % time_end)
+                print('items left: ', item_inv(name))
+                while functions.make_enabled('make_how.png') == 1:
+                    pyautogui.press(number)
+                    e = random.uniform(0.1, 0.9)
+                    time.sleep(e)
+                if item_inv(name) == 0:
+                    break
+                if skill_lvl_up() == 1:
+                    Image_Rec_single_random(name2, 0.7, 'left')
+                    e = random.uniform(0.1, 0.9)
+                    time.sleep(e)
+                    Image_Rec_single_random(name, 0.7, 'left')
+                    e = random.uniform(0.1, 0.4)
+                    time.sleep(e)
+                    pyautogui.press(number)
 
+        time.sleep(c)
+        j -= 1
 def wine():
     a = random.uniform(0.1, 0.35)
     bank_booth()
@@ -307,6 +416,70 @@ def drop_fish():
     drop_item()
     image_Rec_clicker(r'salmon_fish.png', 'dropping item', 5, 5, 0.7, 'left', 10, False)
     release_drop_item()
+
+def combine_items(item, Pause=False):
+    functions.Image_Rec_single_closest("images/vial_water.png") # water
+    c = random.uniform(0.1,0.9)
+    time.sleep(c)
+    Image_Rec_single_closest("images/" + item + "_icon.png") # item
+    c = random.uniform(0.1, 1)
+    time.sleep(c)
+    pyautogui.press('space')
+    c = random.uniform(1, 2)
+    time.sleep(c)
+    while functions.make_enabled("make_herb.png") == 1:
+        pyautogui.press('space')
+        e = random.uniform(0.1, 0.9)
+        time.sleep(e)
+    if Pause:
+        c = random.uniform(0, 10)
+        time.sleep(c)
+def make_raw_pies(volume=1000):
+    make_item(volume, 'pie_shell.png', 'raw_bear.png', 184, 340, 280, 340, 'space', i=30)
+    make_item(volume, 'bear_pie.png', 'raw_chompy.png', 375, 340, 320, 340, 'space', i=30)
+    make_item(volume, 'chompy_pie.png', 'raw_rabbit.png', 230, 340, 470, 340, 'space', i=30)
+def cooking_guild(volume=100, item='shark.png', x=375, y=305):
+    j = round(volume / 28)
+    while j > 0:
+        invent = functions.invent_enabled()
+        #print(invent)
+        if invent == 0:
+            pyautogui.press('esc')
+        time.sleep(0.1)
+        if functions.invent_count(item, 0.99) == 0:
+            find_Object(1, left=0, top=0, right=1890 - 1280, bottom=800)  # green
+            time_start = time.time()
+            while functions.make_enabled('bank_deposit.png') == 0:
+                time_end = time.time() - time_start
+                time.sleep(0.1)
+                if time_end > 15:
+                    break
+            if time_end < 15:
+                c = random.uniform(0.1,1.5)
+                time.sleep(c)
+                functions.deposit_all_Bank()
+                pick_item(x, y)
+                functions.exit_bank()
+
+        find_Object(0, left=0, top=0, right=1890 - 1280, bottom=800)  # green
+        time_start_2 = time.time()
+        while functions.make_enabled('make_how.png') == 0:
+            time_end_2 = time.time() - time_start_2
+            time.sleep(0.1)
+            if time_end_2 > 15:
+                break
+        if time_end_2 < 15:
+            c = random.uniform(0.1,1)
+            time.sleep(c)
+            pyautogui.press('space')
+            while functions.invent_count(item, 0.99) > 0:
+                inv = functions.invent_count(item, 0.99)
+                print('\r' + item + " : " + str(inv), end='')
+                time.sleep(0.1)
+            c = random.uniform(0.1, 3)
+            time.sleep(c)
+            j -= 1
+            print('\n' + str(j) + ' ' + item + ' runs left to cook')
 
 def count_cook_rod():
     salmon_1 = functions.invent_count('salmon_fish.png', 0.99)
@@ -515,6 +688,14 @@ if __name__ == "__main__":
     x = random.randrange(100, 250)
     y = random.randrange(400, 500)
     pyautogui.click(x, y, button='right')
-    barb_village_powercook_and_fish(Run_Duration_hours=6, invent_full=24)
-    #alkarid_powercook_and_fish(Take_Human_Break=True, Run_Duration_hours=3)
-    #make_banking_food(1000, 'pizza') # makes 1000 food at the bank
+    #barb_village_powercook_and_fish(Run_Duration_hours=6, invent_full=26)
+    #alkarid_powercook_and_fish(Take_Human_Break=False, Run_Duration_hours=5.4)
+    #make_banking_food(13000, 'wine') # makes 1000 food at the bank
+    #make_item(1852, 'grape.png', 'waterjug.png', 135, 125, 185, 125, 'space', i=30)
+    cooking_guild(volume=9000, item='shark.png', x=470, y=305)
+    print('making pies')
+    #make_raw_pies(volume=1000)
+    #make_item(773, 'pie_shell.png', 'raw_bear.png', 184, 340, 280, 340, 'space', i=30)
+    #make_item(783, 'bear_pie.png', 'raw_chompy.png', 375, 340, 325, 340, 'space', i=30)
+    #make_item(1012, 'chompy_pie.png', 'raw_rabbit.png', 230, 340, 470, 340, 'space', i=30)
+    #os.system('shutdown -s -f')
