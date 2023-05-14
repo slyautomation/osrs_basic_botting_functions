@@ -421,7 +421,7 @@ def combine_items(item, Pause=False):
     functions.Image_Rec_single_closest("images/vial_water.png") # water
     c = random.uniform(0.1,0.9)
     time.sleep(c)
-    Image_Rec_single_closest("images/" + item + "_icon.png") # item
+    Image_Rec_single_random("images/" + item + "_icon.png") # item
     c = random.uniform(0.1, 1)
     time.sleep(c)
     pyautogui.press('space')
