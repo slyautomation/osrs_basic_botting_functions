@@ -1,6 +1,7 @@
 import config_generator
 import core
 
+import math
 import numpy as np
 import cv2
 import pyautogui
