@@ -278,13 +278,16 @@ def Image_color(left=0, top=0, right=0, bottom=0):
         cv2.waitKey(0)
 
 
-def exit_bank():
-    #print('exit bank')
+def exit_bank(Debug=False):
+    if Debug:
+        print('exit bank')
     c = random.uniform(0.1, 0.7)
     x = random.randrange(523, 540)
-    #print('x: ', x)
+    if Debug:
+        print('x: ', x)
     y = random.randrange(40, 55)
-    #print('y: ', y)
+    if Debug:
+        print('y: ', y)
     b = random.uniform(0.1, 0.6)
     pyautogui.moveTo(x, y, duration=b)
     b = random.uniform(0.01, 0.3)
