@@ -385,18 +385,24 @@ def count_runes():
 
 
 def withdraw_bank_runes(rune_x,rune_y):
+    x = random.randrange(800, 900)
+    y = random.randrange(800, 900)
+    pyautogui.moveTo(x,y)
     error_c = 0
-    while functions.bank_ready(False) == False:
+    bank = functions.bank_ready(False)
+    while bank == False:
         if error_c > 3:
             exit()
         functions.find_Object(1, left=0, top=0, right=w_win, bottom=h_win) # mark / highlight object marker for the bank booth - GREEN
         c = random.uniform(3, 6)
         time.sleep(c)
+        bank = functions.bank_ready(False)
         error_c += 1
     print('bank booth')
     functions.deposit_all_Bank()
     functions.pick_item(rune_x, rune_y)
     functions.exit_bank(Debug=False)
+
 
 def runecrafting_air_runes(bankrune_x=185,bankrune_y=305):
     invent = functions.invent_enabled()
