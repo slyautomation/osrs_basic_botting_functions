@@ -350,8 +350,6 @@ def to_bank():
             mini_map_image('air_craft_bank.png', 5, 0, 0.7, 'left', 15, 10)
             if mini_map_bool('air_craft_bank.png', 0.7) == False:
                 print("air alter not found")
-                functions.find_Object(2, left=0, top=0, right=w_win, bottom=h_win)
-                random_breaks(8, 10)
                 runecrafting_air_runes(bank_runes_position_x, bank_runes_position_y)
             print("step 8 to bank not found")
         print("step 8 to bank")
