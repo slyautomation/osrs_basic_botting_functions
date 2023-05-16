@@ -151,6 +151,9 @@ def to_air_craft():
         options = {1: to_bank}
         options[b]()
         functions.find_Object(1, left=0, top=0, right=w_win, bottom=h_win)
+        x = random.randrange(800, 900)
+        y = random.randrange(800, 900)
+        pyautogui.moveTo(x, y, duration=0.1)
         print('bank booth')
         c = random.uniform(6.5, 8.5)
         time.sleep(c)
@@ -392,6 +395,9 @@ def withdraw_bank_runes(rune_x,rune_y):
         if error_c > 3:
             exit()
         functions.find_Object(1, left=0, top=0, right=w_win, bottom=h_win) # mark / highlight object marker for the bank booth - GREEN
+        x = random.randrange(800, 900)
+        y = random.randrange(800, 900)
+        pyautogui.moveTo(x, y, duration=0.1)
         c = random.uniform(3, 6)
         time.sleep(c)
         bank = functions.bank_ready(False)
@@ -424,6 +430,9 @@ def runecrafting_air_runes(bankrune_x=185,bankrune_y=305):
     options = {1: to_bank
                }
     options[b]()
+    x = random.randrange(800, 900)
+    y = random.randrange(800, 900)
+    pyautogui.moveTo(x, y, duration=0.1)
     withdraw_bank_runes(bankrune_x, bankrune_y) # mark / highlight object marker for the bank booth at falador - GREEN
 
 
