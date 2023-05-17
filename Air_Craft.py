@@ -394,6 +394,8 @@ def withdraw_bank_runes(rune_x,rune_y):
     while bank == False:
         if error_c > 3:
             exit()
+        time.sleep(0.1)
+        bank = functions.bank_ready(False)
         functions.find_Object(1, left=0, top=0, right=w_win, bottom=h_win) # mark / highlight object marker for the bank booth - GREEN
         x = random.randrange(800, 900)
         y = random.randrange(800, 900)
