@@ -395,8 +395,12 @@ def withdraw_bank_runes(rune_x,rune_y):
         if error_c > 3:
             exit()
         time.sleep(0.1)
-        bank = functions.bank_ready(False)
-        functions.find_Object(1, left=0, top=0, right=w_win, bottom=h_win) # mark / highlight object marker for the bank booth - GREEN
+        if Plugin_Enabled:
+            if plugin() == 808:
+                functions.find_Object(1, left=0, top=0, right=w_win, bottom=h_win) # mark / highlight object marker for the bank booth - GREEN
+        else:
+            functions.find_Object(1, left=0, top=0, right=w_win,
+                                 bottom=h_win)  # mark / highlight object marker for the bank booth - GREEN
         x = random.randrange(800, 900)
         y = random.randrange(800, 900)
         pyautogui.moveTo(x, y, duration=0.1)
@@ -437,7 +441,12 @@ def runecrafting_air_runes(bankrune_x=185,bankrune_y=305):
     pyautogui.moveTo(x, y, duration=0.1)
     withdraw_bank_runes(bankrune_x, bankrune_y) # mark / highlight object marker for the bank booth at falador - GREEN
 
-
+def plugin(category='animation pose'):
+    c = s.get("http://localhost:8081/events", stream=True)
+    data = simplejson.loads(c.text)
+    data[category]
+    #print(data[category])
+    return data[category]
 
 bank_runes_position_x = 375
 bank_runes_position_y = 123
@@ -446,6 +455,11 @@ Run_Duration_Hours = 4
 # mark / highlight object marker for the entrance to air alter yellow
 # mark / highlight object marker inside the air alter yellow and exit portal green
 
+# disable if not using a http socket plugin like statushttp or morghttp
+Plugin_Enabled = True
+if Plugin_Enabled:
+    s = requests.session()
+    
 if __name__ == "__main__":
     x = random.randrange(100, 250)
     y = random.randrange(400, 500)
