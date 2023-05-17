@@ -790,8 +790,8 @@ def mini_map_image(image, iwidth=0, iheight=0, threshold=0.7, clicker='left', xs
         y_1 = random.randrange(iheight, iheight + 1 + yspace)
         if Debug:
             print("random points:", x_1,y_1)
-            print("final points:", 661 + pt[0] + x_1, 27 + pt[1] + y_1)
-        x, y, within_circle = max_point(661 + pt[0] + x_1, 27 + pt[1] + y_1, 74)
+            print("final points:", 661 + pt[0] + x_1, 30 + pt[1] + y_1)
+        x, y, within_circle = max_point(661 + pt[0] + x_1, 30 + pt[1] + y_1, 74)
         icoord = (x, y)
         if Debug:
             print(icoord, within_circle)
