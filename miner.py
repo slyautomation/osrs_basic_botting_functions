@@ -1,6 +1,6 @@
 
 import datetime
-
+import win32gui
 from threading import Thread
 
 from functions import Image_count, invent_enabled
