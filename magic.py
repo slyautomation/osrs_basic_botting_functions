@@ -26,7 +26,15 @@ global timer
 global timer_break
 global ibreak
 
-
+def findWindow(data):  # find window name returns PID of the window
+    global hwnd
+    hwnd = win32gui.FindWindow(None, data)
+    # hwnd = win32gui.GetForegroundWindow()860
+    #print('findWindow:', hwnd)
+    win32gui.SetActiveWindow(hwnd)
+    # win32gui.ShowWindow(hwnd)
+    win32gui.MoveWindow(hwnd, 0, 0, 865, 830, True)
+    
 def random_break(start, c):
     global newTime_break
     startTime = time.time()
