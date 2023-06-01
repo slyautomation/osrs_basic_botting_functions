@@ -490,7 +490,7 @@ if __name__ == "__main__":
     green = 1
     purple = 3
     blue = 4
-
+    findWindow("RuneLite")
     plugins_enabled = False
     # ----- LIST OF WOOD TYPES --------
     powerlist = ['wood', 'oak', 'willow', 'maple', 'yew', 'magic', 'red']
