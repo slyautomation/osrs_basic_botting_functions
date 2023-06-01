@@ -5,7 +5,7 @@ import cv2
 import pyautogui
 import random
 import time
-
+import win32gui
 global hwnd
 global iflag
 global icoord
