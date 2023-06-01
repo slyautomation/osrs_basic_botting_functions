@@ -25,7 +25,7 @@ iflag = False
 with open("pybot-config.yaml", "r") as yamlfile:
     data = yaml.load(yamlfile, Loader=yaml.FullLoader)
 
-
+findWindow("RuneLite")
 
 x_win, y_win, w_win, h_win = core.getWindow('RuneLite')
 
