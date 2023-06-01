@@ -261,6 +261,7 @@ def steal_drop_fruit():
         pyautogui.press('shift')
 
 if __name__ == "__main__":
+    findWindow("RuneLite")
     steal_man()
     #steal_tea()
     #steal_drop_fruit()
