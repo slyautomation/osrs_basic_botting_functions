@@ -1,6 +1,6 @@
 import random
 import time
-
+import win32gui
 import cv2
 import numpy as np
 import pyautogui
