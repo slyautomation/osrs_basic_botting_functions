@@ -1,6 +1,7 @@
 import random
 import time
 import pyautogui
+import win32gui
 from functions import pick_item
 from functions import random_combat
 from functions import random_quests
