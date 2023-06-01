@@ -562,4 +562,5 @@ def moneymaker_mud_runes():
 #CraftNavToBank()
 #find_banker_good(3)
 #deposit_secondItem()
+findWindow("RuneLite")
 moneymaker_mud_runes()
