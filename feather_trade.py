@@ -94,5 +94,6 @@ def get_sandworms():
 Run_Duration_hours = 0.5
 t_end = time.time() + (60 * 60 * Run_Duration_hours)
 while time.time() < t_end:
+    findWindow("RuneLite")
     trade_tynan()
     get_sandworms()
