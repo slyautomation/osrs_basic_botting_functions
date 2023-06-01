@@ -2,6 +2,7 @@
 import pyautogui
 import random
 import time
+import win32gui
 from functions import invent_enabled, bank_ready, \
     Image_count, mini_map_image, skill_lvl_up, spaces, \
     pick_item, random_combat, random_quests, random_skills, \
