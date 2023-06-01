@@ -1,5 +1,5 @@
 from threading import Thread
-
+import win32gui
 import keyboard
 from PIL import ImageGrab
 
