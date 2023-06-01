@@ -209,6 +209,7 @@ def smith_to_40():
 
 
 if __name__ == "__main__":
+    findWindow("RuneLite")
     money_maker_water(6000, 0, Human_Break=True)
     #smith_items(1082, 2, 3, 'steel_chainbody')
     #steel_smithables = ['steel_axe', 'steel_scimitar', 'steel_nails', 'steel_chainbody']
