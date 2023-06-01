@@ -22,6 +22,15 @@ with open("pybot-config.yaml", "r") as yamlfile:
 
 x_win, y_win, w_win, h_win = core.getWindow(data[0]['Config']['client_title'])
 
+def findWindow(data):  # find window name returns PID of the window
+    global hwnd
+    hwnd = win32gui.FindWindow(None, data)
+    # hwnd = win32gui.GetForegroundWindow()860
+    #print('findWindow:', hwnd)
+    win32gui.SetActiveWindow(hwnd)
+    # win32gui.ShowWindow(hwnd)
+    win32gui.MoveWindow(hwnd, 0, 0, 865, 830, True)
+    
 def determine_position_to_bank():
     print('determining position to bank')
     if mini_map_bool('fire_craft_runealter.png', 0.85):
