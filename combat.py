@@ -171,6 +171,7 @@ if Plugin_Enabled:
     s = requests.session()
 
 if __name__ == "__main__":
+    findWindow("RuneLite")
     # ----- UPDATE WITH ALL VARIATIONS OF MONSTER'S IMAGE TO TEXT RESULT IN LINE WITH MONSTER_LIST -----
     monster_array = [
         ['chicken'], ['guard', 'gua rd'], ['cow', 'cou'], ['monk'], ['imp'], ['skeleton'], ['dwarf'], ['giant frog', 'giant', 'frog']
