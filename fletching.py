@@ -556,6 +556,7 @@ def fletch_bows(name, x_i, y_i, number, i=55):
 
 j = round(6800/14)
 while j > 0:
+    findWindow("RuneLite")
     # string_bows used to string bows variables for function is:
     # file path for the bows image, #images/magic_longbow.png #images/oak_longbow.png #images/maple_longbow.png
     # the x and y for the bow item in the bank inventory
