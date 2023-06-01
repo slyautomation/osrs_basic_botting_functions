@@ -689,10 +689,11 @@ def alkarid_powercook_and_fish(Take_Human_Break=False, Run_Duration_hours=6):
         cook_all_critters(Take_Human_Break)
         drop_prawns()
 
-findWindow("RuneLite")
+
 # while True:
 #     print("\rfish & clues: ", count_cook(), end='')
 if __name__ == "__main__":
+    findWindow("RuneLite")
     x = random.randrange(100, 250)
     y = random.randrange(400, 500)
     pyautogui.click(x, y, button='right')
