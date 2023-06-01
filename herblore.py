@@ -16,6 +16,16 @@ from functions import find_Object, deposit_all_Bank, deposit_secondItem, \
 iflag = False
 icoord = []
 pyautogui.FAILSAFE = False
+
+def findWindow(data):  # find window name returns PID of the window
+    global hwnd
+    hwnd = win32gui.FindWindow(None, data)
+    # hwnd = win32gui.GetForegroundWindow()860
+    #print('findWindow:', hwnd)
+    win32gui.SetActiveWindow(hwnd)
+    # win32gui.ShowWindow(hwnd)
+    win32gui.MoveWindow(hwnd, 0, 0, 865, 830, True)
+    
 def Image_Rec_single_closest(image, threshold=0.7, clicker='left'):
     functions.screen_Image(620, 480, 820, 750, 'closest.png')
     img_rgb = cv2.imread('images/closest.png')
