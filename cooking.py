@@ -1,5 +1,5 @@
 import os
-
+import win32gui
 import cv2
 import numpy as np
 import pyautogui
@@ -38,7 +38,15 @@ options = {0: random_inventory,
            3: random_quests,
            4: random_pause}
 
-
+def findWindow(data):  # find window name returns PID of the window
+    global hwnd
+    hwnd = win32gui.FindWindow(None, data)
+    # hwnd = win32gui.GetForegroundWindow()860
+    #print('findWindow:', hwnd)
+    win32gui.SetActiveWindow(hwnd)
+    # win32gui.ShowWindow(hwnd)
+    win32gui.MoveWindow(hwnd, 0, 0, 865, 830, True)
+    
 def random_break(start, c):
     global newTime_break
     startTime = time.time()
@@ -681,7 +689,7 @@ def alkarid_powercook_and_fish(Take_Human_Break=False, Run_Duration_hours=6):
         cook_all_critters(Take_Human_Break)
         drop_prawns()
 
-
+findWindow("RuneLite")
 # while True:
 #     print("\rfish & clues: ", count_cook(), end='')
 if __name__ == "__main__":
