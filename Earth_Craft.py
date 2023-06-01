@@ -4,7 +4,7 @@ import pyautogui
 import random
 import time
 import argparse
-
+import win32gui
 import multiprocessing
 from multiprocessing import Process, Pipe
 import functions
