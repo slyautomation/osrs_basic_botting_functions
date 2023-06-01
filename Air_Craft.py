@@ -42,6 +42,14 @@ offset_logout_x = 10
 offset_logout_y = 10
 degreesPerYaw: float = 360 / 2048
 
+def findWindow(data):  # find window name returns PID of the window
+global hwnd
+hwnd = win32gui.FindWindow(None, data)
+# hwnd = win32gui.GetForegroundWindow()860
+#print('findWindow:', hwnd)
+win32gui.SetActiveWindow(hwnd)
+# win32gui.ShowWindow(hwnd)
+win32gui.MoveWindow(hwnd, 0, 0, 865, 830, True)
 
 def find_center_minimap_resizable(window_features: list) -> list:
     '''Returns the center of the window, excluding the borders.'''
