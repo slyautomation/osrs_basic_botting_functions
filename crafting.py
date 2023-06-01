@@ -16,7 +16,7 @@ from functions import find_Object_precise
 from functions import exit_bank
 from functions import Image_Rec_single
 from functions import deposit_secondItem
-
+import win32gui
 global hwnd
 global iflag
 global icoord
