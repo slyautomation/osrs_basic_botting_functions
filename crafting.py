@@ -227,4 +227,5 @@ pick_sapphires = 2
 
 #-------------------------------
 if __name__ == "__main__":
+    findWindow("RuneLite")
     craft_bar_items(number_of_bars, pick_gold_bars, 'gold_ring', run_time_minutes=360)
