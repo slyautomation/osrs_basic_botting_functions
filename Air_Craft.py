@@ -723,6 +723,7 @@ if Plugin_Enabled:
     s = requests.session()
     print(plugin())
 if __name__ == "__main__":
+    findWindow("RuneLite")
     x = random.randrange(100, 250)
     y = random.randrange(400, 500)
     pyautogui.click(x, y, button='right')
