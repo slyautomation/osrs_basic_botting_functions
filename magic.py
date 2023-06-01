@@ -183,5 +183,6 @@ def superheat_items(num, bar):
 
 
 if __name__ == "__main__":
+    findWindow("RuneLite")
     high_aclh_loop(68, False)
     # superheat_items(100, 1) #100 items iron
