@@ -390,6 +390,7 @@ def potionmaking(i):
             j -= 1
 
 if __name__ == "__main__":
+    findWindow("RuneLite")
     #superglassmaking(50)
     # weedcleaning is used to clean herbs, the function values order is:
     # number of grimy herbs to clean.
