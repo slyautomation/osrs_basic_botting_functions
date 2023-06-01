@@ -260,7 +260,7 @@ clue_count = 0
 #-------------------------------
 
 if __name__ == "__main__":
-
+    findWindow("RuneLite")
     resizeImage()
     x = random.randrange(100, 250)
     y = random.randrange(400, 500)
