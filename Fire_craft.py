@@ -529,6 +529,7 @@ Run_Duration_Hours = 4
 # object mark/ highlight inside the fire alter yellow and the exit portal green
 
 if __name__ == "__main__":
+    findWindow("RuneLite")
     x = random.randrange(100, 250)
     y = random.randrange(400, 500)
     pyautogui.click(x, y, button='right')
