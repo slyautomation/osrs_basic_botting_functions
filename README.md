@@ -50,6 +50,10 @@ Tutorial on installing tesseract-OCR: https://youtube.com/watch?v=X3snnwzJfEw&t=
 ## Runelite Setup
 Tutorial on runelite setup click link: https://youtube.com/watch?v=JO2FvkJwppA
 
+Also make sure that the transparent side panels and chatbox is unchecked:
+
+![image](https://github.com/slyautomation/osrs_basic_botting_functions/assets/81003470/b6e6b1c8-3672-4564-bee0-ba15e4a0d2a1)
+
 ### pybot-config.yaml (configuration file)
 
 ![image](https://user-images.githubusercontent.com/81003470/177748290-e8337717-0f06-4aeb-afc9-19056bbebc23.png)
