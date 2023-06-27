@@ -28,6 +28,33 @@ from functions import image_Rec_clicker
 import functions
 import core
 
+def gfindWindow(data):  # find window name returns PID of the window
+    global hwnd
+    hwnd = win32gui.FindWindow(None, data)
+    # hwnd = win32gui.GetForegroundWindow()860
+    #print('findWindow:', hwnd)
+    win32gui.SetActiveWindow(hwnd)
+    # win32gui.ShowWindow(hwnd)
+    win32gui.MoveWindow(hwnd, 0, 0, 865, 830, True)
+
+
+with open("pybot-config.yaml", "r") as yamlfile:
+    data = yaml.load(yamlfile, Loader=yaml.FullLoader)
+
+try:
+    gfindWindow(data[0]['Config']['client_title'])
+except BaseException:
+    print("Unable to find window:", data[0]['Config']['client_title'], "| Please see list of window names below:")
+    core.printWindows()
+    pass
+
+try:
+    x_win, y_win, w_win, h_win = core.getWindow(data[0]['Config']['client_title'])
+except BaseException:
+    print("Unable to find window:", data[0]['Config']['client_title'], "| Please see list of window names below:")
+    core.printWindows()
+    pass
+    
 iflag = False
 
 global newTime_break
@@ -44,14 +71,6 @@ class bcolors:
     FAIL = '\033[91m' #RED
     RESET = '\033[0m' #RESET COLOR
 
-def findWindow(data):  # find window name returns PID of the window
-    global hwnd
-    hwnd = win32gui.FindWindow(None, data)
-    # hwnd = win32gui.GetForegroundWindow()860
-    #print('findWindow:', hwnd)
-    win32gui.SetActiveWindow(hwnd)
-    # win32gui.ShowWindow(hwnd)
-    win32gui.MoveWindow(hwnd, 0, 0, 865, 830, True)
     
 def timer():
     startTime = time.time()
@@ -164,8 +183,6 @@ def plugin(category='npc name'):
     #print(data[category])
     return data[category]
 
-with open("pybot-config.yaml", "r") as yamlfile:
-    data = yaml.load(yamlfile, Loader=yaml.FullLoader)
     
 # ------ SET TO TRUE IF USING HTTPSERVER PLUGIN --------
 
@@ -174,8 +191,6 @@ if Plugin_Enabled:
     s = requests.session()
 
 if __name__ == "__main__":
-    try:
-        findWindow(data[0]['Config']['client_title'])
     # ----- UPDATE WITH ALL VARIATIONS OF MONSTER'S IMAGE TO TEXT RESULT IN LINE WITH MONSTER_LIST -----
     monster_array = [
         ['chicken'], ['guard', 'gua rd'], ['cow', 'cou'], ['monk'], ['imp'], ['skeleton'], ['dwarf'], ['giant frog', 'giant', 'frog']
