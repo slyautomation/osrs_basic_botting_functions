@@ -3,6 +3,7 @@ import time
 import pyautogui
 import win32gui
 import core
+import yaml
 from functions import pick_item
 from functions import random_combat
 from functions import random_quests
