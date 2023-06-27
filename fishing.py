@@ -9,6 +9,7 @@ import os
 import functions
 import pytesseract
 import core
+import yaml
 from PIL import Image
 from functions import Image_count
 from functions import image_Rec_clicker
