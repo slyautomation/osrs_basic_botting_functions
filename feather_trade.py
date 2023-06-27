@@ -2,11 +2,12 @@ import random
 import time
 import win32gui
 import pyautogui
-
+import yaml
+import core
 import functions
 from functions import find_Object_right, pick_item_right, image_Rec_inventory, pick_item
 
-def findWindow(data):  # find window name returns PID of the window
+def gfindWindow(data):  # find window name returns PID of the window
     global hwnd
     hwnd = win32gui.FindWindow(None, data)
     # hwnd = win32gui.GetForegroundWindow()860
@@ -14,6 +15,24 @@ def findWindow(data):  # find window name returns PID of the window
     win32gui.SetActiveWindow(hwnd)
     # win32gui.ShowWindow(hwnd)
     win32gui.MoveWindow(hwnd, 0, 0, 865, 830, True)
+
+
+with open("pybot-config.yaml", "r") as yamlfile:
+    data = yaml.load(yamlfile, Loader=yaml.FullLoader)
+
+try:
+    gfindWindow(data[0]['Config']['client_title'])
+except BaseException:
+    print("Unable to find window:", data[0]['Config']['client_title'], "| Please see list of window names below:")
+    core.printWindows()
+    pass
+
+try:
+    x_win, y_win, w_win, h_win = core.getWindow(data[0]['Config']['client_title'])
+except BaseException:
+    print("Unable to find window:", data[0]['Config']['client_title'], "| Please see list of window names below:")
+    core.printWindows()
+    pass
     
 def gerrants_shop_active():
     shop = functions.Image_count('gerrant_shop.png', 0.75)
@@ -94,6 +113,5 @@ def get_sandworms():
 Run_Duration_hours = 0.5
 t_end = time.time() + (60 * 60 * Run_Duration_hours)
 while time.time() < t_end:
-    findWindow("RuneLite")
     trade_tynan()
     get_sandworms()
