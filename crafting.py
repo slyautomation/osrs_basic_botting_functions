@@ -18,6 +18,7 @@ from functions import Image_Rec_single
 from functions import deposit_secondItem
 import win32gui
 import core
+import yaml
 global hwnd
 global iflag
 global icoord
