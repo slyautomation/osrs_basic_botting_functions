@@ -22,12 +22,32 @@ import functions
 
 iflag = False
 
+def gfindWindow(data):  # find window name returns PID of the window
+    global hwnd
+    hwnd = win32gui.FindWindow(None, data)
+    # hwnd = win32gui.GetForegroundWindow()860
+    #print('findWindow:', hwnd)
+    win32gui.SetActiveWindow(hwnd)
+    # win32gui.ShowWindow(hwnd)
+    win32gui.MoveWindow(hwnd, 0, 0, 865, 830, True)
+
+
 with open("pybot-config.yaml", "r") as yamlfile:
     data = yaml.load(yamlfile, Loader=yaml.FullLoader)
 
-findWindow("RuneLite")
+try:
+    gfindWindow(data[0]['Config']['client_title'])
+except BaseException:
+    print("Unable to find window:", data[0]['Config']['client_title'], "| Please see list of window names below:")
+    core.printWindows()
+    pass
 
-x_win, y_win, w_win, h_win = core.getWindow('RuneLite')
+try:
+    x_win, y_win, w_win, h_win = core.getWindow(data[0]['Config']['client_title'])
+except BaseException:
+    print("Unable to find window:", data[0]['Config']['client_title'], "| Please see list of window names below:")
+    core.printWindows()
+    pass
 
 client_top_border = 30
 client_side_border = 50
@@ -42,14 +62,6 @@ offset_logout_x = 10
 offset_logout_y = 10
 degreesPerYaw: float = 360 / 2048
 
-def findWindow(data):  # find window name returns PID of the window
-    global hwnd
-    hwnd = win32gui.FindWindow(None, data)
-    # hwnd = win32gui.GetForegroundWindow()860
-    #print('findWindow:', hwnd)
-    win32gui.SetActiveWindow(hwnd)
-    # win32gui.ShowWindow(hwnd)
-    win32gui.MoveWindow(hwnd, 0, 0, 865, 830, True)
 
 def find_center_minimap_resizable(window_features: list) -> list:
     '''Returns the center of the window, excluding the borders.'''
