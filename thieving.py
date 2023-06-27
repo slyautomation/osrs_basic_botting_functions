@@ -1,3 +1,4 @@
+import core
 import numpy as np
 import cv2
 import pyautogui
@@ -17,7 +18,7 @@ iflag = False
 icoord = []
 from functions import image_Rec_inventory
 
-def findWindow(data):  # find window name returns PID of the window
+def gfindWindow(data):  # find window name returns PID of the window
     global hwnd
     hwnd = win32gui.FindWindow(None, data)
     # hwnd = win32gui.GetForegroundWindow()860
@@ -25,6 +26,24 @@ def findWindow(data):  # find window name returns PID of the window
     win32gui.SetActiveWindow(hwnd)
     # win32gui.ShowWindow(hwnd)
     win32gui.MoveWindow(hwnd, 0, 0, 865, 830, True)
+
+
+with open("pybot-config.yaml", "r") as yamlfile:
+    data = yaml.load(yamlfile, Loader=yaml.FullLoader)
+
+try:
+    gfindWindow(data[0]['Config']['client_title'])
+except BaseException:
+    print("Unable to find window:", data[0]['Config']['client_title'], "| Please see list of window names below:")
+    core.printWindows()
+    pass
+
+try:
+    x_win, y_win, w_win, h_win = core.getWindow(data[0]['Config']['client_title'])
+except BaseException:
+    print("Unable to find window:", data[0]['Config']['client_title'], "| Please see list of window names below:")
+    core.printWindows()
+    pass
     
 def skill_lvl_up():
     counter = 0
@@ -261,7 +280,6 @@ def steal_drop_fruit():
         pyautogui.press('shift')
 
 if __name__ == "__main__":
-    findWindow("RuneLite")
     steal_man()
     #steal_tea()
     #steal_drop_fruit()
