@@ -164,6 +164,9 @@ def plugin(category='npc name'):
     #print(data[category])
     return data[category]
 
+with open("pybot-config.yaml", "r") as yamlfile:
+    data = yaml.load(yamlfile, Loader=yaml.FullLoader)
+    
 # ------ SET TO TRUE IF USING HTTPSERVER PLUGIN --------
 
 Plugin_Enabled = True
