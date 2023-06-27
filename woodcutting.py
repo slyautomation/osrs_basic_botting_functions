@@ -51,7 +51,7 @@ class bcolors:
     FAIL = '\033[91m' #RED
     RESET = '\033[0m' #RESET COLOR
 
-def findWindow(data):  # find window name returns PID of the window
+def gfindWindow(data):  # find window name returns PID of the window
     global hwnd
     hwnd = win32gui.FindWindow(None, data)
     # hwnd = win32gui.GetForegroundWindow()860
@@ -59,7 +59,24 @@ def findWindow(data):  # find window name returns PID of the window
     win32gui.SetActiveWindow(hwnd)
     # win32gui.ShowWindow(hwnd)
     win32gui.MoveWindow(hwnd, 0, 0, 865, 830, True)
-    
+
+
+with open("pybot-config.yaml", "r") as yamlfile:
+    data = yaml.load(yamlfile, Loader=yaml.FullLoader)
+
+try:
+    gfindWindow(data[0]['Config']['client_title'])
+except BaseException:
+    print("Unable to find window:", data[0]['Config']['client_title'], "| Please see list of window names below:")
+    core.printWindows()
+    pass
+
+try:
+    x_win, y_win, w_win, h_win = core.getWindow(data[0]['Config']['client_title'])
+except BaseException:
+    print("Unable to find window:", data[0]['Config']['client_title'], "| Please see list of window names below:")
+    core.printWindows()
+    pass
 def random_break(start, c):
     global newTime_break
     startTime = time.time()
@@ -477,9 +494,6 @@ clue_count = 0
 
 
 if __name__ == "__main__":
-    findWindow("RuneLite")
-    time.sleep(2)
-    resizeImage()
     x = random.randrange(100, 250)
     y = random.randrange(400, 500)
     pyautogui.click(x, y, button='right')
@@ -491,7 +505,6 @@ if __name__ == "__main__":
     green = 1
     purple = 3
     blue = 4
-    findWindow("RuneLite")
     plugins_enabled = False
     # ----- LIST OF WOOD TYPES --------
     powerlist = ['wood', 'oak', 'willow', 'maple', 'yew', 'magic', 'red']
