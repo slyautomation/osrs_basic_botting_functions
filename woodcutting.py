@@ -11,6 +11,7 @@ import datetime
 import pytesseract
 import requests
 import simplejson
+import yaml
 from PIL import Image, ImageGrab
 
 import functions
