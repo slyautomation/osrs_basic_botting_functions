@@ -7,7 +7,7 @@ import random
 import time
 import functions
 from fishing import pick_random_fishing_spot
-
+import yaml
 from functions import random_combat, skill_lvl_up, Image_to_Text, spaces, resizeImage, find_Object_precise
 from functions import random_quests
 from functions import random_skills
