@@ -1,4 +1,5 @@
 import core
+import yaml
 import pyautogui
 import random
 import time
