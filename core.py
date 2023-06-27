@@ -11,7 +11,7 @@ def findWindow_Linux(data):
     import subprocess
     subprocess.call(["xdotool", "search", "--name", data, "windowfocus", "%2"])
     subprocess.call(["xdotool", "getwindowfocus", "windowmove", "0", "0"])
-    subprocess.call(["xdotool", "getwindowfocus", "windowsize", "860", "830"])
+    subprocess.call(["xdotool", "getwindowfocus", "windowsize", "865", "830"])
 
     
 def getWindow_Linux(data):
@@ -75,8 +75,26 @@ def getWindow(data):  # find window name returns PID of the window
     #print('window width:', w, 'window height:', h)
     return x, y, w, h
 
+def printWindows():
+    def winEnumHandler(hwnd, ctx):
+        if win32gui.IsWindowVisible(hwnd):
+            if win32gui.GetWindowText(hwnd) is not None and win32gui.GetWindowText(hwnd) != '':
+                print(win32gui.GetWindowText(hwnd))
+
+    win32gui.EnumWindows(winEnumHandler, None)
+
 print('Operating system:', platform.system())
 if platform.system() == 'Linux' or platform.system() == 'Mac':
-    findWindow_Linux(data[0]['Config']['client_title'])
+    try:
+        findWindow_Linux(data[0]['Config']['client_title'])
+    except BaseException:
+        print("unable to find window:", data[0]['Config']['client_title'], "please see list of window names below:")
+        printWindows()
+        pass
 else:
-    findWindow(data[0]['Config']['client_title'])
+    try:
+        findWindow(data[0]['Config']['client_title'])
+    except BaseException:
+        print("Unable to find window:", data[0]['Config']['client_title'], "| Please see list of window names below:")
+        printWindows()
+        pass
