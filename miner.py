@@ -278,7 +278,6 @@ clue_count = 0
 #-------------------------------
 
 if __name__ == "__main__":
-    resizeImage()
     x = random.randrange(100, 250)
     y = random.randrange(400, 500)
     pyautogui.click(x, y, button='right')
