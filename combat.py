@@ -8,7 +8,7 @@ import random
 import time
 import argparse
 import os
-
+import yaml
 import requests
 import simplejson
 
