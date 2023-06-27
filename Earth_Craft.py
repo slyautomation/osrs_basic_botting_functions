@@ -8,6 +8,7 @@ import win32gui
 import multiprocessing
 from multiprocessing import Process, Pipe
 import functions
+import yaml
 global hwnd
 global iflag
 global icoord
