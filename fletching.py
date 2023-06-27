@@ -9,6 +9,7 @@ import win32gui
 global hwnd
 global iflag
 global icoord
+import core
 
 iflag = False
 icoord = []
@@ -16,7 +17,7 @@ icoord = []
 import functions
 from functions import bank_ready, exit_bank, find_Object, pick_item, deposit_secondItem
 
-def findWindow(data):  # find window name returns PID of the window
+def gfindWindow(data):  # find window name returns PID of the window
     global hwnd
     hwnd = win32gui.FindWindow(None, data)
     # hwnd = win32gui.GetForegroundWindow()860
@@ -24,6 +25,24 @@ def findWindow(data):  # find window name returns PID of the window
     win32gui.SetActiveWindow(hwnd)
     # win32gui.ShowWindow(hwnd)
     win32gui.MoveWindow(hwnd, 0, 0, 865, 830, True)
+
+
+with open("pybot-config.yaml", "r") as yamlfile:
+    data = yaml.load(yamlfile, Loader=yaml.FullLoader)
+
+try:
+    gfindWindow(data[0]['Config']['client_title'])
+except BaseException:
+    print("Unable to find window:", data[0]['Config']['client_title'], "| Please see list of window names below:")
+    core.printWindows()
+    pass
+
+try:
+    x_win, y_win, w_win, h_win = core.getWindow(data[0]['Config']['client_title'])
+except BaseException:
+    print("Unable to find window:", data[0]['Config']['client_title'], "| Please see list of window names below:")
+    core.printWindows()
+    pass
     
 def wood_inv(wood):
     counter = 0
@@ -556,7 +575,6 @@ def fletch_bows(name, x_i, y_i, number, i=55):
 
 j = round(6800/14)
 while j > 0:
-    findWindow("RuneLite")
     # string_bows used to string bows variables for function is:
     # file path for the bows image, #images/magic_longbow.png #images/oak_longbow.png #images/maple_longbow.png
     # the x and y for the bow item in the bank inventory
