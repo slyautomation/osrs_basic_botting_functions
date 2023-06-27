@@ -17,6 +17,7 @@ from functions import exit_bank
 from functions import Image_Rec_single
 from functions import deposit_secondItem
 import win32gui
+import core
 global hwnd
 global iflag
 global icoord
@@ -33,7 +34,7 @@ class bcolors:
     FAIL = '\033[91m' #RED
     RESET = '\033[0m' #RESET COLOR
     
-def findWindow(data):  # find window name returns PID of the window
+def gfindWindow(data):  # find window name returns PID of the window
     global hwnd
     hwnd = win32gui.FindWindow(None, data)
     # hwnd = win32gui.GetForegroundWindow()860
@@ -41,6 +42,24 @@ def findWindow(data):  # find window name returns PID of the window
     win32gui.SetActiveWindow(hwnd)
     # win32gui.ShowWindow(hwnd)
     win32gui.MoveWindow(hwnd, 0, 0, 865, 830, True)
+
+
+with open("pybot-config.yaml", "r") as yamlfile:
+    data = yaml.load(yamlfile, Loader=yaml.FullLoader)
+
+try:
+    gfindWindow(data[0]['Config']['client_title'])
+except BaseException:
+    print("Unable to find window:", data[0]['Config']['client_title'], "| Please see list of window names below:")
+    core.printWindows()
+    pass
+
+try:
+    x_win, y_win, w_win, h_win = core.getWindow(data[0]['Config']['client_title'])
+except BaseException:
+    print("Unable to find window:", data[0]['Config']['client_title'], "| Please see list of window names below:")
+    core.printWindows()
+    pass
     
 def random_break(start, c):
     global newTime_break
@@ -227,5 +246,4 @@ pick_sapphires = 2
 
 #-------------------------------
 if __name__ == "__main__":
-    findWindow("RuneLite")
     craft_bar_items(number_of_bars, pick_gold_bars, 'gold_ring', run_time_minutes=360)
