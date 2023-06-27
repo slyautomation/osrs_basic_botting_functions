@@ -1,4 +1,4 @@
-
+import core
 import pyautogui
 import random
 import time
@@ -15,7 +15,7 @@ global hwnd, iflag, icoord, newTime_break, \
 iflag = False
 newTime_break = False
 
-def findWindow(data):  # find window name returns PID of the window
+def gfindWindow(data):  # find window name returns PID of the window
     global hwnd
     hwnd = win32gui.FindWindow(None, data)
     # hwnd = win32gui.GetForegroundWindow()860
@@ -23,6 +23,24 @@ def findWindow(data):  # find window name returns PID of the window
     win32gui.SetActiveWindow(hwnd)
     # win32gui.ShowWindow(hwnd)
     win32gui.MoveWindow(hwnd, 0, 0, 865, 830, True)
+
+
+with open("pybot-config.yaml", "r") as yamlfile:
+    data = yaml.load(yamlfile, Loader=yaml.FullLoader)
+
+try:
+    gfindWindow(data[0]['Config']['client_title'])
+except BaseException:
+    print("Unable to find window:", data[0]['Config']['client_title'], "| Please see list of window names below:")
+    core.printWindows()
+    pass
+
+try:
+    x_win, y_win, w_win, h_win = core.getWindow(data[0]['Config']['client_title'])
+except BaseException:
+    print("Unable to find window:", data[0]['Config']['client_title'], "| Please see list of window names below:")
+    core.printWindows()
+    pass
     
 def random_break(start, c):
     global newTime_break
@@ -209,7 +227,6 @@ def smith_to_40():
 
 
 if __name__ == "__main__":
-    findWindow("RuneLite")
     money_maker_water(6000, 0, Human_Break=True)
     #smith_items(1082, 2, 3, 'steel_chainbody')
     #steel_smithables = ['steel_axe', 'steel_scimitar', 'steel_nails', 'steel_chainbody']
