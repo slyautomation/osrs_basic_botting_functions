@@ -70,7 +70,7 @@ if data[0]['Config']['enable_on_start'] == True:
     image1 = Image.open(filename)
     image1 = image1.convert('RGBA')
     h = (400, 400)
-    image1.thumbnail(h, Image)
+    image1.thumbnail(h)
     test1 = ImageTk.PhotoImage(image1)
     label1 = tkinter.Label(image=test1, background='#40362C', anchor=CENTER, justify=CENTER)
     label1.image = test1
@@ -98,12 +98,12 @@ if data[0]['Config']['enable_on_start'] == True:
     image1 = Image.open(resourcePath('images/switch-on.png'))
     image1 = image1.convert('RGBA')
     h = (50, 50)
-    image1.thumbnail(h, Image.NORMAL)
+    image1.thumbnail(h)
     on = ImageTk.PhotoImage(image1)
     image2 = Image.open(resourcePath('images/switch-off.png'))
     image2 = image2.convert('RGBA')
     h = (50, 50)
-    image2.thumbnail(h, Image.NORMAL)
+    image2.thumbnail(h)
     off = ImageTk.PhotoImage(image2)
 
 
