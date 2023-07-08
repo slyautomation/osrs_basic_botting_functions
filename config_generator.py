@@ -70,7 +70,7 @@ if data[0]['Config']['enable_on_start'] == True:
     image1 = Image.open(filename)
     image1 = image1.convert('RGBA')
     h = (400, 400)
-    image1.thumbnail(h, Image.NORMAL)
+    image1.thumbnail(h, Image)
     test1 = ImageTk.PhotoImage(image1)
     label1 = tkinter.Label(image=test1, background='#40362C', anchor=CENTER, justify=CENTER)
     label1.image = test1
