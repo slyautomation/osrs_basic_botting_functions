@@ -54,6 +54,11 @@ Also make sure that the transparent side panels and chatbox is unchecked:
 
 ![image](https://github.com/slyautomation/osrs_basic_botting_functions/assets/81003470/b6e6b1c8-3672-4564-bee0-ba15e4a0d2a1)
 
+Make sure the tool bar is enabled and showing on the right had side of the client window (press the arrow to enable the toolbar as visable):
+
+![image](https://github.com/slyautomation/osrs_basic_botting_functions/assets/81003470/f94f74f0-3658-49a1-9acf-a70b9f7c6e08)
+
+
 ### pybot-config.yaml (configuration file)
 
 ![image](https://user-images.githubusercontent.com/81003470/177748290-e8337717-0f06-4aeb-afc9-19056bbebc23.png)
