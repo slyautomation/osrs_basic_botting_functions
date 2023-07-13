@@ -69,6 +69,10 @@ client_title: Is the title of the application window usually Runelite if you hav
 
 ![image](https://user-images.githubusercontent.com/81003470/177749289-c6b11dfe-1fe0-4d5d-a67f-bf53d62839ce.png)
 
+To disable the username in the client window using the toolbar search for runelite plugin and in the settings make sure 'Show display name title' is unchecked.
+
+![image](https://github.com/slyautomation/osrs_basic_botting_functions/assets/81003470/5832dee1-13d0-4ecb-a2c5-5ad383b54f69)
+
 enable_on_start: if you don't want the config window to pop up each time, enter as false
 
 file_path_to_client: the head folder where the OSRS client is stored usually .runelite or .openosrs
