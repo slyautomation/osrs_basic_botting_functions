@@ -245,7 +245,9 @@ time_left = 0
 #-------------------------------
 
 invent_count = 0
-fish_type = 'prawn_fish'
+
+#use the other names to fly/cage fish
+fish_type = 'prawn_fish' # 'lobster_fish' 'salmon_fish#
 fish_count = 0
 clue_count = 0
 #-------------------------------
