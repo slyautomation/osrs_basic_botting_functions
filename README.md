@@ -43,8 +43,12 @@ in terminal type:
 
 pip install -r requirements.txt
 
-tesseract-ocr = https://digi.bib.uni-mannheim.de/tesseract/?C=M;O=D | if that website is down use 5.3: https://drive.google.com/file/d/1acZJSm3BEmCORSB4NDmpaaT5WC1FNu2s/view?usp=sharing 
-or use original version 3.0.2: https://drive.google.com/file/d/1mCgYueVKRVbPg-ICz8BjrAWH5oOLjp55/view?usp=sharing   | https://drive.google.com/file/d/1OmBd6yeZFzBQYJ8WVHfCdhpH62MakWv2/view?usp=sharing
+tesseract-ocr = https://digi.bib.uni-mannheim.de/tesseract/?C=M;O=D  
+
+if that website is down use 5.3: https://drive.google.com/file/d/1acZJSm3BEmCORSB4NDmpaaT5WC1FNu2s/view?usp=sharing 
+
+or use original version 3.0.2: https://drive.google.com/file/d/1mCgYueVKRVbPg-ICz8BjrAWH5oOLjp55/view?usp=sharing
+
 Tutorial on installing tesseract-OCR: https://youtube.com/watch?v=X3snnwzJfEw&t=25m15s
 
 ## Runelite Setup
