@@ -226,7 +226,7 @@ def powerfisher(fish_type, Run_Duration_hours=6):
             z = 27
         else:
             z = 26
-        if invent > z - 2:
+        if invent > z:
             invent = functions.invent_enabled()
             if invent == 0:
                 actions = 'opening inventory'
@@ -234,7 +234,7 @@ def powerfisher(fish_type, Run_Duration_hours=6):
             random_breaks(0.2, 0.7)
             drop_fish()
             random_breaks(0.2, 0.7)
-            pick_random_fishing_spot(fish_type)
+            #pick_random_fishing_spot(fish_type)
 
 
 coords = (0, 0)
