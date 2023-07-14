@@ -105,6 +105,13 @@ In Runescape setting,  set the following:
 
 ![image](https://user-images.githubusercontent.com/81003470/188834061-becf3678-9ec3-4115-845a-b11102b3b384.png)
 
+Make sure the info boxes are filled and the standard brown color, use the toolbar and search Runelite. In the settings under overlay section select the 'Overlay color'.
+
+Change opacity to 255 and the hex color to #FF463D32: 
+
+![image](https://github.com/slyautomation/osrs_basic_botting_functions/assets/81003470/678cc8a4-1cfd-4a8c-b456-9a6bd134d2d6)
+
+
 ## Woodcutting
 
 ### features
