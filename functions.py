@@ -8,7 +8,7 @@ import pyautogui
 import random
 import time
 from shapely.geometry import Polygon
-
+import ctypes
 import slyautomation_title
 import yaml
 from PIL import Image, ImageGrab
@@ -62,6 +62,73 @@ except:
     except:
         print(bcolors.FAIL +"Error setting up tesseract: Check the pyconfig.yaml is set up to your tesseract path or is installed correctly")
 
+# Constants
+gdi32 = ctypes.WinDLL('gdi32.dll')
+
+VERTRES = 10
+DESKTOPVERTRES = 117
+
+
+class DeviceCap:
+    VERTRES = 10
+    DESKTOPVERTRES = 117
+
+
+def get_scaling_factor():
+    gdi32 = ctypes.WinDLL('gdi32.dll')
+
+    # Get the screen's device context (DC)
+    desktop = gdi32.CreateDCW('DISPLAY', None, None, None)
+
+    # Get the logical and physical screen height
+    logical_screen_height = gdi32.GetDeviceCaps(desktop, DeviceCap.VERTRES)
+    physical_screen_height = gdi32.GetDeviceCaps(desktop, DeviceCap.DESKTOPVERTRES)
+
+    # Calculate the scaling factor
+    scaling_factor = physical_screen_height / logical_screen_height
+
+    return scaling_factor
+
+
+# Usage
+scaling_factor = get_scaling_factor()
+if scaling_factor == 1.0:
+    print(bcolors.OK +"Scaling Factor:", scaling_factor * 100, "%")
+else:
+    print(bcolors.FAIL +"Scaling Factor: Failed set to 100% | Actual:", scaling_factor * 100, "%")
+
+def get_os_configuration():
+    # Get scale and layout information
+    user32 = ctypes.windll.user32
+    scale_factor = user32.GetDpiForSystem()
+
+
+    # Get font size information
+    scale = 96 / scale_factor
+    font_size = user32.SystemParametersInfoW(0x0030, 0, 0, 0) / scale  # SPI_GETNONCLIENTMETRICS
+
+
+
+    # Get display resolution information
+    width = user32.GetSystemMetrics(0)
+    height = user32.GetSystemMetrics(1)
+
+    return scale_factor, font_size, width, height
+
+
+# Usage
+scale_factor, font_size, width, height = get_os_configuration()
+
+if width == 1920 and height == 1080:
+    print(bcolors.OK +"Resolution:", width, "x", height)
+else:
+    print(bcolors.FAIL +"Resolution not set correctly: Failed set to 1920 x 1080 | Actual:", width, "x", height)
+print(bcolors.OK +"tesseract path:", pytesseract.environ['TESSDATA_PREFIX'])
+try:
+    print(bcolors.OK + "tesseract version:", pytesseract.get_tesseract_version())
+except SystemExit:
+    print(bcolors.FAIL +"tesseract version detailed: not found")
+    
 print(bcolors.RESET)
 filename = data[0]['Config']['pc_profile']
 
