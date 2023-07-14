@@ -60,7 +60,7 @@ except:
         text = pytesseract.image_to_string(im)
         print(bcolors.OK + "Testing Tesseract is configured: Passed |", text)
     except:
-        print(bcolors.FAIL +"Error setting up tesseract: Check the pyconfig.yaml is set up to your tesseract path or is installed correctly")
+        print(bcolors.FAIL +"Error setting up tesseract: Check the pyconfig.yaml is set up to your tesseract path or is installed correctly, go here and install latest version: " + 'https://digi.bib.uni-mannheim.de/tesseract/?C=M;O=D')
 
 # Constants
 gdi32 = ctypes.WinDLL('gdi32.dll')
