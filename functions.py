@@ -32,14 +32,37 @@ import pytesseract
 with open("pybot-config.yaml", "r") as yamlfile:
     data = yaml.load(yamlfile, Loader=yaml.FullLoader)
 
+class bcolors:
+    OK = '\033[92m' #GREEN
+    WARNING = '\033[93m' #YELLOW
+    FAIL = '\033[91m' #RED
+    RESET = '\033[0m' #RESET COLOR
+
+with open("pybot-config.yaml", "r") as yamlfile:
+    data = yaml.load(yamlfile, Loader=yaml.FullLoader)
+
 pytesseract.pytesseract.tesseract_cmd = data[0]['Config']['tesseract_path'] + "tesseract"
 try:
-    data[0]['Config']['tesseract_path'].index("(x86)")
-    os.environ["TESSDATA_PREFIX"] = data[0]['Config']['tesseract_path'] # + "tessdata" # uncomment if error if pytesseract
-except ValueError:
-    os.environ["TESSDATA_PREFIX"] = data[0]['Config']['tesseract_path'] # + "tessdata" # uncomment if error if pytesseract
+    im = Image.open("images/tynan_shop.png")
+    text = pytesseract.image_to_string(im)
+    print(bcolors.OK + "Testing Tesseract is configured: Passed |", text)
+except:
+    pass
+os.environ["TESSDATA_PREFIX"] = data[0]['Config']['tesseract_path'] # + "tessdata"
+try:
+    im = Image.open("images/tynan_shop.png")
+    text = pytesseract.image_to_string(im)
+    print(bcolors.OK + "Testing Tesseract is configured: Passed |", text)
+except:
+    os.environ["TESSDATA_PREFIX"] = data[0]['Config']['tesseract_path'] + "tessdata"
+    try:
+        im = Image.open("images/tynan_shop.png")
+        text = pytesseract.image_to_string(im)
+        print(bcolors.OK + "Testing Tesseract is configured: Passed |", text)
+    except:
+        print(bcolors.FAIL +"Error setting up tesseract: Check the pyconfig.yaml is set up to your tesseract path or is installed correctly")
 
-
+print(bcolors.RESET)
 filename = data[0]['Config']['pc_profile']
 
 osrs = data[0]['Config']['file_path_to_client']
