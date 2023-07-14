@@ -123,7 +123,6 @@ if width == 1920 and height == 1080:
     print(bcolors.OK +"Resolution:", width, "x", height)
 else:
     print(bcolors.FAIL +"Resolution not set correctly: Failed set to 1920 x 1080 | Actual:", width, "x", height)
-print(bcolors.OK +"tesseract path:", pytesseract.environ['TESSDATA_PREFIX'])
 try:
     print(bcolors.OK + "tesseract version:", pytesseract.get_tesseract_version())
 except SystemExit:
