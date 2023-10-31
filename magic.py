@@ -114,51 +114,8 @@ def high_alch_third_spot():
     print('alching item')
 
 
-randXStart = 843
-randXStop = randXStart + 9
-randYStart = 365
-randYStop = randYStart + 10
-def high_alch_command():
-    # 3rd item
-    b = random.uniform(0.33, 0.46)
-
-    x = random.randrange(randXStart, randXStop) + 5
-    print('x: ', x)
-    y = random.randrange(randYStart, randYStop) + 5
-    print('y: ', y)
-    d = random.uniform(0.11, 0.18)
-    pyautogui.moveTo(x, y, duration=b)
-    time.sleep(d)
-    pyautogui.click()
-    print('alch command clicked')
-from datetime import datetime
 
 
-def high_alch_loop(vol, bool):
-    print(f'alching {vol} times')
-    t = 1
-    exp = bool
-    while t <= vol:
-        now = datetime.now()
-        # takeRandomBreak()
-        print(f'{now}: Alch {t}/{vol}')
-        high_alch_command()
-        # time.sleep(c)
-        high_alch_command()  # alchs same spot as alch spell location
-   #high_alch() alchs 3rd inventory spot
-        c = random.uniform(1.4, 1.9)
-        if exp:
-            print('expensive')
-            x = random.uniform(0.8, 1.2)
-            time.sleep(x)
-            x = random.uniform(0.8, 1.2)
-            pyautogui.press('space')
-            time.sleep(x)
-            pyautogui.press('1')
-            x = random.uniform(0.5, 0.6)
-            time.sleep(x)
-        time.sleep(c)
-        t += 1
 
 import time
 
@@ -223,6 +180,52 @@ def superheat_items(num, bar):
         random_breaks(0.4, 0.8)
 
 
+randXStart = 708
+randXStop = randXStart + 9
+randYStart = 328
+randYStop = randYStart + 10
+def high_alch_command():
+    # 3rd item
+    b = random.uniform(0.33, 0.46)
+    x = random.randrange(randXStart, randXStop) + 5
+    print('x: ', x)
+    y = random.randrange(randYStart, randYStop) + 5
+    print('y: ', y)
+    d = random.uniform(0.11, 0.18)
+    pyautogui.moveTo(x, y, duration=b)
+    time.sleep(d)
+    pyautogui.click()
+    print('alch command clicked')
+
+
+from datetime import datetime
+
+def high_alch_loop(vol, bool):
+    print(f'alching {vol} times')
+    t = 1
+    exp = bool
+    while t <= vol:
+        now = datetime.now()
+        # takeRandomBreak()
+        print(f'{now}: Alch {t}/{vol}')
+        high_alch_command()
+        # time.sleep(c)
+        high_alch_command()  # alchs same spot as alch spell location
+   #high_alch() alchs 3rd inventory spot
+        c = random.uniform(1.4, 1.9)
+        if exp:
+            print('expensive')
+            x = random.uniform(0.8, 1.2)
+            time.sleep(x)
+            x = random.uniform(0.8, 1.2)
+            pyautogui.press('space')
+            time.sleep(x)
+            pyautogui.press('1')
+            x = random.uniform(0.5, 0.6)
+            time.sleep(x)
+        time.sleep(c)
+        t += 1
+
 if __name__ == "__main__":
-    high_alch_loop(1498, False)
+    high_alch_loop(30, False)
     # superheat_items(100, 1) #100 items iron
