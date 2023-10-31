@@ -119,15 +119,17 @@ def get_os_configuration():
 # Usage
 scale_factor, font_size, width, height = get_os_configuration()
 
-if width == 1920 and height == 1080:
+desiredWidth = 2560
+desiredHeight = 1440
+if width == desiredWidth and height == desiredHeight:
     print(bcolors.OK +"Resolution:", width, "x", height)
 else:
-    print(bcolors.FAIL +"Resolution not set correctly: Failed set to 1920 x 1080 | Actual:", width, "x", height)
+    print(bcolors.FAIL + f"Resolution not set correctly: Failed set to {desiredWidth} x {desiredHeight} | Actual:", width, "x", height)
 try:
     print(bcolors.OK + "tesseract version:", pytesseract.get_tesseract_version())
 except SystemExit:
     print(bcolors.FAIL +"tesseract version detailed: not found")
-    
+
 print(bcolors.RESET)
 filename = data[0]['Config']['pc_profile']
 
@@ -149,7 +151,7 @@ if platform.system() == 'Linux' or platform.system() == 'Mac':
 else:
     filename = filename + osrs + "\\jagexcache\\oldschool\\LIVE\\"
 
-try:    
+try:
     for f in os.listdir(filename):
         try:
             if not f.startswith("main_file"):
@@ -946,7 +948,7 @@ def xp_gain_check(image, threshold=0.95, showCoords=False):
         return True
     else:
         return False
-        
+
 def McropImage_quick():
     left = 150
     top = 150

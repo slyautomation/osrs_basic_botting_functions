@@ -54,7 +54,7 @@ except BaseException:
     print("Unable to find window:", data[0]['Config']['client_title'], "| Please see list of window names below:")
     core.printWindows()
     pass
-    
+
 def random_break(start, c):
     global newTime_break
     startTime = time.time()
@@ -98,22 +98,7 @@ options = {0: random_inventory,
            3: random_quests,
            4: random_pause}
 
-
-def high_alch_command():
-    # 3rd item
-    b = random.uniform(0.33, 0.46)
-    x = random.randrange(791, 800) + 5
-    print('x: ', x)
-    y = random.randrange(585, 595) + 5
-    print('y: ', y)
-    d = random.uniform(0.11, 0.18)
-    pyautogui.moveTo(x, y, duration=b)
-    time.sleep(d)
-    pyautogui.click()
-    print('alch command clicked')
-
-
-def high_alch():
+def high_alch_third_spot():
     # 3rd item
     b = random.uniform(0.33, 0.46)
     c = random.uniform(1, 1.5)
@@ -129,14 +114,38 @@ def high_alch():
     print('alching item')
 
 
-def high_aclh_loop(vol, bool):
-    t = vol
+randXStart = 843
+randXStop = randXStart + 9
+randYStart = 365
+randYStop = randYStart + 10
+def high_alch_command():
+    # 3rd item
+    b = random.uniform(0.33, 0.46)
+
+    x = random.randrange(randXStart, randXStop) + 5
+    print('x: ', x)
+    y = random.randrange(randYStart, randYStop) + 5
+    print('y: ', y)
+    d = random.uniform(0.11, 0.18)
+    pyautogui.moveTo(x, y, duration=b)
+    time.sleep(d)
+    pyautogui.click()
+    print('alch command clicked')
+from datetime import datetime
+
+
+def high_alch_loop(vol, bool):
+    print(f'alching {vol} times')
+    t = 1
     exp = bool
-    while t > 0:
-        c = random.uniform(1.5, 1.8)
+    while t <= vol:
+        now = datetime.now()
+        # takeRandomBreak()
+        print(f'{now}: Alch {t}/{vol}')
         high_alch_command()
         # time.sleep(c)
-        high_alch_command()  # alchs same spot as alch spell location     #high_alch() alchs 3rd inventory spot
+        high_alch_command()  # alchs same spot as alch spell location
+   #high_alch() alchs 3rd inventory spot
         c = random.uniform(1.4, 1.9)
         if exp:
             print('expensive')
@@ -149,8 +158,20 @@ def high_aclh_loop(vol, bool):
             x = random.uniform(0.5, 0.6)
             time.sleep(x)
         time.sleep(c)
-        t -= 1
+        t += 1
 
+import time
+
+def takeRandomBreak():
+    timeInSeconds = time.time()
+    # Convert the number to a string
+    num_str = str(timeInSeconds)
+
+    # Extract the last two characters
+    last_two_chars = num_str[-2:]
+    print(f'taking break: {timeInSeconds}')
+    # Check if the last two characters are between '00' and '15'
+    return '00' <= last_two_chars <= '15'
 
 def pick_iron_items():
     pick_item(1510 - 1280, 123)
@@ -203,5 +224,5 @@ def superheat_items(num, bar):
 
 
 if __name__ == "__main__":
-    high_aclh_loop(68, False)
+    high_alch_loop(1498, False)
     # superheat_items(100, 1) #100 items iron
