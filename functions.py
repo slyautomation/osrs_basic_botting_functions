@@ -371,13 +371,16 @@ def Image_color(left=0, top=0, right=0, bottom=0):
 
 
 def exit_bank(Debug=False):
+    print("Exiting the bank.")
     if Debug:
         print('exit bank')
     c = random.uniform(0.1, 0.7)
-    x = random.randrange(523, 540)
+    start = 650
+    x = random.randrange(start, start + 13)
     if Debug:
         print('x: ', x)
-    y = random.randrange(40, 55)
+    startY = 47
+    y = random.randrange(startY, startY + 15)
     if Debug:
         print('y: ', y)
     b = random.uniform(0.1, 0.6)
@@ -827,12 +830,13 @@ def deposit_secondItem_new():
         pick_item(x+w - 115, y+h - 295)
 
 def deposit_secondItem():
+    print("Depositing the second item.")
     c = random.uniform(0.1, 0.7)
-    x = random.randrange(690, 715)  # 950,960
-    z = x
+    randStartX = 921
+    x = random.randrange(randStartX, randStartX + 15)  # 950,960
     #print('x: ', x)
-    y = random.randrange(495, 515)  # 490,500
-    w = y
+    randStartY = 557
+    y = random.randrange(randStartY, randStartY + 10)  # 490,500
     #print('y: ', y)
     b = random.uniform(0.1, 0.7)
     pyautogui.moveTo(x, y, duration=b)
@@ -1283,8 +1287,10 @@ def release_drop_item():
 
 
 def random_breaks(minsec, maxsec):
+    print(f"Initiating a random break for {minsec}-{maxsec} seconds.")
     e = random.uniform(minsec, maxsec)
     time.sleep(e)
+    print("Random break completed.")
 
 
 def findarea(object):

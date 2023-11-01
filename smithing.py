@@ -42,7 +42,7 @@ except BaseException:
     print("Unable to find window:", data[0]['Config']['client_title'], "| Please see list of window names below:")
     core.printWindows()
     pass
-    
+
 def random_break(start, c):
     global newTime_break
     startTime = time.time()
@@ -88,7 +88,7 @@ def pick_bucket():
     random_breaks(0.5, 1.5)
 
 def pick_iron_bars():
-    pick_item(1655 - 1280, 162)
+    pick_item(300, 121)
     random_breaks(0.5, 1.5)
 
 def pick_bronze_bars():
@@ -107,13 +107,15 @@ def bank_spot_edgeville():
     find_Object_precise(1) #green
 
 def bank_spot_varrock():
+    print("Going to the Varrock bank spot.")
     find_Object_precise(2) #amber
 
 def water_spot_edgeville():
     find_Object_precise(0, 0, 0, 610, 775) #red
 
 def smith_spot_varrock():
-    find_Object_precise(0, 0, 0, 610, 775) #red
+    print("Going to the Varrock smith spot.")
+    find_Object_precise(1) #red
 
 def cast_superheat():
     pick_item(2029 - 1280, 573)
@@ -174,7 +176,33 @@ def money_maker_water(num, item, Human_Break=True):
             c = random.triangular(0.1, 50, 3)
             time.sleep(c)
 
+
+
+BARS_DICT = {
+    'bronze': 0,
+    'iron': 1,
+    'steel': 2,
+    'mithril': 3
+}
+
+# Bar options mapping to functions
+pick_options = {
+    BARS_DICT['bronze']: pick_bronze_bars,
+    BARS_DICT['iron']: pick_iron_bars,
+    BARS_DICT['steel']: pick_steel_bars,
+    BARS_DICT['mithril']: pick_mithril_bars
+}
+
+# Corresponding bar images
+barlist = {
+    BARS_DICT['bronze']: 'bronze_bar.png',
+    BARS_DICT['iron']: 'iron_bar.png',
+    BARS_DICT['steel']: 'steel_bar.png',
+    BARS_DICT['mithril']: 'mithril_bar.png'
+}
+
 def smith_items(num, bar, vol, smith_item, Human_Break=True):
+    print(f"Selecting options for {bar}.")
     j = round((num*vol) / 27) + 1
     pick_options = {0: pick_bronze_bars,
                1: pick_iron_bars,
@@ -184,30 +212,21 @@ def smith_items(num, bar, vol, smith_item, Human_Break=True):
     barlist = ['bronze_bar.png', 'iron_bar.png', 'steel_bar.png', 'mithril_bar.png']
     while j > 0:
         bank_spot_varrock()
-        random_breaks(7.5, 9)
+        walk_run_break_time()
         deposit_secondItem()
-        random_breaks(0.3, 0.5)
+        random_breaks(0.31, 0.53)
         pick_options[bar]()
-        exit_bank()
-        random_breaks(0.05, 0.2)
         invent = invent_enabled()
         print(invent)
         if invent == 0:
             pyautogui.press('esc')
         inv = Image_count(barlist[bar])
         smith_spot_varrock()
-        random_breaks(7.5, 9)
+        walk_run_break_time()
         smith_object(smith_item + '.png')
         while inv > vol:
             if skill_lvl_up() != 0:
                 print('level up')
-                random_breaks(0.2, 3)
-                pyautogui.press('space')
-                random_breaks(0.1, 3)
-                pyautogui.press('space')
-                a = random.randrange(0, 2)
-                # print(a)
-                spaces(a)
                 smith_spot_varrock()
                 random_breaks(1, 2)
                 smith_object(smith_item + '.png')
@@ -216,6 +235,11 @@ def smith_items(num, bar, vol, smith_item, Human_Break=True):
         if Human_Break:
             c = random.triangular(0.1, 50, 3)
             time.sleep(c)
+
+
+def walk_run_break_time():
+    random_breaks(4.12, 6.85)
+
 
 def smith_to_40():
     # ------ SMITH TO 40 ------- # 222 bronze # 485 iron # 600 steel
@@ -228,6 +252,10 @@ def smith_to_40():
 
 
 if __name__ == "__main__":
-    money_maker_water(6000, 0, Human_Break=True)
+    smith_items(124, 1, 5, 'iron_platebody', False)
+    # pick_iron_bars()
+    iron_smithables = ['iron_platebody']
+
+    #money_maker_water(6000, 0, Human_Break=True)
     #smith_items(1082, 2, 3, 'steel_chainbody')
     #steel_smithables = ['steel_axe', 'steel_scimitar', 'steel_nails', 'steel_chainbody']
