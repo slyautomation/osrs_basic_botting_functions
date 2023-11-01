@@ -180,23 +180,19 @@ def superheat_items(num, bar):
         random_breaks(0.4, 0.8)
 
 
-randXStart = 708
-randXStop = randXStart + 9
+randXStart = 710
+randXStop = randXStart + 5 # 9
 randYStart = 328
-randYStop = randYStart + 10
+randYStop = randYStart + 9 # 10
 def high_alch_command():
     # 3rd item
     b = random.uniform(0.33, 0.46)
     x = random.randrange(randXStart, randXStop) + 5
-    print('x: ', x)
     y = random.randrange(randYStart, randYStop) + 5
-    print('y: ', y)
     d = random.uniform(0.11, 0.18)
     pyautogui.moveTo(x, y, duration=b)
     time.sleep(d)
     pyautogui.click()
-    print('alch command clicked')
-
 
 from datetime import datetime
 
@@ -227,5 +223,5 @@ def high_alch_loop(vol, bool):
         t += 1
 
 if __name__ == "__main__":
-    high_alch_loop(30, False)
+    high_alch_loop(35, False)
     # superheat_items(100, 1) #100 items iron
