@@ -11,7 +11,7 @@ image_ranges = {
     'left-half': (0, 0, 1282, 1370),
     # this assumes the screen is on the 2nd half of the window
     'canifis-start-jump': (558, 0, 1000, 1200),
-    'canifis-first-jump': (0, 0, 768, 672),
+    'canifis-first-jump': (800, 400, 1250, 900),
     'canifis-second-jump': (200, 200, 1840, 900),
     'canifis-third-jump': (0, 0, 768, 1200),
     'canifis-fourth-jump': (0, 0, 950, 1200),

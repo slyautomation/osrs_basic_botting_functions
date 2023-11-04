@@ -21,7 +21,7 @@ def second_jump():
 
 def third_jump():
     find_object_precise_new(color, 'canifis-third-jump')
-    random_breaks(6.8, 8.5)
+    random_breaks(5.8, 7.5)
 
 
 def fourth_jump():
