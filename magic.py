@@ -28,6 +28,7 @@ global timer
 global timer_break
 global ibreak
 
+pyautogui.FAILSAFE = False
 def gfindWindow(data):  # find window name returns PID of the window
     global hwnd
     hwnd = win32gui.FindWindow(None, data)
@@ -223,5 +224,5 @@ def high_alch_loop(vol, bool):
         t += 1
 
 if __name__ == "__main__":
-    high_alch_loop(35, False)
+    high_alch_loop(3587, False)
     # superheat_items(100, 1) #100 items iron

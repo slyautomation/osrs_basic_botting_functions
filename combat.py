@@ -54,7 +54,7 @@ except BaseException:
     print("Unable to find window:", data[0]['Config']['client_title'], "| Please see list of window names below:")
     core.printWindows()
     pass
-    
+
 iflag = False
 
 global newTime_break
@@ -71,7 +71,7 @@ class bcolors:
     FAIL = '\033[91m' #RED
     RESET = '\033[0m' #RESET COLOR
 
-    
+
 def timer():
     startTime = time.time()
     return startTime
@@ -126,8 +126,8 @@ def timer_countdown():
         time.sleep(1)
 
 
-def powerattack_text(monster='chicken', burybones=True, Pickup_loot=False, Take_Human_Break=False, Run_Duration_hours=6):
-    global ibreak, coords, combat_text, time_left, powerlist, actions, powerlist, t_end
+def powerattack_text(monster='ammonite crab', burybones=True, Pickup_loot=False, Take_Human_Break=False, Run_Duration_hours=6):
+    global ibreak, coords, combat_text, time_left, actions
     print('Will break in: %.2f' % (ibreak / 60) + ' minutes |', "Mob Selected:", monster)
     t1 = Thread(target=timer_countdown)
     t1.start()
@@ -172,7 +172,7 @@ def powerattack_text(monster='chicken', burybones=True, Pickup_loot=False, Take_
 
 coords = (0, 0)
 actions = 'None'
-combat_text = 'Not in Combsat'
+combat_text = 'Not in Combat'
 time_left = 0
 
 
@@ -183,7 +183,7 @@ def plugin(category='npc name'):
     #print(data[category])
     return data[category]
 
-    
+
 # ------ SET TO TRUE IF USING HTTPSERVER PLUGIN --------
 
 Plugin_Enabled = True
@@ -206,5 +206,5 @@ if __name__ == "__main__":
     # --------------------------------------------------------------------------------------------------
     monster_list = ['chicken', 'guard', 'cow', 'monk', 'imp', 'skeleton', 'dwarf', 'giant frog']
 
-    powerattack_text('chicken', Take_Human_Break=True, Run_Duration_hours=Run_Duration_hours)
+    powerattack_text('ammonite crab', burybones=False, Take_Human_Break=True, Run_Duration_hours=Run_Duration_hours)
     #os.system('shutdown -s -f')
