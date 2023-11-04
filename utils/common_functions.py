@@ -70,7 +70,7 @@ def find_object_precise_new(color_name, screenSize='default'):
         minx, miny, maxx, maxy = Polygon(np.squeeze(c)).bounds
 
         margin_percentage = 0.1  # 5% margin
-        margin_pixels = 15  # 10 pixels margin
+        margin_pixels = -45  # 10 pixels margin
 
         # Calculate margins
         width = maxx - minx

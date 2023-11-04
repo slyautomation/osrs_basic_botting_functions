@@ -46,7 +46,7 @@ def final_jump():
 
 def run_course(num_times):
     while num_times > 0:
-        # start_course()
+        start_course()
         first_jump()
         second_jump()
         third_jump()
@@ -56,6 +56,10 @@ def run_course(num_times):
         final_jump()
         num_times = num_times - 1
 
+# todo - checking for marks of grace
+    # then picking them up
+# todo - checking if I fell
+    # go to restart point
 
 # click on the tree
 if __name__ == "__main__":
