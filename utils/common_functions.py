@@ -67,11 +67,26 @@ def find_object_precise_new(color_name, screenSize='default'):
     if len(contours) != 0:
         # find the biggest countour (c) by the area
         c = max(contours, key=cv2.contourArea)
-        # print(c)
-        # print(np.squeeze(c))
-        # print(Polygon(np.squeeze(c)))
-
         minx, miny, maxx, maxy = Polygon(np.squeeze(c)).bounds
+
+        margin_percentage = 0.1  # 5% margin
+        margin_pixels = 15  # 10 pixels margin
+
+        # Calculate margins
+        width = maxx - minx
+        height = maxy - miny
+        margin_x = max(margin_pixels, int(margin_percentage * width))
+        margin_y = max(margin_pixels, int(margin_percentage * height))
+
+        # Adjust bounds by margins
+        minx += margin_x
+        maxx -= margin_x
+        miny += margin_y
+        maxy -= margin_y
+
+        # Make sure the new mins are less than the new maxes after margin adjustment
+        minx, maxx = min(minx, maxx), max(minx, maxx)
+        miny, maxy = min(miny, maxy), max(miny, maxy)
         # print(minx, miny, maxx, maxy)
 
         x_delta_from_screenshot = image_ranges[screenSize][0]

@@ -44,13 +44,19 @@ def final_jump():
     random_breaks(3.52, 5.56)
 
 
+def run_course(num_times):
+    while num_times > 0:
+        # start_course()
+        first_jump()
+        second_jump()
+        third_jump()
+        fourth_jump()
+        fifth_jump()
+        sixth_jump()
+        final_jump()
+        num_times = num_times - 1
+
+
 # click on the tree
 if __name__ == "__main__":
-    start_course()
-    first_jump()
-    second_jump()
-    third_jump()
-    fourth_jump()
-    fifth_jump()
-    sixth_jump()
-    final_jump()
+    run_course(1)
