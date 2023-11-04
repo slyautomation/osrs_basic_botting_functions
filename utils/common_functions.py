@@ -14,7 +14,7 @@ image_ranges = {
     'canifis-second-jump': (0, 0, 768, 672),
     'canifis-third-jump': (0, 0, 768, 1200),
     'canifis-fifth-jump': (0, 0, 768, 1250),
-    'canifis-sixth-jump': (0, 0, 1840, 1100), # FF01ED1C
+    'canifis-sixth-jump': (255, 255, 1840, 1100), # FF01ED1C
 }
 
 def screen_Image(screenSize, name='screenshot.png'):
@@ -31,7 +31,7 @@ color_ranges = {
     'amber': ([0, 200, 200], [60, 255, 255]),
     'pickup_high': ([250, 0, 167], [255, 5, 172]),
     'attack_blue': ([200, 200, 0], [255, 255, 5]),
-    'agility': ([245, 183, 0], [255, 255, 5])
+    'agility':  ([0, 183, 245], [0, 183, 245]),
 }
 
 
@@ -70,9 +70,14 @@ def find_object_precise_new(color_name, screenSize='default'):
 
         minx, miny, maxx, maxy = Polygon(np.squeeze(c)).bounds
         # print(minx, miny, maxx, maxy)
+        print('screenSize')
+        x_delta_from_screenshot = image_ranges[screenSize][0]
+        y_delta_from_screenshot = image_ranges[screenSize][1]
+        print(x_delta_from_screenshot)
+        print(y_delta_from_screenshot)
 
-        x = random.randrange(minx + 1, max(minx + 2, maxx - 1))
-        y = random.randrange(miny + 1, max(miny + 2, maxy - 1))
+        x = random.randrange(minx + 1, max(minx + 2, maxx - 1)) + x_delta_from_screenshot
+        y = random.randrange(miny + 1, max(miny + 2, maxy - 1)) + y_delta_from_screenshot
         print('y: ', y)
         print('x: ', x)
         b = random.uniform(0.1, 0.4)
