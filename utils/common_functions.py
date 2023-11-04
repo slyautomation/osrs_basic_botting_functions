@@ -11,7 +11,10 @@ image_ranges = {
     'left-half': (0, 0, 1282, 1370),
     # this assumes the screen is on the 2nd half of the window
     'canifis-first-jump': (0, 0, 768, 672),
-    'canifis-second-jump': (0, 0, 768, 672)
+    'canifis-second-jump': (0, 0, 768, 672),
+    'canifis-third-jump': (0, 0, 768, 1200),
+    'canifis-fifth-jump': (0, 0, 768, 1250),
+    'canifis-sixth-jump': (0, 0, 1840, 1100), # FF01ED1C
 }
 
 def screen_Image(screenSize, name='screenshot.png'):
@@ -27,7 +30,8 @@ color_ranges = {
     'green': ([0, 180, 0], [80, 255, 80]),
     'amber': ([0, 200, 200], [60, 255, 255]),
     'pickup_high': ([250, 0, 167], [255, 5, 172]),
-    'attack_blue': ([200, 200, 0], [255, 255, 5])
+    'attack_blue': ([200, 200, 0], [255, 255, 5]),
+    'agility': ([245, 183, 0], [255, 255, 5])
 }
 
 
