@@ -5,10 +5,20 @@ from PIL import Image, ImageGrab
 from shapely import Polygon
 import random
 
+image_ranges = {
+    #       left, up, right, bottom
+    'default': (0, 0, 0, 0),
+    'left-half': (0, 0, 1282, 1370),
+    # this assumes the screen is on the 2nd half of the window
+    'canifis-first-jump': (0, 0, 768, 672),
+    'canifis-second-jump': (0, 0, 768, 672)
+}
 
-def screen_Image(name='screenshot.png'):
-    myScreenshot = ImageGrab.grab()
-    myScreenshot.save('../images/' + name)
+def screen_Image(screenSize, name='screenshot.png'):
+    if screenSize not in image_ranges:
+        raise ValueError(f"{screenSize} is not within the range")
+    myScreenshot = ImageGrab.grab() if screenSize == 'default' else ImageGrab.grab(bbox=image_ranges[screenSize])
+    myScreenshot.save('images/' + name)
 
 
 # Define your color ranges in a dictionary
@@ -21,7 +31,7 @@ color_ranges = {
 }
 
 
-def find_object_precise_new(color_name):
+def find_object_precise_new(color_name, screenSize='default'):
     # Check if the color_name is one of the predefined colors
     if color_name not in color_ranges:
         raise ValueError(f"{color_name} is not a valid color name")
@@ -29,8 +39,8 @@ def find_object_precise_new(color_name):
     # If the color_name is valid, get the color ranges
     color = color_ranges[color_name]
 
-    screen_Image()
-    imageDirectory = '../images/screenshot.png'
+    screen_Image(screenSize)
+    imageDirectory = 'images/screenshot.png'
     image = cv2.imread(imageDirectory)
     image = cv2.rectangle(image, pt1=(600, 0), pt2=(850, 200), color=(0, 0, 0), thickness=-1)
     image = cv2.rectangle(image, pt1=(0, 0), pt2=(150, 100), color=(0, 0, 0), thickness=-1)
@@ -59,7 +69,8 @@ def find_object_precise_new(color_name):
 
         x = random.randrange(minx + 1, max(minx + 2, maxx - 1))
         y = random.randrange(miny + 1, max(miny + 2, maxy - 1))
-        # print('y: ', y)
+        print('y: ', y)
+        print('x: ', x)
         b = random.uniform(0.1, 0.4)
         pyautogui.moveTo(x, y, duration=b)
         b = random.uniform(0.01, 0.05)

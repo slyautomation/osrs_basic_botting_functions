@@ -8,7 +8,7 @@ def start_course():
 
 
 def second_jump():
-    find_object_precise_new('green')
+    find_object_precise_new('green', 'canifis-second-jump')
     random_breaks(5.01, 6.5)
 
 
