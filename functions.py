@@ -301,14 +301,6 @@ def screen_Image_new(name='screenshot.png'):
     im = ImageGrab.grab(bbox=(x, y, x+w, y+h))
     im.save('images/' + name, 'png')
 
-def screen_Image(left=0, top=0, right=0, bottom=0, name='screenshot.png'):
-    if left != 0 or top != 0 or right != 0 or bottom != 0:
-        myScreenshot = ImageGrab.grab(bbox=(left, top, right, bottom))
-    else:
-        myScreenshot = ImageGrab.grab()
-    myScreenshot.save('images/' + name)
-
-
 def Image_color_new():
     screen_Image_new('images/screenshot2.png')
     image = cv2.imread('images/screenshot2.png')
@@ -422,6 +414,13 @@ def change_brown_black():
     image[mask > 0] = (0, 0, 0)
 
     cv2.imwrite("images/textshot.png", image)
+
+def screen_Image(left=0, top=0, right=0, bottom=0, name='screenshot.png'):
+    if left != 0 or top != 0 or right != 0 or bottom != 0:
+        myScreenshot = ImageGrab.grab(bbox=(left, top, right, bottom))
+    else:
+        myScreenshot = ImageGrab.grab()
+    myScreenshot.save('images/' + name)
 
 def find_Object_precise(item, left=0, top=0, right=0, bottom=0):
     screen_Image(left, top, right, bottom)
