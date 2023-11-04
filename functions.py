@@ -1289,7 +1289,7 @@ def random_breaks(minsec, maxsec):
     print(f"Initiating a random break for {minsec}-{maxsec} seconds.")
     e = random.uniform(minsec, maxsec)
     time.sleep(e)
-    print("Random break completed.")
+    print(f"Random break of {e} seconds completed.")
 
 
 def findarea(object):

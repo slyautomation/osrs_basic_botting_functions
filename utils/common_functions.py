@@ -14,7 +14,8 @@ image_ranges = {
     'canifis-first-jump': (0, 0, 768, 672),
     'canifis-second-jump': (200, 200, 1840, 900),
     'canifis-third-jump': (0, 0, 768, 1200),
-    'canifis-fifth-jump': (0, 0, 768, 1250),
+    'canifis-fourth-jump': (0, 0, 950, 1200),
+    'canifis-fifth-jump': (200, 0, 1250, 1250),
     'canifis-sixth-jump': (255, 255, 1840, 1100),
     'canifis-final-jump': (0, 0, 768, 1100),
 }
@@ -78,8 +79,6 @@ def find_object_precise_new(color_name, screenSize='default'):
 
         x = random.randrange(minx + 1, max(minx + 2, maxx - 1)) + x_delta_from_screenshot
         y = random.randrange(miny + 1, max(miny + 2, maxy - 1)) + y_delta_from_screenshot
-        print('y: ', y)
-        print('x: ', x)
         b = random.uniform(0.1, 0.4)
         pyautogui.moveTo(x, y, duration=b)
         b = random.uniform(0.01, 0.05)

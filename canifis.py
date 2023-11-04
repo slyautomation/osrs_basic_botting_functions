@@ -21,7 +21,7 @@ def second_jump():
 
 def third_jump():
     find_object_precise_new(color, 'canifis-third-jump')
-    random_breaks(5.8, 6.5)
+    random_breaks(6.8, 8.5)
 
 
 def fourth_jump():
@@ -31,7 +31,7 @@ def fourth_jump():
 
 def fifth_jump():
     find_object_precise_new(color, 'canifis-fifth-jump')
-    random_breaks(5.21, 7.15)
+    random_breaks(7.21, 9.15)
 
 
 def sixth_jump():
@@ -46,8 +46,8 @@ def final_jump():
 
 # click on the tree
 if __name__ == "__main__":
-    # start_course()
-    # first_jump()
+    start_course()
+    first_jump()
     second_jump()
     third_jump()
     fourth_jump()
