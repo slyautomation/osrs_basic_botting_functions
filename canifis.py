@@ -5,8 +5,8 @@ color = 'green'
 
 
 def start_course():
-    find_object_precise_new(color)
-    random_breaks(5.02, 6.25)
+    find_object_precise_new(color, 'canifis-first-jump')
+    random_breaks(6.02, 7.25)
 
 
 def first_jump():
@@ -39,12 +39,18 @@ def sixth_jump():
     random_breaks(7.08, 9.85)
 
 
+def final_jump():
+    find_object_precise_new(color, 'canifis-sixth-jump')
+    random_breaks(3.52, 5.56)
+
+
 # click on the tree
 if __name__ == "__main__":
     # start_course()
     # first_jump()
-    # second_jump()
-    # third_jump()
-    # fourth_jump()
-    # fifth_jump()
+    second_jump()
+    third_jump()
+    fourth_jump()
+    fifth_jump()
     sixth_jump()
+    final_jump()
