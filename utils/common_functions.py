@@ -78,9 +78,9 @@ def find_object_precise_new(color_name, screenSize='default'):
         pixelBoundary = 1
         x = random.randrange(minx + pixelBoundary, max(minx + 2, maxx - pixelBoundary)) + x_delta_from_screenshot
         y = random.randrange(miny + pixelBoundary, max(miny + 2, maxy - pixelBoundary)) + y_delta_from_screenshot
-        b = random.uniform(0.2, 0.4)
+        b = random.uniform(0.1, 0.4)
         pyautogui.moveTo(x, y, duration=b)
-        b = random.uniform(0.02, 0.05)
+        b = random.uniform(0.01, 0.05)
         pyautogui.click(duration=b)
         return (x, y)
     return False
