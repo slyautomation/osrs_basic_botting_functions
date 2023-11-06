@@ -1,7 +1,7 @@
 from functions import random_breaks
 from utils.common_functions import find_object_precise_new
 
-color = 'green'
+color = 'agility'
 
 
 def start_course():
@@ -63,4 +63,5 @@ def run_course(num_times):
 
 # click on the tree
 if __name__ == "__main__":
+    # assume a screensize of 1805x1400
     run_course(1)

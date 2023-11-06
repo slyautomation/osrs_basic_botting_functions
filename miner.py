@@ -69,7 +69,7 @@ except BaseException:
     print("Unable to find window:", data[0]['Config']['client_title'], "| Please see list of window names below:")
     core.printWindows()
     pass
-    
+
 def random_break(start, c):
     global newTime_break
     startTime = time.time()
@@ -257,7 +257,7 @@ def powerminer_text(ore, num, Take_Human_Break=False, Run_Duration_hours=5):
             #random_breaks(0.05, 0.1)
             spot = findarea_single(num, 150, 150)
             if Take_Human_Break:
-                c = random.triangular(0.05, 6, 0.5)
+                c = random.triangular(0.05, 1, 0.5)
                 time.sleep(c)
         else:
             mined_text = 'Mining'
@@ -300,9 +300,9 @@ if __name__ == "__main__":
     amber = 8
 
     # --------- CHANGE TO RUN FOR AMOUNT OF HOURS ----------------
-    Run_Duration_hours = 0.1
+    Run_Duration_hours = 1.14
 
                 # | ore | marker color | take break | how long to run for in hours
-    powerminer_text(copper, red, Take_Human_Break=True, Run_Duration_hours=Run_Duration_hours)
+    powerminer_text(iron, red, Take_Human_Break=True, Run_Duration_hours=Run_Duration_hours)
 
     #os.system('shutdown -s -f')

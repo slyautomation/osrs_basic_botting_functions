@@ -224,5 +224,5 @@ def high_alch_loop(vol, bool):
         t += 1
 
 if __name__ == "__main__":
-    high_alch_loop(3587, False)
+    high_alch_loop(351, False)
     # superheat_items(100, 1) #100 items iron

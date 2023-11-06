@@ -15,7 +15,7 @@ image_ranges = {
     'canifis-second-jump': (200, 200, 1840, 900),
     'canifis-third-jump': (0, 0, 768, 1200),
     'canifis-fourth-jump': (0, 0, 950, 1200),
-    'canifis-fifth-jump': (200, 0, 1250, 1250),
+    'canifis-fifth-jump': (200, 3000, 1250, 1250),
     'canifis-sixth-jump': (255, 255, 1840, 1100),
     'canifis-final-jump': (0, 0, 768, 1100),
 }
@@ -34,7 +34,8 @@ color_ranges = {
     'amber': ([0, 200, 200], [60, 255, 255]),
     'pickup_high': ([250, 0, 167], [255, 5, 172]),
     'attack_blue': ([200, 200, 0], [255, 255, 5]),
-    'agility':  ([0, 183, 245], [0, 183, 245]),
+    # 'agility':  ([0, 183, 245], [0, 183, 245]),
+    'agility':  ([25, 75, 14], [40, 85, 35]),
 }
 
 
