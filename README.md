@@ -7,6 +7,8 @@ Consider donating if you found the project fun and learnt more about python: htt
 
 Other python files will also use tesseract-OCR to detect text within images using tesseract-OCR image to text recognition functions.
 
+Need help with installing python, pycharm and cloning a repo? read this article for help: https://www.slyautomation.com/blog/install-pycharm-and-python-clone-a-github-project/
+
 ## Setup
 
 ```diff
